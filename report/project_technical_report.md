@@ -4,172 +4,351 @@
 **Date:** 17 September 2026
 
 ## Abstract
-Singapore's solar resource is strong but deployment is constrained by scarce land and competing urban uses. This project investigates whether three-dimensional photovoltaic (PV) geometries—initially motivated by a rotating "mushroom-head" panel—can increase annual electricity generation per constrained horizontal footprint. The central insight is that curvature does not create solar energy: its potential value is spatial packing. A three-dimensional canopy can place $A_{PV}>A_{land}$ while attempting to retain high irradiation quality, bifacial access, ventilation and usable space beneath. The core dimensionless relationship is $M_L=\Pi\eta_{pack}$, where $\Pi=A_{PV}/A_{land}$ and $\eta_{pack}$ is average productivity of packed PV relative to a baseline. First-pass analytical work derives the area of a paraboloidal cap and exposes the fundamental trade-off: land-normalized collection can increase with curvature while electricity per square metre of PV falls. These early calculations are intentionally idealised and are not bankable yield predictions.
+Singapore's solar resource is strong but deployment is constrained by scarce land and competing urban uses. This project investigates whether three-dimensional photovoltaic (PV) geometries—initially motivated by a rotating "mushroom-head" panel—can increase annual electricity generation per constrained horizontal footprint. Curvature does not create solar energy; its possible value is spatial packing. A 3-D canopy can place $A_{\mathrm{PV}}>A_{\mathrm{land}}$ while attempting to retain irradiation quality, bifacial access, ventilation and useful space below. Early numerical results are deliberately idealised and are not bankable yield predictions.
 
 ## 1. Problem and motivation
-EMA reports average annual solar irradiance of about 1,580 kWh m⁻² yr⁻¹. Singapore reached 2 GWp installed solar capacity in 2025 and raised its 2030 target to 3 GWp. SERIS identifies land scarcity as a major PV constraint and investigates multiple-use solar configurations.
+The engineering question is: **for a constrained horizontal footprint in Singapore, what 3-D PV geometry and movement strategy maximises useful annual energy and lifecycle value after optical, thermal, mechanical, structural and economic penalties are included?**
 
-The engineering question is:
+External Singapore values are maintained in the project provenance register and bibliography rather than treated as unexplained constants.
 
-> **For a constrained horizontal footprint in Singapore, what three-dimensional PV geometry and movement strategy maximises useful annual energy and lifecycle value after optical, thermal, mechanical, structural and economic penalties are included?**
+## 2. Solar position and incidence
+### 2.1 Declination approximation
+For preliminary teaching and geometry calculations, the Cooper (1969) declination approximation may be written
 
-## 2. Solar incidence
-For surface normal $\mathbf n$ and solar unit vector $\mathbf s(t)$,
+$$
+\delta(n)=23.45^\circ\sin\!\left[\frac{360^\circ}{365}(284+n)\right].
+$$
 
-$$dP_{dir}=\eta(T)DNI(t)V(t)[\mathbf n\cdot\mathbf s(t)]_+dA.$$
+where:
+- $\delta$ is solar declination, the angular position of the Sun north/south of the equatorial plane (degrees, $^\circ$);
+- $n$ is ordinal day of a non-leap year, with $n=1$ on 1 January (dimensionless day index);
+- $23.45^\circ$ is the approximate amplitude used in the Cooper engineering correlation (degrees); it is an astronomical approximation coefficient, not a fitted parameter of this project;
+- $360^\circ$ is one complete angular cycle (degrees), an exact angular definition;
+- $365$ is the non-leap-year period assumed by this approximation (days per cycle);
+- $284$ is the Cooper phase-offset constant (dimensionless day index) used to align the sinusoid with the annual declination cycle.
 
-The first diffuse approximation is
+**Provenance and limitation.** pvlib documents this expression as the Cooper (1969) approximation via Duffie and Beckman. It is retained here because its assumptions are transparent. Validated production simulations should use a higher-accuracy solar-position implementation rather than treating this sinusoid as exact astronomy.
 
-$$dP_{diff}=\eta(T)DHI(t)\frac{1+\cos\beta}{2}dA.$$
+### 2.2 Solar hour angle
+Using local apparent solar time,
 
-The final model must replace this isotropic approximation with time-correlated Singapore irradiance data and an anisotropic diffuse model.
+$$
+H=15^\circ\,\mathrm{h}^{-1}\left(t_{\mathrm{solar}}-12\,\mathrm h\right).
+$$
+
+where:
+- $H$ is solar hour angle (degrees, $^\circ$), with the sign convention chosen explicitly in the implementation;
+- $t_{\mathrm{solar}}$ is local apparent solar time (hours, h);
+- $15^\circ\,\mathrm{h}^{-1}$ follows from $360^\circ/24\,\mathrm h$ and is the mean angular change of hour angle per solar hour;
+- $12\,\mathrm h$ denotes apparent solar noon, at which $H=0^\circ$.
+
+Civil clock time is **not** interchangeable with $t_{\mathrm{solar}}$. Longitude within the time zone and the equation of time must be handled when converting timestamps to apparent solar time.
+
+### 2.3 Solar elevation
+Spherical solar geometry gives
+
+$$
+\sin\alpha=\sin\phi\sin\delta+\cos\phi\cos\delta\cos H.
+$$
+
+where:
+- $\alpha$ is solar elevation above the local horizon (degrees or radians, provided one angular convention is used consistently);
+- $\phi$ is geographic latitude of the observation site (same angular unit as the trigonometric implementation);
+- $\delta$ is solar declination (same angular unit);
+- $H$ is solar hour angle (same angular unit).
+
+The equation is dimensionally consistent because trigonometric functions return dimensionless ratios. In code, all angles are converted to radians before NumPy trigonometric functions are evaluated.
+
+### 2.4 Direct incidence on a surface element
+For a PV surface element,
+
+$$
+\mathrm dP_{\mathrm{dir}}
+=\eta(T)\,DNI(t)\,V(t)\,[\mathbf n\!\cdot\!\mathbf s(t)]_+\,\mathrm dA.
+$$
+
+where:
+- $\mathrm dP_{\mathrm{dir}}$ is incremental electrical power attributed to direct irradiance (W);
+- $\eta(T)$ is PV conversion efficiency at cell/module temperature $T$ (dimensionless);
+- $DNI(t)$ is direct normal irradiance at time $t$ (W m$^{-2}$);
+- $V(t)$ is direct-beam visibility, equal to 1 when unblocked and 0 when fully blocked in the present binary ray model (dimensionless);
+- $\mathbf n$ is the outward unit normal of the PV element (dimensionless vector);
+- $\mathbf s(t)$ is the unit vector from the element toward the Sun (dimensionless vector);
+- $[x]_+=\max(0,x)$ removes backside incidence from a monofacial front-surface calculation (dimensionless operator);
+- $\mathrm dA$ is differential active PV area (m$^2$);
+- $t$ is time (s, h, or timestamp depending on integration context).
+
+Unit check: $(W\,m^{-2})(m^2)=W$; all other factors are dimensionless.
+
+### 2.5 Isotropic diffuse first approximation
+The first diffuse model is
+
+$$
+\mathrm dP_{\mathrm{diff}}
+=\eta(T)\,DHI(t)\,\frac{1+\cos\beta}{2}\,\mathrm dA.
+$$
+
+where:
+- $\mathrm dP_{\mathrm{diff}}$ is incremental electrical power attributed to diffuse sky irradiance (W);
+- $DHI(t)$ is diffuse horizontal irradiance (W m$^{-2}$);
+- $\beta$ is local surface tilt from horizontal ($^\circ$ or rad);
+- $(1+\cos\beta)/2$ is the unobstructed isotropic-sky view factor for a plane (dimensionless);
+- $\eta(T)$ and $\mathrm dA$ are defined above.
+
+The numerical factor $1/2$ follows from the hemispherical isotropic-sky geometry; it is not an empirical Singapore coefficient. This approximation will later be replaced by an anisotropic diffuse model plus explicit sky-patch visibility.
 
 ## 3. Paraboloidal mushroom geometry
-Define
+Define the analytical cap
 
-$$z(r)=h\left(1-\frac{r^2}{R^2}\right),\qquad k=\frac hR.$$
+$$
+z(r)=h\left(1-\frac{r^2}{R^2}\right),\qquad k=\frac{h}{R}.
+$$
 
-Since
+where:
+- $z(r)$ is cap height above the rim plane at radial coordinate $r$ (m);
+- $r$ is radial distance from the symmetry axis (m);
+- $h$ is centre/apex height above the rim plane (m);
+- $R$ is footprint radius (m);
+- $k=h/R$ is dimensionless curvature/aspect ratio.
 
-$$\frac{dz}{dr}=-\frac{2hr}{R^2},$$
+Differentiation gives
 
-the axisymmetric surface area is
+$$
+\frac{\mathrm dz}{\mathrm dr}=-\frac{2hr}{R^2}.
+$$
 
-$$A_{PV}=2\pi\int_0^R r\sqrt{1+\frac{4h^2r^2}{R^4}}dr.$$
+where $\mathrm dz/\mathrm dr$ is the local dimensionless slope. The numerical factor 2 arises exactly from differentiating $r^2$; it is not an empirical constant.
 
-Direct integration gives
+The surface area is
 
-$$A_{PV}=\frac{\pi R^2}{6k^2}\left[(1+4k^2)^{3/2}-1\right],$$
+$$
+A_{\mathrm{PV}}=2\pi\int_0^R r\sqrt{1+\frac{4h^2r^2}{R^4}}\,\mathrm dr.
+$$
 
-and therefore
+where:
+- $A_{\mathrm{PV}}$ is total cap PV surface area (m$^2$);
+- $2\pi r\,\mathrm dr$ is the annular area factor arising from axisymmetry (m$^2$ before the slope correction);
+- $\pi$ is the mathematical circle constant (dimensionless);
+- the square-root term is the surface-slope correction (dimensionless).
 
-$$\boxed{\Pi_A=\frac{A_{PV}}{A_{foot}}=\frac{(1+4k^2)^{3/2}-1}{6k^2}}.$$
+Integration gives
 
-The limiting case $k\to0$ returns $\Pi_A\to1$, satisfying the flat-disk sanity check.
+$$
+A_{\mathrm{PV}}
+=\frac{\pi R^2}{6k^2}\left[(1+4k^2)^{3/2}-1\right].
+$$
 
-## 4. Diffuse-light first approximation
-Under an isotropic sky,
+where $R$, $k$ and $A_{\mathrm{PV}}$ are defined above. The numerical factors 4 and 6 arise algebraically from the squared derivative and the exact integral; they are not fitted constants.
 
-$$P_{diff}=\eta DHI\int_S\frac{1+\cos\beta}{2}dA.$$
+For circular footprint $A_{\mathrm{foot}}=\pi R^2$,
+
+$$
+\boxed{\Pi_A=\frac{A_{\mathrm{PV}}}{A_{\mathrm{foot}}}
+=\frac{(1+4k^2)^{3/2}-1}{6k^2}}.
+$$
+
+where:
+- $\Pi_A$ is the PV-area packing ratio for the paraboloidal cap (dimensionless);
+- $A_{\mathrm{foot}}$ is horizontal circular footprint area (m$^2$).
+
+The limiting case $k\rightarrow0$ gives $\Pi_A\rightarrow1$, providing the required flat-disk sanity check.
+
+## 4. Diffuse-light analytical limit
+Under the isotropic-sky approximation,
+
+$$
+P_{\mathrm{diff}}=\eta DHI\int_S\frac{1+\cos\beta}{2}\,\mathrm dA.
+$$
+
+where $P_{\mathrm{diff}}$ is diffuse-derived electrical power (W), $S$ is the PV surface, and all other variables are defined in Section 2.5.
 
 For a convex single-valued cap,
 
-$$\int_S\cos\beta\,dA=A_{foot},$$
+$$
+\int_S\cos\beta\,\mathrm dA=A_{\mathrm{foot}}.
+$$
 
-so
+where the left-hand side is the vertical projection of the curved surface (m$^2$) and $A_{\mathrm{foot}}$ is its horizontal footprint (m$^2$).
 
-$$\boxed{P_{diff}=\frac{\eta DHI}{2}(A_{PV}+A_{foot}).}$$
+Therefore,
 
-This explains why a curved surface can collect more diffuse radiation per ground footprint in an ideal no-occlusion model. It is not a real annual-yield prediction because anisotropy, mutual visibility, electrical mismatch and time correlation are absent.
+$$
+\boxed{P_{\mathrm{diff}}=\frac{\eta DHI}{2}\left(A_{\mathrm{PV}}+A_{\mathrm{foot}}\right)}.
+$$
 
-## 5. First numerical experiment
-A deliberately simplified calculation used $G_{annual}=1580$ kWh m⁻² yr⁻¹, a provisional diffuse share of 57%, and $\eta=23\%$. The calculation is retained because it exposes the trade-off, not because it predicts plant yield.
+where all variables are defined above. This is an ideal no-occlusion analytical result, not a real annual-yield prediction.
 
-| $h/R$ | $A_{PV}/A_{foot}$ | illustrative electricity (kWh m⁻²-land yr⁻¹) | gain vs flat | electricity per m² PV |
-|---:|---:|---:|---:|---:|
-|0.00|1.000|363.4|0.0%|363.4|
-|0.50|1.219|386.1|6.2%|316.7|
-|1.00|1.697|435.6|19.9%|256.7|
-|1.50|2.268|494.8|36.1%|218.1|
-|2.00|2.879|558.0|53.5%|193.8|
-|3.00|4.149|689.6|89.8%|166.2|
-
-The apparent land-efficiency gain is purchased with rapidly declining PV-material productivity. The unbounded rise is a warning that the model lacks occlusion, height, cost and structural constraints.
+## 5. Exploratory numerical experiment — not a validated yield model
+An earlier exploratory calculation used annual horizontal irradiation of $1580\,\mathrm{kWh\,m^{-2}\,yr^{-1}}$, a provisional 57% diffuse share and an assumed module efficiency of 23%. These values do **not** have equal evidentiary status: the Singapore irradiation value is externally sourced; the 57% value remains provisional pending source verification in the project register; and 23% was an engineering assumption used for illustration. Consequently, the table is retained only as historical exploratory output and must not be cited as expected plant performance.
 
 ## 6. Central packing relation
 Define
 
-$$\Pi=\frac{A_{PV}}{A_{land}},\qquad \eta_{pack}=\frac{E_{3D}}{\Pi E_{flat}}.$$
+$$
+\Pi=\frac{A_{\mathrm{PV}}}{A_{\mathrm{land}}},\qquad
+\eta_{\mathrm{pack}}=\frac{E_{3D}}{\Pi E_{\mathrm{flat}}}.
+$$
+
+where:
+- $\Pi$ is PV packing ratio (dimensionless);
+- $A_{\mathrm{PV}}$ is active PV surface area (m$^2$);
+- $A_{\mathrm{land}}$ is constrained horizontal footprint/site area (m$^2$);
+- $\eta_{\mathrm{pack}}$ is packed-PV productivity relative to the reference (dimensionless);
+- $E_{3D}$ is annual energy from the 3-D configuration (kWh yr$^{-1}$ for a defined system);
+- $E_{\mathrm{flat}}$ is annual energy from the defined flat reference using the same normalization (kWh yr$^{-1}$).
 
 Then
 
-$$\boxed{M_L=\Pi\eta_{pack}}.$$
+$$
+\boxed{M_L=\Pi\eta_{\mathrm{pack}}}.
+$$
 
-This is the mathematical heart of the project. A useful topology makes irradiation quality decay slowly as packing increases. The energy-density-only optimum satisfies
+where $M_L$ is the land multiplication factor (dimensionless), and $\Pi$ and $\eta_{\mathrm{pack}}$ are defined above.
 
-$$\eta_{pack}+\Pi\frac{d\eta_{pack}}{d\Pi}=0,$$
+For a differentiable packing-efficiency curve, an energy-density-only stationary point satisfies
 
-or equivalently
+$$
+\eta_{\mathrm{pack}}+\Pi\frac{\mathrm d\eta_{\mathrm{pack}}}{\mathrm d\Pi}=0.
+$$
 
-$$-\frac{d\ln\eta_{pack}}{d\ln\Pi}=1.$$
+where $\mathrm d\eta_{\mathrm{pack}}/\mathrm d\Pi$ is the sensitivity of packing efficiency to packing ratio (dimensionless per dimensionless).
 
-Economics will generally move the optimum to a lower packing ratio.
+Equivalently,
 
-## 7. Sphere, mushroom and faceted alternatives
-A sphere has surface area $4\pi R^2$ but projected area $\pi R^2$ toward a direct-beam direction. It therefore uses substantial PV material with many poorly oriented elements. It remains a baseline rather than the leading hypothesis. Candidate geometries include horizontal fixed PV, optimised fixed tilt, vertical bifacial, accordion folds, cones, paraboloidal mushrooms, hemispheres, faceted flowers and free-form topology-optimised surfaces.
+$$
+-\frac{\mathrm d\ln\eta_{\mathrm{pack}}}{\mathrm d\ln\Pi}=1.
+$$
 
-## 8. Mechanics and the momentum question
-Angular momentum and kinetic energy are
+where the logarithmic derivative is dimensionless and the value 1 follows exactly from differentiating the product $M_L=\Pi\eta_{\mathrm{pack}}$ at a stationary point; it is not an empirical threshold.
 
-$$L=I\omega,\qquad E_k=\frac12I\omega^2.$$
+## 7. Sphere baseline
+For a sphere,
 
-Required torque is
+$$
+A_s=4\pi R^2,\qquad A_{\mathrm{proj}}=\pi R^2.
+$$
 
-$$\tau=I\ddot\theta+\tau_f+\tau_w+\tau_g.$$
+where $A_s$ is spherical surface area (m$^2$), $A_{\mathrm{proj}}$ is its orthogonal projected area toward any beam direction (m$^2$), and $R$ is sphere radius (m). The factors 4 and $\pi$ are exact geometric constants.
 
-Solar motion is slow, so deliberately storing rotational momentum is not advantageous. Priorities are low moment of inertia, counterbalancing, low friction, pivot placement near the centre of mass and aerodynamic centre, slow quasi-static movement, locking and storm stow.
+## 8. Mechanics and the original momentum question
+Angular momentum and rotational kinetic energy are
 
-Wind force scales as
+$$
+L=I\omega,\qquad E_k=\frac12I\omega^2.
+$$
 
-$$F_D=\frac12\rho C_DA_{proj}v^2,$$
+where:
+- $L$ is angular momentum (kg m$^2$ s$^{-1}$);
+- $I$ is mass moment of inertia about the rotation axis (kg m$^2$);
+- $\omega$ is angular velocity (rad s$^{-1}$, with rad dimensionless in SI);
+- $E_k$ is rotational kinetic energy (J);
+- $1/2$ is the exact coefficient from rigid-body kinetic-energy mechanics.
 
-with approximate torque
+A simplified torque balance is
 
-$$\tau_w\simeq F_Dr_{CP}.$$
+$$
+\tau=I\ddot\theta+\tau_f+\tau_w+\tau_g.
+$$
+
+where $\tau$ is actuator torque (N m), $\ddot\theta$ is angular acceleration (rad s$^{-2}$), and $\tau_f$, $\tau_w$, $\tau_g$ are friction, wind and gravitational torques respectively (N m).
+
+Wind force is first approximated as
+
+$$
+F_D=\frac12\rho C_DA_{\mathrm{proj}}v^2.
+$$
+
+where:
+- $F_D$ is aerodynamic drag force (N);
+- $\rho$ is air density (kg m$^{-3}$);
+- $C_D$ is drag coefficient (dimensionless and geometry/Reynolds-number dependent);
+- $A_{\mathrm{proj}}$ is projected area normal to the relevant flow component (m$^2$);
+- $v$ is wind speed relative to the structure (m s$^{-1}$);
+- $1/2$ is the standard dynamic-pressure coefficient in $q=\tfrac12\rho v^2$.
+
+Approximate wind torque is
+
+$$
+\tau_w\simeq F_Dr_{\mathrm{CP}}.
+$$
+
+where $r_{\mathrm{CP}}$ is the perpendicular moment arm from the rotation axis to the aerodynamic centre/centre of pressure (m). The approximation assumes a representative resultant force and lever arm.
 
 ## 9. Tracking as optimal control
-Movement should be introduced only after the best fixed topology is found:
+A generic net-energy/wear objective is
 
-$$\max_{\theta(t)}\int_T[P_{PV}(\theta,t)-P_{motor}(\theta,\dot\theta,\ddot\theta)]dt-C_{wear}.$$
+$$
+\max_{\theta(t)}\left\{\int_T\left[P_{\mathrm{PV}}(\theta,t)-P_{\mathrm{motor}}(\theta,\dot\theta,\ddot\theta)\right]\mathrm dt-C_{\mathrm{wear}}\right\}.
+$$
 
-A discrete controller may be superior to continuous tracking. A move is justified only when incremental beam gain exceeds lost diffuse collection, actuator energy and wear cost.
+where $\theta(t)$ is tracker orientation (rad or $^\circ$), $P_{\mathrm{PV}}$ is PV electrical power (W), $P_{\mathrm{motor}}$ is actuator electrical power (W), $T$ is the optimisation time horizon, and $C_{\mathrm{wear}}$ is a wear penalty expressed in energy-equivalent or monetary units consistent with the chosen objective.
 
 ## 10. Bifacial and thermal extensions
-For bifaciality $b$,
+For bifaciality,
 
-$$G_{eff,i}=G_{front,i}+bG_{rear,i}.$$
+$$
+G_{\mathrm{eff},i}=G_{\mathrm{front},i}+bG_{\mathrm{rear},i}.
+$$
 
-Temperature correction is approximated by
+where $G_{\mathrm{eff},i}$ is effective irradiance for facet $i$ (W m$^{-2}$), $G_{\mathrm{front},i}$ and $G_{\mathrm{rear},i}$ are front/rear irradiances (W m$^{-2}$), and $b$ is bifaciality factor (dimensionless).
 
-$$\eta(T_c)=\eta_{ref}[1+\gamma(T_c-T_{ref})].$$
+A first linear temperature correction is
 
-Sparse elevated facets may improve rear irradiance and ventilation, but these benefits require ray-tracing and thermal validation.
+$$
+\eta(T_c)=\eta_{\mathrm{ref}}\left[1+\gamma(T_c-T_{\mathrm{ref}})\right].
+$$
+
+where $T_c$ is cell temperature ($^\circ$C or K for temperature differences), $T_{\mathrm{ref}}$ is reference cell temperature in the same scale, $\eta_{\mathrm{ref}}$ is reference efficiency (dimensionless), and $\gamma$ is relative temperature coefficient (K$^{-1}$ or $^\circ$C$^{-1}$). Values of $\gamma$ must come from the selected module datasheet/model rather than an unexplained generic constant.
 
 ## 11. Free-form optimisation
-For $N$ facets, let
+For facet $i$ define
 
-$$\mathbf x_i=(x_i,y_i,z_i,\theta_i,\phi_i,A_i).$$
+$$
+\mathbf x_i=(x_i,y_i,z_i,\theta_i,\phi_i,A_i).
+$$
 
-A representative problem is
+where $x_i,y_i,z_i$ are facet-position coordinates (m), $\theta_i$ and $\phi_i$ are orientation parameters (rad or $^\circ$ under a stated convention), and $A_i$ is active facet area (m$^2$).
 
-$$\max_{\mathbf X}E_{annual}(\mathbf X)$$
+The optimisation is
 
-subject to
+$$
+\max_{\mathbf X}E_{\mathrm{annual}}(\mathbf X),
+$$
 
-$$A_{foot}\le1\;\mathrm{m^2},\qquad \sum_iA_i\le2\;\mathrm{m^2},\qquad 0\le z_i\le2\;\mathrm m,$$
+where $\mathbf X$ is the complete vector of geometry/design variables and $E_{\mathrm{annual}}$ is annual electrical energy (kWh yr$^{-1}$).
 
-plus non-overlap, structural stress, wind torque, temperature and manufacturability constraints. The first optimisation should be static; discrete movement is a later extension.
+The canonical **design experiment**, not a discovered optimum, initially constrains
+
+$$
+A_{\mathrm{foot}}\le1\,\mathrm{m^2},\qquad
+\sum_iA_i\le2\,\mathrm{m^2},\qquad
+0\le z_i\le2\,\mathrm m.
+$$
+
+where $A_{\mathrm{foot}}$ is allowed footprint area (m$^2$), $A_i$ is facet area (m$^2$), and $z_i$ is facet elevation (m). The numerical values 1, 2 and 2 are **engineering design assumptions chosen to create a reproducible canonical comparison**, not Singapore regulatory limits or empirically optimal values. They must therefore be varied in sensitivity studies.
 
 ## 12. Numerical method roadmap
-Each timestep will compute solar position, irradiance components, facet incidence, direct-beam visibility, anisotropic sky irradiance, rear irradiance, temperature and electrical output. Ray tracing will determine self-shadowing and sky-view factors. Evolutionary optimisation followed by local refinement is appropriate because shadow boundaries make the objective non-convex and partly non-smooth.
+Each timestep will compute solar position, irradiance components, facet incidence, direct visibility, anisotropic sky irradiance, rear irradiance, temperature and electrical output. Ray tracing determines self-shadowing and later sky-view factors. Numerical discretisation settings such as mesh density, sky-patch count and timestep are computational parameters and require convergence checks before final results.
 
 ## 13. Singapore data and validation
-EMA reports approximately 1,580 kWh m⁻² yr⁻¹ average annual solar irradiance. Singapore reached 2 GWp in 2025 and targets 3 GWp by 2030. SERIS operates a 25-station irradiance network, with 10 stations additionally measuring diffuse irradiance and meteorological variables. The final model should use measured or validated time series rather than annual-average decomposition. Redistribution rights must be checked before raw third-party data are committed.
+All Singapore-specific numerical values are to be sourced in `docs/constants_and_provenance.md` and the bibliography. The final model should use measured or validated time series rather than annual-average decomposition. Redistribution rights must be checked before committing third-party raw data.
 
 ## 14. Limitations
-Current percentages are exploratory. Missing effects include measured time-correlated DNI/DHI, anisotropic diffuse sky, 3-D self-occlusion, array shading, bifacial rear view, detailed temperature, electrical mismatch, inverter clipping, structural mass, wind CFD, lifecycle cost and degradation. The 57% diffuse share used in exploratory work requires source verification before promotion to a formal project input. No current percentage gain should be presented as expected real-world performance.
+Current percentages are exploratory. Missing effects include validated time-correlated DNI/DHI, anisotropic diffuse sky, complete 3-D self-occlusion, array shading, bifacial rear view, detailed temperature, electrical mismatch, inverter clipping, structural mass, wind CFD, lifecycle cost and degradation. No current percentage gain should be presented as expected real-world performance.
 
 ## 15. Engineering interpretation
-The work has narrowed the hypothesis. A sphere is unlikely to be material-efficient. Continuous tracking is not automatically justified. A smooth rotating mushroom is a useful analytical starting geometry, but the stronger candidate is a sparse faceted bifacial canopy that uses three-dimensional space to increase $A_{PV}/A_{land}$ while preserving sky view and allowing continued use of the land below. The value proposition is spatial packing and multifunctional land use, not intrinsic PV efficiency from curvature.
+The current hypothesis is that 3-D PV may be useful through spatial packing and multifunctional land use, not intrinsic cell-efficiency improvement from curvature. A sphere is a control geometry; a mushroom is the founding analytical geometry; a sparse faceted bifacial canopy is a later hypothesis. None is yet established as the optimum.
 
 ## 16. Next steps
-The immediate milestone is a packing-ratio sweep $\Pi=1$ to $4$ across common candidate geometries under identical resource constraints, followed by a 20-facet free-form optimisation. The decisive graph is $M_L(\Pi)$ together with cost and structural penalties. Only after fixed topology is validated should discrete tracking be added.
+Before adding further physics, retrofit the LaTeX report and governing-equation notes to the same equation-by-equation standard used here. Then resume the packing/ray-tracing programme with source-justified solar-position calculations and convergence-tested numerical settings.
 
 ## References
 [1] Energy Market Authority, “Solar,” 2026.  
 [2] Energy Market Authority, “Singapore to Accelerate Solar Deployment to Meet 3 GWp Solar Target by 2030,” 2 Mar. 2026.  
 [3] Solar Energy Research Institute of Singapore, “Real-Time Monitoring System of Meteorological Parameters,” accessed 17 Sep. 2026.  
-[4] Solar Energy Research Institute of Singapore, *Annual Report 2025*, National University of Singapore, 2025.
+[4] Solar Energy Research Institute of Singapore, *Annual Report 2025*, National University of Singapore, 2025.  
+[5] pvlib documentation, `declination_cooper69`, documenting the Cooper (1969) approximation via Duffie & Beckman.  
+[6] Sandia PV Performance Modeling Collaborative, “Basic Solar Position Models.”
 
 ## Reproducibility
-`src/models/solar_geometry.py` implements the analytical geometry. `src/analysis/first_pass.py` regenerates the exploratory table. `src/visualisation/make_plots.py` generates the first plots. Model-generated data must not be confused with measurements.
+`src/models/solar_geometry.py` implements preliminary analytical geometry. Solar-position code remains explicitly preliminary until upgraded/validated against a traceable implementation. Model-generated data must not be confused with measurements.
