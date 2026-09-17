@@ -42,6 +42,14 @@ jobs:
           cargo run --release --bin orthogonal_convergence | tee rust_orthogonal_convergence.csv
           test -s rust_orthogonal_convergence.csv
           test "$(wc -l < rust_orthogonal_convergence.csv)" -ge 9
+      - name: Generate analytical paraboloid response
+        run: |
+          set -euo pipefail
+          cargo run --release --bin paraboloid_response | tee rust_paraboloid_response.csv
+          test -s rust_paraboloid_response.csv
+          # 1 header + 91 zenith angles * 4 exploratory aspect ratios.
+          # This count is a category-5 output-grid integrity check, not physics.
+          test "$(wc -l < rust_paraboloid_response.csv)" -eq 365
       - name: Upload numerical artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -50,4 +58,5 @@ jobs:
             rust/rust_benchmark.txt
             rust/rust_mushroom_convergence.csv
             rust/rust_orthogonal_convergence.csv
+            rust/rust_paraboloid_response.csv
           if-no-files-found: error
