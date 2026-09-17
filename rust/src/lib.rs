@@ -102,6 +102,47 @@ pub fn paraboloid_mesh(packing_ratio:f64,footprint_area:f64,n_r:usize,n_phi:usiz
     tris
 }
 
+/// Dimensionless slope F'(rho)=-2*k*rho for F(rho)=k(1-rho^2).
+pub fn paraboloid_slope(rho:f64,k:f64)->f64 {
+    assert!((0.0..=1.0).contains(&rho)); assert!(k>=0.0);
+    -2.0*k*rho
+}
+
+/// Exact azimuth integral I=int_0^(2pi) [a-B cos(phi)]_+ dphi.
+/// theta_z is solar zenith angle in radians; slope is dimensionless.
+pub fn paraboloid_azimuth_integral(theta_z:f64,slope:f64)->f64 {
+    assert!((0.0..=0.5*PI).contains(&theta_z));
+    let a=theta_z.cos(); let b=slope.abs()*theta_z.sin();
+    if b<=a { return 2.0*PI*a; }
+    let x=(a/b).clamp(0.0,1.0);
+    2.0*a*(PI-x.acos())+2.0*(b*b-a*a).max(0.0).sqrt()
+}
+
+fn simpson_unit_interval<F:Fn(f64)->f64>(f:F,n:usize)->f64 {
+    assert!(n>0 && n%2==0);
+    let dx=1.0/n as f64;
+    let mut total=f(0.0)+f(1.0);
+    for i in 1..n { total += if i%2==0 {2.0} else {4.0} * f(i as f64*dx); }
+    total*dx/3.0
+}
+
+/// C=A_eff/(pi R^2), dimensionless, for an isolated non-overhanging paraboloid.
+/// Visibility is assumed V=1. n_radial is a category-5 quadrature setting.
+pub fn paraboloid_directional_response(theta_z:f64,k:f64,n_radial:usize)->f64 {
+    assert!(k>=0.0);
+    simpson_unit_interval(|rho| rho*paraboloid_azimuth_integral(theta_z,paraboloid_slope(rho,k)),n_radial)/PI
+}
+
+/// Dimensionless equal-footprint horizontal direct-beam response.
+pub fn horizontal_directional_response(theta_z:f64)->f64 {
+    assert!((0.0..=0.5*PI).contains(&theta_z)); theta_z.cos().max(0.0)
+}
+
+/// Delta C = C_paraboloid - C_horizontal, dimensionless.
+pub fn paraboloid_absolute_gain(theta_z:f64,k:f64,n_radial:usize)->f64 {
+    paraboloid_directional_response(theta_z,k,n_radial)-horizontal_directional_response(theta_z)
+}
+
 pub fn cooper_declination_rad(n:u32)->f64 {
     let arg_deg=(360.0/365.0)*(284.0+n as f64);
     23.45_f64.to_radians()*arg_deg.to_radians().sin()
@@ -140,8 +181,7 @@ mod tests {
     }
     #[test]
     fn small_k_series_matches_exact_away_from_cancellation() {
-        let k:f64=1.0e-2;
-        let k2:f64=k*k;
+        let k:f64=1.0e-2; let k2:f64=k*k;
         let series:f64=1.0+k2-(2.0/3.0)*k2*k2+k2*k2*k2;
         let exact:f64=((1.0_f64+4.0_f64*k2).powf(1.5_f64)-1.0_f64)/(6.0_f64*k2);
         assert!((series-exact).abs()<1.0e-12_f64);
@@ -154,6 +194,27 @@ mod tests {
     fn paraboloid_mesh_area_converges() {
         let mesh=paraboloid_mesh(2.0,1.0,16,64); let area:f64=mesh.iter().map(Triangle::area).sum();
         assert!((area-2.0).abs()<0.02);
+    }
+    #[test]
+    fn analytic_flat_response_matches_horizontal() {
+        for deg in [0.0_f64,15.0,30.0,45.0,60.0,75.0,90.0] {
+            let t=deg.to_radians();
+            assert!((paraboloid_directional_response(t,0.0,256)-horizontal_directional_response(t)).abs()<1.0e-12);
+        }
+    }
+    #[test]
+    fn analytic_zenith_response_is_unity() {
+        for k in [0.0_f64,0.25,0.5,1.0,2.0] {
+            assert!((paraboloid_directional_response(0.0,k,256)-1.0).abs()<1.0e-12);
+        }
+    }
+    #[test]
+    fn analytic_quadrature_converges() {
+        let t=70.0_f64.to_radians(); let k=0.5;
+        let c256=paraboloid_directional_response(t,k,256);
+        let c512=paraboloid_directional_response(t,k,512);
+        let c1024=paraboloid_directional_response(t,k,1024);
+        assert!((c1024-c512).abs() < (c512-c256).abs());
     }
     #[test]
     fn equatorial_equinox_noon_is_overhead_approximately() {
