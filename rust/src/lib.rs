@@ -61,22 +61,14 @@ pub fn array_direct_projected_area(triangles:&[Triangle],sun:Vec3)->f64 {
 }
 
 /// Analytical paraboloid packing ratio Pi(k), with k=h/R dimensionless.
-///
 /// Exact form: Pi=[(1+4k^2)^(3/2)-1]/(6k^2).
-/// For small |k|, direct subtraction loses precision. The binomial expansion
-/// Pi=1+k^2-(2/3)k^4+k^6+O(k^8) is used below a numerical switch threshold.
+/// For small |k|, use Pi=1+k^2-(2/3)k^4+k^6+O(k^8).
 pub fn paraboloid_packing(k:f64)->f64 {
     let k2=k*k;
-    // 1e-3 is a numerical implementation switch, not a physical/design value.
-    // At |k|=1e-3 the first omitted term is O(k^8)=O(1e-24), far below f64
-    // relative precision for a quantity near unity.
-    if k.abs()<1.0e-3 {
-        return 1.0+k2-(2.0/3.0)*k2*k2+k2*k2*k2;
-    }
+    if k.abs()<1.0e-3 { return 1.0+k2-(2.0/3.0)*k2*k2+k2*k2*k2; }
     ((1.0+4.0*k2).powf(1.5)-1.0)/(6.0*k2)
 }
 
-/// Invert Pi(k) by bisection. 100 iterations is a numerical setting.
 pub fn paraboloid_k_from_packing(pi_target:f64)->f64 {
     assert!(pi_target>=1.0);
     if (pi_target-1.0).abs()<1.0e-12 { return 0.0; }
@@ -148,11 +140,11 @@ mod tests {
     }
     #[test]
     fn small_k_series_matches_exact_away_from_cancellation() {
-        let k=1.0e-2;
-        let k2=k*k;
-        let series=1.0+k2-(2.0/3.0)*k2*k2+k2*k2*k2;
-        let exact=((1.0+4.0*k2).powf(1.5)-1.0)/(6.0*k2);
-        assert!((series-exact).abs()<1.0e-12);
+        let k:f64=1.0e-2;
+        let k2:f64=k*k;
+        let series:f64=1.0+k2-(2.0/3.0)*k2*k2+k2*k2*k2;
+        let exact:f64=((1.0_f64+4.0_f64*k2).powf(1.5_f64)-1.0_f64)/(6.0_f64*k2);
+        assert!((series-exact).abs()<1.0e-12_f64);
     }
     #[test]
     fn paraboloid_inverse_pi_two() {
