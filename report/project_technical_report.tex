@@ -1,0 +1,136 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\definecolor{SolarAmber}{HTML}{E69F00}
+\definecolor{CandidateTeal}{HTML}{009E73}
+\definecolor{BaselineBlue}{HTML}{0072B2}
+\title{Topology and Geometry Optimisation of Three-Dimensional Photovoltaic Canopies for Land-Constrained Singapore}
+\author{Research project reconstruction}
+\date{17 September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This project investigates three-dimensional photovoltaic geometries originating from a rotating mushroom-head concept for land-constrained Singapore. The principal hypothesis is spatial packing: additional active PV area may be placed above a constrained horizontal footprint while attempting to retain irradiation quality, sky visibility, ventilation and usable space beneath. No candidate geometry is assumed optimal. Exploratory calculations are distinguished from validated yield predictions.
+\end{abstract}
+
+\section{Solar-position equations}
+For preliminary transparent calculations, the Cooper (1969) declination approximation is
+\begin{equation}
+\delta(n)=23.45^{\circ}\sin\!\left[\frac{360^{\circ}}{365}(284+n)\right].
+\label{eq:cooper}
+\end{equation}
+Here $\delta$ is solar declination (degrees); $n$ is ordinal day of a non-leap year (dimensionless day index); $23.45^{\circ}$ is the approximate declination amplitude in the Cooper engineering correlation; $360^{\circ}$ is one complete angular cycle; $365$ is the non-leap-year period assumed by the approximation; and $284$ is its phase-offset constant. Equation~\eqref{eq:cooper} is an astronomical approximation, not an exact identity or a project-fitted model. Validated simulations should use a traceable higher-accuracy solar-position method.
+
+Using local apparent solar time,
+\begin{equation}
+H=15^{\circ}\,\si{\per\hour}\left(t_{\mathrm{solar}}-12\,\si{\hour}\right).
+\label{eq:hour-angle}
+\end{equation}
+Here $H$ is solar hour angle (degrees); $t_{\mathrm{solar}}$ is local apparent solar time (hours); $15^{\circ}\,\si{\per\hour}$ follows from $360^{\circ}/24\,\si{\hour}$; and $12\,\si{\hour}$ denotes apparent solar noon, where $H=0^{\circ}$. Civil clock time must not be substituted directly without longitude and equation-of-time correction.
+
+Solar elevation satisfies
+\begin{equation}
+\sin\alpha=\sin\phi\sin\delta+\cos\phi\cos\delta\cos H.
+\label{eq:elevation}
+\end{equation}
+Here $\alpha$ is solar elevation above the local horizon; $\phi$ is geographic latitude; $\delta$ is solar declination; and $H$ is solar hour angle. All angular quantities must use a consistent convention; the numerical implementation converts angles to radians before evaluating trigonometric functions.
+
+\section{Direct and diffuse incidence}
+For an infinitesimal PV element,
+\begin{equation}
+\mathrm dP_{\mathrm{dir}}=\eta(T)DNI(t)V(t)[\mathbf n\cdot\mathbf s(t)]_{+}\,\mathrm dA.
+\label{eq:direct}
+\end{equation}
+Here $\mathrm dP_{\mathrm{dir}}$ is incremental direct-derived electrical power (W); $\eta(T)$ is conversion efficiency (dimensionless); $DNI$ is direct normal irradiance (\si{\watt\per\square\metre}); $V$ is direct visibility (dimensionless); $\mathbf n$ and $\mathbf s$ are unit vectors (dimensionless); $[x]_+=\max(0,x)$ is the positive-part operator; and $\mathrm dA$ is active PV area (\si{\square\metre}). The unit check is $(\si{\watt\per\square\metre})(\si{\square\metre})=\si{\watt}$.
+
+The first diffuse approximation is
+\begin{equation}
+\mathrm dP_{\mathrm{diff}}=\eta(T)DHI(t)\frac{1+\cos\beta}{2}\,\mathrm dA.
+\label{eq:diffuse}
+\end{equation}
+Here $DHI$ is diffuse horizontal irradiance (\si{\watt\per\square\metre}); $\beta$ is surface tilt from horizontal; and $(1+\cos\beta)/2$ is the unobstructed isotropic-sky view factor. The factor $1/2$ follows from ideal hemispherical geometry and is not an empirical Singapore coefficient.
+
+\section{Paraboloidal mushroom}
+The founding analytical geometry is
+\begin{equation}
+z(r)=h\left(1-\frac{r^2}{R^2}\right),\qquad k=\frac{h}{R}.
+\label{eq:surface}
+\end{equation}
+Here $z$ is surface height (m); $r$ is radial coordinate (m); $h$ is apex height (m); $R$ is footprint radius (m); and $k$ is dimensionless curvature/aspect ratio.
+
+Differentiating Eq.~\eqref{eq:surface},
+\begin{equation}
+\frac{\mathrm dz}{\mathrm dr}=-\frac{2hr}{R^2}.
+\end{equation}
+The slope is dimensionless. The numerical factor 2 arises exactly from differentiating $r^2$.
+
+The axisymmetric area is
+\begin{equation}
+A_{\mathrm{PV}}=2\pi\int_0^Rr\sqrt{1+\frac{4h^2r^2}{R^4}}\,\mathrm dr.
+\end{equation}
+Here $A_{\mathrm{PV}}$ is active curved area (\si{\square\metre}); $2\pi r\,\mathrm dr$ is the annular area contribution; and the square-root term is the dimensionless slope correction.
+
+Exact integration gives
+\begin{equation}
+A_{\mathrm{PV}}=\frac{\pi R^2}{6k^2}\left[(1+4k^2)^{3/2}-1\right].
+\end{equation}
+The factors 4 and 6 arise from the derivative and exact integral, not empirical fitting.
+
+With $A_{\mathrm{foot}}=\pi R^2$,
+\begin{equation}
+\boxed{\Pi=\frac{A_{\mathrm{PV}}}{A_{\mathrm{foot}}}=\frac{(1+4k^2)^{3/2}-1}{6k^2}}.
+\label{eq:packing-paraboloid}
+\end{equation}
+Here $\Pi$ is the dimensionless PV packing ratio and $A_{\mathrm{foot}}$ is horizontal footprint area (\si{\square\metre}). The limiting case $k\to0$ gives $\Pi\to1$, recovering a flat disk.
+
+\section{Land multiplication}
+Define
+\begin{align}
+\Pi&=\frac{A_{\mathrm{PV}}}{A_{\mathrm{land}}},\\
+\eta_{\mathrm{pack}}&=\frac{E_{3D}}{\Pi E_{\mathrm{base}}}.
+\end{align}
+Here $A_{\mathrm{land}}$ is constrained horizontal site area (\si{\square\metre}); $E_{3D}$ and $E_{\mathrm{base}}$ are annual electrical energies (\si{\kilo\watt\hour\per\year}); and $\eta_{\mathrm{pack}}$ is dimensionless packed-PV productivity relative to the baseline.
+
+Therefore
+\begin{equation}
+\boxed{M_L=\Pi\eta_{\mathrm{pack}}},
+\end{equation}
+where $M_L$ is the dimensionless land multiplication factor.
+
+\section{Mechanics}
+Angular momentum and rotational kinetic energy are
+\begin{equation}
+L=I\omega,\qquad E_k=\frac12I\omega^2.
+\end{equation}
+Here $L$ is angular momentum (\si{\kilogram\metre\squared\per\second}); $I$ is mass moment of inertia (\si{\kilogram\metre\squared}); $\omega$ is angular velocity (\si{\radian\per\second}); and $E_k$ is rotational kinetic energy (J). The factor $1/2$ is the exact rigid-body kinetic-energy coefficient.
+
+A first torque balance is
+\begin{equation}
+\tau=I\ddot\theta+\tau_f+\tau_g+\tau_w.
+\end{equation}
+Here $\tau$ is actuator torque (N m); $\ddot\theta$ is angular acceleration (rad s$^{-2}$); and $\tau_f$, $\tau_g$, $\tau_w$ are frictional, gravitational and wind torques (N m).
+
+The first drag approximation is
+\begin{equation}
+F_D=\frac12\rho C_DA_{\mathrm{proj}}v^2.
+\end{equation}
+Here $F_D$ is drag force (N); $\rho$ is air density (kg m$^{-3}$); $C_D$ is dimensionless drag coefficient; $A_{\mathrm{proj}}$ is projected area (m$^2$); and $v$ is relative wind speed (m s$^{-1}$). The $1/2$ is the standard dynamic-pressure coefficient.
+
+\section{Canonical topology experiment}
+The initial reproducible design experiment uses
+\begin{equation}
+A_{\mathrm{foot}}\le\SI{1}{\square\metre},\qquad
+\sum_iA_i\le\SI{2}{\square\metre},\qquad
+0\le z_i\le\SI{2}{\metre}.
+\end{equation}
+Here $A_{\mathrm{foot}}$ is footprint area; $A_i$ is facet area; and $z_i$ is facet elevation. The numerical values 1, 2 and 2 are engineering design assumptions selected to define a reproducible comparison. They are neither Singapore regulatory limits nor discovered optima and must be varied in sensitivity analysis.
+
+\section{Status and next step}
+The Markdown report and governing-equation reference have been retrofitted to the equation-by-equation definition standard. This LaTeX file mirrors that policy. Before validated results are published, the source must be compiled, equations visually inspected in the PDF, and solar-position calculations upgraded/validated against a traceable higher-accuracy implementation.
+
+\end{document}
