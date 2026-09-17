@@ -28,6 +28,8 @@ jobs:
         run: cargo run --release --bin raybench | tee rust_benchmark.txt
       - name: Run mushroom convergence
         run: cargo run --release --bin mushroom_convergence | tee rust_mushroom_convergence.csv
+      - name: Run orthogonal convergence
+        run: cargo run --release --bin orthogonal_convergence | tee rust_orthogonal_convergence.csv
       - name: Upload numerical artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -35,4 +37,5 @@ jobs:
           path: |
             rust/rust_benchmark.txt
             rust/rust_mushroom_convergence.csv
+            rust/rust_orthogonal_convergence.csv
           if-no-files-found: error
