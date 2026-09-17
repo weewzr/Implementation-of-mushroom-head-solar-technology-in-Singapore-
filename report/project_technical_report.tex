@@ -4,6 +4,8 @@
 \usepackage{siunitx}
 \usepackage{booktabs}
 \usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{svg}
 \usepackage[hidelinks]{hyperref}
 \DeclareSIUnit\year{yr}
 \definecolor{SolarAmber}{HTML}{E69F00}
@@ -11,13 +13,23 @@
 \definecolor{BaselineBlue}{HTML}{0072B2}
 \title{Topology and Geometry Optimisation of Three-Dimensional Photovoltaic Canopies for Land-Constrained Singapore}
 \author{Research project reconstruction}
-\date{17 September 2026}
+\date{18 September 2026}
 \begin{document}
 \maketitle
 
 \begin{abstract}
 This project investigates three-dimensional photovoltaic geometries originating from a rotating mushroom-head concept for land-constrained Singapore. The principal hypothesis is spatial packing: additional active PV area may be placed above a constrained horizontal footprint while attempting to retain irradiation quality, sky visibility, ventilation and usable space beneath. No candidate geometry is assumed optimal. Exploratory calculations are distinguished from validated yield predictions.
 \end{abstract}
+
+\section{Founding design question and equal-footprint comparison}
+The originating question is whether a mushroom-head, spherical or other three-dimensional photovoltaic geometry can improve useful solar collection per unit constrained Singapore land area, and whether slow rotation/tracking can add value after the best fixed geometry is established. Figure~\ref{fig:equal-footprint} preserves this founding comparison without assuming a winner.
+
+\begin{figure}[htbp]
+\centering
+\includesvg[width=\textwidth]{../figures/concept_equal_footprint_comparison}
+\caption{Conceptual equal-footprint comparison of a conventional horizontal panel, the founding paraboloidal mushroom candidate, a sphere/hemisphere family and a tracking baseline. Conceptual---not to scale. The horizontal footprint is constrained consistently; PV area, self-shading, sky view, structural demand and energy yield must be reported separately.}
+\label{fig:equal-footprint}
+\end{figure}
 
 \section{Solar-position equations}
 For preliminary transparent calculations, the Cooper (1969) declination approximation is
@@ -41,6 +53,13 @@ Solar elevation satisfies
 \end{equation}
 Here $\alpha$ is solar elevation above the local horizon; $\phi$ is geographic latitude; $\delta$ is solar declination; and $H$ is solar hour angle. All angular quantities must use a consistent convention; the numerical implementation converts angles to radians before evaluating trigonometric functions.
 
+\begin{figure}[htbp]
+\centering
+\includesvg[width=\textwidth]{../figures/concept_solar_raytracing}
+\caption{Conceptual Singapore solar-geometry and direct-beam ray-tracing schematic. The solar path is illustrative rather than measured weather data. The east--north--up coordinate convention, receiving-facet normal, Sun vector and visibility ray correspond to the direct-beam model in Eq.~\eqref{eq:direct}.}
+\label{fig:solar-ray}
+\end{figure}
+
 \section{Direct and diffuse incidence}
 For an infinitesimal PV element,
 \begin{equation}
@@ -63,6 +82,13 @@ z(r)=h\left(1-\frac{r^2}{R^2}\right),\qquad k=\frac{h}{R}.
 \label{eq:surface}
 \end{equation}
 Here $z$ is surface height (m); $r$ is radial coordinate (m); $h$ is apex height (m); $R$ is footprint radius (m); and $k$ is dimensionless curvature/aspect ratio.
+
+\begin{figure}[htbp]
+\centering
+\includesvg[width=0.94\textwidth]{../figures/concept_mushroom_geometry}
+\caption{Founding paraboloidal mushroom geometry. Conceptual---not to scale and not a validated optimum. The diagram defines the footprint radius $R$, apex height $h$, support/rotation axis, local facet normal and incident solar direction used throughout the analytical and numerical formulation.}
+\label{fig:mushroom-geometry}
+\end{figure}
 
 Differentiating Eq.~\eqref{eq:surface},
 \begin{equation}
@@ -132,6 +158,6 @@ A_{\mathrm{foot}}\le\SI{1}{\square\metre},\qquad
 Here $A_{\mathrm{foot}}$ is footprint area; $A_i$ is facet area; and $z_i$ is facet elevation. The numerical values 1, 2 and 2 are engineering design assumptions selected to define a reproducible comparison. They are neither Singapore regulatory limits nor discovered optima and must be varied in sensitivity analysis.
 
 \section{Status and next step}
-The Markdown report and governing-equation reference have been retrofitted to the equation-by-equation definition standard. This LaTeX file mirrors that policy. Before validated results are published, the source must be compiled, equations visually inspected in the PDF, and solar-position calculations upgraded/validated against a traceable higher-accuracy implementation.
+Three conceptual engineering figures are now embedded in the LaTeX source. They remain conceptual rather than quantitative evidence. The next visual gates are a mechanical free-body/tracking diagram, a method/validation flowchart, validated convergence plots, compilation of this SVG-enabled LaTeX source, and page-by-page PDF visual QA.
 
 \end{document}
