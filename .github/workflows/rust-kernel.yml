@@ -1,0 +1,31 @@
+name: Rust numerical kernel
+
+on:
+  push:
+    paths:
+      - 'rust/**'
+      - '.github/workflows/rust-kernel.yml'
+  workflow_dispatch:
+
+jobs:
+  test-and-benchmark:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rust
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show Rust toolchain
+        run: rustc --version && cargo --version
+      - name: Format check
+        run: cargo fmt --check
+      - name: Compile and test
+        run: cargo test --release
+      - name: Run release benchmark
+        run: cargo run --release --bin raybench | tee rust_benchmark.txt
+      - name: Upload benchmark
+        uses: actions/upload-artifact@v4
+        with:
+          name: rust-ray-benchmark
+          path: rust/rust_benchmark.txt
+          if-no-files-found: error
