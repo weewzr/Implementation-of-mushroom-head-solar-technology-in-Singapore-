@@ -1,0 +1,35 @@
+name: Build technical report
+
+on:
+  push:
+    paths:
+      - 'report/**'
+      - 'equations/**'
+      - '.github/workflows/build-report.yml'
+  workflow_dispatch:
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-science latexmk poppler-utils
+      - name: Compile twice and fail on LaTeX errors
+        working-directory: report
+        run: |
+          latexmk -pdf -interaction=nonstopmode -halt-on-error project_technical_report.tex
+      - name: Check PDF metadata and extract text
+        working-directory: report
+        run: |
+          pdfinfo project_technical_report.pdf
+          pdftotext project_technical_report.pdf project_technical_report.txt
+          test -s project_technical_report.txt
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: mushroom-head-solar-technical-report
+          path: report/project_technical_report.pdf
+          if-no-files-found: error
