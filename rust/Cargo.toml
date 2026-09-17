@@ -1,0 +1,19 @@
+[package]
+name = "mushroom-solar-kernel"
+version = "0.1.0"
+edition = "2021"
+description = "High-performance geometry and ray-tracing kernel for the Singapore mushroom-head solar research project"
+license = "MIT"
+
+[lib]
+name = "mushroom_solar_kernel"
+path = "src/lib.rs"
+
+[[bin]]
+name = "raybench"
+path = "src/bin/raybench.rs"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
