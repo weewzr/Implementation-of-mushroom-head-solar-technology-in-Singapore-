@@ -1,0 +1,39 @@
+name: Run convergence study
+
+on:
+  push:
+    paths:
+      - 'src/analysis/convergence_study.py'
+      - 'src/visualisation/plot_convergence.py'
+      - 'src/models/**'
+      - '.github/workflows/run-convergence.yml'
+  workflow_dispatch:
+
+jobs:
+  convergence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical dependencies
+        run: python -m pip install --upgrade pip numpy matplotlib
+      - name: Run convergence analysis
+        run: PYTHONPATH=. python src/analysis/convergence_study.py
+      - name: Generate convergence visualisation
+        run: PYTHONPATH=. python src/visualisation/plot_convergence.py
+      - name: Verify outputs
+        run: |
+          test -s data/model_generated/convergence_study.csv
+          test -s plots/convergence_study.png
+      - name: Upload convergence artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: convergence-study
+          path: |
+            data/model_generated/convergence_study.csv
+            plots/convergence_study.png
+          if-no-files-found: error
