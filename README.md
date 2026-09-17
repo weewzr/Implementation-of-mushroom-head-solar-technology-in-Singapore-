@@ -1,9 +1,18 @@
 # 3-D Solar Geometry Optimisation for Land-Constrained Singapore
 
 ## Overview
-This repository investigates whether three-dimensional photovoltaic geometries can improve solar-energy yield per constrained horizontal footprint in Singapore. The project began from a "mushroom-head" rotating PV concept, but the research question is deliberately broader: **what geometry, packing ratio and movement strategy maximise useful annual solar yield after optical, thermal, mechanical, structural and economic penalties are included?**
+This repository investigates whether three-dimensional photovoltaic geometries can improve solar-energy yield per constrained horizontal footprint in Singapore. The project began from the user's **mushroom-head rotating solar-panel** concept—the idea that gives this repository its name—but the research question is deliberately broader: **what geometry, packing ratio and movement strategy maximise useful annual solar yield after optical, thermal, mechanical, structural and economic penalties are included?**
 
 The current result is not a claim that a mushroom is superior. The emerging hypothesis is that the valuable mechanism is **3-D PV packing**: increasing active PV area per unit scarce footprint while retaining irradiation quality, sky view, bifacial rear access, ventilation and continued use of the land below.
+
+> **Project governance:** continuing work must follow [`docs/MASTER_INSTRUCTIONS.md`](docs/MASTER_INSTRUCTIONS.md). The originating prompt and early reasoning are preserved under [`docs/foundation/`](docs/foundation/) and are mandatory context for changes in research direction.
+
+## Foundation
+The originating question was whether future solar deployment in land-constrained Singapore could use a rotating **mushroom-head** or **sphere**, whether topology optimisation could determine the best sunlight-collection geometry, and what momentum/rotation factor should govern movement.
+
+- [Originating prompt](docs/foundation/01_originating_prompt.md)
+- [Early reasoning that steered the project](docs/foundation/02_early_reasoning_record.md)
+- [Canonical master instructions](docs/MASTER_INSTRUCTIONS.md)
 
 ## Motivation
 EMA reports average annual solar irradiance of about 1,580 kWh/m²/year. Singapore reached 2 GWp installed solar capacity in 2025 and has raised its 2030 target to 3 GWp. SERIS identifies land scarcity as a major constraint and researches multiple-use deployments including solar canopies.
@@ -14,14 +23,30 @@ For a constrained horizontal footprint in Singapore, what three-dimensional PV g
 ## Principal model
 The core dimensionless relation is
 
-$$M_L=\Pi\eta_{pack},$$
+$$
+M_L=\Pi\eta_{\mathrm{pack}},
+$$
 
-where $\Pi=A_{PV}/A_{land}$ is the PV packing ratio and $\eta_{pack}$ is average packed-PV productivity relative to the baseline. A geometry is useful only if increased packing outweighs lost irradiation quality and added cost.
+where
+
+$$
+\Pi=\frac{A_{\mathrm{PV}}}{A_{\mathrm{land}}}
+$$
+
+is the PV packing ratio and $\eta_{\mathrm{pack}}$ is average packed-PV productivity relative to the baseline. A geometry is useful only if increased packing outweighs lost irradiation quality and added cost.
 
 For the analytical paraboloidal cap,
 
-$$z(r)=h\left(1-\frac{r^2}{R^2}\right),\qquad
-\frac{A_{PV}}{A_{foot}}=\frac{(1+4(h/R)^2)^{3/2}-1}{6(h/R)^2}.$$
+$$
+z(r)=h\left(1-\frac{r^2}{R^2}\right),
+$$
+
+and
+
+$$
+\frac{A_{\mathrm{PV}}}{A_{\mathrm{foot}}}
+=\frac{\left(1+4(h/R)^2\right)^{3/2}-1}{6(h/R)^2}.
+$$
 
 ## Current findings
 - A sphere is an important baseline but is unlikely to be PV-material efficient.
@@ -41,11 +66,13 @@ $$z(r)=h\left(1-\frac{r^2}{R^2}\right),\qquad
 - `plots/` — generated plots
 - `data/` — model outputs and data provenance
 - `references/` — BibTeX bibliography
-- `docs/` — methodology roadmap
+- `docs/foundation/` — originating project prompts/reasoning
+- `docs/MASTER_INSTRUCTIONS.md` — persistent quality and project requirements
 
 ## Reproducing the current analysis
 ```bash
 PYTHONPATH=. python src/analysis/first_pass.py
+PYTHONPATH=. python src/analysis/packing_sweep.py
 PYTHONPATH=. python src/visualisation/make_plots.py
 ```
 
@@ -53,11 +80,14 @@ PYTHONPATH=. python src/visualisation/make_plots.py
 - [Markdown report](report/project_technical_report.md)
 - [LaTeX source](report/project_technical_report.tex)
 
+## Mathematical rendering
+All important mathematics must use native math notation and be checked in every target format. GitHub Markdown uses `$...$` and `$$...$$`; LaTeX must compile cleanly; PDF/DOCX equations require visual render inspection. See the master instructions for the full quality gate.
+
 ## Data
 No proprietary SERIS measurements are redistributed. Model-generated outputs are explicitly distinguished from measured data.
 
 ## Current limitations
-The model still requires time-correlated Singapore GHI/DHI, anisotropic diffuse transposition, 3-D ray tracing, bifacial rear irradiance, detailed thermal/electrical modelling, structural/wind constraints, array spacing and lifecycle economics.
+The model still requires time-correlated Singapore GHI/DHI, anisotropic diffuse transposition, full sky-view ray tracing, bifacial rear irradiance, detailed thermal/electrical modelling, structural/wind constraints, array spacing and lifecycle economics.
 
 ## Next milestone
 Sweep PV packing ratio $\Pi=1$ to $4$ for flat, accordion, cone, paraboloid, sparse-facet and free-form geometries under identical constraints. Then optimise a 20-facet fixed topology before considering discrete tracking.
