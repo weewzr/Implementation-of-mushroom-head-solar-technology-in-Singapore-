@@ -29,6 +29,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-18_three-pass_audit-16.md` | Mandatory Pass 3 / Continue #54 | Rust timestamp-normalization and weather-QC corrective checkpoint | Absolute UTC normalization implemented for strict canonical subset; dataset-level QC, execution evidence, provider/schema parity and validation gates remain open; annual modelling remains paused |
 
+| `2026-09-18_three-pass_audit-17.md` | Mandatory Pass 3 / Continue #57 | Dataset-level Rust weather-QC checkpoint | Absolute-time, interval/gap and full-sequence duplicate source logic improved; stale test expectation, execution evidence, manifest/schema parity and canonical data remain open; annual modelling remains paused |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
