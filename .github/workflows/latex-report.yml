@@ -2,15 +2,7 @@ name: Build technical report
 
 on:
   push:
-    paths:
-      - "report/**"
-      - "figures/**"
-      - ".github/workflows/latex-report.yml"
   pull_request:
-    paths:
-      - "report/**"
-      - "figures/**"
-      - ".github/workflows/latex-report.yml"
   workflow_dispatch:
 
 permissions:
