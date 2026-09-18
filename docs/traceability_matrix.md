@@ -13,9 +13,9 @@ This file implements the master requirement that a reader can move from physical
 | Direct facet incidence | technical report §3.4; governing equations §2 | `src/mesh.rs::direct_beam_intercept_w` | normal, grazing, backside cases | requires time-resolved DNI and visibility | Incidence kernel only; no shadowing |
 | Equal-resource candidate contract | `docs/equal_resource_comparison.md` | `src/candidates.rs` | packing=2 canonical assumption; invalid tilt/height tests | 1 m² / 2 m² / 2 m are design assumptions | Implemented contract, not a performance result |
 | Isotropic diffuse benchmark | `equations/derivations.md` §2 | Not yet canonical Rust module | analytical projection identity required | DHI required | Equation benchmark only |
-| Land multiplication | derivations §3; report §7 | Not yet result pipeline | algebraic identity | candidate/baseline annual energy required | Metric defined; no validated annual result |
-| Packing stationary condition | derivations §4 | Not yet optimisation solver | derivative identity | packing sweep required | Diagnostic only |
-| Rotation/mechanics | derivations §5; report §9 | Not yet implemented | scaling checks required | inertia, friction, wind and actuator inputs required | Conceptual/analytical only |
+| Land multiplication | derivations §3; Markdown report §7; LaTeX `Land multiplication` | Not yet result pipeline | algebraic identity | candidate/baseline annual energy required | Metric defined; no validated annual result |
+| Packing stationary condition | derivations §4; Markdown report §7; LaTeX `Land multiplication` | Not yet optimisation solver | derivative identity | packing sweep required | Diagnostic only |
+| Rotation/mechanics | derivations §5; Markdown report §9; LaTeX `Mechanics` | Not yet implemented | scaling checks required | inertia, friction, wind and actuator inputs required | Conceptual/analytical only |
 | Self-shadowing / sky visibility | report roadmap | Not implemented | ray/mesh convergence required | geometry + sun/sky directions | Missing |
 | Bifacial rear irradiance | report §11 | Not implemented | benchmark/validation required | bifaciality, albedo, rear view | Missing |
 | Thermal/electrical conversion | report §11 | Not implemented | datasheet/model validation required | temperature coefficients/module data | Missing |
