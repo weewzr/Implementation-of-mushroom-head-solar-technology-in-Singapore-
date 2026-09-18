@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **116**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **117**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-36.md`.
 - That audit occurred on Continue #114.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #115 / Pass 1 of audit cycle 37. A direct workflow-run lookup for the current LaTeX parity commit returned no observable runs; this negative evidence was recorded in the PDF QA protocol, so compile/page-QA status remains open without overclaiming.
-- Mandatory audit is due no later than project Continue #114 (Pass 3 of audit cycle 36), unless an earlier major-result audit is required.
+- Passes since most recent audit: **3 pending mandatory audit 37**.
+- Current explicit `Continue` is project #117 / Pass 3 of audit cycle 37.
+- Mandatory audit 37 is due **now, before substantive work**. The prior state text contained stale/contradictory #114/#115 wording; recent repository commits confirm Continue #116 was already recorded, so this turn is reconstructed conservatively as #117.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **8**.
-- This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered successfully.
+- Current ChatGPT session explicit `Continue` count: **1**.
+- This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **project #117 / Pass 3 of audit cycle 37; mandatory master-instruction audit is due before substantive work, then continue unresolved foundation priorities**.
+- Next-pass state: **complete mandatory audit 37 on project #117, reset passes-since-audit to 0, then select only unresolved foundation work allowed by the audit**.
 
 ## Session-rotation rule
 
