@@ -154,18 +154,64 @@ With $A_{\mathrm{foot}}=\pi R^2$,
 Here $\Pi$ is the dimensionless PV packing ratio and $A_{\mathrm{foot}}$ is horizontal footprint area (\si{\square\metre}). The limiting case $k\to0$ gives $\Pi\to1$, recovering a flat disk.
 
 \section{Land multiplication}
-Define
-\begin{align}
-\Pi&=\frac{A_{\mathrm{PV}}}{A_{\mathrm{land}}},\\
-\eta_{\mathrm{pack}}&=\frac{E_{3D}}{\Pi E_{\mathrm{base}}}.
-\end{align}
-Here $A_{\mathrm{land}}$ is constrained horizontal site area (\si{\square\metre}); $E_{3D}$ and $E_{\mathrm{base}}$ are annual electrical energies (\si{\kilo\watt\hour\per\year}); and $\eta_{\mathrm{pack}}$ is dimensionless packed-PV productivity relative to the baseline.
+For an equal-land comparison, define the land multiplication factor
+\begin{equation}
+M_L=\frac{E_{3D}}{E_{\mathrm{base}}}.
+\label{eq:land-multiplication-definition}
+\end{equation}
+Here \(M_L\) is land multiplication (dimensionless); \(E_{3D}\) is annual electrical energy from the candidate over the common land footprint (\si{\kilo\watt\hour\per\year}); and \(E_{\mathrm{base}}\) is annual electrical energy from the explicitly defined baseline over the same footprint (\si{\kilo\watt\hour\per\year}).
 
-Therefore
+Define the packing ratio
+\begin{equation}
+\Pi=\frac{A_{\mathrm{PV}}}{A_{\mathrm{land}}}.
+\label{eq:packing-land}
+\end{equation}
+Here \(\Pi\) is dimensionless; \(A_{\mathrm{PV}}\) is active photovoltaic area (\si{\square\metre}); and \(A_{\mathrm{land}}\) is constrained horizontal site area (\si{\square\metre}).
+
+Multiplying and dividing Eq.~\eqref{eq:land-multiplication-definition} by \(\Pi\) gives
+\begin{equation}
+M_L=\Pi\frac{E_{3D}}{\Pi E_{\mathrm{base}}}.
+\end{equation}
+All terms are dimensionless because the energy ratio and \(\Pi\) are dimensionless. Define packed-PV productivity
+\begin{equation}
+\eta_{\mathrm{pack}}=\frac{E_{3D}}{\Pi E_{\mathrm{base}}}.
+\label{eq:packing-productivity}
+\end{equation}
+Here \(\eta_{\mathrm{pack}}\) is average packed-PV productivity relative to the baseline (dimensionless). Therefore
 \begin{equation}
 \boxed{M_L=\Pi\eta_{\mathrm{pack}}}.
+\label{eq:land-product}
 \end{equation}
-where $M_L$ is the dimensionless land multiplication factor.
+Here \(M_L\), \(\Pi\) and \(\eta_{\mathrm{pack}}\) are dimensionless.
+
+For a differentiable relationship \(\eta_{\mathrm{pack}}(\Pi)\),
+\begin{equation}
+\frac{\mathrm dM_L}{\mathrm d\Pi}
+=
+\eta_{\mathrm{pack}}
++
+\Pi\frac{\mathrm d\eta_{\mathrm{pack}}}{\mathrm d\Pi}.
+\end{equation}
+Here \(\mathrm dM_L/\mathrm d\Pi\) and \(\mathrm d\eta_{\mathrm{pack}}/\mathrm d\Pi\) are dimensionless derivatives. An interior stationary point of the land-energy objective satisfies
+\begin{equation}
+\eta_{\mathrm{pack}}
++
+\Pi\frac{\mathrm d\eta_{\mathrm{pack}}}{\mathrm d\Pi}
+=0,
+\end{equation}
+which can be written
+\begin{equation}
+\boxed{
+-\frac{\mathrm d\ln\eta_{\mathrm{pack}}}{\mathrm d\ln\Pi}=1
+}.
+\end{equation}
+The logarithmic derivative is dimensionless. The numerical value 1 follows exactly from differentiating the product in Eq.~\eqref{eq:land-product}; it is not an empirical threshold.
+
+\paragraph{Physical Interpretation.}
+\(\Pi\) measures how much active PV is packed into scarce footprint, whereas \(\eta_{\mathrm{pack}}\) measures how productive that packed PV remains. Increasing surface area alone can therefore raise \(\Pi\) while lowering \(\eta_{\mathrm{pack}}\).
+
+\paragraph{Engineering Implication.}
+A three-dimensional design is attractive for land use only when packing gain outweighs orientation, occlusion, thermal, structural, maintenance and economic penalties. The stationary condition is a diagnostic for later packing sweeps, not a validated project optimum.
 
 \section{Mechanics}
 Angular momentum and rotational kinetic energy are
@@ -185,6 +231,23 @@ The first drag approximation is
 F_D=\frac12\rho C_DA_{\mathrm{proj}}v^2.
 \end{equation}
 Here $F_D$ is drag force (N); $\rho$ is air density (kg m$^{-3}$); $C_D$ is dimensionless drag coefficient; $A_{\mathrm{proj}}$ is projected area (m$^2$); and $v$ is relative wind speed (m s$^{-1}$). The $1/2$ is the standard dynamic-pressure coefficient.
+
+
+A characteristic inertial-torque scaling for a movement through angular displacement \(\Delta\theta\) over duration \(T\) is
+\begin{equation}
+\tau_I\sim I\frac{\Delta\theta}{T^2}.
+\end{equation}
+Here \(\tau_I\) is characteristic inertial torque (\si{\newton\metre}); \(I\) is mass moment of inertia (\si{\kilogram\metre\squared}); \(\Delta\theta\) is angular displacement (rad, dimensionless in SI); and \(T\) is movement duration (\si{\second}). For the same displacement executed in twice the time,
+\begin{equation}
+\tau_I(2T)\sim\frac{1}{4}\tau_I(T).
+\end{equation}
+Here the factor \(1/4\) follows exactly from the \(T^{-2}\) scaling.
+
+\paragraph{Physical Interpretation.}
+The Sun moves slowly on actuator timescales, so deliberate tracking can be quasi-static. Increasing movement duration strongly suppresses inertial torque.
+
+\paragraph{Engineering Implication.}
+The original momentum question should not become an objective to maximise angular momentum. Later actuator design should prioritise wind moment, gravitational balance, friction, locking/stow, efficiency, reliability and wear. Quantitative mechanical conclusions remain blocked until the required physical parameters in the provenance register are sourced or calculated.
 
 \section{Canonical topology experiment}
 The initial reproducible design experiment uses
