@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **103**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **104**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-32.md`.
 - That audit occurred on Continue #102.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #103 / Pass 1 of audit cycle 33; user explicitly prioritised PDF and diagrams. A mechanical free-body/tracking SVG was added and integrated into the LaTeX report; compiled-PDF evidence remains open because Actions runs are still not visible through the connector.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #104 / Pass 2 of audit cycle 33; a validation-first method/verification flowchart was added and integrated into the LaTeX report. GitHub Actions runs remain invisible through the connector, so compiled-PDF/page-QA evidence is still open.
 - Mandatory audit is due no later than project Continue #105 (Pass 3 of audit cycle 33), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **7**.
+- Current ChatGPT session explicit `Continue` count: **8**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered.
 - Session rotation required: **no**.
-- Next-pass state: **project #104 / Pass 2 of audit cycle 33; continue PDF/diagram foundation work: add the method/validation flow diagram and integrate it, while checking for any newly visible report-build execution/artifact; do not claim PDF QA without an actual compiled artifact**.
+- Next-pass state: **project #105 / Pass 3 of audit cycle 33; perform mandatory audit before substantive work, then continue PDF/diagram foundation with emphasis on obtaining a real compiled artifact or precisely recording the execution-access blocker and advancing the remaining explanatory/convergence visual plan**.
 
 ## Session-rotation rule
 
