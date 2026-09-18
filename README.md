@@ -66,6 +66,7 @@ $$
 - `src/solar.rs` — preliminary solar-geometry relations
 - `src/mesh.rs` — canonical ENU vector/facet representation and direct-incidence kernel
 - `src/candidates.rs` — equal-resource candidate/resource contract
+- `src/weather.rs` — canonical Singapore weather CSV ingestion/QC foundation; absolute-time normalization and full contract parity remain incomplete
 - `src/lib.rs` and `src/main.rs` — Rust crate interface and analytical demonstration
 - future analysis/optimisation/visualisation modules will be added only when their mathematical and validation foundations are ready
 - `plots/` — generated plots
@@ -82,7 +83,7 @@ cargo test
 cargo run --release
 ```
 
-Current Rust scope includes analytical geometry, preliminary solar geometry, ENU/facet incidence foundations and the equal-resource candidate contract. Higher-fidelity irradiance, ray-tracing and optimisation layers are added only after provenance, equations and validation tests are established.
+Current Rust scope includes analytical geometry, preliminary solar geometry, ENU/facet incidence foundations, the equal-resource candidate contract, and a source-level Singapore weather ingestion/QC foundation. The weather layer is not yet a complete canonical time-series implementation and has no qualifying stored execution evidence. Higher-fidelity irradiance, ray-tracing and optimisation layers are added only after provenance, equations and validation tests are established.
 
 ## Technical report
 - [Markdown report](report/project_technical_report.md)
