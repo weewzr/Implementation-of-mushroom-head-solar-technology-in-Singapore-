@@ -86,3 +86,5 @@ The repository includes `.github/workflows/latex-compile-evidence.yml` to compil
 ## Current status — 18 September 2026
 
 **FAIL / not yet performed.** The LaTeX source has changed materially since the available PDF. The diffuse-section source defect found during Audit 07 has been corrected at source level, but no current compile and page-by-page rendered inspection has yet been recorded.
+
+As of project Continue #44, no observable workflow run was found for the newly added LaTeX compile-evidence workflow on the inspected commits. Therefore the CI workflow has **not** yet closed the compilation gate.
