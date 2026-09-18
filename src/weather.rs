@@ -26,6 +26,28 @@ pub struct WeatherRecord {
     pub ambient_temperature_c: f64,
     pub wind_speed_m_s: f64,
     pub wind_direction_deg: f64,
+    #[test]
+    fn qc_summary_counts_without_imputation() {
+        let csv = format!(
+            "{HEADER}\n2026-01-01T12:00:00+08:00,-1,120,700,31.2,2.4,180\n2026-01-01T12:00:00+08:00,810,121,701,31.3,2.5,181\n"
+        );
+        let (records, issues) = parse_canonical_csv(&csv).unwrap();
+        let summary = summarize_qc(&records, &issues, Some(2));
+        assert_eq!(summary.expected_samples, Some(2));
+        assert_eq!(summary.parsed_samples, 2);
+        assert_eq!(summary.negative_irradiance_values, 1);
+        assert_eq!(summary.duplicate_timestamps, 1);
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct QcSummary {
+    pub expected_samples: Option<usize>,
+    pub parsed_samples: usize,
+    pub issue_count: usize,
+    pub duplicate_timestamps: usize,
+    pub nonmonotonic_timestamps: usize,
+    pub negative_irradiance_values: usize,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -187,6 +209,38 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
 
     Ok((records, issues))
 }
+
+/// Build a compact QC summary without changing or imputing any observations.
+///
+/// `expected_samples` is deliberately caller-supplied because the canonical
+/// source manifest, not this parser, owns the coverage and interval convention.
+pub fn summarize_qc(
+    records: &[WeatherRecord],
+    issues: &[QcIssue],
+    expected_samples: Option<usize>,
+) -> QcSummary {
+    QcSummary {
+        expected_samples,
+        parsed_samples: records.len(),
+        issue_count: issues.len(),
+        duplicate_timestamps: issues
+            .iter()
+            .filter(|issue| issue.message.contains("duplicate timestamp"))
+            .count(),
+        nonmonotonic_timestamps: issues
+            .iter()
+            .filter(|issue| issue.message.contains("non-monotonic timestamp"))
+            .count(),
+        negative_irradiance_values: issues
+            .iter()
+            .filter(|issue| {
+                matches!(issue.field, "ghi_w_m2" | "dhi_w_m2" | "dni_w_m2")
+                    && issue.message.contains("negative irradiance")
+            })
+            .count(),
+    }
+}
+
 
 #[cfg(test)]
 mod tests {
