@@ -220,7 +220,7 @@ $$
 P_{\mathrm{diff}}=\eta DHI\int_S\frac{1+\cos\beta}{2}\,\mathrm dA.
 $$
 
-where $P_{\mathrm{diff}}$ is diffuse-derived electrical power (W), $S$ is the PV surface, and all other variables are defined in Section 2.5.
+where $P_{\mathrm{diff}}$ is diffuse-derived electrical power (W), $S$ is the PV surface, and all other variables are defined in Section 3.5.
 
 For a convex single-valued cap,
 
@@ -239,7 +239,7 @@ $$
 where all variables are defined above. This is an ideal no-occlusion analytical result, not a real annual-yield prediction.
 
 ## 6. Exploratory numerical experiment — not a validated yield model
-An earlier exploratory calculation used annual horizontal irradiation of $1580\,\mathrm{kWh\,m^{-2}\,yr^{-1}}$, a provisional 57% diffuse share and an assumed module efficiency of 23%. These values do **not** have equal evidentiary status: the Singapore irradiation value is externally sourced; the 57% value remains provisional pending source verification in the project register; and 23% was an engineering assumption used for illustration. Consequently, the table is retained only as historical exploratory output and must not be cited as expected plant performance.
+An earlier exploratory calculation used annual horizontal irradiation of approximately $1580\,\mathrm{kWh\,m^{-2}\,yr^{-1}}$, a provisional 57% diffuse share and an assumed module efficiency of 23%. The typed parameter register classifies these separately: the annual irradiation figure is **sourced context** from Singapore's Energy Market Authority and is not a substitute for time-resolved GHI/DHI/DNI; 57% is **provisional/historical only** and is prohibited from validated yield calculations; and 23% is an **engineering assumption/historical only** because no canonical PV module has been selected. No result depending on the latter two values may be promoted to a validated Singapore performance claim.
 
 ## 7. Central packing relation
 Define
@@ -391,7 +391,7 @@ where $A_{\mathrm{foot}}$ is allowed footprint area (m$^2$), $A_i$ is facet area
 Each timestep will compute solar position, irradiance components, facet incidence, direct visibility, anisotropic sky irradiance, rear irradiance, temperature and electrical output. Ray tracing determines self-shadowing and later sky-view factors. Numerical discretisation settings such as mesh density, sky-patch count and timestep are computational parameters and require convergence checks before final results.
 
 ## 14. Singapore data and validation
-All Singapore-specific numerical values are to be sourced in `docs/constants_and_provenance.md` and the bibliography. The final model should use measured or validated time series rather than annual-average decomposition. Redistribution rights must be checked before committing third-party raw data.
+All numerical inputs are governed by `docs/parameter_provenance_register.md`; derivation-specific numerical constants are additionally documented in `docs/constants_and_provenance.md`, with sourced values linked to the bibliography. The final model requires measured or otherwise validated time-correlated weather inputs rather than annual-average decomposition. Required inputs without a canonical source remain explicitly unset. Redistribution rights must be checked before committing third-party raw data.
 
 ## 15. Limitations
 Current percentages are exploratory. Missing effects include validated time-correlated DNI/DHI, anisotropic diffuse sky, complete 3-D self-occlusion, array shading, bifacial rear view, detailed temperature, electrical mismatch, inverter clipping, structural mass, wind CFD, lifecycle cost and degradation. No current percentage gain should be presented as expected real-world performance.
