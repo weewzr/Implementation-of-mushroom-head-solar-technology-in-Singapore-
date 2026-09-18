@@ -4,11 +4,12 @@ This file implements the master requirement that a reader can move from physical
 
 | Model element | Report / equation source | Rust implementation | Tests / validation | Data / evidence | Status |
 |---|---|---|---|---|---|
-| Paraboloidal cap area and packing | `equations/derivations.md` §1; technical report §3 | `src/geometry.rs` | flat limit, shallow limit, scale invariance, area>footprint | exact geometry | Implemented analytical benchmark |
-| Cooper declination approximation | technical report §2.1; `docs/constants_and_provenance.md` | `src/solar.rs::cooper_declination` | physical declination bound | historical approximation; production validation target is NREL SPA | Preliminary only |
-| Solar hour angle | technical report §2.2 | `src/solar.rs::hour_angle` | noon=0; 1 solar hour=15° | exact solar-time conversion | Implemented, but civil-time conversion incomplete |
-| Solar elevation | technical report §2.3 | `src/solar.rs::solar_elevation` | equator/equinox/noon zenith limit | spherical solar geometry | Preliminary geometry layer |
-| Direct facet incidence | technical report §2.4; governing equations §2 | `src/mesh.rs::direct_beam_intercept_w` | normal, grazing, backside cases | requires time-resolved DNI and visibility | Incidence kernel only; no shadowing |
+| Coordinate/sign convention | `docs/coordinate_conventions.md`; technical report §2 | `src/mesh.rs` documents ENU ordering; constructors not yet implemented | analytical zenith/east/north/unit-norm checks specified | project definition | Foundation convention implemented; Rust API/tests partial |
+| Paraboloidal cap area and packing | `equations/derivations.md` §1; technical report §4 | `src/geometry.rs` | flat limit, shallow limit, scale invariance, area>footprint | exact geometry | Implemented analytical benchmark |
+| Cooper declination approximation | technical report §3.1; `docs/constants_and_provenance.md` | `src/solar.rs::cooper_declination` | physical declination bound | historical approximation; production validation target is NREL SPA | Preliminary only |
+| Solar hour angle | technical report §3.2 | `src/solar.rs::hour_angle` | noon=0; 1 solar hour=15° | exact solar-time conversion | Implemented, but civil-time conversion incomplete |
+| Solar elevation | technical report §3.3 | `src/solar.rs::solar_elevation` | equator/equinox/noon zenith limit | spherical solar geometry | Preliminary geometry layer |
+| Direct facet incidence | technical report §3.4; governing equations §2 | `src/mesh.rs::direct_beam_intercept_w` | normal, grazing, backside cases | requires time-resolved DNI and visibility | Incidence kernel only; no shadowing |
 | Equal-resource candidate contract | `docs/equal_resource_comparison.md` | `src/candidates.rs` | packing=2 canonical assumption; invalid tilt/height tests | 1 m² / 2 m² / 2 m are design assumptions | Implemented contract, not a performance result |
 | Isotropic diffuse benchmark | `equations/derivations.md` §2 | Not yet canonical Rust module | analytical projection identity required | DHI required | Equation benchmark only |
 | Land multiplication | derivations §3; report §6 | Not yet result pipeline | algebraic identity | candidate/baseline annual energy required | Metric defined; no validated annual result |
