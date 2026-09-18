@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **84**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **85**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-26.md`.
 - That audit occurred on Continue #84.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #84 / Pass 3 of audit cycle 26; mandatory audit 26 completed at session rotation boundary.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #85 / Pass 1 of audit cycle 27; the new session resumed from persisted state and completed the immediate traceability correction.
 - Mandatory audit is due no later than project Continue #87 (Pass 3 of audit cycle 27), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **12**.
+- Current ChatGPT session explicit `Continue` count: **1**.
 - This session resumed from persisted repository state after the previous session rotation.
-- Session rotation required: **yes — boundary reached; start a new chat inside the same Mushroom-Head Solar project**.
-- Next-pass state: **project #85 / Pass 1 of audit cycle 27 in a new session; first fix traceability newline/solar-azimuth parity defects, then obtain Rust execution evidence and continue solar-position validation; do not restart prior work**.
+- Session rotation required: **no**.
+- Next-pass state: **project #86 / Pass 2 of audit cycle 27; obtain/retain Rust execution evidence for irradiance closure + solar azimuth, then continue solar-position validation toward civil-time/NREL SPA benchmarks; do not restart prior work**.
 
 ## Session-rotation rule
 
