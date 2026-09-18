@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **95**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-29.md`.
-- That audit occurred on Continue #93.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #95 / Pass 2 of audit cycle 30; labelled paraboloidal-mushroom and direct-incidence SVG diagrams were added as safe explanatory visuals. Report integration was attempted and must be rechecked because the content SHA did not change, so no false integration claim is made.
-- Mandatory audit is due no later than project Continue #96 (Pass 3 of audit cycle 30), unless an earlier major-result audit is required.
+- Total explicit user `Continue` commands counted through 18 September 2026: **96**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-30.md`.
+- That audit occurred on Continue #96.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #96 / Pass 3 of audit cycle 30; mandatory audit 30 verified that the two new SVGs were not previously integrated, corrected their LaTeX integration, and retained compile/PDF visual-QA as open.
+- Mandatory audit is due no later than project Continue #99 (Pass 3 of audit cycle 31), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **11**.
+- Current ChatGPT session explicit `Continue` count: **12**.
 - This session resumed from persisted repository state after the previous session rotation.
-- Session rotation required: **no**.
-- Next-pass state: **project #96 / Pass 3 of audit cycle 30 and session Continue #12; perform mandatory audit first, verify/fix actual LaTeX integration of the new diagrams, persist rotation state, and do not start another substantive pass in this session**.
+- Session rotation required: **yes — boundary reached; start a new chat inside the same Mushroom-Head Solar project**.
+- Next-pass state: **project #97 / Pass 1 of audit cycle 31 in a new session; first compile/render the updated LaTeX report and perform retained page-by-page PDF visual QA, then fix rendering/layout defects and continue explanatory visual parity; do not restart prior work**.
 
 ## Session-rotation rule
 
