@@ -31,6 +31,29 @@ The originating question is whether a mushroom-head, spherical or other three-di
 \label{fig:equal-footprint}
 \end{figure}
 
+\section{Solar photovoltaic power in Singapore: a beginner's picture}
+A photovoltaic (PV) module is a surface made from semiconductor solar cells. Sunlight carries energy in photons. When photons are absorbed in a solar cell, they can create mobile electrical charge carriers; the cell's internal electric field separates those charges and produces direct-current (DC) electrical power. An inverter then converts the DC output into alternating current (AC) suitable for a building or the electricity grid. PV therefore converts part of the incoming solar radiation directly into electricity; it is not a heat engine and it does not require the panel to become hot.
+
+\begin{figure}[htbp]
+\centering
+\includesvg[width=\textwidth]{../figures/how_solar_pv_works_singapore}
+\caption{Beginner-level picture of the solar-energy chain used by this project. Sunlight reaches a PV surface as a combination of direct and sky-diffuse radiation; the module produces DC electricity and an inverter converts it to AC. The cloud geometry is conceptual, not a measured Singapore weather record.}
+\label{fig:solar-pv-beginner}
+\end{figure}
+
+For geometry, the important point is that sunlight is not one single number. Global horizontal irradiance (GHI) is the total short-wave solar power received by a horizontal surface. It can be separated conceptually into a direct-beam part and a diffuse part scattered by the atmosphere and clouds. Direct normal irradiance (DNI) describes the beam arriving from the direction of the Sun, while diffuse horizontal irradiance (DHI) describes radiation arriving from the rest of the sky. This distinction matters because tilting, curving or rotating a PV surface changes its angle to the direct beam and its view of the diffuse sky.
+
+Singapore is close to the equator, so the Sun can reach high elevations and usable daylight is available throughout the year. At the same time, Singapore's tropical atmosphere is frequently cloudy and rainy, so instantaneous solar input can change rapidly and diffuse sky radiation is important. The project therefore cannot judge a geometry only from a clear-sky noon picture. A fair annual comparison eventually needs time-resolved Singapore irradiance and weather, including the direct/diffuse split, together with shading and temperature effects.
+
+The engineering problem is also spatial. Singapore has limited land and competing uses for roofs and open space. A conventional flat PV array uses horizontal footprint efficiently in a simple and mature way, but a three-dimensional canopy can place more active PV surface above the same footprint. That does not automatically mean more useful electricity: extra surface can face away from the Sun, shade other surface, see less sky, run hotter, require more structure, or consume energy if it tracks. The founding mushroom-head idea is therefore treated as a candidate to test rather than an assumed improvement.
+
+A useful mental model for the rest of this report is
+\begin{equation}
+\text{useful PV energy}\;\approx\;\text{available sunlight}\times\text{captured fraction}\times\text{conversion efficiency}\;-\;\text{system losses}.
+\label{eq:beginner-energy-chain}
+\end{equation}
+The following sections turn each phrase into explicit geometry and physics. Solar position determines where the direct beam comes from; facet normals determine whether a surface faces it; visibility and self-shading determine whether the light reaches the surface; diffuse-sky models account for the rest of the sky; temperature and electrical models convert received irradiance to electricity; and mechanical models account for the cost and feasibility of moving structures.
+
 \section{Coordinate and sign conventions}
 The canonical local frame is right-handed East--North--Up (ENU): \(+x\) east, \(+y\) north and \(+z\) vertically upward. A position vector is
 \begin{equation}
