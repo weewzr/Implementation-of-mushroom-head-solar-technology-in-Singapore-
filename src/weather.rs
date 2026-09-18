@@ -101,10 +101,14 @@ pub struct QcSummary {
     pub expected_samples: Option<usize>,
     pub parsed_samples: usize,
     pub issue_count: usize,
+    /// Rows rejected during parsing/schema conversion; distinct from temporal gaps.
+    pub rejected_rows: usize,
     pub duplicate_timestamps: usize,
     pub nonmonotonic_timestamps: usize,
     pub negative_irradiance_values: usize,
-    pub missing_samples: Option<usize>,
+    /// Missing samples inferred only from positive timestamp gaps that are exact
+    /// multiples of the declared interval. This never includes rejected rows.
+    pub temporal_gap_missing_samples: Option<usize>,
     pub longest_gap_s: Option<i64>,
     pub interval_change_count: usize,
 }
@@ -427,7 +431,7 @@ pub fn check_declared_interval(
 pub fn summarize_qc(
     records: &[WeatherRecord],
     issues: &[QcIssue],
-    expected_samples: Option<usize>,
+    declared_interval_s: Option<i64>,
 ) -> QcSummary {
     let positive_gaps: Vec<i64> = records
         .windows(2)
@@ -435,11 +439,23 @@ pub fn summarize_qc(
         .filter(|dt| *dt > 0)
         .collect();
     let longest_gap_s = positive_gaps.iter().copied().max();
-    let missing_samples = expected_samples.map(|expected| expected.saturating_sub(records.len()));
+    let temporal_gap_missing_samples = declared_interval_s.and_then(|interval| {
+        if interval <= 0 {
+            return None;
+        }
+        Some(
+            positive_gaps
+                .iter()
+                .filter(|dt| **dt > interval && **dt % interval == 0)
+                .map(|dt| (*dt / interval - 1) as usize)
+                .sum(),
+        )
+    });
     QcSummary {
-        expected_samples,
+        expected_samples: None,
         parsed_samples: records.len(),
         issue_count: issues.len(),
+        rejected_rows: issues.iter().filter(|issue| issue.field == "row").count(),
         duplicate_timestamps: issues
             .iter()
             .filter(|issue| issue.message.contains("duplicate absolute timestamp"))
@@ -455,7 +471,7 @@ pub fn summarize_qc(
                     && issue.message.contains("negative irradiance")
             })
             .count(),
-        missing_samples,
+        temporal_gap_missing_samples,
         longest_gap_s,
         interval_change_count: issues
             .iter()
@@ -583,8 +599,8 @@ mod tests {
         let (records, _) = parse_canonical_csv(&csv).unwrap();
         let issues = check_declared_interval(&records, 60).unwrap();
         assert!(issues.iter().any(|issue| issue.message.contains("implied missing samples 1")));
-        let summary = summarize_qc(&records, &issues, Some(3));
-        assert_eq!(summary.missing_samples, Some(1));
+        let summary = summarize_qc(&records, &issues, Some(60));
+        assert_eq!(summary.temporal_gap_missing_samples, Some(1));
         assert_eq!(summary.longest_gap_s, Some(120));
         assert_eq!(summary.interval_change_count, 1);
     }
@@ -593,10 +609,20 @@ mod tests {
     fn qc_summary_counts_without_imputation() {
         let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,-1,120,700,31.2,2.4,180\n2026-01-01T12:00:00+08:00,810,121,701,31.3,2.5,181\n");
         let (records, issues) = parse_canonical_csv(&csv).unwrap();
-        let summary = summarize_qc(&records, &issues, Some(2));
-        assert_eq!(summary.expected_samples, Some(2));
+        let summary = summarize_qc(&records, &issues, None);
+        assert_eq!(summary.expected_samples, None);
         assert_eq!(summary.parsed_samples, 2);
         assert_eq!(summary.negative_irradiance_values, 1);
         assert_eq!(summary.duplicate_timestamps, 1);
+        assert_eq!(summary.temporal_gap_missing_samples, None);
+    }
+
+    #[test]
+    fn rejected_rows_are_not_counted_as_temporal_missing_samples() {
+        let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\nbad,row\n2026-01-01T12:01:00+08:00,810,121,701,31.3,2.5,181\n");
+        let (records, issues) = parse_canonical_csv(&csv).unwrap();
+        let summary = summarize_qc(&records, &issues, Some(60));
+        assert_eq!(summary.rejected_rows, 1);
+        assert_eq!(summary.temporal_gap_missing_samples, Some(0));
     }
 }
