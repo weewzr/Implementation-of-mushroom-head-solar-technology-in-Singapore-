@@ -62,10 +62,12 @@ $$
 ## Repository structure
 - `report/` — Markdown and LaTeX technical reports
 - `equations/` — governing equations, derivations and nomenclature
-- `src/models/` — physical/geometry models
-- `src/analysis/` — reproducible numerical analyses
-- `src/optimisation/` — optimisation objectives and future solvers
-- `src/visualisation/` — figure generation
+- `src/geometry.rs` — analytical geometry benchmarks
+- `src/solar.rs` — preliminary solar-geometry relations
+- `src/mesh.rs` — canonical ENU vector/facet representation and direct-incidence kernel
+- `src/candidates.rs` — equal-resource candidate/resource contract
+- `src/lib.rs` and `src/main.rs` — Rust crate interface and analytical demonstration
+- future analysis/optimisation/visualisation modules will be added only when their mathematical and validation foundations are ready
 - `plots/` — generated plots
 - `data/` — model outputs and data provenance
 - `references/` — BibTeX bibliography
