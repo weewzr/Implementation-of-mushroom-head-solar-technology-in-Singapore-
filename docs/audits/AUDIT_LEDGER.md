@@ -15,6 +15,7 @@ This ledger exists because the required three-turn audit cadence was missed duri
 | `2026-09-18_three-pass_audit-07.md` | Mandatory Pass 3 / Continue #27 | Rust-evidence/report-parity checkpoint | Rust evidence protocol added; diffuse LaTeX parity improved; audit caught and corrected LaTeX source corruption; compile/PDF QA remains blocked |
 | `2026-09-18_three-pass_audit-08.md` | Mandatory Pass 3 / Continue #30 | Execution/PDF-governance checkpoint | Rust and PDF evidence protocols now explicit; README evidence wording corrected; actual execution/compile evidence still absent; modelling remains paused |
 | `2026-09-18_three-pass_audit-09.md` | Mandatory Pass 3 / Continue #33 | Licensing/report-parity checkpoint | Project-wide licensing register added and sphere LaTeX parity improved; execution/data/uncertainty/PDF gates remain open; modelling remains paused |
+| `2026-09-18_three-pass_audit-10.md` | Mandatory Pass 3 / Continue #36 + rotation | Report-parity and session-governance checkpoint | Sphere narrative synchronized; tracking/bifacial/thermal LaTeX parity improved; rotation boundary changed to 12 Continues; modelling remains paused |
 
 ## Cadence rule
 
