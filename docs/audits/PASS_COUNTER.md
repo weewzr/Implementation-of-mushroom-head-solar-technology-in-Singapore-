@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **113**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-35.md`.
-- That audit occurred on Continue #111.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #113 / Pass 2 of audit cycle 36. Pass #113 added the missing Markdown beginner bridge from GHI/DNI/DHI through incidence, visibility and electrical conversion to land-normalised comparison; compiled-PDF/page QA and evidence gates remain open.
+- Total explicit user `Continue` commands counted through 18 September 2026: **114**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-36.md`.
+- That audit occurred on Continue #114.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #114 / Pass 3 of audit cycle 36. Mandatory audit 36 synchronized the beginner irradiance-to-geometry bridge in LaTeX and reconfirmed compiled-PDF/page QA as the immediate open deliverable gate; canonical Singapore data, SPA validation and uncertainty/convergence also remain open.
 - Mandatory audit is due no later than project Continue #114 (Pass 3 of audit cycle 36), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **5**.
+- Current ChatGPT session explicit `Continue` count: **6**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered successfully.
 - Session rotation required: **no**.
-- Next-pass state: **project #114 / Pass 3 of audit cycle 36; mandatory master-instruction audit is due before further expansion, including Markdown/LaTeX parity and compiled-PDF/page-QA status**.
+- Next-pass state: **project #115 / Pass 1 of audit cycle 37; pursue observable current PDF compilation/artifact evidence first, then page-by-page QA if accessible; otherwise continue source-level PDF readiness and report parity without claiming execution**.
 
 ## Session-rotation rule
 
