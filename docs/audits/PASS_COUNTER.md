@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **90**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **91**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-28.md`.
 - That audit occurred on Continue #90.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #90 / Pass 3 of audit cycle 28; mandatory audit 28 completed and civil-to-mean-solar-time traceability was synchronized; SPA benchmark, execution evidence, canonical data, uncertainty/convergence and PDF gates remain open.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #91 / Pass 1 of audit cycle 29; the NREL SPA Appendix A.5 reference fixture was independently cross-checked and recorded with input/output and convention mapping, but no claim is made that the preliminary Rust solar model reproduces SPA.
 - Mandatory audit is due no later than project Continue #93 (Pass 3 of audit cycle 29), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **6**.
+- Current ChatGPT session explicit `Continue` count: **7**.
 - This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #91 / Pass 1 of audit cycle 29; independently extract/check the authoritative NREL SPA benchmark fixture and conventions, then implement validation tests and seek qualifying Rust execution evidence; keep annual geometry ranking paused**.
+- Next-pass state: **project #92 / Pass 2 of audit cycle 29; implement a separate SPA-reference fixture/test interface without testing the preliminary Cooper model against SPA, map zenith/azimuth into ENU explicitly, and seek qualifying Rust execution evidence; keep annual geometry ranking paused**.
 
 ## Session-rotation rule
 
