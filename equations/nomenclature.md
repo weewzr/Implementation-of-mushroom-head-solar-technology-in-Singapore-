@@ -35,3 +35,16 @@
 | $v$ | wind speed | m s⁻¹ |
 | $r_{CP}$ | moment arm from pivot to centre of pressure | m |
 | $E_{annual}$ | annual electrical energy | kWh yr⁻¹ |
+
+## Notation conventions
+
+- Subscripts `PV`, `land`, `foot`, `proj`, `front`, `rear`, and `base` identify physical role rather than mathematical operation.
+- Bold lowercase symbols such as $\mathbf n$ and $\mathbf s$ denote dimensionless three-component vectors.
+- Scalar angles are represented in radians inside the canonical Rust numerical implementation; degrees may be used in explanatory equations only when explicitly labelled.
+- Energy quantities must state their evaluation interval; annual energy uses kWh yr$^{-1}$.
+- Irradiance uses W m$^{-2}$; irradiation/energy-per-area uses kWh m$^{-2}$ over a stated interval. These terms must not be interchanged.
+- A superscript $*$ denotes an optimised value when used in optimisation sections, not multiplication.
+
+## Coordinate-system status
+
+The final east–north–up coordinate convention, solar azimuth sign convention, facet-normal orientation and tracker-angle sign convention must be stated identically in the Markdown report, LaTeX report and Rust implementation before higher-fidelity ray tracing begins. Until that reconciliation is completed, solar-vector calculations remain preliminary.
