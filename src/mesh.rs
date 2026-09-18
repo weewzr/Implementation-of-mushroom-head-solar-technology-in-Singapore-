@@ -1,4 +1,8 @@
 //! Minimal facet representation shared by baseline geometries.
+//!
+//! Coordinate order is canonical ENU: x=east, y=north, z=up. Vector angles
+//! used by higher-level constructors must be radians. See
+//! docs/coordinate_conventions.md.
 #[derive(Debug, Clone, Copy)] pub struct Vec3 { pub x:f64, pub y:f64, pub z:f64 }
 impl Vec3 { pub fn dot(self,o:Self)->f64{self.x*o.x+self.y*o.y+self.z*o.z} pub fn norm(self)->f64{self.dot(self).sqrt()} pub fn unit(self)->Self{let n=self.norm(); assert!(n>0.0); Self{x:self.x/n,y:self.y/n,z:self.z/n}} }
 #[derive(Debug, Clone, Copy)] pub struct Facet { pub area_m2:f64, pub normal:Vec3, pub centroid_m:Vec3 }
