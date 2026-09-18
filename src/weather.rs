@@ -14,6 +14,7 @@ struct ManifestFile {
     dataset: ManifestDataset,
     site: ManifestSite,
     licence: ManifestLicence,
+    variables: ManifestVariables,
     provenance: ManifestProvenance,
     qc: ManifestQc,
 }
@@ -46,6 +47,37 @@ struct ManifestLicence {
     permission_reference: String,
     raw_redistribution: String,
     derived_output_redistribution: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct ManifestVariables {
+    ghi: String,
+    dhi: String,
+    dni: String,
+    ambient_temperature: String,
+    wind_speed: String,
+    wind_direction: String,
+    relative_humidity: String,
+    air_pressure: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum VariableStatus {
+    Measured,
+    Derived,
+    Unavailable,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct VariableProvenance {
+    pub ghi: VariableStatus,
+    pub dhi: VariableStatus,
+    pub dni: VariableStatus,
+    pub ambient_temperature: VariableStatus,
+    pub wind_speed: VariableStatus,
+    pub wind_direction: VariableStatus,
+    pub relative_humidity: VariableStatus,
+    pub air_pressure: VariableStatus,
 }
 
 #[derive(Debug, Deserialize)]
@@ -82,6 +114,7 @@ pub struct DatasetMetadata {
     pub source_checksum: Option<String>,
     pub immutable_source_id: Option<String>,
     pub provider_quality_flags_available: bool,
+    pub variables: VariableProvenance,
 }
 
 impl DatasetMetadata {
@@ -127,6 +160,16 @@ impl DatasetMetadata {
 /// native interval as text, so schema-v1 binding accepts an integer number of
 /// seconds or an integer followed by "s"; broader provider interval syntax must
 /// be normalized upstream.
+fn parse_variable_status(name: &str, value: &str) -> Result<VariableStatus, String> {
+    match value.trim() {
+        "measured" => Ok(VariableStatus::Measured),
+        "derived" => Ok(VariableStatus::Derived),
+        "unavailable" => Ok(VariableStatus::Unavailable),
+        "unknown" | "" => Err(format!("{name} variable status must be resolved before canonical binding")),
+        other => Err(format!("invalid {name} variable status {other:?}; expected measured, derived, or unavailable")),
+    }
+}
+
 pub fn parse_dataset_manifest_toml(input: &str) -> Result<DatasetMetadata, String> {
     let manifest: ManifestFile = toml::from_str(input)
         .map_err(|e| format!("manifest TOML parse error: {e}"))?;
@@ -156,6 +199,16 @@ pub fn parse_dataset_manifest_toml(input: &str) -> Result<DatasetMetadata, Strin
         "unknown" | "" => return Err("provider_quality_flags_available must be resolved to true or false before canonical binding".to_string()),
         other => return Err(format!("invalid provider_quality_flags_available value {other:?}")),
     };
+    let variables = VariableProvenance {
+        ghi: parse_variable_status("ghi", &manifest.variables.ghi)?,
+        dhi: parse_variable_status("dhi", &manifest.variables.dhi)?,
+        dni: parse_variable_status("dni", &manifest.variables.dni)?,
+        ambient_temperature: parse_variable_status("ambient_temperature", &manifest.variables.ambient_temperature)?,
+        wind_speed: parse_variable_status("wind_speed", &manifest.variables.wind_speed)?,
+        wind_direction: parse_variable_status("wind_direction", &manifest.variables.wind_direction)?,
+        relative_humidity: parse_variable_status("relative_humidity", &manifest.variables.relative_humidity)?,
+        air_pressure: parse_variable_status("air_pressure", &manifest.variables.air_pressure)?,
+    };
     let metadata = DatasetMetadata {
         provider: manifest.dataset.provider,
         product_name: manifest.dataset.product_name,
@@ -178,6 +231,7 @@ pub fn parse_dataset_manifest_toml(input: &str) -> Result<DatasetMetadata, Strin
         source_checksum: if manifest.provenance.source_checksum.trim().is_empty() { None } else { Some(manifest.provenance.source_checksum) },
         immutable_source_id: if manifest.provenance.immutable_source_id.trim().is_empty() { None } else { Some(manifest.provenance.immutable_source_id) },
         provider_quality_flags_available,
+        variables,
     };
     metadata.validate().map_err(|errors| errors.join("; "))?;
     Ok(metadata)
@@ -660,6 +714,16 @@ mod tests {
             source_checksum: None,
             immutable_source_id: None,
             provider_quality_flags_available: true,
+            variables: VariableProvenance {
+                ghi: VariableStatus::Measured,
+                dhi: VariableStatus::Measured,
+                dni: VariableStatus::Derived,
+                ambient_temperature: VariableStatus::Measured,
+                wind_speed: VariableStatus::Measured,
+                wind_direction: VariableStatus::Measured,
+                relative_humidity: VariableStatus::Measured,
+                air_pressure: VariableStatus::Measured,
+            },
         };
         let errors = metadata.validate().unwrap_err();
         assert!(errors.iter().any(|e| e.contains("provider is required")));
@@ -694,6 +758,13 @@ derived_output_redistribution = "unknown"
 notes = ""
 [variables]
 ghi = "measured"
+dhi = "measured"
+dni = "derived"
+ambient_temperature = "measured"
+wind_speed = "measured"
+wind_direction = "measured"
+relative_humidity = "unavailable"
+air_pressure = "measured"
 [provenance]
 source_checksum = ""
 immutable_source_id = "example-immutable"
@@ -707,6 +778,8 @@ known_sensor_or_clock_issues = ""
         assert_eq!(metadata.native_sampling_interval_s, 60);
         assert_eq!(metadata.latitude_deg, 1.30);
         assert!(metadata.provider_quality_flags_available);
+        assert_eq!(metadata.variables.dni, VariableStatus::Derived);
+        assert_eq!(metadata.variables.relative_humidity, VariableStatus::Unavailable);
     }
 
     #[test]
