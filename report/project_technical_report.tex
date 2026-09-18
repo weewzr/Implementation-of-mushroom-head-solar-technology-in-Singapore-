@@ -113,6 +113,13 @@ For an infinitesimal PV element,
 \end{equation}
 Here $\mathrm dP_{\mathrm{dir}}$ is incremental direct-derived electrical power (W); $\eta(T)$ is conversion efficiency (dimensionless); $DNI$ is direct normal irradiance (\si{\watt\per\square\metre}); $V$ is direct visibility (dimensionless); $\mathbf n$ and $\mathbf s$ are unit vectors (dimensionless); $[x]_+=\max(0,x)$ is the positive-part operator; and $\mathrm dA$ is active PV area (\si{\square\metre}). The unit check is $(\si{\watt\per\square\metre})(\si{\square\metre})=\si{\watt}$.
 
+\begin{figure}[htbp]
+\centering
+\includesvg[width=0.90\textwidth]{../figures/direct_incidence_geometry}
+\caption{Direct-beam incidence convention for a PV facet. The front-side contribution is proportional to $[\mathbf n\!\cdot\!\mathbf s]_+$ and visibility $V$; grazing and backside incidence contribute zero to the present monofacial direct term.}
+\label{fig:direct-incidence}
+\end{figure}
+
 The first diffuse approximation is
 \begin{equation}
 \mathrm dP_{\mathrm{diff}}=\eta(T)DHI(t)\frac{1+\cos\beta}{2}\,\mathrm dA.
@@ -130,8 +137,8 @@ Here $z$ is surface height (m); $r$ is radial coordinate (m); $h$ is apex height
 
 \begin{figure}[htbp]
 \centering
-\includesvg[width=0.94\textwidth]{../figures/concept_mushroom_geometry}
-\caption{Founding paraboloidal mushroom geometry. Conceptual---not to scale and not a validated optimum. The diagram defines the footprint radius $R$, apex height $h$, support/rotation axis, local facet normal and incident solar direction used throughout the analytical and numerical formulation.}
+\includesvg[width=0.90\textwidth]{../figures/paraboloid_geometry}
+\caption{Labelled cross-section of the founding analytical paraboloidal mushroom cap. The diagram identifies footprint radius $R$, apex height $h$, radial coordinate $r$, surface height $z(r)$ and a representative local outward normal. Geometry only---not a validated optimum or performance result.}
 \label{fig:mushroom-geometry}
 \end{figure}
 
