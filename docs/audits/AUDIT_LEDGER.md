@@ -63,6 +63,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-18_three-pass_audit-33.md` | Mandatory Pass 3 / Continue #105 | PDF/diagram foundation and Actions-observability checkpoint | Mechanical and validation-flow diagrams materially improve visual coverage; CI build is defined but workflow runs remain unobservable, so compiled PDF/page-QA evidence stays open and model expansion remains paused |
 
+| `2026-09-18_three-pass_audit-34.md` | Mandatory Pass 3 / Continue #108 + session Continue #12 | Seven-figure PDF-source parity and rotation checkpoint | All seven SVG dependencies/labels verified and mechanical insertion persistence corrected; compiled PDF remains blocked by Actions/artifact observability; session rotation required and model expansion remains paused |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
