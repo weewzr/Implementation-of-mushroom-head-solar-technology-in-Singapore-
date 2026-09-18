@@ -39,6 +39,25 @@ pub fn solar_elevation(latitude: f64, declination: f64, hour_angle: f64) -> f64 
     sin_alpha.clamp(-1.0, 1.0).asin()
 }
 
+/// Unit vector pointing from the observer toward the Sun in local ENU axes.
+///
+/// Convention:
+/// - +x = East, +y = North, +z = Up;
+/// - azimuth is measured clockwise from North;
+/// - elevation is measured upward from the local horizon.
+///
+/// This constructor is deliberately independent of the preliminary Cooper
+/// declination model so a validated solar-position algorithm can later supply
+/// azimuth/elevation without changing downstream geometry code.
+pub fn solar_direction_enu(azimuth: f64, elevation: f64) -> [f64; 3] {
+    let cos_el = elevation.cos();
+    [
+        cos_el * azimuth.sin(),
+        cos_el * azimuth.cos(),
+        elevation.sin(),
+    ]
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -57,6 +76,37 @@ mod tests {
     fn equator_equinox_noon_is_zenith() {
         let elevation = solar_elevation(0.0, 0.0, 0.0);
         assert!((rad_to_deg(elevation) - 90.0).abs() < 1e-12);
+    }
+
+    #[test]
+    fn enu_cardinal_and_zenith_directions_match_convention() {
+        let tol = 1e-12;
+        let north = solar_direction_enu(0.0, 0.0);
+        assert!((north[0] - 0.0).abs() < tol);
+        assert!((north[1] - 1.0).abs() < tol);
+        assert!((north[2] - 0.0).abs() < tol);
+
+        let east = solar_direction_enu(deg_to_rad(90.0), 0.0);
+        assert!((east[0] - 1.0).abs() < tol);
+        assert!(east[1].abs() < tol);
+        assert!(east[2].abs() < tol);
+
+        let zenith = solar_direction_enu(0.0, deg_to_rad(90.0));
+        assert!(zenith[0].abs() < tol);
+        assert!(zenith[1].abs() < tol);
+        assert!((zenith[2] - 1.0).abs() < tol);
+    }
+
+    #[test]
+    fn enu_solar_direction_is_unit_length() {
+        let tol = 1e-12;
+        for az_deg in [0.0, 37.0, 90.0, 180.0, 271.0] {
+            for el_deg in [-5.0, 0.0, 23.0, 67.0, 90.0] {
+                let v = solar_direction_enu(deg_to_rad(az_deg), deg_to_rad(el_deg));
+                let norm = (v[0] * v[0] + v[1] * v[1] + v[2] * v[2]).sqrt();
+                assert!((norm - 1.0).abs() < tol);
+            }
+        }
     }
 
     #[test]
