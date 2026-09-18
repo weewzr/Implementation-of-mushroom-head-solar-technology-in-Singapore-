@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **105**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **106**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-33.md`.
 - That audit occurred on Continue #105.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #105 / Pass 3 of audit cycle 33; mandatory audit 33 confirmed improved diagram coverage but retained the Actions-observability/PDF-artifact blocker. A formal page-by-page PDF visual-QA checklist was added so the first available compiled artifact can be inspected reproducibly.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #106 / Pass 1 of audit cycle 34; source-level PDF-readiness review found that the mechanical free-body SVG existed but was not actually embedded in the current LaTeX source and the status paragraph still listed already-completed visual gates. Both defects were corrected.
 - Mandatory audit is due no later than project Continue #108 (Pass 3 of audit cycle 34), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **9**.
+- Current ChatGPT session explicit `Continue` count: **10**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered.
 - Session rotation required: **no**.
-- Next-pass state: **project #106 / Pass 1 of audit cycle 34; continue PDF readiness without blind CI edits: audit source-level figure/caption/reference parity and layout risks, and immediately apply the retained QA checklist if a real compiled artifact becomes observable**.
+- Next-pass state: **project #107 / Pass 2 of audit cycle 34; continue source-level PDF readiness by auditing all includesvg paths/labels/captions against figure files and reducing likely float/layout risk, while applying the QA checklist immediately if a compiled artifact becomes observable**.
 
 ## Session-rotation rule
 
