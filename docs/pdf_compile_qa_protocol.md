@@ -76,6 +76,13 @@ Store a dated QA record under `docs/audits/` containing:
 
 A PDF may be called **current compiled report** only when its source commit and QA record are identified.
 
+
+## CI compile-evidence path
+
+The repository includes `.github/workflows/latex-compile-evidence.yml` to compile the report at an exact commit and retain the build log, toolchain identity, exit status, PDF checksum/page count and generated PDF as CI evidence.
+
+**Compile evidence is not visual QA.** A successful CI compile can close only the source-to-PDF compilation gate for the exact commit it records. The PDF must still be rendered and inspected page-by-page under Sections 3–5 before it can be called visually QA-passed. Workflow presence alone is not evidence that compilation succeeded.
+
 ## Current status — 18 September 2026
 
 **FAIL / not yet performed.** The LaTeX source has changed materially since the available PDF. The diffuse-section source defect found during Audit 07 has been corrected at source level, but no current compile and page-by-page rendered inspection has yet been recorded.
