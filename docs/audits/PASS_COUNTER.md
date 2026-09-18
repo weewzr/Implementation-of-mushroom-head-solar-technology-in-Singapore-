@@ -4,19 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **117**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **118**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-37.md`.
 - That audit occurred on Continue #117.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #117 / mandatory audit 37 completed.
-- Audit 37 corrected stale/contradictory counter wording after recent repository history confirmed Continue #116 was already recorded.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #118 / Pass 1 of audit cycle 38. Diagnosed the report build failure from GitHub Actions logs as a LaTeX-unsafe SVG text label (`A_land` / `A_PV`) and replaced it with plain-language labels; corrective build evidence is pending.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **1**.
+- Current ChatGPT session explicit `Continue` count: **2**.
 - This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **project #118 / Pass 1 of audit cycle 38 and session Continue #2; continue unresolved foundation work, prioritising current PDF compile/page-QA evidence without overclaiming**.
+- Next-pass state: **project #119 / Pass 2 of audit cycle 38 and session Continue #3; inspect the corrective report build, fix the next compile defect if any, and only begin page QA after a successful PDF artifact exists**.
 
 ## Session-rotation rule
 
