@@ -66,7 +66,7 @@ $$
 - `src/solar.rs` — preliminary solar-geometry relations
 - `src/mesh.rs` — canonical ENU vector/facet representation and direct-incidence kernel
 - `src/candidates.rs` — equal-resource candidate/resource contract
-- `src/weather.rs` — canonical Singapore weather CSV ingestion/QC foundation; strict schema-v1 timestamps normalize to absolute UTC, optional humidity/pressure fields are supported, and current source/tests have qualifying Rust CI execution evidence; provider flags and manifest/site linkage remain incomplete
+- `src/weather.rs` — canonical Singapore weather CSV ingestion/QC foundation; strict schema-v1 timestamps normalize to absolute UTC, optional humidity/pressure and provider QC flags are preserved, typed provider/site/licence metadata exists, and current source/tests have qualifying Rust CI evidence; actual TOML manifest-file binding and canonical measured-data acquisition remain incomplete
 - `src/lib.rs` and `src/main.rs` — Rust crate interface and analytical demonstration
 - future analysis/optimisation/visualisation modules will be added only when their mathematical and validation foundations are ready
 - `plots/` — generated plots
