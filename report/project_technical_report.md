@@ -21,9 +21,9 @@ The project uses a right-handed local East–North–Up (ENU) frame:
 
 A position vector is
 
-$
+$$
 \mathbf r=(x,y,z).
-$
+$$
 
 where:
 - $\mathbf r$ is position (m);
@@ -35,14 +35,14 @@ Solar and facet azimuth are measured clockwise from geographic north: north $=0^
 
 For solar elevation $\alpha$ and solar azimuth $\gamma_s$, the ENU unit vector toward the Sun is
 
-$
+$$
 \mathbf s=
 \left(
 \cos\alpha\sin\gamma_s,
 \cos\alpha\cos\gamma_s,
 \sin\alpha
 \right).
-$
+$$
 
 where:
 - $\mathbf s$ is the dimensionless unit vector from the receiving point toward the Sun;
@@ -53,14 +53,14 @@ Sanity checks are $\mathbf s=(0,0,1)$ at zenith, $(1,0,0)$ at the eastern horizo
 
 For a facet with tilt $\beta$ from horizontal and facet azimuth $\gamma_p$,
 
-$
+$$
 \mathbf n=
 \left(
 \sin\beta\sin\gamma_p,
 \sin\beta\cos\gamma_p,
 \cos\beta
 \right).
-$
+$$
 
 where:
 - $\mathbf n$ is the outward/front-side unit normal (dimensionless);
