@@ -99,3 +99,11 @@ Sweep PV packing ratio $\Pi=1$ to $4$ for flat, accordion, cone, paraboloid, spa
 
 ## Master-instruction compliance
 A dated compliance audit is maintained under [`docs/audits/`](docs/audits/). The current repository is explicitly a work in progress: the audit identifies incomplete LaTeX parity, bibliography/provenance, full Rust migration, equal-resource baselines, uncertainty/sensitivity analysis, and final compiled PDF page-by-page QA as required gates before project completion.
+
+
+## Traceability and governance
+- [Full master-instruction audit](docs/audits/2026-09-18_full_master_instruction_audit.md)
+- [Mandatory audit ledger](docs/audits/AUDIT_LEDGER.md)
+- [Equation–code–evidence traceability matrix](docs/traceability_matrix.md)
+
+The repository is not yet at final-report quality. Quantitative performance claims remain exploratory until the traceability, validation, uncertainty and PDF quality gates in the master instruction are satisfied.
