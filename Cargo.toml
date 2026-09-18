@@ -1,0 +1,16 @@
+[package]
+name = "mushroom-head-solar"
+version = "0.1.0"
+edition = "2021"
+description = "Reproducible geometry and solar-analysis core for 3-D PV optimisation in land-constrained Singapore"
+license = "UNLICENSED"
+
+[lib]
+name = "mushroom_solar"
+path = "src/lib.rs"
+
+[[bin]]
+name = "mushroom-solar"
+path = "src/main.rs"
+
+[dependencies]
