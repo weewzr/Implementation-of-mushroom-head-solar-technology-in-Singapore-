@@ -1,0 +1,74 @@
+name: Rust execution evidence
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "src/**"
+      - "tests/**"
+      - ".github/workflows/rust-evidence.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  rust-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+
+      - name: Capture environment and repository identity
+        shell: bash
+        run: |
+          {
+            echo "repository=$GITHUB_REPOSITORY"
+            echo "ref=$GITHUB_REF"
+            echo "commit=$GITHUB_SHA"
+            echo "utc=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            echo "runner_os=$RUNNER_OS"
+            echo "runner_arch=$RUNNER_ARCH"
+            echo "working_tree_clean_before=$(test -z \"$(git status --porcelain)\" && echo yes || echo no)"
+            echo
+            echo "## rustc --version --verbose"
+            rustc --version --verbose
+            echo
+            echo "## cargo --version --verbose"
+            cargo --version --verbose
+          } | tee rust-execution-evidence.txt
+
+      - name: Run canonical Rust tests
+        shell: bash
+        run: |
+          set -o pipefail
+          cargo test 2>&1 | tee -a rust-execution-evidence.txt
+          status=${PIPESTATUS[0]}
+          echo "cargo_test_exit_status=$status" | tee -a rust-execution-evidence.txt
+          exit "$status"
+
+      - name: Run canonical release executable
+        shell: bash
+        run: |
+          set -o pipefail
+          cargo run --release 2>&1 | tee -a rust-execution-evidence.txt
+          status=${PIPESTATUS[0]}
+          echo "cargo_run_release_exit_status=$status" | tee -a rust-execution-evidence.txt
+          exit "$status"
+
+      - name: Final repository state
+        if: always()
+        shell: bash
+        run: |
+          echo "working_tree_clean_after=$(test -z \"$(git status --porcelain)\" && echo yes || echo no)" | tee -a rust-execution-evidence.txt
+
+      - name: Upload execution evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rust-execution-evidence-${{ github.sha }}
+          path: rust-execution-evidence.txt
+          if-no-files-found: error
+          retention-days: 90
