@@ -58,6 +58,7 @@
 ## Project-specific non-negotiable clarifications
 
 - Audit compliance with this master instruction at least every three project turns and record substantive audits under docs/audits/.
+- Mandatory session rotation after **12 explicit `Continue` commands** in a ChatGPT session. On the 12th Continue, persist project/audit state and do not begin another substantive pass; resume in a new project chat. The per-session counter resets, while total project Continue count, audit cadence, technical state and unresolved deficiencies persist.
 - Immediately after every important displayed equation, define every introduced symbol and unit; a distant nomenclature table is supplementary, not a substitute.
 - Justify every non-trivial numerical constant/default and cite authoritative sources for empirical/astronomical values.
 - Rust-only computational implementation is the current user constraint. Existing Python remnants are migration debt and must not remain the canonical reproduction workflow.
