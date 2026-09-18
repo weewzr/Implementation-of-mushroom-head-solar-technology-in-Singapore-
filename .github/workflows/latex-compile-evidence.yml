@@ -16,11 +16,15 @@ permissions:
 jobs:
   compile-report:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/xu-cheng/texlive-full:latest
     steps:
       - name: Checkout exact commit
         uses: actions/checkout@v4
+
+      - name: Install LaTeX, SVG and PDF inspection dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-extra texlive-science inkscape poppler-utils
 
       - name: Record source identity
         shell: bash
