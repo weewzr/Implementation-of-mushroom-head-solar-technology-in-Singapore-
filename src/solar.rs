@@ -118,6 +118,41 @@ pub fn solar_direction_enu(azimuth: f64, elevation: f64) -> [f64; 3] {
 }
 
 
+
+/// Reference solar-position output used to validate a future SPA-equivalent
+/// implementation. This type stores reference data only; it does not imply
+/// that the preliminary Cooper/spherical model is SPA-equivalent.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct SpaReferencePosition {
+    pub zenith_deg: f64,
+    pub azimuth_from_north_deg: f64,
+}
+
+/// NREL SPA report Appendix A.5 reference output.
+///
+/// Source fixture: Reda & Andreas, NREL/TP-560-34302, Appendix A.5.
+/// The corresponding full input record is documented in
+/// docs/nrel_spa_validation_target.md. Keep this fixture separate from the
+/// preliminary Cooper-based model.
+pub const NREL_SPA_APPENDIX_A5: SpaReferencePosition = SpaReferencePosition {
+    zenith_deg: 50.11162,
+    azimuth_from_north_deg: 194.34024,
+};
+
+/// Convert a north-clockwise azimuth and zenith angle in degrees into the
+/// project's local ENU unit-vector convention.
+///
+/// This is a convention adapter, not an SPA implementation.
+pub fn north_clockwise_zenith_deg_to_enu(
+    azimuth_from_north_deg: f64,
+    zenith_deg: f64,
+) -> [f64; 3] {
+    solar_direction_enu(
+        deg_to_rad(azimuth_from_north_deg),
+        deg_to_rad(90.0 - zenith_deg),
+    )
+}
+
 /// Diagnostic irradiance closure residual for a horizontal plane.
 ///
 /// The ideal geometric relation is GHI = DHI + DNI * cos(theta_z), where
@@ -232,6 +267,22 @@ mod tests {
                 assert!((norm - 1.0).abs() < tol);
             }
         }
+    }
+
+
+    #[test]
+    fn spa_reference_convention_maps_to_expected_enu_quadrant() {
+        let r = NREL_SPA_APPENDIX_A5;
+        let v = north_clockwise_zenith_deg_to_enu(
+            r.azimuth_from_north_deg,
+            r.zenith_deg,
+        );
+        let norm = (v[0]*v[0] + v[1]*v[1] + v[2]*v[2]).sqrt();
+
+        assert!((norm - 1.0).abs() < 1e-12);
+        assert!(v[0] < 0.0); // azimuth 194.34 deg is west of South
+        assert!(v[1] < 0.0); // southern half-plane
+        assert!(v[2] > 0.0); // zenith < 90 deg => above horizon
     }
 
     #[test]
