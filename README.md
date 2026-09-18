@@ -66,7 +66,7 @@ $$
 - `src/solar.rs` — preliminary solar-geometry relations
 - `src/mesh.rs` — canonical ENU vector/facet representation and direct-incidence kernel
 - `src/candidates.rs` — equal-resource candidate/resource contract
-- `src/weather.rs` — canonical Singapore weather CSV ingestion/QC foundation; absolute-time normalization and full contract parity remain incomplete
+- `src/weather.rs` — canonical Singapore weather CSV ingestion/QC foundation; absolute UTC normalization is implemented for the strict schema-v1 timestamp subset, while broader provider/schema parity remains incomplete
 - `src/lib.rs` and `src/main.rs` — Rust crate interface and analytical demonstration
 - future analysis/optimisation/visualisation modules will be added only when their mathematical and validation foundations are ready
 - `plots/` — generated plots
