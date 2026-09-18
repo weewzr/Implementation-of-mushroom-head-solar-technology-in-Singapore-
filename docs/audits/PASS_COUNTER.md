@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **72**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **73**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-22.md`.
 - That audit occurred on Continue #72.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #72 / Pass 3; mandatory audit 22 completed.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #73 / Pass 1 of audit cycle 23.
 - Mandatory audit is due no later than project Continue #75 (Pass 3 of audit cycle 23), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **12**.
+- Current ChatGPT session explicit `Continue` count: **1**.
 - This session successfully resumed from persisted repository state after the previous session rotation.
-- Session rotation required: **yes — boundary reached; start a new chat inside the same Mushroom-Head Solar project**.
-- Next-pass state: **project #73 / Pass 1 in a new session; recover master instructions, PASS_COUNTER and AUDIT_LEDGER, then continue foundation work from canonical Singapore data acquisition/licensing and source-justified site tolerance; do not restart prior work**.
+- Session rotation required: **no**.
+- Next-pass state: **project #74 / Pass 2 in this session; continue foundation work from canonical Singapore data acquisition/licensing and source-justified site tolerance; do not restart prior work**.
 
 ## Session-rotation rule
 
