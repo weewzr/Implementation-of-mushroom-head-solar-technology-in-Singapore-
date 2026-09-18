@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **121**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-38.md`.
-- That audit occurred on Continue #120.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #121 / Pass 1 of audit cycle 39. Corrected CI now reaches later SVG rendering; the next concrete failure is a pdfLaTeX-unsafe Unicode alpha in the ENU coordinate SVG. Greek SVG labels were converted to ASCII names and a fresh build is pending.
+- Total explicit user `Continue` commands counted through 18 September 2026: **123**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-39.md`.
+- That audit occurred on Continue #123.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #123 / mandatory audit 39 completed. Continues #122 and #123 were received in close succession while source correction was underway; both are counted. Raytracing SVG underscore labels were corrected; PDF compilation remains under evidence-driven repair and no model result is promoted.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **5**.
+- Current ChatGPT session explicit `Continue` count: **7**.
 - This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **project #122 / Pass 2 of audit cycle 39 and session Continue #6; inspect the fresh compile, continue source-level compiler correction if needed, or begin PDF artifact/page QA on success**.
+- Next-pass state: **project #124 / Pass 1 of audit cycle 40 and session Continue #8; inspect fresh CI after raytracing SVG correction and continue compiler/page-QA foundation work**.
 
 ## Session-rotation rule
 
