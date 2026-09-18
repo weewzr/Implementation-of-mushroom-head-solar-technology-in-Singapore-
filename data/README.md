@@ -31,3 +31,12 @@ The validated model requires time-correlated values of at least:
 - wind direction [deg].
 
 Raw third-party datasets must not be committed unless redistribution rights permit it. If redistribution is not permitted, this directory will contain acquisition and preprocessing instructions instead.
+
+
+## Solar-position validation basis
+
+Validated solar-position calculations will use or be benchmarked against the NREL Solar Position Algorithm (SPA) by Reda and Andreas (NREL/TP-560-34302; Solar Energy 76(5), 577-589, with the published corrigendum). The current Rust `src/solar.rs` intentionally contains only transparent analytical approximations for reasoning and unit tests; it is not yet the production annual-yield solar-position engine.
+
+## Required provenance for generated datasets
+
+Each generated dataset must record the code commit/version, source input identifier, timestamp convention/timezone, units, geometry/configuration, numerical resolution and solver/settings, together with a status label identifying the data as analytical, simulated or measured.
