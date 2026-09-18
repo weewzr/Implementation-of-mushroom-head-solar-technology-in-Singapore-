@@ -40,3 +40,44 @@ No benchmark number is copied into this record until it has been independently e
 ## Status
 
 **Authoritative reference selected; benchmark fixture and execution evidence still open.**
+
+
+## Independently cross-checked Appendix A.5 fixture
+
+The Appendix A.5 example has now been cross-checked against the indexed NREL report and independent implementations that explicitly identify the values as the SPA paper reference case. This record still does not claim that the project's current preliminary Rust equations reproduce SPA.
+
+### Inputs
+
+| Quantity | Reference value |
+|---|---:|
+| Date | 2003-10-17 |
+| Local standard time | 12:30:30 |
+| Time-zone offset | -7 h |
+| Longitude | -105.1786 deg (east-positive project convention) |
+| Latitude | 39.742476 deg |
+| Elevation | 1830.14 m |
+| Pressure | 820 mbar |
+| Temperature | 11 deg C |
+| Surface slope | 30 deg |
+| Surface azimuth rotation | -10 deg |
+| Delta T | 67 s |
+
+The corresponding UTC instant is 2003-10-17 19:30:30 UTC.
+
+### Reference outputs selected for the first project benchmark
+
+| Quantity | NREL SPA reference value |
+|---|---:|
+| Topocentric zenith angle | 50.11162 deg |
+| Topocentric azimuth angle, clockwise from North | 194.34024 deg |
+| Surface incidence angle | 25.18700 deg |
+
+The first Rust benchmark should use zenith and azimuth. Surface incidence belongs to a later cross-check once the SPA surface-orientation convention has been mapped explicitly to the project's facet-normal convention.
+
+### Convention mapping
+
+The project uses longitude positive east of Greenwich and azimuth clockwise from North. The Appendix case longitude is therefore represented as -105.1786 deg. The selected SPA azimuth output is already the north-clockwise form needed by the project's ENU constructor. Zenith converts to geometric elevation for the downstream ENU representation as `elevation = 90 deg - zenith`, but atmospheric/topocentric semantics must remain explicit rather than being silently equated with the project's preliminary geometric elevation.
+
+### Evidence status
+
+The fixture values are now suitable as **reference data for a future SPA-equivalent implementation test**. They are not a test of `cooper_declination`, `mean_local_solar_time_h`, `solar_elevation`, or `solar_azimuth_from_north`, because those functions intentionally implement a lower-fidelity preliminary model.
