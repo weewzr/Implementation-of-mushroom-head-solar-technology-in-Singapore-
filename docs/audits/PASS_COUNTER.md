@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **89**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-27.md`.
-- That audit occurred on Continue #87.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #89 / Pass 2 of audit cycle 28; the authoritative NREL Reda-Andreas SPA reference was selected and a validation-target record added, while benchmark values remain deliberately unpromoted until independently extracted and checked.
-- Mandatory audit is due no later than project Continue #90 (Pass 3 of audit cycle 28), unless an earlier major-result audit is required.
+- Total explicit user `Continue` commands counted through 18 September 2026: **90**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-28.md`.
+- That audit occurred on Continue #90.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #90 / Pass 3 of audit cycle 28; mandatory audit 28 completed and civil-to-mean-solar-time traceability was synchronized; SPA benchmark, execution evidence, canonical data, uncertainty/convergence and PDF gates remain open.
+- Mandatory audit is due no later than project Continue #93 (Pass 3 of audit cycle 29), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **5**.
+- Current ChatGPT session explicit `Continue` count: **6**.
 - This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #90 / Pass 3 of audit cycle 28; perform the mandatory master-instruction audit before substantive work, then extract/check an authoritative SPA benchmark fixture and continue Rust execution-evidence work according to audit findings; keep annual geometry ranking paused**.
+- Next-pass state: **project #91 / Pass 1 of audit cycle 29; independently extract/check the authoritative NREL SPA benchmark fixture and conventions, then implement validation tests and seek qualifying Rust execution evidence; keep annual geometry ranking paused**.
 
 ## Session-rotation rule
 
