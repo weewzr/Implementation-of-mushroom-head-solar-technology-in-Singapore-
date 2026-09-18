@@ -4,25 +4,25 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted in the current reconstruction session through 18 September 2026: **36**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **37**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-10.md`.
 - That audit occurred on Continue #36.
-- Passes since most recent audit: **0**.
-- Next explicit `Continue` must occur in a new ChatGPT session and is Pass 1 of the next audit cycle.
-- Mandatory audit is due no later than the third explicit `Continue` after the most recent audit.
+- Passes since most recent audit: **1**.
+- Next explicit `Continue` is project #38 / Pass 2 of the current audit cycle.
+- Mandatory audit is due on project Continue #39 (Pass 3), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **18**.
-- Previous session reached the 18-Continue rotation boundary; this session resumed from persisted repository state.
-- Session rotation required: **yes**.
-- Next-pass state: **start a new project chat; session counter resets to 0 there; next explicit Continue is project #37 / Pass 1**.
+- Current ChatGPT session explicit `Continue` count: **1**.
+- This session successfully resumed from persisted repository state after the previous session rotation.
+- Session rotation required: **no**.
+- Next-pass state: **project #38 / session #2 / Pass 2**.
 
-## Revised session-rotation rule
+## Session-rotation rule
 
-- Maximum explicit `Continue` commands per ChatGPT session: **12** (supersedes the former 18-Continue limit).
-- Because this session was already beyond 12 when the rule changed, rotation is required immediately after Continue #36 and Audit 10.
+- Maximum explicit `Continue` commands per ChatGPT session: **18**.
 - A new session resets only the per-session counter; total project count, audit cadence, technical state and unresolved deficiencies persist.
+- On the 18th Continue, complete any due audit/state recording but do not begin another substantive pass in that session.
 
 ## New-session bootstrap rule
 
