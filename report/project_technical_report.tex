@@ -423,7 +423,16 @@ A model result inherits the quality of its inputs. A precisely evaluated equatio
 \paragraph{Engineering Implication.}
 Required inputs such as time-resolved irradiance, module bifaciality, albedo, thermal coefficients and wind-design parameters remain unset until an authoritative source or explicit design basis is selected. Convenient defaults must not be introduced silently.
 
+
+\section{Validation-first project workflow}
+\begin{figure}[htbp]
+\centering
+\includesvg[width=0.88\textwidth]{../figures/method_validation_flow}
+\caption{Validation-first workflow governing progression from the equal-resource problem definition to released comparative results. Failed validation returns the project to foundation correction rather than allowing model expansion. The diagram describes required gates; it does not indicate that currently open data, convergence, uncertainty or PDF-evidence gates have passed.}
+\label{fig:validation-flow}
+\end{figure}
+
 \section{Status and next step}
-The explanatory visual suite now includes the equal-footprint concept, ENU convention, solar-ray schematic, direct-incidence geometry, paraboloid geometry and a first mechanical free-body/tracking diagram. They remain conceptual rather than quantitative evidence. The next visual gates are a mechanical free-body/tracking diagram, a method/validation flowchart, validated convergence plots, compilation of this SVG-enabled LaTeX source, and page-by-page PDF visual QA.
+The explanatory visual suite now includes the equal-footprint concept, ENU convention, solar-ray schematic, direct-incidence geometry, paraboloid geometry, a mechanical free-body/tracking diagram and a validation-first method flowchart. They remain conceptual rather than quantitative evidence. The next visual gates are a mechanical free-body/tracking diagram, a method/validation flowchart, validated convergence plots, compilation of this SVG-enabled LaTeX source, and page-by-page PDF visual QA.
 
 \end{document}
