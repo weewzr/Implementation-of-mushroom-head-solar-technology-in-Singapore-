@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **102**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **103**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-32.md`.
 - That audit occurred on Continue #102.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #102 / Pass 3 of audit cycle 32; mandatory audit 32 confirms the SVG-enabled CI build mechanism exists but no workflow execution is visible, so compile/PDF visual-QA evidence remains open.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #103 / Pass 1 of audit cycle 33; user explicitly prioritised PDF and diagrams. A mechanical free-body/tracking SVG was added and integrated into the LaTeX report; compiled-PDF evidence remains open because Actions runs are still not visible through the connector.
 - Mandatory audit is due no later than project Continue #105 (Pass 3 of audit cycle 33), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **6**.
+- Current ChatGPT session explicit `Continue` count: **7**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered.
 - Session rotation required: **no**.
-- Next-pass state: **project #103 / Pass 1 of audit cycle 33; diagnose why Actions execution is not visible/triggering without further blind trigger edits, then retain compile/PDF evidence through the first available reproducible execution route**.
+- Next-pass state: **project #104 / Pass 2 of audit cycle 33; continue PDF/diagram foundation work: add the method/validation flow diagram and integrate it, while checking for any newly visible report-build execution/artifact; do not claim PDF QA without an actual compiled artifact**.
 
 ## Session-rotation rule
 
