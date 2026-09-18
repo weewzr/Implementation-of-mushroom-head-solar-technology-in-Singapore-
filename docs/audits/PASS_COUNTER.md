@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **73**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **74**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-22.md`.
 - That audit occurred on Continue #72.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #73 / Pass 1 of audit cycle 23.
-- Mandatory audit is due no later than project Continue #75 (Pass 3 of audit cycle 23), unless an earlier major-result audit is required.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #74 / Pass 2 of audit cycle 23.
+- Mandatory audit is due on project Continue #75 (Pass 3 of audit cycle 23), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **1**.
-- This session successfully resumed from persisted repository state after the previous session rotation.
+- Current ChatGPT session explicit `Continue` count: **2**.
+- This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #74 / Pass 2 in this session; continue foundation work from canonical Singapore data acquisition/licensing and source-justified site tolerance; do not restart prior work**.
+- Next-pass state: **project #75 / Pass 3; perform mandatory master-instruction audit before substantive work, then continue unresolved foundation priorities if the audit permits**.
 
 ## Session-rotation rule
 
