@@ -5,3 +5,4 @@
 //! added only after their data provenance and numerical validation are defined.
 
 pub mod geometry;
+pub mod solar;
