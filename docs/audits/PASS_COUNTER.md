@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **62**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-18.md`.
-- That audit occurred on Continue #60.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #62 / Pass 2 of audit cycle 19.
-- Mandatory audit is due no later than project Continue #63 (Pass 3), unless an earlier major-result audit is required.
+- Total explicit user `Continue` commands counted through 18 September 2026: **63**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-19.md`.
+- That audit occurred on Continue #63.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #63 / Pass 3; mandatory audit 19 completed.
+- Mandatory audit is due no later than project Continue #66 (Pass 3 of audit cycle 20), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **2**.
+- Current ChatGPT session explicit `Continue` count: **3**.
 - This session successfully resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #63 / Pass 3; perform mandatory audit 19 before substantive work, inspect the optional-field Rust evidence run, and correct any audit defects before further expansion**.
+- Next-pass state: **project #64 / Pass 1; continue foundation work with typed manifest/site/provider linkage and provider-quality-flag preservation; annual/model expansion remains paused**.
 
 ## Session-rotation rule
 
