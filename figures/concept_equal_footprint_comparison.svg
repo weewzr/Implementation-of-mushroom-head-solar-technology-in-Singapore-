@@ -28,5 +28,5 @@
 <path d="M1065 335 A60 60 0 0 0 1090 285" fill="none" stroke="#d9672d" stroke-width="4" marker-end="url(#sunarrow)"/>
 <text x="1020" y="180" text-anchor="middle" font-family="Arial" font-size="20" font-weight="700" fill="#314b6b">Tracking baseline</text>
 <text x="1020" y="450" text-anchor="middle" font-family="Arial" font-size="15" fill="#5f6b76">Mechanical benchmark</text>
-<text x="600" y="495" text-anchor="middle" font-family="Arial" font-size="15" fill="#17212b">Comparison rule: constrain A_land consistently; report A_PV, self-shading, sky view, mechanics and energy separately.</text>
+<text x="600" y="495" text-anchor="middle" font-family="Arial" font-size="15" fill="#17212b">Comparison rule: constrain land footprint area consistently; report PV surface area, self-shading, sky view, mechanics and energy separately.</text>
 </svg>
