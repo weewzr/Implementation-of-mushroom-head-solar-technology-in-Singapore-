@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **94**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **95**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-29.md`.
 - That audit occurred on Continue #93.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #94 / Pass 1 of audit cycle 30; the explanatory visual layer advanced with a new ENU/solar-angle SVG integrated into the LaTeX report, while performance charts and final PDF validation remain gated.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #95 / Pass 2 of audit cycle 30; labelled paraboloidal-mushroom and direct-incidence SVG diagrams were added as safe explanatory visuals. Report integration was attempted and must be rechecked because the content SHA did not change, so no false integration claim is made.
 - Mandatory audit is due no later than project Continue #96 (Pass 3 of audit cycle 30), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **10**.
+- Current ChatGPT session explicit `Continue` count: **11**.
 - This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #95 / Pass 2 of audit cycle 30; add the labelled paraboloidal-mushroom/direct-incidence explanatory diagrams and integrate them into the report, then prepare for compilation/visual QA without fabricating performance plots**.
+- Next-pass state: **project #96 / Pass 3 of audit cycle 30 and session Continue #12; perform mandatory audit first, verify/fix actual LaTeX integration of the new diagrams, persist rotation state, and do not start another substantive pass in this session**.
 
 ## Session-rotation rule
 
