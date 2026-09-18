@@ -74,6 +74,10 @@ $$
 # Canonical implementation is Rust. See Cargo.toml and the Rust source tree.
 cargo test
 cargo run --release
+
+# Current Rust scope: analytically checked paraboloidal geometry.
+# Higher-fidelity irradiance/ray-tracing/optimisation layers are added only
+# after provenance, equations and validation tests are established.
 ```
 
 ## Technical report
@@ -91,3 +95,7 @@ The model still requires time-correlated Singapore GHI/DHI, anisotropic diffuse 
 
 ## Next milestone
 Sweep PV packing ratio $\Pi=1$ to $4$ for flat, accordion, cone, paraboloid, sparse-facet and free-form geometries under identical constraints. Then optimise a 20-facet fixed topology before considering discrete tracking.
+
+
+## Master-instruction compliance
+A dated compliance audit is maintained under [`docs/audits/`](docs/audits/). The current repository is explicitly a work in progress: the audit identifies incomplete LaTeX parity, bibliography/provenance, full Rust migration, equal-resource baselines, uncertainty/sensitivity analysis, and final compiled PDF page-by-page QA as required gates before project completion.
