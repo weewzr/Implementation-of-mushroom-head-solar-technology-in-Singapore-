@@ -1,9 +1,8 @@
 //! Canonical weather/irradiance ingestion foundation.
 //!
-//! This module deliberately performs strict, dependency-free validation of the
-//! project's canonical CSV interchange format. It does not impute, repair, or
-//! silently coerce source data. Provider-specific acquisition/preprocessing
-//! belongs upstream and must remain traceable through the acquisition manifest.
+//! Strict parsing/QC for the project's canonical CSV interchange format.
+//! This layer reports defects; it does not impute, repair, or silently coerce
+//! source observations.
 
 use std::fmt;
 
@@ -26,18 +25,6 @@ pub struct WeatherRecord {
     pub ambient_temperature_c: f64,
     pub wind_speed_m_s: f64,
     pub wind_direction_deg: f64,
-    #[test]
-    fn qc_summary_counts_without_imputation() {
-        let csv = format!(
-            "{HEADER}\n2026-01-01T12:00:00+08:00,-1,120,700,31.2,2.4,180\n2026-01-01T12:00:00+08:00,810,121,701,31.3,2.5,181\n"
-        );
-        let (records, issues) = parse_canonical_csv(&csv).unwrap();
-        let summary = summarize_qc(&records, &issues, Some(2));
-        assert_eq!(summary.expected_samples, Some(2));
-        assert_eq!(summary.parsed_samples, 2);
-        assert_eq!(summary.negative_irradiance_values, 1);
-        assert_eq!(summary.duplicate_timestamps, 1);
-    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -130,9 +117,10 @@ fn validate_record(record: &WeatherRecord, row: usize, issues: &mut Vec<QcIssue>
 
 /// Parse the canonical seven-column CSV fixture/interchange form.
 ///
-/// Quoted commas are intentionally unsupported: provider-specific CSV formats
-/// must be normalized by a separately documented preprocessing step rather than
-/// weakening the canonical contract.
+/// Provider-specific formats must be normalized by a separately documented
+/// preprocessing step. Timestamp ordering below is intentionally only a
+/// normalized-string foundation: absolute-time parsing is still required before
+/// this module can satisfy the full canonical time-series contract.
 pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIssue>), String> {
     let mut lines = input.lines().filter(|line| !line.trim().is_empty());
     let header = lines.next().ok_or_else(|| "missing CSV header".to_string())?;
@@ -169,11 +157,7 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
                 ghi_w_m2: parse_finite(values[1], row, "ghi_w_m2")?,
                 dhi_w_m2: parse_finite(values[2], row, "dhi_w_m2")?,
                 dni_w_m2: parse_finite(values[3], row, "dni_w_m2")?,
-                ambient_temperature_c: parse_finite(
-                    values[4],
-                    row,
-                    "ambient_temperature_c",
-                )?,
+                ambient_temperature_c: parse_finite(values[4], row, "ambient_temperature_c")?,
                 wind_speed_m_s: parse_finite(values[5], row, "wind_speed_m_s")?,
                 wind_direction_deg: parse_finite(values[6], row, "wind_direction_deg")?,
             })
@@ -200,7 +184,7 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
                 row: 0,
                 field: "timestamp",
                 message: format!(
-                    "non-monotonic timestamp sequence: {} then {}",
+                    "non-monotonic normalized timestamp sequence: {} then {}",
                     pair[0].timestamp, pair[1].timestamp
                 ),
             });
@@ -210,10 +194,6 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
     Ok((records, issues))
 }
 
-/// Build a compact QC summary without changing or imputing any observations.
-///
-/// `expected_samples` is deliberately caller-supplied because the canonical
-/// source manifest, not this parser, owns the coverage and interval convention.
 pub fn summarize_qc(
     records: &[WeatherRecord],
     issues: &[QcIssue],
@@ -229,7 +209,7 @@ pub fn summarize_qc(
             .count(),
         nonmonotonic_timestamps: issues
             .iter()
-            .filter(|issue| issue.message.contains("non-monotonic timestamp"))
+            .filter(|issue| issue.message.contains("non-monotonic"))
             .count(),
         negative_irradiance_values: issues
             .iter()
@@ -241,7 +221,6 @@ pub fn summarize_qc(
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -250,9 +229,7 @@ mod tests {
 
     #[test]
     fn accepts_minimal_valid_fixture() {
-        let csv = format!(
-            "{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\n"
-        );
+        let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\n");
         let (records, issues) = parse_canonical_csv(&csv).unwrap();
         assert_eq!(records.len(), 1);
         assert!(issues.is_empty());
@@ -260,30 +237,33 @@ mod tests {
 
     #[test]
     fn reports_negative_irradiance_without_silent_repair() {
-        let csv = format!(
-            "{HEADER}\n2026-01-01T12:00:00+08:00,-1,120,700,31.2,2.4,180\n"
-        );
+        let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,-1,120,700,31.2,2.4,180\n");
         let (_, issues) = parse_canonical_csv(&csv).unwrap();
         assert!(issues.iter().any(|issue| issue.field == "ghi_w_m2"));
     }
 
     #[test]
     fn reports_missing_timezone_offset() {
-        let csv = format!(
-            "{HEADER}\n2026-01-01T12:00:00,800,120,700,31.2,2.4,180\n"
-        );
+        let csv = format!("{HEADER}\n2026-01-01T12:00:00,800,120,700,31.2,2.4,180\n");
         let (_, issues) = parse_canonical_csv(&csv).unwrap();
         assert!(issues.iter().any(|issue| issue.field == "timestamp"));
     }
 
     #[test]
     fn reports_duplicate_timestamp() {
-        let csv = format!(
-            "{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\n2026-01-01T12:00:00+08:00,810,121,701,31.3,2.5,181\n"
-        );
+        let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\n2026-01-01T12:00:00+08:00,810,121,701,31.3,2.5,181\n");
         let (_, issues) = parse_canonical_csv(&csv).unwrap();
-        assert!(issues
-            .iter()
-            .any(|issue| issue.message.contains("duplicate timestamp")));
+        assert!(issues.iter().any(|issue| issue.message.contains("duplicate timestamp")));
+    }
+
+    #[test]
+    fn qc_summary_counts_without_imputation() {
+        let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,-1,120,700,31.2,2.4,180\n2026-01-01T12:00:00+08:00,810,121,701,31.3,2.5,181\n");
+        let (records, issues) = parse_canonical_csv(&csv).unwrap();
+        let summary = summarize_qc(&records, &issues, Some(2));
+        assert_eq!(summary.expected_samples, Some(2));
+        assert_eq!(summary.parsed_samples, 2);
+        assert_eq!(summary.negative_irradiance_values, 1);
+        assert_eq!(summary.duplicate_timestamps, 1);
     }
 }
