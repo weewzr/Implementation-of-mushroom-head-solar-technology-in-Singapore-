@@ -59,3 +59,9 @@ If compilation or a test fails:
 **Not yet execution-verified.** Source-level Rust tests are present in the repository, including analytical geometry, solar geometry, ENU vector, facet-incidence and equal-resource-contract checks, but no qualifying execution record has yet been persisted.
 
 README commands such as `cargo test` are reproduction instructions and must not be cited as proof that the tests passed.
+
+## CI evidence path
+
+The repository now includes `.github/workflows/rust-evidence.yml`, which is intended to generate the required execution record automatically on relevant pushes and manual dispatches. The workflow captures the exact commit/environment, toolchain versions, canonical test/run output, exit statuses and an evidence artifact.
+
+**Workflow presence is not execution evidence.** A qualifying CI result requires an actual completed run associated with the exact commit being validated, successful canonical command exit statuses, and retained logs/artifacts. If no workflow run is observable for a commit, its Rust execution status remains **not verified**.
