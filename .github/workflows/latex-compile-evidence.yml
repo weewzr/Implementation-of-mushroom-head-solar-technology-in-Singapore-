@@ -1,0 +1,70 @@
+name: LaTeX compile evidence
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "report/**"
+      - "references/**"
+      - "figures/**"
+      - ".github/workflows/latex-compile-evidence.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compile-report:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/xu-cheng/texlive-full:latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+
+      - name: Record source identity
+        shell: bash
+        run: |
+          {
+            echo "repository=$GITHUB_REPOSITORY"
+            echo "ref=$GITHUB_REF"
+            echo "commit=$GITHUB_SHA"
+            echo "utc=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            echo "working_tree_clean_before=$(test -z \"$(git status --porcelain)\" && echo yes || echo no)"
+            echo "engine=$(pdflatex --version | head -n 1)"
+            echo "latexmk=$(latexmk -v | head -n 1)"
+          } | tee latex-compile-evidence.txt
+
+      - name: Compile technical report
+        shell: bash
+        run: |
+          set -o pipefail
+          cd report
+          latexmk -pdf -shell-escape -interaction=nonstopmode -halt-on-error project_technical_report.tex 2>&1 | tee ../latex-build.log
+          status=${PIPESTATUS[0]}
+          echo "latexmk_exit_status=$status" | tee -a ../latex-compile-evidence.txt
+          exit "$status"
+
+      - name: Record PDF evidence
+        if: always()
+        shell: bash
+        run: |
+          if [ -f report/project_technical_report.pdf ]; then
+            sha256sum report/project_technical_report.pdf | tee -a latex-compile-evidence.txt
+            pdfinfo report/project_technical_report.pdf | grep "^Pages:" | tee -a latex-compile-evidence.txt || true
+          else
+            echo "pdf_produced=no" | tee -a latex-compile-evidence.txt
+          fi
+          grep -E "LaTeX Warning|undefined references|Citation.*undefined|Overfull|Underfull|Error" latex-build.log >> latex-compile-evidence.txt || true
+
+      - name: Upload compile evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: latex-compile-evidence-${{ github.sha }}
+          path: |
+            latex-compile-evidence.txt
+            latex-build.log
+            report/project_technical_report.pdf
+          if-no-files-found: warn
+          retention-days: 90
