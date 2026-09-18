@@ -48,13 +48,16 @@ $$
 =\frac{\left(1+4(h/R)^2\right)^{3/2}-1}{6(h/R)^2}.
 $$
 
-## Current findings
-- A sphere is an important baseline but is unlikely to be PV-material efficient.
-- Curvature does not intrinsically increase cell efficiency; its possible value is spatial packing and orientation diversity.
-- First-pass models show land-normalised collection rising while energy per square metre of PV falls as curvature increases.
-- The early model is intentionally idealised and omits self-shading, anisotropic diffuse light, detailed thermal/electrical losses, wind structure and lifecycle cost.
-- Angular momentum is not the useful tracking design objective. Slow quasi-static movement, balance, low inertia, low friction, wind-load reduction and storm stow are more relevant.
-- The leading design hypothesis is a sparse, faceted, bifacial canopy, potentially with little or discrete movement.
+## Current evidence status
+
+| Statement | Status |
+|---|---|
+| Curvature does not intrinsically increase photovoltaic cell conversion efficiency; its possible project value is spatial packing and orientation diversity. | Physical interpretation / project framing |
+| A sphere provides a useful directionally symmetric comparison geometry but uses substantially more surface area than its projected disk. | Analytical geometry observation |
+| Earlier simplified calculations suggested a trade-off between land-normalised collection and productivity per square metre of PV as curvature increased. | Exploratory historical result; not validated Singapore yield |
+| Slow solar tracking should not be designed by maximising angular momentum; balance, friction, wind moment, actuator energy, locking and stow are more relevant mechanical quantities. | Mechanics interpretation requiring later quantitative design inputs |
+| A sparse, faceted, bifacial canopy may outperform a smooth mushroom after shading, rear access, ventilation and wind are included. | Hypothesis to test, not a conclusion |
+| No candidate geometry is currently established as optimal. | Current validated project status |
 
 ## Repository structure
 - `report/` — Markdown and LaTeX technical reports
