@@ -1,5 +1,74 @@
 # Master Instructions — Mushroom-Head Solar Project
 
+> **CANONICAL GOVERNANCE NOTICE — 18 September 2026**
+>
+> The previous repository version condensed the user's detailed master instruction. That condensation is not an acceptable substitute for the full instruction. The detailed master instruction governs the project; summaries are checklists only and must never replace or weaken it.
+>
+> Required intellectual chain: Problem -> Physics -> Assumptions -> Mathematics -> Derivation -> Computation -> Results -> Interpretation -> Engineering Decision.
+
+## Full 46-part requirement map
+
+1. Reconstruct the project from the research-session notebook; extract objectives, questions, mechanisms, mathematics, assumptions, numerical work, sources, alternatives, corrections, uncertainties, experiments and future work; reorganise logically and resolve or flag contradictions.
+2. Use slow, cumulative technical exposition: physical intuition -> definitions -> assumptions -> governing principle -> formulation -> derivation -> calculation -> result -> interpretation -> engineering implication.
+3. Explain the technology and physical system before advanced modelling.
+4. Use a professional research/engineering report structure, adapting headings to relevance rather than forcing a template.
+5. Typeset mathematics professionally; define every important symbol, unit and physical meaning; maintain consistent notation and nomenclature.
+6. Derive important relationships from first principles where appropriate and label laws, definitions, assumptions, conditions, derived relations, correlations, approximations, estimates and calculated results distinctly.
+7. Show important workings step-by-step, including coordinates, conditions, assumptions, simplification, substitution, unit checks, plausibility and interpretation.
+8. Perform dimensional, unit, order-of-magnitude, limiting-case and physical/literature sanity checks.
+9. Follow major mathematics with Physical Interpretation and Engineering Implication.
+10. Create useful labelled technical drawings and diagrams; number, caption and discuss every important figure.
+11. Use external photographs/figures only when materially useful, with attribution; prefer original schematics.
+12. Generate professional reproducible graphs with labelled axes/units, legends where needed, captions, and mathematical/physical/engineering interpretation.
+13. Maintain parameter/data tables that distinguish measured, published, manufacturer, calculated, simulated, estimated and assumed values.
+14. Use authoritative evidence and numbered citations; prefer primary sources; never fabricate sources, DOI data or values; mark unverifiable items Requires verification.
+15. Distinguish sourced knowledge, assumptions, calculated/simulated results, estimates, hypotheses, proposed designs and unresolved questions.
+16. Apply engineering rigour to conservation laws, conditions, properties, geometry, operation, losses, parasitics, mechanics, thermal/environmental constraints, manufacturability, reliability, scalability, cost, safety and uncertainty.
+17. Formulate optimisation explicitly with decision variables, objectives, inequality/equality constraints and bounds; explain their physical meaning and trade-offs; never invent an optimum.
+18. Document computational algorithms, inputs/outputs, discretisation, solver, convergence, optimisation/stopping criteria, assumptions and limitations.
+19. Analyse uncertainty and sensitivity; avoid unjustified precision; identify parameters requiring better evidence.
+20. Preserve meaningful alternative designs and compare them on relevant physical and engineering criteria.
+21. Use professional technical English with coherent paragraphs, clear hierarchy, defined acronyms and no chatty filler or hype.
+22. Preserve calculation traceability: Source/Input -> Assumption -> Equation -> Calculation -> Result -> Interpretation -> Design implication.
+23. Use appendices for supporting derivations, data, parameter tables, sensitivity work, code/algorithms and supplementary calculations.
+24. Maintain a complete professional Markdown report with equations, tables, figures, captions, citations, bibliography and appendices.
+25. Maintain a complete compilable professional LaTeX report with proper packages, equation numbering, alignment, SI notation, references and nomenclature; compile before delivery.
+26. Maintain a genuinely typeset professional PDF with title page, contents, lists where useful, page numbers, typography, rendered mathematics, figures/tables, references and appendices.
+27. Render and visually inspect the PDF page-by-page; fix overflow, split equations, tiny/blurry figures, detached captions, broken references, missing glyphs/citations, bad page breaks, overlaps and unreadable labels; regenerate and recheck.
+28. Preserve reproducible modular computational work rather than final answers only. Project-specific constraint: use Rust, not Python, for modelling/analysis/optimisation/visualisation code.
+29. Cross-reference report equations and source implementation so principle -> equation -> code -> result -> graph -> engineering conclusion is traceable.
+30. Make figures reproducible from source data through analysis/model and plotting code; preserve vector output where useful plus GitHub-friendly raster output.
+31. Document data provenance, URL/DOI, access date where relevant, units, variables, preprocessing, transformations, assumptions, missing-data handling and limitations; respect redistribution rights.
+32. Use this dedicated GitHub repository as the canonical workspace. Although the generic master prompt defaulted to private, this project was subsequently explicitly made public, so public-repository safety applies.
+33. Maintain a meaningful repository structure for reports, equations, figures, plots, data, source, references and methodology; do not create empty directories merely to mimic a template.
+34. Maintain a professional README covering overview, motivation, research question, approach, concept diagram, principal equations, methodology, results, structure, reproduction, report links, data, references, limitations and future work.
+35. Maintain a valid BibTeX bibliography with real metadata and matching LaTeX citations.
+36. Maintain version-control hygiene and never commit credentials, secrets, private configuration, unnecessary temporary files, restricted material or sensitive information.
+37. Do not assume licensing rights; respect third-party code/data/figure/software licences and attribution.
+38. Validate Markdown, LaTeX, PDF, code, reproducibility, repository paths, README, data docs, references, gitignore and secret safety before milestone publication.
+39. Use the connected GitHub integration directly when available; do not stop at manual instructions when repository operations are permitted.
+40. Use meaningful commits for substantive increments without manufacturing needless commits.
+41. Inspect the GitHub repository after pushes; confirm visibility, README, reports, figures, plots, source, data instructions, bibliography, links and absence of credentials; fix breakage.
+42. Perform a final mathematical, physical, numerical, notation, logical, evidence, figure, reproducibility and completeness review.
+43. Do not over-compress. Derive rather than merely state; explain rather than merely calculate; interpret rather than merely report.
+44. Maintain the actual final deliverables: README; Markdown/LaTeX/PDF reports; equations/derivations/nomenclature; figures; plots; documented data; modular source; bibliography; methodology.
+45. At milestone handover, link repository/report/source/equations/figures/data/references and summarise reconstruction, research, models, checked calculations, datasets, visuals, tools, optimisation, assumptions, uncertainties, unresolved questions and next steps.
+46. Apply professor/research-supervisor/professional-engineer quality: the repository must read as deliberately researched, mathematically developed, computationally implemented, documented and checked, not as an exported ChatGPT conversation.
+
+## Project-specific non-negotiable clarifications
+
+- Audit compliance with this master instruction at least every three project turns and record substantive audits under docs/audits/.
+- Immediately after every important displayed equation, define every introduced symbol and unit; a distant nomenclature table is supplementary, not a substitute.
+- Justify every non-trivial numerical constant/default and cite authoritative sources for empirical/astronomical values.
+- Rust-only computational implementation is the current user constraint. Existing Python remnants are migration debt and must not remain the canonical reproduction workflow.
+- Preserve the originating mushroom-head/sphere/topology/rotation question and early reasoning under docs/foundation/ as mandatory project lineage.
+- Keep the investigation falsifiable: do not assume the mushroom geometry wins; use equal-resource baselines.
+- Put required diagrams inside the report, not merely elsewhere in the repository.
+- Do not promote exploratory calculations to validated conclusions before appropriate Singapore time-resolved data and higher-fidelity physics support them.
+
+---
+
+## Existing operational detail retained from the earlier repository version
 ## Purpose
 These instructions govern all continuing work in this repository. They consolidate the original project brief and subsequent user clarifications. They are persistent project requirements, not optional suggestions.
 
