@@ -195,6 +195,27 @@ A_{\mathrm{foot}}\le\SI{1}{\square\metre},\qquad
 \end{equation}
 Here $A_{\mathrm{foot}}$ is footprint area; $A_i$ is facet area; and $z_i$ is facet elevation. The numerical values 1, 2 and 2 are engineering design assumptions selected to define a reproducible comparison. They are neither Singapore regulatory limits nor discovered optima and must be varied in sensitivity analysis.
 
+
+\section{Parameter evidence status and model-input gate}
+Numerical values in this project do not share a common evidentiary status. The canonical typed register is \texttt{docs/parameter\_provenance\_register.md}. It distinguishes exact definitions, sourced context, approximation coefficients, engineering assumptions, provisional historical values, required-but-unset physical inputs and numerical settings.
+
+The canonical equal-resource cell currently uses
+\begin{equation}
+A_{\mathrm{foot}}\le\SI{1}{\square\metre},\qquad
+A_{\mathrm{PV}}\le\SI{2}{\square\metre},\qquad
+H_{\max}\le\SI{2}{\metre}.
+\label{eq:resource-envelope}
+\end{equation}
+Here \(A_{\mathrm{foot}}\) is the horizontal footprint budget (\si{\square\metre}); \(A_{\mathrm{PV}}\) is the active photovoltaic-area budget (\si{\square\metre}); and \(H_{\max}\) is the maximum candidate height (\si{\metre}). The numerical values 1, 2 and 2 are engineering comparison assumptions inherited from the foundation experiment. They are neither Singapore regulatory limits nor discovered optima and require sensitivity sweeps before design conclusions.
+
+An earlier exploratory calculation used approximately \(\SI{1580}{\kilo\watt\hour\per\square\metre\per\year}\), a 57\% diffuse share and 23\% module efficiency. The first value is sourced Singapore context from EMA but is not a substitute for time-resolved GHI/DHI/DNI. The 57\% diffuse share is provisional/historical only and is prohibited from validated yield calculations. The 23\% efficiency is a historical engineering assumption because no canonical module has been selected. These values must not be presented as if they have equal evidentiary status.
+
+\paragraph{Physical Interpretation.}
+A model result inherits the quality of its inputs. A precisely evaluated equation does not convert a provisional assumption into measured evidence.
+
+\paragraph{Engineering Implication.}
+Required inputs such as time-resolved irradiance, module bifaciality, albedo, thermal coefficients and wind-design parameters remain unset until an authoritative source or explicit design basis is selected. Convenient defaults must not be introduced silently.
+
 \section{Status and next step}
 Three conceptual engineering figures are now embedded in the LaTeX source. They remain conceptual rather than quantitative evidence. The next visual gates are a mechanical free-body/tracking diagram, a method/validation flowchart, validated convergence plots, compilation of this SVG-enabled LaTeX source, and page-by-page PDF visual QA.
 
