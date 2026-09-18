@@ -4,6 +4,7 @@
 //! This layer reports defects; it does not impute, repair, or silently coerce
 //! source observations.
 
+use std::collections::HashMap;
 use std::fmt;
 
 pub const REQUIRED_HEADER: [&str; 7] = [
@@ -187,9 +188,9 @@ fn validate_record(record: &WeatherRecord, row: usize, issues: &mut Vec<QcIssue>
 /// Parse the canonical seven-column CSV fixture/interchange form.
 ///
 /// Provider-specific formats must be normalized by a separately documented
-/// preprocessing step. Timestamp ordering below is intentionally only a
-/// normalized-string foundation: absolute-time parsing is still required before
-/// this module can satisfy the full canonical time-series contract.
+/// preprocessing step. The strict schema-v1 timestamp subset is normalized to
+/// absolute UTC seconds here; broader provider-format normalization, manifest
+/// linkage and the remaining QC contract are still separate foundation work.
 pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIssue>), String> {
     let mut lines = input.lines().filter(|line| !line.trim().is_empty());
     let header = lines.next().ok_or_else(|| "missing CSV header".to_string())?;
@@ -246,14 +247,23 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
         }
     }
 
-    for pair in records.windows(2) {
-        if pair[0].timestamp_utc_s == pair[1].timestamp_utc_s {
+    let mut first_seen: HashMap<i64, usize> = HashMap::new();
+    for (index, record) in records.iter().enumerate() {
+        let row = index + 2;
+        if let Some(first_row) = first_seen.insert(record.timestamp_utc_s, row) {
             issues.push(QcIssue {
-                row: 0,
+                row,
                 field: "timestamp",
-                message: format!("duplicate timestamp {}", pair[0].timestamp),
+                message: format!(
+                    "duplicate absolute timestamp {} (first seen at row {first_row})",
+                    record.timestamp
+                ),
             });
-        } else if pair[0].timestamp_utc_s > pair[1].timestamp_utc_s {
+        }
+    }
+
+    for pair in records.windows(2) {
+        if pair[0].timestamp_utc_s > pair[1].timestamp_utc_s {
             issues.push(QcIssue {
                 row: 0,
                 field: "timestamp",
@@ -318,7 +328,7 @@ pub fn summarize_qc(
         issue_count: issues.len(),
         duplicate_timestamps: issues
             .iter()
-            .filter(|issue| issue.message.contains("duplicate timestamp"))
+            .filter(|issue| issue.message.contains("duplicate absolute timestamp"))
             .count(),
         nonmonotonic_timestamps: issues
             .iter()
@@ -373,6 +383,13 @@ mod tests {
         let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\n2026-01-01T12:00:00+08:00,810,121,701,31.3,2.5,181\n");
         let (_, issues) = parse_canonical_csv(&csv).unwrap();
         assert!(issues.iter().any(|issue| issue.message.contains("duplicate timestamp")));
+    }
+
+    #[test]
+    fn reports_nonadjacent_duplicate_absolute_timestamp() {
+        let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\n2026-01-01T12:01:00+08:00,810,121,701,31.3,2.5,181\n2026-01-01T04:00:00Z,820,122,702,31.4,2.6,182\n");
+        let (_, issues) = parse_canonical_csv(&csv).unwrap();
+        assert!(issues.iter().any(|issue| issue.message.contains("duplicate absolute timestamp")));
     }
 
     #[test]
