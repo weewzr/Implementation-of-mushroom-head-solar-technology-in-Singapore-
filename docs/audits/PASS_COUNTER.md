@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **97**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **98**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-30.md`.
 - That audit occurred on Continue #96.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #97 / Pass 1 of audit cycle 31; new session resumed from persisted state. This pass is assigned to compile/render the updated LaTeX report, retained PDF visual QA, and correction of rendering/layout defects.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #98 / Pass 2 of audit cycle 31; continuing the retained LaTeX compile/PDF visual-QA foundation work and report/visual defect correction.
 - Mandatory audit is due no later than project Continue #99 (Pass 3 of audit cycle 31), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **1**.
+- Current ChatGPT session explicit `Continue` count: **2**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered.
 - Session rotation required: **no**.
-- Next-pass state: **project #98 / Pass 2 of audit cycle 31; continue from the compile/PDF visual-QA outcome and repair any remaining report/visual defects; mandatory audit remains due at project #99**.
+- Next-pass state: **project #99 / Pass 3 of audit cycle 31; perform mandatory master-instruction audit before substantive work, then continue from retained compile/PDF visual-QA and report/visual defects**.
 
 ## Session-rotation rule
 
