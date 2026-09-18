@@ -58,6 +58,27 @@ pub fn solar_direction_enu(azimuth: f64, elevation: f64) -> [f64; 3] {
     ]
 }
 
+
+/// Diagnostic irradiance closure residual for a horizontal plane.
+///
+/// The ideal geometric relation is GHI = DHI + DNI * cos(theta_z), where
+/// theta_z is solar zenith angle. Inputs are irradiances in W/m^2 and zenith
+/// angle in radians. This function is a QC diagnostic: it does not overwrite
+/// measurements and it does not choose an acceptance tolerance.
+///
+/// Returns GHI - (DHI + DNI*cos(theta_z)) in W/m^2. For sun at/below the
+/// horizon (cos(theta_z) <= 0), no direct horizontal contribution is admitted
+/// and the diagnostic reduces to GHI - DHI.
+pub fn irradiance_closure_residual_w_m2(
+    ghi_w_m2: f64,
+    dhi_w_m2: f64,
+    dni_w_m2: f64,
+    solar_zenith_rad: f64,
+) -> f64 {
+    let cos_zenith = solar_zenith_rad.cos().max(0.0);
+    ghi_w_m2 - (dhi_w_m2 + dni_w_m2 * cos_zenith)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -107,6 +128,39 @@ mod tests {
                 assert!((norm - 1.0).abs() < tol);
             }
         }
+    }
+
+    #[test]
+    fn irradiance_closure_matches_exact_synthetic_cases() {
+        let tol = 1e-12;
+
+        // Zenith Sun: direct horizontal contribution equals DNI.
+        assert!(irradiance_closure_residual_w_m2(
+            900.0, 100.0, 800.0, 0.0
+        ).abs() < tol);
+
+        // 60-degree zenith: cos(theta_z)=0.5.
+        assert!(irradiance_closure_residual_w_m2(
+            500.0, 100.0, 800.0, deg_to_rad(60.0)
+        ).abs() < tol);
+
+        // At the horizon there is no direct horizontal contribution.
+        assert!(irradiance_closure_residual_w_m2(
+            100.0, 100.0, 800.0, deg_to_rad(90.0)
+        ).abs() < tol);
+
+        // Below the horizon the diagnostic must not create a negative direct term.
+        assert!(irradiance_closure_residual_w_m2(
+            20.0, 20.0, 800.0, deg_to_rad(100.0)
+        ).abs() < tol);
+    }
+
+    #[test]
+    fn irradiance_closure_residual_preserves_mismatch_sign() {
+        let residual = irradiance_closure_residual_w_m2(
+            510.0, 100.0, 800.0, deg_to_rad(60.0)
+        );
+        assert!((residual - 10.0).abs() < 1e-12);
     }
 
     #[test]
