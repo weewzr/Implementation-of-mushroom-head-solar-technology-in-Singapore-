@@ -10,3 +10,5 @@ pub mod solar;
 pub mod candidates;
 
 pub mod mesh;
+
+pub mod weather;
