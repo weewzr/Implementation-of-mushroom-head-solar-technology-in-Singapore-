@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **119**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-37.md`.
-- That audit occurred on Continue #117.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #119 / Pass 2 of audit cycle 38. Corrective CI showed the SVG-label defect was superseded by an environment defect: the containerized evidence workflow had no Inkscape executable. The workflow now runs on Ubuntu and explicitly installs LaTeX, Inkscape and poppler-utils; fresh build evidence is pending.
+- Total explicit user `Continue` commands counted through 18 September 2026: **120**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-38.md`.
+- That audit occurred on Continue #120.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #120 / mandatory audit 38 completed. Audit confirms the project remains in foundation/validation mode; corrected PDF workflows are still running/pending verification, and no model result is promoted.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **3**.
+- Current ChatGPT session explicit `Continue` count: **4**.
 - This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **project #120 / Pass 3 of audit cycle 38 and session Continue #4; perform mandatory master-instruction audit before substantive work, then inspect the corrected compile evidence and proceed to page QA only if the PDF build succeeds**.
+- Next-pass state: **project #121 / Pass 1 of audit cycle 39 and session Continue #5; inspect corrected CI completion, diagnose any remaining compiler defect or, on success, obtain PDF evidence and begin page-by-page QA**.
 
 ## Session-rotation rule
 
