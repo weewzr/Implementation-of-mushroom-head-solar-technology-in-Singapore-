@@ -47,4 +47,4 @@
 
 ## Coordinate-system status
 
-The final east–north–up coordinate convention, solar azimuth sign convention, facet-normal orientation and tracker-angle sign convention must be stated identically in the Markdown report, LaTeX report and Rust implementation before higher-fidelity ray tracing begins. Until that reconciliation is completed, solar-vector calculations remain preliminary.
+The canonical convention is now defined in `docs/coordinate_conventions.md`: right-handed East–North–Up (ENU), solar/facet azimuth clockwise from geographic north, radians internally in Rust, and outward/front-side facet normals. Tracker rotation uses the right-hand rule about an explicitly stated ENU axis. The Markdown report, LaTeX report and Rust implementation must remain synchronized with that document. Solar-position calculations remain preliminary until NREL SPA benchmarking is completed.
