@@ -69,6 +69,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-18_three-pass_audit-36.md` | Mandatory Pass 3 / Continue #114 | Beginner-to-mathematics parity and PDF-evidence checkpoint | Markdown/LaTeX irradiance-to-geometry bridge synchronized; compiled PDF/page QA, canonical Singapore data, SPA validation and uncertainty/convergence gates remain open; model expansion remains paused |
 
+| `2026-09-18_three-pass_audit-37.md` | Mandatory Pass 3 / Continue #117 + new-session state recovery | Cross-session governance, PDF-evidence and scientific-validation checkpoint | Stale counter repaired; current compiled PDF/page QA, canonical Singapore data, SPA validation and uncertainty/convergence gates remain open; model expansion remains paused |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
