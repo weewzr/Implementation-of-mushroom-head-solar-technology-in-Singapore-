@@ -108,5 +108,6 @@ A dated compliance audit is maintained under [`docs/audits/`](docs/audits/). The
 - [Full master-instruction audit](docs/audits/2026-09-18_full_master_instruction_audit.md)
 - [Mandatory audit ledger](docs/audits/AUDIT_LEDGER.md)
 - [Equation–code–evidence traceability matrix](docs/traceability_matrix.md)
+- [Typed parameter and provenance register](docs/parameter_provenance_register.md)
 
 The repository is not yet at final-report quality. Quantitative performance claims remain exploratory until the traceability, validation, uncertainty and PDF quality gates in the master instruction are satisfied.
