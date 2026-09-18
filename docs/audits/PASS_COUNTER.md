@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **110**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-34.md`.
-- That audit occurred on Continue #108.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #110 / Pass 2 of audit cycle 35. Priority was shifted explicitly to the report/PDF, diagrams and beginner explanation of solar in Singapore. A new beginner solar-energy-chain SVG and a plain-language Singapore PV section were added to the LaTeX report; compiled-PDF/page QA remains open.
-- Mandatory audit is due no later than project Continue #111 (Pass 3 of audit cycle 35), unless an earlier major-result audit is required.
+- Total explicit user `Continue` commands counted through 18 September 2026: **111**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-35.md`.
+- That audit occurred on Continue #111.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #111 / Pass 3 of audit cycle 35. Mandatory audit 35 verified the PDF-first priority, the new beginner Singapore solar exposition and eight-figure source suite; compiled-PDF/page QA and evidence gates remain open.
+- Mandatory audit is due no later than project Continue #114 (Pass 3 of audit cycle 36), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **2**.
+- Current ChatGPT session explicit `Continue` count: **3**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered successfully.
 - Session rotation required: **no**.
-- Next-pass state: **project #111 / Pass 3 of audit cycle 35; perform the mandatory master-instruction audit before substantive work, then continue PDF-first beginner exposition/diagram integration and compiled-PDF visual QA**.
+- Next-pass state: **project #112 / Pass 1 of audit cycle 36; continue PDF-first pedagogical development, improve the bridge from beginner solar concepts to geometry equations, and perform compiled-PDF/page QA immediately if an artifact becomes observable**.
 
 ## Session-rotation rule
 
