@@ -1,0 +1,87 @@
+# Machine-readable schema for canonical Singapore weather/irradiance ingestion.
+# Foundation contract only; this file does not identify an acquired dataset.
+
+schema_version = 1
+timezone_requirement = "explicit_offset"
+timestamp_format = "ISO8601"
+
+[[field]]
+name = "timestamp"
+required = true
+canonical_unit = "ISO8601"
+kind = "timestamp"
+
+[[field]]
+name = "ghi_w_m2"
+required = true
+canonical_unit = "W/m^2"
+kind = "irradiance"
+
+[[field]]
+name = "dhi_w_m2"
+required = true
+canonical_unit = "W/m^2"
+kind = "irradiance"
+
+[[field]]
+name = "dni_w_m2"
+required = true
+canonical_unit = "W/m^2"
+kind = "irradiance"
+allow_derived = true
+
+[[field]]
+name = "ambient_temperature_c"
+required = true
+canonical_unit = "degC"
+kind = "meteorology"
+
+[[field]]
+name = "wind_speed_m_s"
+required = true
+canonical_unit = "m/s"
+kind = "meteorology"
+
+[[field]]
+name = "wind_direction_deg"
+required = true
+canonical_unit = "degree_clockwise_from_north"
+kind = "meteorology"
+
+[[field]]
+name = "relative_humidity_percent"
+required = false
+canonical_unit = "%"
+kind = "meteorology"
+
+[[field]]
+name = "air_pressure_pa"
+required = false
+canonical_unit = "Pa"
+kind = "meteorology"
+
+[site_metadata]
+latitude_deg_required = true
+longitude_deg_required = true
+elevation_m_required = false
+
+[qc]
+reject_nonfinite = true
+report_duplicate_timestamps = true
+report_nonmonotonic_timestamps = true
+report_sampling_interval_changes = true
+report_negative_irradiance = true
+preserve_provider_quality_flags = true
+irradiance_closure_check = true
+
+[provenance]
+provider_required = true
+dataset_name_required = true
+source_identifier_required = true
+retrieval_date_required = true
+licence_required = true
+redistribution_status_required = true
+coverage_period_required = true
+native_interval_required = true
+source_timezone_required = true
+sensor_or_derived_status_required = true
