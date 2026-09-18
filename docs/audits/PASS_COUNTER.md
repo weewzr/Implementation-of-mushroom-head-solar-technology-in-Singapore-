@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **107**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-33.md`.
-- That audit occurred on Continue #105.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #107 / Pass 2 of audit cycle 34; a second parity check confirmed the prior mechanical insertion had not persisted in the report. It was restored with a robust anchor, and all seven current includesvg paths were then verified to resolve to repository SVG files with unique figure labels.
-- Mandatory audit is due no later than project Continue #108 (Pass 3 of audit cycle 34), unless an earlier major-result audit is required.
+- Total explicit user `Continue` commands counted through 18 September 2026: **108**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-34.md`.
+- That audit occurred on Continue #108.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #108 / Pass 3 of audit cycle 34; mandatory audit 34 verified seven-figure SVG source parity and current mechanical/validation-flow persistence. Compiled-PDF evidence remains blocked by Actions/artifact observability; no new validated result was released.
+- Mandatory audit is due no later than project Continue #111 (Pass 3 of audit cycle 35), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **11**.
+- Current ChatGPT session explicit `Continue` count: **12**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered.
-- Session rotation required: **no**.
-- Next-pass state: **project #108 / Pass 3 of audit cycle 34 and session Continue #12; perform mandatory audit first, complete required state recording, and rotate sessions without beginning another substantive pass. The next session must resume PDF/diagram readiness from the persisted state**.
+- Session rotation required: **yes — boundary reached; start a new chat inside the same Mushroom-Head Solar project**.
+- Next-pass state: **project #109 / Pass 1 of audit cycle 35 in a new session; resume from persisted seven-figure report parity and PDF/diagram readiness, seek a real compiled PDF artifact without blind CI-trigger edits, and apply the retained PDF visual-QA checklist immediately if an artifact becomes available**.
 
 ## Session-rotation rule
 
