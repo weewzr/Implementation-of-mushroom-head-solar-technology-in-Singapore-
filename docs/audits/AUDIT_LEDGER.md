@@ -23,6 +23,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-18_three-pass_audit-13.md` | Mandatory Pass 3 / Continue #45 | Rust/LaTeX evidence and data-readiness checkpoint | Evidence workflows exist but qualifying runs remain unverified; next foundation priority is Singapore time-series input contract; modelling remains paused |
 
+| `2026-09-18_three-pass_audit-14.md` | Mandatory Pass 3 / Continue #48 + session rotation | Singapore data-contract/schema and rotation checkpoint | Data contract/schema/manifest foundation established; Rust ingestion/QC is next; validation gates remain open; session rotation required |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
