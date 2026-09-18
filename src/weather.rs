@@ -237,6 +237,45 @@ pub fn parse_dataset_manifest_toml(input: &str) -> Result<DatasetMetadata, Strin
     Ok(metadata)
 }
 
+
+/// Check that an independently supplied dataset/site identity agrees with the
+/// bound acquisition manifest. No coordinate tolerance is assumed here: the
+/// caller must supply a justified tolerance in degrees for its source precision.
+pub fn check_site_consistency(
+    metadata: &DatasetMetadata,
+    station_id: &str,
+    latitude_deg: f64,
+    longitude_deg: f64,
+    coordinate_tolerance_deg: f64,
+) -> Result<Vec<String>, String> {
+    if !coordinate_tolerance_deg.is_finite() || coordinate_tolerance_deg < 0.0 {
+        return Err("coordinate_tolerance_deg must be finite and non-negative".to_string());
+    }
+    if !latitude_deg.is_finite() || !longitude_deg.is_finite() {
+        return Err("dataset site coordinates must be finite".to_string());
+    }
+    let mut issues = Vec::new();
+    if station_id != metadata.station_id {
+        issues.push(format!(
+            "station_id mismatch: manifest {:?}, dataset {:?}",
+            metadata.station_id, station_id
+        ));
+    }
+    if (latitude_deg - metadata.latitude_deg).abs() > coordinate_tolerance_deg {
+        issues.push(format!(
+            "latitude mismatch: manifest {}, dataset {}, tolerance {} deg",
+            metadata.latitude_deg, latitude_deg, coordinate_tolerance_deg
+        ));
+    }
+    if (longitude_deg - metadata.longitude_deg).abs() > coordinate_tolerance_deg {
+        issues.push(format!(
+            "longitude mismatch: manifest {}, dataset {}, tolerance {} deg",
+            metadata.longitude_deg, longitude_deg, coordinate_tolerance_deg
+        ));
+    }
+    Ok(issues)
+}
+
 pub const REQUIRED_HEADER: [&str; 7] = [
     "timestamp",
     "ghi_w_m2",
@@ -792,6 +831,47 @@ known_sensor_or_clock_issues = ""
                 || error.contains("provider_quality_flags_available"),
             "unexpected template rejection reason: {error}"
         );
+    }
+
+    #[test]
+    fn site_consistency_requires_explicit_tolerance_and_reports_mismatch() {
+        let metadata = DatasetMetadata {
+            provider: "provider".into(),
+            product_name: "product".into(),
+            source_identifier: "source".into(),
+            retrieval_date: "2026-09-18".into(),
+            coverage_start: "2026-01-01".into(),
+            coverage_end: "2026-12-31".into(),
+            native_sampling_interval_s: 60,
+            source_timezone: "+08:00".into(),
+            timestamp_semantics: "interval_end".into(),
+            station_id: "SG-A".into(),
+            latitude_deg: 1.3000,
+            longitude_deg: 103.8000,
+            elevation_m: None,
+            coordinate_datum: Some("WGS84".into()),
+            licence_name: "licence".into(),
+            permission_reference: "ref".into(),
+            raw_redistribution: "unknown".into(),
+            derived_output_redistribution: "unknown".into(),
+            source_checksum: None,
+            immutable_source_id: None,
+            provider_quality_flags_available: false,
+            variables: VariableProvenance {
+                ghi: VariableStatus::Measured,
+                dhi: VariableStatus::Measured,
+                dni: VariableStatus::Derived,
+                ambient_temperature: VariableStatus::Measured,
+                wind_speed: VariableStatus::Measured,
+                wind_direction: VariableStatus::Measured,
+                relative_humidity: VariableStatus::Unavailable,
+                air_pressure: VariableStatus::Measured,
+            },
+        };
+        let issues = check_site_consistency(&metadata, "SG-B", 1.3002, 103.8000, 0.0001).unwrap();
+        assert!(issues.iter().any(|x| x.contains("station_id mismatch")));
+        assert!(issues.iter().any(|x| x.contains("latitude mismatch")));
+        assert!(check_site_consistency(&metadata, "SG-A", 1.3, 103.8, -1.0).is_err());
     }
 
     #[test]
