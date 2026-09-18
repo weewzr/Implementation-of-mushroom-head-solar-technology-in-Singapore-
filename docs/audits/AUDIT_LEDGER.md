@@ -1,0 +1,16 @@
+# Master-Instruction Audit Ledger
+
+This ledger exists because the required three-turn audit cadence was missed during continuation work. It is a hard project-control mechanism, not optional documentation.
+
+| Audit | Trigger | Scope | Outcome |
+|---|---|---|---|
+| `2026-09-18_master_instruction_audit.md` | Restoration of full master governance | Broad repository compliance | Identified major incomplete gates |
+| `2026-09-18_full_master_instruction_audit.md` | User identified missed three-turn audit | Full 46-requirement run plus operational checklist | Major modelling paused; corrective backlog established |
+
+## Cadence rule
+
+At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
+
+## Result-release rule
+
+No numerical performance result may be promoted from exploratory to validated merely because code runs. Validation requires traceable inputs, equal-resource normalization, appropriate physics, convergence/numerical checks, uncertainty treatment where material, and report/code/data consistency.
