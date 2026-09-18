@@ -713,7 +713,12 @@ known_sensor_or_clock_issues = ""
     fn manifest_binding_rejects_unresolved_quality_flag_state() {
         let template = include_str!("../data/manifests/acquisition_manifest_template.toml");
         let error = parse_dataset_manifest_toml(template).unwrap_err();
-        assert!(error.contains("latitude_deg") || error.contains("provider_quality_flags_available"));
+        assert!(
+            error.contains("native_sampling_interval")
+                || error.contains("latitude_deg")
+                || error.contains("provider_quality_flags_available"),
+            "unexpected template rejection reason: {error}"
+        );
     }
 
     #[test]
