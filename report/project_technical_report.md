@@ -87,7 +87,7 @@ where:
 - $365$ is the non-leap-year period assumed by this approximation (days per cycle);
 - $284$ is the Cooper phase-offset constant (dimensionless day index) used to align the sinusoid with the annual declination cycle.
 
-**Provenance and limitation.** pvlib documents this expression as the Cooper (1969) approximation via Duffie and Beckman. It is retained here because its assumptions are transparent. Validated production simulations should use a higher-accuracy solar-position implementation rather than treating this sinusoid as exact astronomy.
+**Provenance and limitation.** pvlib documents this expression as a Duffie & Beckman relation attributed to Cooper (1969); Duffie & Beckman is now included in the project bibliography. The original Cooper-paper metadata remains **Requires verification**, so no fabricated primary-source citation is used. The approximation is retained because its assumptions are transparent. Validated production simulations should instead be benchmarked against the NREL Solar Position Algorithm.
 
 ### 3.2 Solar hour angle
 Using local apparent solar time,
@@ -407,8 +407,10 @@ The current priority is not to add further physics. First reconcile this Markdow
 [2] Energy Market Authority, “Singapore to Accelerate Solar Deployment to Meet 3 GWp Solar Target by 2030,” 2 Mar. 2026.  
 [3] Solar Energy Research Institute of Singapore, “Real-Time Monitoring System of Meteorological Parameters,” accessed 17 Sep. 2026.  
 [4] Solar Energy Research Institute of Singapore, *Annual Report 2025*, National University of Singapore, 2025.  
-[5] pvlib documentation, `declination_cooper69`, documenting the Cooper (1969) approximation via Duffie & Beckman.  
-[6] Sandia PV Performance Modeling Collaborative, “Basic Solar Position Models.”
+[5] J. A. Duffie and W. A. Beckman, *Solar Engineering of Thermal Processes*, 4th ed., Wiley, 2013, doi:10.1002/9781118671603.  
+[6] pvlib python Development Team, `pvlib.solarposition.declination_cooper69`, documentation, accessed 18 Sep. 2026.  
+[7] I. Reda and A. Andreas, *Solar Position Algorithm for Solar Radiation Applications*, NREL/TP-560-34302, rev. Jan. 2008.  
+[8] I. Reda and A. Andreas, “Solar position algorithm for solar radiation applications,” *Solar Energy*, vol. 76, no. 5, pp. 577–589, 2004, doi:10.1016/j.solener.2003.12.003.
 
 ## Reproducibility
 `src/geometry.rs`, `src/solar.rs`, `src/mesh.rs`, and `src/candidates.rs` form the current canonical Rust analytical foundation. Solar-position code remains explicitly preliminary until benchmarked against a traceable NREL SPA implementation. Model-generated data must not be confused with measurements.
