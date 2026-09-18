@@ -28,6 +28,8 @@ pub struct WeatherRecord {
     pub ambient_temperature_c: f64,
     pub wind_speed_m_s: f64,
     pub wind_direction_deg: f64,
+    pub relative_humidity_percent: Option<f64>,
+    pub air_pressure_pa: Option<f64>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -183,9 +185,30 @@ fn validate_record(record: &WeatherRecord, row: usize, issues: &mut Vec<QcIssue>
             message: "expected degrees clockwise from north in [0, 360)".to_string(),
         });
     }
+    if let Some(rh) = record.relative_humidity_percent {
+        if !(0.0..=100.0).contains(&rh) {
+            issues.push(QcIssue {
+                row,
+                field: "relative_humidity_percent",
+                message: "expected relative humidity in [0, 100] percent".to_string(),
+            });
+        }
+    }
+    if let Some(pressure) = record.air_pressure_pa {
+        if pressure <= 0.0 {
+            issues.push(QcIssue {
+                row,
+                field: "air_pressure_pa",
+                message: "air pressure must be positive".to_string(),
+            });
+        }
+    }
 }
 
-/// Parse the canonical seven-column CSV fixture/interchange form.
+/// Parse the canonical CSV fixture/interchange form.
+///
+/// The seven required columns must appear first in canonical order. Schema-v1
+/// optional relative humidity and air pressure columns may follow in that order.
 ///
 /// Provider-specific formats must be normalized by a separately documented
 /// preprocessing step. The strict schema-v1 timestamp subset is normalized to
@@ -195,9 +218,16 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
     let mut lines = input.lines().filter(|line| !line.trim().is_empty());
     let header = lines.next().ok_or_else(|| "missing CSV header".to_string())?;
     let columns: Vec<&str> = header.split(',').map(str::trim).collect();
-    if columns != REQUIRED_HEADER {
+    let required_prefix_ok = columns.len() >= REQUIRED_HEADER.len()
+        && columns[..REQUIRED_HEADER.len()] == REQUIRED_HEADER;
+    let optional_columns = &columns[REQUIRED_HEADER.len()..];
+    let optional_ok = matches!(
+        optional_columns,
+        [] | ["relative_humidity_percent"] | ["relative_humidity_percent", "air_pressure_pa"]
+    );
+    if !required_prefix_ok || !optional_ok {
         return Err(format!(
-            "canonical header mismatch; expected {}",
+            "canonical header mismatch; expected {} with optional trailing relative_humidity_percent,air_pressure_pa",
             REQUIRED_HEADER.join(",")
         ));
     }
@@ -208,13 +238,13 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
     for (index, line) in lines.enumerate() {
         let row = index + 2;
         let values: Vec<&str> = line.split(',').map(str::trim).collect();
-        if values.len() != REQUIRED_HEADER.len() {
+        if values.len() != columns.len() {
             issues.push(QcIssue {
                 row,
                 field: "row",
                 message: format!(
                     "expected {} columns, found {}",
-                    REQUIRED_HEADER.len(),
+                    columns.len(),
                     values.len()
                 ),
             });
@@ -235,6 +265,16 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
                 ambient_temperature_c: parse_finite(values[4], row, "ambient_temperature_c")?,
                 wind_speed_m_s: parse_finite(values[5], row, "wind_speed_m_s")?,
                 wind_direction_deg: parse_finite(values[6], row, "wind_direction_deg")?,
+                relative_humidity_percent: if columns.len() >= 8 {
+                    Some(parse_finite(values[7], row, "relative_humidity_percent")?)
+                } else {
+                    None
+                },
+                air_pressure_pa: if columns.len() >= 9 {
+                    Some(parse_finite(values[8], row, "air_pressure_pa")?)
+                } else {
+                    None
+                },
             })
         })();
 
@@ -362,6 +402,25 @@ mod tests {
         let (records, issues) = parse_canonical_csv(&csv).unwrap();
         assert_eq!(records.len(), 1);
         assert!(issues.is_empty());
+    }
+
+    #[test]
+    fn accepts_schema_v1_optional_meteorology_columns() {
+        let header = format!("{HEADER},relative_humidity_percent,air_pressure_pa");
+        let csv = format!("{header}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180,78.5,100800\n");
+        let (records, issues) = parse_canonical_csv(&csv).unwrap();
+        assert!(issues.is_empty());
+        assert_eq!(records[0].relative_humidity_percent, Some(78.5));
+        assert_eq!(records[0].air_pressure_pa, Some(100800.0));
+    }
+
+    #[test]
+    fn reports_invalid_optional_meteorology_without_repair() {
+        let header = format!("{HEADER},relative_humidity_percent,air_pressure_pa");
+        let csv = format!("{header}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180,101,-1\n");
+        let (_, issues) = parse_canonical_csv(&csv).unwrap();
+        assert!(issues.iter().any(|issue| issue.field == "relative_humidity_percent"));
+        assert!(issues.iter().any(|issue| issue.field == "air_pressure_pa"));
     }
 
     #[test]
