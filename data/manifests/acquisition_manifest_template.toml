@@ -1,0 +1,50 @@
+# External time-series acquisition manifest template
+# Copy this file for each candidate source. Do not fill unknown fields by inference.
+
+manifest_version = 1
+status = "candidate_source"
+
+[dataset]
+provider = ""
+product_name = ""
+source_identifier = ""
+retrieval_date = ""
+coverage_start = ""
+coverage_end = ""
+native_sampling_interval = ""
+source_timezone = ""
+timestamp_semantics = "" # interval_start | interval_centre | interval_end | instantaneous | provider_defined
+
+[site]
+station_id = ""
+latitude_deg = ""
+longitude_deg = ""
+elevation_m = ""
+coordinate_datum = ""
+
+[licence]
+licence_name = ""
+permission_reference = ""
+raw_redistribution = "unknown"
+derived_output_redistribution = "unknown"
+notes = ""
+
+[variables]
+ghi = "unknown"
+dhi = "unknown"
+dni = "unknown"
+ambient_temperature = "unknown"
+wind_speed = "unknown"
+wind_direction = "unknown"
+relative_humidity = "unknown"
+air_pressure = "unknown"
+
+[provenance]
+source_checksum = ""
+immutable_source_id = ""
+preprocessing_commit = ""
+
+[qc]
+provider_quality_flags_available = "unknown"
+missing_data_notes = ""
+known_sensor_or_clock_issues = ""
