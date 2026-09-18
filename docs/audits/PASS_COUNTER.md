@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **111**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **113**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-35.md`.
 - That audit occurred on Continue #111.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #111 / Pass 3 of audit cycle 35. Mandatory audit 35 verified the PDF-first priority, the new beginner Singapore solar exposition and eight-figure source suite; compiled-PDF/page QA and evidence gates remain open.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #113 / Pass 2 of audit cycle 36. Pass #113 added the missing Markdown beginner bridge from GHI/DNI/DHI through incidence, visibility and electrical conversion to land-normalised comparison; compiled-PDF/page QA and evidence gates remain open.
 - Mandatory audit is due no later than project Continue #114 (Pass 3 of audit cycle 36), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **3**.
+- Current ChatGPT session explicit `Continue` count: **5**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered successfully.
 - Session rotation required: **no**.
-- Next-pass state: **project #112 / Pass 1 of audit cycle 36; continue PDF-first pedagogical development, improve the bridge from beginner solar concepts to geometry equations, and perform compiled-PDF/page QA immediately if an artifact becomes observable**.
+- Next-pass state: **project #114 / Pass 3 of audit cycle 36; mandatory master-instruction audit is due before further expansion, including Markdown/LaTeX parity and compiled-PDF/page-QA status**.
 
 ## Session-rotation rule
 
