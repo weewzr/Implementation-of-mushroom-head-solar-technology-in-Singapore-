@@ -5,18 +5,18 @@
 ## Current state
 
 - Total explicit user `Continue` commands counted through 18 September 2026: **117**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-36.md`.
-- That audit occurred on Continue #114.
-- Passes since most recent audit: **3 pending mandatory audit 37**.
-- Current explicit `Continue` is project #117 / Pass 3 of audit cycle 37.
-- Mandatory audit 37 is due **now, before substantive work**. The prior state text contained stale/contradictory #114/#115 wording; recent repository commits confirm Continue #116 was already recorded, so this turn is reconstructed conservatively as #117.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-37.md`.
+- That audit occurred on Continue #117.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #117 / mandatory audit 37 completed.
+- Audit 37 corrected stale/contradictory counter wording after recent repository history confirmed Continue #116 was already recorded.
 
 ## Session state
 
 - Current ChatGPT session explicit `Continue` count: **1**.
 - This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **complete mandatory audit 37 on project #117, reset passes-since-audit to 0, then select only unresolved foundation work allowed by the audit**.
+- Next-pass state: **project #118 / Pass 1 of audit cycle 38 and session Continue #2; continue unresolved foundation work, prioritising current PDF compile/page-QA evidence without overclaiming**.
 
 ## Session-rotation rule
 
