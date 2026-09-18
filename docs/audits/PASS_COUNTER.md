@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **86**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-26.md`.
-- That audit occurred on Continue #84.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #86 / Pass 2 of audit cycle 27; execution-evidence lookup for the corrected closure/azimuth traceability commit found no qualifying workflow run, and that negative evidence was recorded without promoting validation.
-- Mandatory audit is due no later than project Continue #87 (Pass 3 of audit cycle 27), unless an earlier major-result audit is required.
+- Total explicit user `Continue` commands counted through 18 September 2026: **87**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-27.md`.
+- That audit occurred on Continue #87.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #87 / Pass 3 of audit cycle 27; mandatory audit 27 completed, recurrent traceability formatting/solar-azimuth parity defects were corrected, and unresolved execution/data/SPA/uncertainty/convergence/PDF gates remain explicit.
+- Mandatory audit is due no later than project Continue #90 (Pass 3 of audit cycle 28), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **2**.
+- Current ChatGPT session explicit `Continue` count: **3**.
 - This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #87 / Pass 3 of audit cycle 27; perform mandatory master-instruction audit before substantive work, then continue the Rust execution-evidence/solar-position validation path according to audit findings; do not restart prior work**.
+- Next-pass state: **project #88 / Pass 1 of audit cycle 28; obtain qualifying Rust execution evidence if available, then establish explicit civil-time/apparent-solar-time handling and authoritative SPA benchmark validation; keep annual geometry ranking paused**.
 
 ## Session-rotation rule
 
