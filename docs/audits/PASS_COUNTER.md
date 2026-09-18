@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **115**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **116**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-36.md`.
 - That audit occurred on Continue #114.
-- Passes since most recent audit: **1**.
+- Passes since most recent audit: **2**.
 - Current explicit `Continue` is project #115 / Pass 1 of audit cycle 37. A direct workflow-run lookup for the current LaTeX parity commit returned no observable runs; this negative evidence was recorded in the PDF QA protocol, so compile/page-QA status remains open without overclaiming.
 - Mandatory audit is due no later than project Continue #114 (Pass 3 of audit cycle 36), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **7**.
+- Current ChatGPT session explicit `Continue` count: **8**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered successfully.
 - Session rotation required: **no**.
-- Next-pass state: **project #116 / Pass 2 of audit cycle 37; continue PDF-readiness work at source level and investigate trigger/build evidence without claiming execution; prioritize defects that can block compilation or page rendering**.
+- Next-pass state: **project #117 / Pass 3 of audit cycle 37; mandatory master-instruction audit is due before substantive work, then continue unresolved foundation priorities**.
 
 ## Session-rotation rule
 
