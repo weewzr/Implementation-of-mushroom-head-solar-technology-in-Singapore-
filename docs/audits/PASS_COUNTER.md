@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **109**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **110**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-34.md`.
 - That audit occurred on Continue #108.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #109 / Pass 1 of audit cycle 35. New-session bootstrap recovered audit 34 state; work resumes from seven-figure report parity with compiled-PDF evidence and Actions/artifact observability as the immediate foundation blocker.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #110 / Pass 2 of audit cycle 35. Priority was shifted explicitly to the report/PDF, diagrams and beginner explanation of solar in Singapore. A new beginner solar-energy-chain SVG and a plain-language Singapore PV section were added to the LaTeX report; compiled-PDF/page QA remains open.
 - Mandatory audit is due no later than project Continue #111 (Pass 3 of audit cycle 35), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **1**.
+- Current ChatGPT session explicit `Continue` count: **2**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered successfully.
 - Session rotation required: **no**.
-- Next-pass state: **project #110 / Pass 2 of audit cycle 35; continue the compiled-PDF/Actions-observability foundation work, avoid blind CI-trigger edits, and apply the retained PDF visual-QA checklist immediately if an artifact becomes available**.
+- Next-pass state: **project #111 / Pass 3 of audit cycle 35; perform the mandatory master-instruction audit before substantive work, then continue PDF-first beginner exposition/diagram integration and compiled-PDF visual QA**.
 
 ## Session-rotation rule
 
