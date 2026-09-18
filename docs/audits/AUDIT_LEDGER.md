@@ -12,6 +12,7 @@ This ledger exists because the required three-turn audit cadence was missed duri
 | `2026-09-18_three-pass_audit-04.md` | Mandatory Pass 3 | LaTeX/provenance/repository-consistency audit | Rendering defect verified fixed; parity/provenance improved; README Rust-structure drift corrected; modelling remains paused |
 | `2026-09-18_three-pass_audit-05.md` | Mandatory Pass 3 / Continue #21 | Full foundation and master-instruction checkpoint | ENU Rust API/tests confirmed; stale traceability row found; execution/data/uncertainty/PDF gates remain open; modelling remains paused |
 | `2026-09-18_three-pass_audit-06.md` | Mandatory Pass 3 / Continue #24 | Traceability/data-governance foundation checkpoint | ENU drift closed and weather acquisition/licensing gate defined; execution/parity/uncertainty/PDF gates remain open; modelling remains paused |
+| `2026-09-18_three-pass_audit-07.md` | Mandatory Pass 3 / Continue #27 | Rust-evidence/report-parity checkpoint | Rust evidence protocol added; diffuse LaTeX parity improved; audit caught and corrected LaTeX source corruption; compile/PDF QA remains blocked |
 
 ## Cadence rule
 
