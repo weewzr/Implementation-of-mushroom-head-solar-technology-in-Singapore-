@@ -9,6 +9,7 @@ This ledger exists because the required three-turn audit cadence was missed duri
 | `2026-09-18_three-pass_audit.md` | Mandatory Pass 3 after full audit | Foundation-first operational audit | Governance test passed; modelling remains paused for foundation repair |
 | `2026-09-18_three-pass_audit-02.md` | Mandatory Pass 3 | Coordinate/parity foundation audit | Found Markdown math-rendering defect; coordinate foundation improved; modelling remains paused |
 | `2026-09-18_three-pass_audit-03.md` | Mandatory Pass 3 | Parameter-evidence/parity audit | Typed provenance improved; recurring Markdown delimiter defect found; modelling remains paused |
+| `2026-09-18_three-pass_audit-04.md` | Mandatory Pass 3 | LaTeX/provenance/repository-consistency audit | Rendering defect verified fixed; parity/provenance improved; README Rust-structure drift corrected; modelling remains paused |
 
 ## Cadence rule
 
