@@ -93,8 +93,8 @@ No proprietary SERIS measurements are redistributed. Model-generated outputs are
 ## Current limitations
 The model still requires time-correlated Singapore GHI/DHI, anisotropic diffuse transposition, full sky-view ray tracing, bifacial rear irradiance, detailed thermal/electrical modelling, structural/wind constraints, array spacing and lifecycle economics.
 
-## Next milestone
-Sweep PV packing ratio $\Pi=1$ to $4$ for flat, accordion, cone, paraboloid, sparse-facet and free-form geometries under identical constraints. Then optimise a 20-facet fixed topology before considering discrete tracking.
+## Current foundation gate
+Before any packing sweep or topology optimisation, reconcile Markdown/LaTeX/equations/nomenclature/Rust, eliminate legacy Python references, lock coordinate and sign conventions, complete the typed parameter/provenance register, strengthen analytical benchmarks and traceability, and pass the next master-instruction audit. Higher-fidelity modelling resumes only after these foundations are internally consistent.
 
 
 ## Master-instruction compliance
