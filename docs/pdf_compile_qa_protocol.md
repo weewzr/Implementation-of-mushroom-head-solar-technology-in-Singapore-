@@ -88,3 +88,5 @@ The repository includes `.github/workflows/latex-compile-evidence.yml` to compil
 **FAIL / not yet performed.** The LaTeX source has changed materially since the available PDF. The diffuse-section source defect found during Audit 07 has been corrected at source level, but no current compile and page-by-page rendered inspection has yet been recorded.
 
 As of project Continue #44, no observable workflow run was found for the newly added LaTeX compile-evidence workflow on the inspected commits. Therefore the CI workflow has **not** yet closed the compilation gate.
+
+**Continue #115 observability check.** A direct commit-scoped workflow lookup was performed for LaTeX parity commit `121361d99f7868a092e8cc3ae7733ed3a1ceef71`; the connected GitHub surface returned an empty `workflow_runs` list. The compile-evidence workflow is present on `main` and is configured for report-path pushes, but workflow definition plus an empty run lookup is **not** qualifying compile evidence. The compilation and page-by-page visual-QA gates therefore remain open. This negative lookup is recorded to prevent later work from silently treating CI presence as execution.
