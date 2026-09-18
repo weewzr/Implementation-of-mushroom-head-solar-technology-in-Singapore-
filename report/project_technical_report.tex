@@ -31,6 +31,44 @@ The originating question is whether a mushroom-head, spherical or other three-di
 \label{fig:equal-footprint}
 \end{figure}
 
+\section{Coordinate and sign conventions}
+The canonical local frame is right-handed East--North--Up (ENU): \(+x\) east, \(+y\) north and \(+z\) vertically upward. A position vector is
+\begin{equation}
+\mathbf r=(x,y,z).
+\label{eq:position-enu}
+\end{equation}
+Here \(\mathbf r\) is position (\si{\metre}); \(x\), \(y\), and \(z\) are the east, north and upward coordinates respectively (\si{\metre}). These axes are project definitions rather than empirical parameters.
+
+Solar and facet azimuth are measured clockwise from geographic north: north \(=0^\circ\), east \(=90^\circ\), south \(=180^\circ\), west \(=270^\circ\). The canonical Rust implementation uses radians internally. For solar elevation \(\alpha\) and solar azimuth \(\gamma_s\), the ENU unit vector toward the Sun is
+\begin{equation}
+\mathbf s=
+\left(
+\cos\alpha\sin\gamma_s,\,
+\cos\alpha\cos\gamma_s,\,
+\sin\alpha
+\right).
+\label{eq:sun-vector-enu}
+\end{equation}
+Here \(\mathbf s\) is the dimensionless unit vector from the receiving point toward the Sun; \(\alpha\) is solar elevation above the local horizon (rad in Rust); and \(\gamma_s\) is solar azimuth clockwise from north (rad in Rust). At zenith Eq.~\eqref{eq:sun-vector-enu} gives \((0,0,1)\); at the eastern horizon it gives \((1,0,0)\); at the northern horizon it gives \((0,1,0)\). Its norm is unity.
+
+For facet tilt \(\beta\) from horizontal and facet azimuth \(\gamma_p\),
+\begin{equation}
+\mathbf n=
+\left(
+\sin\beta\sin\gamma_p,\,
+\sin\beta\cos\gamma_p,\,
+\cos\beta
+\right).
+\label{eq:facet-normal-enu}
+\end{equation}
+Here \(\mathbf n\) is the outward/front-side unit normal (dimensionless); \(\beta\) is facet tilt from horizontal (rad in Rust); and \(\gamma_p\) is facet azimuth clockwise from north (rad in Rust).
+
+\paragraph{Physical Interpretation.}
+The ENU convention makes the vertical component directly represent upward projection. An upward horizontal module has \(\mathbf n=(0,0,1)\).
+
+\paragraph{Engineering Implication.}
+Geometry generators, Sun vectors, facet normals, visibility rays and future mechanical axes must use this convention. External datasets or libraries using different azimuth definitions must be converted at the data boundary.
+
 \section{Solar-position equations}
 For preliminary transparent calculations, the Cooper (1969) declination approximation is
 \begin{equation}
