@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **80**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-24.md`.
-- That audit occurred on Continue #78.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #80 / Pass 2 of audit cycle 25.
-- Mandatory audit is due no later than project Continue #81 (Pass 3 of audit cycle 25), unless an earlier major-result audit is required.
+- Total explicit user `Continue` commands counted through 18 September 2026: **81**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-25.md`.
+- That audit occurred on Continue #81.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #81 / Pass 3 of audit cycle 25; mandatory audit 25 completed and irradiance-closure foundation advanced.
+- Mandatory audit is due no later than project Continue #84 (Pass 3 of audit cycle 26), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **8**.
+- Current ChatGPT session explicit `Continue` count: **9**.
 - This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #81 / Pass 3 of audit cycle 25; perform mandatory audit before substantive work, then continue concrete solar-position/irradiance-closure foundation work if audit permits**.
+- Next-pass state: **project #82 / Pass 1 of audit cycle 26; verify the new Rust closure kernel with qualifying execution evidence, synchronize traceability, then continue solar-position validation foundation**.
 
 ## Session-rotation rule
 
