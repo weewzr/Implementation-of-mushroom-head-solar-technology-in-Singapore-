@@ -7,6 +7,68 @@
 use std::collections::HashMap;
 use std::fmt;
 
+#[derive(Debug, Clone, PartialEq)]
+pub struct DatasetMetadata {
+    pub provider: String,
+    pub product_name: String,
+    pub source_identifier: String,
+    pub retrieval_date: String,
+    pub coverage_start: String,
+    pub coverage_end: String,
+    pub native_sampling_interval_s: i64,
+    pub source_timezone: String,
+    pub timestamp_semantics: String,
+    pub station_id: String,
+    pub latitude_deg: f64,
+    pub longitude_deg: f64,
+    pub elevation_m: Option<f64>,
+    pub coordinate_datum: Option<String>,
+    pub licence_name: String,
+    pub permission_reference: String,
+    pub raw_redistribution: String,
+    pub derived_output_redistribution: String,
+    pub source_checksum: Option<String>,
+    pub immutable_source_id: Option<String>,
+    pub provider_quality_flags_available: bool,
+}
+
+impl DatasetMetadata {
+    /// Validate the minimum typed manifest/site/provenance contract without
+    /// inventing unknown metadata. Empty required strings remain explicit errors.
+    pub fn validate(&self) -> Result<(), Vec<String>> {
+        let mut errors = Vec::new();
+        for (name, value) in [
+            ("provider", self.provider.as_str()),
+            ("product_name", self.product_name.as_str()),
+            ("source_identifier", self.source_identifier.as_str()),
+            ("retrieval_date", self.retrieval_date.as_str()),
+            ("coverage_start", self.coverage_start.as_str()),
+            ("coverage_end", self.coverage_end.as_str()),
+            ("source_timezone", self.source_timezone.as_str()),
+            ("timestamp_semantics", self.timestamp_semantics.as_str()),
+            ("station_id", self.station_id.as_str()),
+            ("licence_name", self.licence_name.as_str()),
+            ("permission_reference", self.permission_reference.as_str()),
+            ("raw_redistribution", self.raw_redistribution.as_str()),
+            ("derived_output_redistribution", self.derived_output_redistribution.as_str()),
+        ] {
+            if value.trim().is_empty() {
+                errors.push(format!("{name} is required"));
+            }
+        }
+        if self.native_sampling_interval_s <= 0 {
+            errors.push("native_sampling_interval_s must be positive".to_string());
+        }
+        if !(-90.0..=90.0).contains(&self.latitude_deg) {
+            errors.push("latitude_deg must be in [-90, 90]".to_string());
+        }
+        if !(-180.0..=180.0).contains(&self.longitude_deg) {
+            errors.push("longitude_deg must be in [-180, 180]".to_string());
+        }
+        if errors.is_empty() { Ok(()) } else { Err(errors) }
+    }
+}
+
 pub const REQUIRED_HEADER: [&str; 7] = [
     "timestamp",
     "ghi_w_m2",
@@ -30,6 +92,8 @@ pub struct WeatherRecord {
     pub wind_direction_deg: f64,
     pub relative_humidity_percent: Option<f64>,
     pub air_pressure_pa: Option<f64>,
+    /// Provider-supplied QC/status token preserved verbatim when available.
+    pub provider_quality_flag: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -208,7 +272,9 @@ fn validate_record(record: &WeatherRecord, row: usize, issues: &mut Vec<QcIssue>
 /// Parse the canonical CSV fixture/interchange form.
 ///
 /// The seven required columns must appear first in canonical order. Schema-v1
-/// optional relative humidity and air pressure columns may follow in that order.
+/// optional relative humidity, air pressure and provider quality flag columns may
+/// follow in that order. Provider flags are preserved verbatim and are not
+/// interpreted or discarded by the canonical ingestion layer.
 ///
 /// Provider-specific formats must be normalized by a separately documented
 /// preprocessing step. The strict schema-v1 timestamp subset is normalized to
@@ -223,11 +289,14 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
     let optional_columns = &columns[REQUIRED_HEADER.len()..];
     let optional_ok = matches!(
         optional_columns,
-        [] | ["relative_humidity_percent"] | ["relative_humidity_percent", "air_pressure_pa"]
+        []
+            | ["relative_humidity_percent"]
+            | ["relative_humidity_percent", "air_pressure_pa"]
+            | ["relative_humidity_percent", "air_pressure_pa", "provider_quality_flag"]
     );
     if !required_prefix_ok || !optional_ok {
         return Err(format!(
-            "canonical header mismatch; expected {} with optional trailing relative_humidity_percent,air_pressure_pa",
+            "canonical header mismatch; expected {} with optional trailing relative_humidity_percent,air_pressure_pa,provider_quality_flag",
             REQUIRED_HEADER.join(",")
         ));
     }
@@ -272,6 +341,11 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
                 },
                 air_pressure_pa: if columns.len() >= 9 {
                     Some(parse_finite(values[8], row, "air_pressure_pa")?)
+                } else {
+                    None
+                },
+                provider_quality_flag: if columns.len() >= 10 {
+                    Some(values[9].to_string())
                 } else {
                     None
                 },
@@ -421,6 +495,44 @@ mod tests {
         let (_, issues) = parse_canonical_csv(&csv).unwrap();
         assert!(issues.iter().any(|issue| issue.field == "relative_humidity_percent"));
         assert!(issues.iter().any(|issue| issue.field == "air_pressure_pa"));
+    }
+
+    #[test]
+    fn preserves_provider_quality_flag_verbatim() {
+        let header = format!("{HEADER},relative_humidity_percent,air_pressure_pa,provider_quality_flag");
+        let csv = format!("{header}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180,78.5,100800,SUSPECT_CLOCK\n");
+        let (records, issues) = parse_canonical_csv(&csv).unwrap();
+        assert!(issues.is_empty());
+        assert_eq!(records[0].provider_quality_flag.as_deref(), Some("SUSPECT_CLOCK"));
+    }
+
+    #[test]
+    fn typed_dataset_metadata_rejects_missing_provenance() {
+        let metadata = DatasetMetadata {
+            provider: String::new(),
+            product_name: "example".to_string(),
+            source_identifier: "source".to_string(),
+            retrieval_date: "2026-09-18".to_string(),
+            coverage_start: "2026-01-01".to_string(),
+            coverage_end: "2026-12-31".to_string(),
+            native_sampling_interval_s: 60,
+            source_timezone: "+08:00".to_string(),
+            timestamp_semantics: "interval_end".to_string(),
+            station_id: "station".to_string(),
+            latitude_deg: 1.3,
+            longitude_deg: 103.8,
+            elevation_m: None,
+            coordinate_datum: None,
+            licence_name: "example".to_string(),
+            permission_reference: "ref".to_string(),
+            raw_redistribution: "unknown".to_string(),
+            derived_output_redistribution: "unknown".to_string(),
+            source_checksum: None,
+            immutable_source_id: None,
+            provider_quality_flags_available: true,
+        };
+        let errors = metadata.validate().unwrap_err();
+        assert!(errors.iter().any(|e| e.contains("provider is required")));
     }
 
     #[test]
