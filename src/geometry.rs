@@ -17,7 +17,11 @@ pub fn paraboloid_area(radius: f64, height: f64) -> f64 {
         return PI * radius * radius;
     }
     let k = height / radius;
-    PI * radius * radius * ((1.0 + 4.0 * k * k).powf(1.5) - 1.0) / (6.0 * k * k)
+    let x = 4.0 * k * k;
+    // Evaluate (1+x)^(3/2)-1 without catastrophic cancellation for shallow caps.
+    // ln_1p/expm1 preserve the small increment as k -> 0.
+    let numerator = (1.5 * x.ln_1p()).exp_m1();
+    PI * radius * radius * numerator / (6.0 * k * k)
 }
 
 /// PV active-area / horizontal-footprint packing ratio.
