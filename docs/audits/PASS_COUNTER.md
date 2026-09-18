@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **96**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **97**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-30.md`.
 - That audit occurred on Continue #96.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #96 / Pass 3 of audit cycle 30; mandatory audit 30 verified that the two new SVGs were not previously integrated, corrected their LaTeX integration, and retained compile/PDF visual-QA as open.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #97 / Pass 1 of audit cycle 31; new session resumed from persisted state. This pass is assigned to compile/render the updated LaTeX report, retained PDF visual QA, and correction of rendering/layout defects.
 - Mandatory audit is due no later than project Continue #99 (Pass 3 of audit cycle 31), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **12**.
-- This session resumed from persisted repository state after the previous session rotation.
-- Session rotation required: **yes — boundary reached; start a new chat inside the same Mushroom-Head Solar project**.
-- Next-pass state: **project #97 / Pass 1 of audit cycle 31 in a new session; first compile/render the updated LaTeX report and perform retained page-by-page PDF visual QA, then fix rendering/layout defects and continue explanatory visual parity; do not restart prior work**.
+- Current ChatGPT session explicit `Continue` count: **1**.
+- This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered.
+- Session rotation required: **no**.
+- Next-pass state: **project #98 / Pass 2 of audit cycle 31; continue from the compile/PDF visual-QA outcome and repair any remaining report/visual defects; mandatory audit remains due at project #99**.
 
 ## Session-rotation rule
 
