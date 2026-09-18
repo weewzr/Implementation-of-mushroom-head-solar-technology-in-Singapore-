@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **93**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **94**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-29.md`.
 - That audit occurred on Continue #93.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #93 / Pass 3 of audit cycle 29; mandatory audit 29 completed, SPA fixture/ENU traceability was synchronized, and the diagram/compiled-PDF visual-QA layer was identified as a material foundation gap.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #94 / Pass 1 of audit cycle 30; the explanatory visual layer advanced with a new ENU/solar-angle SVG integrated into the LaTeX report, while performance charts and final PDF validation remain gated.
 - Mandatory audit is due no later than project Continue #96 (Pass 3 of audit cycle 30), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **9**.
+- Current ChatGPT session explicit `Continue` count: **10**.
 - This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #94 / Pass 1 of audit cycle 30; begin the safe explanatory diagram suite and report integration while continuing Rust execution evidence/SPA validation; performance charts remain blocked until validation gates close**.
+- Next-pass state: **project #95 / Pass 2 of audit cycle 30; add the labelled paraboloidal-mushroom/direct-incidence explanatory diagrams and integrate them into the report, then prepare for compilation/visual QA without fabricating performance plots**.
 
 ## Session-rotation rule
 
