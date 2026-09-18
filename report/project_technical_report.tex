@@ -54,6 +54,38 @@ A useful mental model for the rest of this report is
 \end{equation}
 The following sections turn each phrase into explicit geometry and physics. Solar position determines where the direct beam comes from; facet normals determine whether a surface faces it; visibility and self-shading determine whether the light reaches the surface; diffuse-sky models account for the rest of the sky; temperature and electrical models convert received irradiance to electricity; and mechanical models account for the cost and feasibility of moving structures.
 
+\subsection{From irradiance to the geometry equations}
+The beginner picture above can now be converted into the quantities used by the mathematical model. At a given instant the atmosphere supplies an irradiance field. For an unobstructed horizontal receiver, global horizontal irradiance (GHI), direct normal irradiance (DNI), diffuse horizontal irradiance (DHI), and solar elevation \(\alpha\) satisfy the closure relation
+\begin{equation}
+GHI = DNI\,\sin\alpha + DHI.
+\label{eq:irradiance-closure}
+\end{equation}
+Here \(GHI\) is global horizontal irradiance (\si{\watt\per\metre\squared}); \(DNI\) is direct normal irradiance (\si{\watt\per\metre\squared}); \(DHI\) is diffuse horizontal irradiance (\si{\watt\per\metre\squared}); and \(\alpha\) is solar elevation above the local horizon (rad in the numerical implementation). The sine factor is dimensionless, so every term has units of \si{\watt\per\metre\squared}. This relation is a measurement/model consistency check; it is not a complete irradiance-transposition model for an arbitrarily oriented PV surface.
+
+A three-dimensional geometry changes what happens after the atmospheric irradiance field is specified. Each small PV surface element has an outward unit normal \(\mathbf n\), while the direction from that element toward the Sun is the unit vector \(\mathbf s\). Their dot product gives the cosine projection of the direct beam,
+\begin{equation}
+\cos\theta_i=\mathbf n\cdot\mathbf s,
+\label{eq:incidence-bridge}
+\end{equation}
+where \(\theta_i\) is the incidence angle between the receiving-surface normal and the Sun direction (rad or degrees under a consistent convention), and \(\mathbf n\) and \(\mathbf s\) are dimensionless unit vectors. For a monofacial front surface, a negative dot product means that the direct beam lies behind the active face, motivating the positive-part operator used later.
+
+Orientation is not sufficient by itself. Another part of the canopy may intercept the ray, so the direct model also requires visibility \(V\). Diffuse radiation requires a sky-view model because a tilted or crowded facet may see only part of the sky. Received irradiance is subsequently converted to electrical power using a PV conversion model, with later corrections for temperature, bifacial response, electrical mismatch and system losses.
+
+The modelling chain is therefore
+\begin{equation}
+\boxed{
+\text{weather}
+\rightarrow \text{Sun position}
+\rightarrow \text{surface orientation}
+\rightarrow \text{visibility/sky view}
+\rightarrow \text{received irradiance}
+\rightarrow \text{electrical energy}
+\rightarrow \text{land-normalised comparison}.
+}
+\label{eq:model-chain}
+\end{equation}
+This chain is the bridge between the physical explanation and the equations below. It also explains why curved surface area alone cannot establish a performance advantage: additional PV area increases packing only if that area retains sufficient irradiance productivity after orientation, occlusion and system losses are included.
+
 \section{Coordinate and sign conventions}
 The canonical local frame is right-handed East--North--Up (ENU): \(+x\) east, \(+y\) north and \(+z\) vertically upward. A position vector is
 \begin{equation}
