@@ -37,6 +37,9 @@ pub struct QcSummary {
     pub duplicate_timestamps: usize,
     pub nonmonotonic_timestamps: usize,
     pub negative_irradiance_values: usize,
+    pub missing_samples: Option<usize>,
+    pub longest_gap_s: Option<i64>,
+    pub interval_change_count: usize,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -265,11 +268,50 @@ pub fn parse_canonical_csv(input: &str) -> Result<(Vec<WeatherRecord>, Vec<QcIss
     Ok((records, issues))
 }
 
+/// Dataset-level temporal QC against a declared native interval.
+///
+/// The interval is a source/manifest property. This routine reports departures
+/// and never inserts or removes observations.
+pub fn check_declared_interval(
+    records: &[WeatherRecord],
+    declared_interval_s: i64,
+) -> Result<Vec<QcIssue>, String> {
+    if declared_interval_s <= 0 {
+        return Err("declared interval must be positive".to_string());
+    }
+    let mut issues = Vec::new();
+    for pair in records.windows(2) {
+        let dt = pair[1].timestamp_utc_s - pair[0].timestamp_utc_s;
+        if dt > 0 && dt != declared_interval_s {
+            let missing = if dt > declared_interval_s && dt % declared_interval_s == 0 {
+                dt / declared_interval_s - 1
+            } else {
+                0
+            };
+            issues.push(QcIssue {
+                row: 0,
+                field: "timestamp",
+                message: format!(
+                    "sampling interval change: observed {dt} s, declared {declared_interval_s} s, implied missing samples {missing}"
+                ),
+            });
+        }
+    }
+    Ok(issues)
+}
+
 pub fn summarize_qc(
     records: &[WeatherRecord],
     issues: &[QcIssue],
     expected_samples: Option<usize>,
 ) -> QcSummary {
+    let positive_gaps: Vec<i64> = records
+        .windows(2)
+        .map(|pair| pair[1].timestamp_utc_s - pair[0].timestamp_utc_s)
+        .filter(|dt| *dt > 0)
+        .collect();
+    let longest_gap_s = positive_gaps.iter().copied().max();
+    let missing_samples = expected_samples.map(|expected| expected.saturating_sub(records.len()));
     QcSummary {
         expected_samples,
         parsed_samples: records.len(),
@@ -288,6 +330,12 @@ pub fn summarize_qc(
                 matches!(issue.field, "ghi_w_m2" | "dhi_w_m2" | "dni_w_m2")
                     && issue.message.contains("negative irradiance")
             })
+            .count(),
+        missing_samples,
+        longest_gap_s,
+        interval_change_count: issues
+            .iter()
+            .filter(|issue| issue.message.contains("sampling interval change"))
             .count(),
     }
 }
@@ -339,6 +387,18 @@ mod tests {
         let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\n2026-01-01T03:59:59Z,810,121,701,31.3,2.5,181\n");
         let (_, issues) = parse_canonical_csv(&csv).unwrap();
         assert!(issues.iter().any(|issue| issue.message.contains("non-monotonic absolute")));
+    }
+
+    #[test]
+    fn declared_interval_reports_gap_without_imputation() {
+        let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\n2026-01-01T12:02:00+08:00,810,121,701,31.3,2.5,181\n");
+        let (records, _) = parse_canonical_csv(&csv).unwrap();
+        let issues = check_declared_interval(&records, 60).unwrap();
+        assert!(issues.iter().any(|issue| issue.message.contains("implied missing samples 1")));
+        let summary = summarize_qc(&records, &issues, Some(3));
+        assert_eq!(summary.missing_samples, Some(1));
+        assert_eq!(summary.longest_gap_s, Some(120));
+        assert_eq!(summary.interval_change_count, 1);
     }
 
     #[test]
