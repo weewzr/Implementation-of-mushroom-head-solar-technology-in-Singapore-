@@ -63,6 +63,13 @@ For facet tilt \(\beta\) from horizontal and facet azimuth \(\gamma_p\),
 \end{equation}
 Here \(\mathbf n\) is the outward/front-side unit normal (dimensionless); \(\beta\) is facet tilt from horizontal (rad in Rust); and \(\gamma_p\) is facet azimuth clockwise from north (rad in Rust).
 
+\begin{figure}[htbp]
+\centering
+\includesvg[width=0.88\textwidth]{../figures/enu_coordinate_convention}
+\caption{Canonical East--North--Up coordinate system and solar-angle convention. Solar azimuth is measured clockwise from geographic north; elevation is measured upward from the local horizon. This is a convention diagram, not a performance result.}
+\label{fig:enu-convention}
+\end{figure}
+
 \paragraph{Physical Interpretation.}
 The ENU convention makes the vertical component directly represent upward projection. An upward horizontal module has \(\mathbf n=(0,0,1)\).
 
