@@ -73,6 +73,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-18_three-pass_audit-38.md` | Mandatory Pass 3 / Continue #120 | PDF compilation/reproducibility and scientific-validation checkpoint | SVG-label and CI-environment defects diagnosed/corrected; corrective runs pending at audit time; PDF/page QA, canonical Singapore data, SPA validation and uncertainty/convergence gates remain open; model expansion remains paused |
 
+| `2026-09-18_three-pass_audit-39.md` | Mandatory Pass 3 / Continue #123 | PDF compiler-correction and validation checkpoint | ENU Unicode and raytracing SVG underscore defects corrected; compiled PDF/page QA and scientific validation gates remain open; model expansion remains paused |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
