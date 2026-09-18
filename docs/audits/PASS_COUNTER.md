@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **98**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-30.md`.
-- That audit occurred on Continue #96.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #98 / Pass 2 of audit cycle 31; continuing the retained LaTeX compile/PDF visual-QA foundation work and report/visual defect correction.
-- Mandatory audit is due no later than project Continue #99 (Pass 3 of audit cycle 31), unless an earlier major-result audit is required.
+- Total explicit user `Continue` commands counted through 18 September 2026: **99**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-31.md`.
+- That audit occurred on Continue #99.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #99 / Pass 3 of audit cycle 31; mandatory audit 31 found that Continues #97-98 produced no retained compile/render evidence, so the SVG-enabled LaTeX build and page-by-page PDF QA remain the immediate foundation gate.
+- Mandatory audit is due no later than project Continue #102 (Pass 3 of audit cycle 32), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **2**.
+- Current ChatGPT session explicit `Continue` count: **3**.
 - This is the new session after the previous 12-Continue rotation; persisted technical and audit state has been recovered.
 - Session rotation required: **no**.
-- Next-pass state: **project #99 / Pass 3 of audit cycle 31; perform mandatory master-instruction audit before substantive work, then continue from retained compile/PDF visual-QA and report/visual defects**.
+- Next-pass state: **project #100 / Pass 1 of audit cycle 32; create/execute a reproducible SVG-enabled LaTeX build path and retain compile/PDF QA evidence rather than performing governance-only work**.
 
 ## Session-rotation rule
 
