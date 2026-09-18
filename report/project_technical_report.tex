@@ -323,6 +323,62 @@ The Sun moves slowly on actuator timescales, so deliberate tracking can be quasi
 \paragraph{Engineering Implication.}
 The original momentum question should not become an objective to maximise angular momentum. Later actuator design should prioritise wind moment, gravitational balance, friction, locking/stow, efficiency, reliability and wear. Quantitative mechanical conclusions remain blocked until the required physical parameters in the provenance register are sourced or calculated.
 
+\section{Tracking as an optimal-control extension}
+Tracking is treated as a net-value control problem rather than as an instruction to maximise angular momentum. A generic objective is
+\begin{equation}
+\max_{\theta(t)}
+\left\{
+\int_T
+\left[
+P_{\mathrm{PV}}(\theta,t)
+-
+P_{\mathrm{motor}}(\theta,\dot\theta,\ddot\theta)
+\right]\,\mathrm dt
+-
+C_{\mathrm{wear}}
+\right\}.
+\label{eq:tracking-control}
+\end{equation}
+Here \(\theta(t)\) is tracker orientation (rad); \(P_{\mathrm{PV}}\) is photovoltaic electrical power (W); \(P_{\mathrm{motor}}\) is actuator electrical power (W); \(T\) is the control/optimisation time horizon; and \(C_{\mathrm{wear}}\) is a wear penalty expressed in energy-equivalent units, or converted consistently if the final objective is monetary.
+
+The time integral of power has units of energy. Therefore \(C_{\mathrm{wear}}\) must use compatible units before subtraction; a monetary wear term cannot be subtracted directly from joules or watt-hours without an explicit conversion.
+
+\paragraph{Physical Interpretation.}
+Because solar motion is slow, useful tracking may consist of infrequent or quasi-static repositioning. Additional motion is not automatically beneficial: actuator consumption, wind exposure, wear, stow events and reliability can outweigh small irradiance gains.
+
+\paragraph{Engineering Implication.}
+The eventual controller must compare fixed, scheduled-step and continuous tracking under the same geometry/resource envelope. Equation~\eqref{eq:tracking-control} is a formulation only; no optimal tracking schedule is presently claimed.
+
+\section{Bifacial and thermal extensions}
+For a bifacial facet \(i\), define effective irradiance
+\begin{equation}
+G_{\mathrm{eff},i}
+=
+G_{\mathrm{front},i}
++
+bG_{\mathrm{rear},i}.
+\label{eq:bifacial-effective}
+\end{equation}
+Here \(G_{\mathrm{eff},i}\), \(G_{\mathrm{front},i}\) and \(G_{\mathrm{rear},i}\) are irradiances (\si{\watt\per\square\metre}), and \(b\) is the dimensionless bifaciality factor. The equation is dimensionally consistent because both additive terms have irradiance units.
+
+A first linear temperature correction is
+\begin{equation}
+\eta(T_c)
+=
+\eta_{\mathrm{ref}}
+\left[
+1+\gamma(T_c-T_{\mathrm{ref}})
+\right].
+\label{eq:temperature-efficiency}
+\end{equation}
+Here \(T_c\) is cell temperature; \(T_{\mathrm{ref}}\) is reference cell temperature on the same temperature scale; \(\eta_{\mathrm{ref}}\) is reference conversion efficiency (dimensionless); and \(\gamma\) is the relative temperature coefficient (\si{\per\kelvin}). The product \(\gamma(T_c-T_{\mathrm{ref}})\) is dimensionless.
+
+\paragraph{Physical Interpretation.}
+A three-dimensional canopy changes both rear-surface exposure and thermal environment. Additional packed area may improve rear-sky/ground access in some geometries while dense packing may also reduce ventilation or create mutual shading.
+
+\paragraph{Engineering Implication.}
+Neither Eq.~\eqref{eq:bifacial-effective} nor Eq.~\eqref{eq:temperature-efficiency} is a complete bifacial or thermal model. Validated use requires a selected module, sourced bifaciality and temperature coefficients, front/rear view and reflection modelling, ambient weather, and an appropriate cell-temperature model. Those inputs remain unset in the provenance register.
+
 \section{Canonical topology experiment}
 The initial reproducible design experiment uses
 \begin{equation}
