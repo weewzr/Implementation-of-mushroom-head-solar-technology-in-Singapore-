@@ -40,3 +40,42 @@ Validated solar-position calculations will use or be benchmarked against the NRE
 ## Required provenance for generated datasets
 
 Each generated dataset must record the code commit/version, source input identifier, timestamp convention/timezone, units, geometry/configuration, numerical resolution and solver/settings, together with a status label identifying the data as analytical, simulated or measured.
+
+
+## Canonical acquisition and licensing gate
+
+The preferred measured-data route is the SERIS Singapore irradiance network because the public SERIS documentation confirms the quantities required by the 3-D model: 25 stations measure GHI and 10 fully equipped stations additionally measure diffuse horizontal irradiance, ambient temperature/relative humidity, wind speed/direction and air pressure, with 1-second monitoring capability. The public page describes monitoring capability and a live map, but it does **not** establish an open bulk-download licence for the historical station time series. Therefore the repository must not assume that the underlying historical measurements are freely redistributable.
+
+Before measured SERIS data can become a canonical model input:
+
+1. obtain the historical time series through an authorised SERIS/NSR access route;
+2. record station identifier, coordinates, measurement interval, timezone/timestamp convention, sensor variables and period;
+3. retain the applicable licence/permission terms and explicitly state whether raw redistribution in this public repository is permitted;
+4. preserve raw data outside Git when redistribution is restricted, and commit only acquisition/preprocessing instructions plus derived outputs that the licence permits;
+5. perform QC for missing/duplicate timestamps, physical range violations, time continuity and unit consistency;
+6. derive DNI only if it is not measured, using a named documented decomposition method and recording that model uncertainty;
+7. resample only after documenting aggregation rules and checking energy conservation/time-step sensitivity.
+
+SERIS currently provides a contact route for further information rather than an open historical-data licence on the monitoring page. Until access and licence terms are established, the SERIS time series remains **required but not acquired** and cannot support a validated annual-yield claim.
+
+### Secondary weather-data route
+
+NEA/data.gov.sg may provide openly licensed meteorological datasets useful for supplementary ambient-weather inputs. The relevant data.gov.sg catalogue pages identify datasets under the Singapore Open Data Licence, while official climate records may require a separate NEA request and fees. Such datasets are not substitutes for measured GHI/DHI unless the selected dataset actually contains the required irradiance variables.
+
+### Minimum acquisition manifest
+
+For every external weather/irradiance source, create a manifest containing:
+
+- provider and dataset/product name;
+- retrieval date and source URL/identifier;
+- licence/permission and redistribution status;
+- station/site coordinates and elevation when available;
+- period covered and native sampling interval;
+- timestamp timezone and clock convention;
+- variables, units and sensor/derivation status;
+- missing-data/QC rules;
+- preprocessing/resampling steps;
+- checksum or immutable source identifier when permitted;
+- repository commit used for preprocessing.
+
+This manifest is a prerequisite for moving any weather input from **Required input** to a validated simulation input.
