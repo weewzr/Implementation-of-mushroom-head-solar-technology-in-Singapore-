@@ -19,6 +19,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-18_three-pass_audit-11.md` | Mandatory Pass 3 / Continue #39 | Governance/evidence/reproducibility foundation checkpoint | 12-Continue rule synchronized; execution/data/uncertainty/convergence/PDF gates remain open; modelling remains paused |
 
+| `2026-09-18_three-pass_audit-12.md` | Mandatory Pass 3 / Continue #42 | CI/evidence-integrity foundation checkpoint | Rust CI path exists but no qualifying run is verified; PDF/data/uncertainty/convergence gates remain open; modelling remains paused |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
