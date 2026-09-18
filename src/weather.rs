@@ -6,6 +6,58 @@
 
 use std::collections::HashMap;
 use std::fmt;
+use serde::Deserialize;
+
+#[derive(Debug, Deserialize)]
+struct ManifestFile {
+    manifest_version: u32,
+    dataset: ManifestDataset,
+    site: ManifestSite,
+    licence: ManifestLicence,
+    provenance: ManifestProvenance,
+    qc: ManifestQc,
+}
+
+#[derive(Debug, Deserialize)]
+struct ManifestDataset {
+    provider: String,
+    product_name: String,
+    source_identifier: String,
+    retrieval_date: String,
+    coverage_start: String,
+    coverage_end: String,
+    native_sampling_interval: String,
+    source_timezone: String,
+    timestamp_semantics: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct ManifestSite {
+    station_id: String,
+    latitude_deg: String,
+    longitude_deg: String,
+    elevation_m: String,
+    coordinate_datum: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct ManifestLicence {
+    licence_name: String,
+    permission_reference: String,
+    raw_redistribution: String,
+    derived_output_redistribution: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct ManifestProvenance {
+    source_checksum: String,
+    immutable_source_id: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct ManifestQc {
+    provider_quality_flags_available: String,
+}
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct DatasetMetadata {
@@ -67,6 +119,68 @@ impl DatasetMetadata {
         }
         if errors.is_empty() { Ok(()) } else { Err(errors) }
     }
+}
+
+/// Bind the repository acquisition-manifest TOML to typed metadata.
+///
+/// Unknown/empty values are not inferred. The manifest currently stores the
+/// native interval as text, so schema-v1 binding accepts an integer number of
+/// seconds or an integer followed by "s"; broader provider interval syntax must
+/// be normalized upstream.
+pub fn parse_dataset_manifest_toml(input: &str) -> Result<DatasetMetadata, String> {
+    let manifest: ManifestFile = toml::from_str(input)
+        .map_err(|e| format!("manifest TOML parse error: {e}"))?;
+    if manifest.manifest_version != 1 {
+        return Err(format!("unsupported manifest_version {}", manifest.manifest_version));
+    }
+    let interval_text = manifest.dataset.native_sampling_interval.trim();
+    let interval_digits = interval_text.strip_suffix('s').unwrap_or(interval_text).trim();
+    let native_sampling_interval_s = interval_digits.parse::<i64>()
+        .map_err(|_| "native_sampling_interval must be an integer number of seconds in schema v1".to_string())?;
+    let parse_optional_f64 = |name: &str, value: &str| -> Result<Option<f64>, String> {
+        if value.trim().is_empty() {
+            Ok(None)
+        } else {
+            value.trim().parse::<f64>().map(Some)
+                .map_err(|_| format!("{name} must be numeric when supplied"))
+        }
+    };
+    let latitude_deg = manifest.site.latitude_deg.trim().parse::<f64>()
+        .map_err(|_| "site.latitude_deg is required and must be numeric".to_string())?;
+    let longitude_deg = manifest.site.longitude_deg.trim().parse::<f64>()
+        .map_err(|_| "site.longitude_deg is required and must be numeric".to_string())?;
+    let flag_state = manifest.qc.provider_quality_flags_available.trim();
+    let provider_quality_flags_available = match flag_state {
+        "true" => true,
+        "false" => false,
+        "unknown" | "" => return Err("provider_quality_flags_available must be resolved to true or false before canonical binding".to_string()),
+        other => return Err(format!("invalid provider_quality_flags_available value {other:?}")),
+    };
+    let metadata = DatasetMetadata {
+        provider: manifest.dataset.provider,
+        product_name: manifest.dataset.product_name,
+        source_identifier: manifest.dataset.source_identifier,
+        retrieval_date: manifest.dataset.retrieval_date,
+        coverage_start: manifest.dataset.coverage_start,
+        coverage_end: manifest.dataset.coverage_end,
+        native_sampling_interval_s,
+        source_timezone: manifest.dataset.source_timezone,
+        timestamp_semantics: manifest.dataset.timestamp_semantics,
+        station_id: manifest.site.station_id,
+        latitude_deg,
+        longitude_deg,
+        elevation_m: parse_optional_f64("site.elevation_m", &manifest.site.elevation_m)?,
+        coordinate_datum: if manifest.site.coordinate_datum.trim().is_empty() { None } else { Some(manifest.site.coordinate_datum) },
+        licence_name: manifest.licence.licence_name,
+        permission_reference: manifest.licence.permission_reference,
+        raw_redistribution: manifest.licence.raw_redistribution,
+        derived_output_redistribution: manifest.licence.derived_output_redistribution,
+        source_checksum: if manifest.provenance.source_checksum.trim().is_empty() { None } else { Some(manifest.provenance.source_checksum) },
+        immutable_source_id: if manifest.provenance.immutable_source_id.trim().is_empty() { None } else { Some(manifest.provenance.immutable_source_id) },
+        provider_quality_flags_available,
+    };
+    metadata.validate().map_err(|errors| errors.join("; "))?;
+    Ok(metadata)
 }
 
 pub const REQUIRED_HEADER: [&str; 7] = [
@@ -549,6 +663,57 @@ mod tests {
         };
         let errors = metadata.validate().unwrap_err();
         assert!(errors.iter().any(|e| e.contains("provider is required")));
+    }
+
+    #[test]
+    fn binds_resolved_manifest_to_typed_metadata() {
+        let manifest = r#"
+manifest_version = 1
+status = "candidate_source"
+[dataset]
+provider = "Example Provider"
+product_name = "Example Product"
+source_identifier = "example-id"
+retrieval_date = "2026-09-18"
+coverage_start = "2026-01-01"
+coverage_end = "2026-12-31"
+native_sampling_interval = "60s"
+source_timezone = "+08:00"
+timestamp_semantics = "interval_end"
+[site]
+station_id = "SG-TEST"
+latitude_deg = "1.30"
+longitude_deg = "103.80"
+elevation_m = ""
+coordinate_datum = "WGS84"
+[licence]
+licence_name = "Example"
+permission_reference = "example-ref"
+raw_redistribution = "unknown"
+derived_output_redistribution = "unknown"
+notes = ""
+[variables]
+ghi = "measured"
+[provenance]
+source_checksum = ""
+immutable_source_id = "example-immutable"
+preprocessing_commit = ""
+[qc]
+provider_quality_flags_available = "true"
+missing_data_notes = ""
+known_sensor_or_clock_issues = ""
+"#;
+        let metadata = parse_dataset_manifest_toml(manifest).unwrap();
+        assert_eq!(metadata.native_sampling_interval_s, 60);
+        assert_eq!(metadata.latitude_deg, 1.30);
+        assert!(metadata.provider_quality_flags_available);
+    }
+
+    #[test]
+    fn manifest_binding_rejects_unresolved_quality_flag_state() {
+        let template = include_str!("../data/manifests/acquisition_manifest_template.toml");
+        let error = parse_dataset_manifest_toml(template).unwrap_err();
+        assert!(error.contains("latitude_deg") || error.contains("provider_quality_flags_available"));
     }
 
     #[test]
