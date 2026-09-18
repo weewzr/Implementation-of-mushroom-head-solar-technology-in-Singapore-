@@ -53,6 +53,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-18_three-pass_audit-28.md` | Mandatory Pass 3 / Continue #90 | Civil/solar-time and SPA-validation foundation checkpoint | Mean-solar-time traceability synchronized; authoritative SPA target exists but benchmark fixture, execution evidence, canonical data, uncertainty/convergence and PDF gates remain open; model expansion remains paused |
 
+| `2026-09-18_three-pass_audit-29.md` | Mandatory Pass 3 / Continue #93 | SPA-reference traceability plus diagram/PDF-readiness checkpoint | SPA fixture/ENU adapter traced; report visual suite and compiled/page-QA PDF remain material gaps; visual foundation elevated alongside execution/data/validation work |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
