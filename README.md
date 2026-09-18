@@ -5,7 +5,7 @@ This repository investigates whether three-dimensional photovoltaic geometries c
 
 The current result is not a claim that a mushroom is superior. The emerging hypothesis is that the valuable mechanism is **3-D PV packing**: increasing active PV area per unit scarce footprint while retaining irradiation quality, sky view, bifacial rear access, ventilation and continued use of the land below.
 
-> **Project governance:** continuing work must follow [`docs/MASTER_INSTRUCTIONS.md`](docs/MASTER_INSTRUCTIONS.md). The originating prompt and early reasoning are preserved under [`docs/foundation/`](docs/foundation/) and are mandatory context for changes in research direction.
+> **Project governance:** continuing work must follow the **full 46-part canonical master instruction** in [`docs/MASTER_INSTRUCTIONS.md`](docs/MASTER_INSTRUCTIONS.md). That file deliberately preserves the detailed requirements for reconstruction, first-principles derivation, equation-by-equation definitions, dimensional/sanity checks, physical interpretation, engineering implications, figures, data provenance, uncertainty, optimisation, reproducible computation, Markdown/LaTeX/PDF deliverables, page-by-page PDF QA, GitHub validation and final handover. **A shortened summary is not a substitute for the master instruction.** The originating prompt and early reasoning are preserved under [`docs/foundation/`](docs/foundation/) and are mandatory context for changes in research direction.
 
 ## Foundation
 The originating question was whether future solar deployment in land-constrained Singapore could use a rotating **mushroom-head** or **sphere**, whether topology optimisation could determine the best sunlight-collection geometry, and what momentum/rotation factor should govern movement.
@@ -71,9 +71,9 @@ $$
 
 ## Reproducing the current analysis
 ```bash
-PYTHONPATH=. python src/analysis/first_pass.py
-PYTHONPATH=. python src/analysis/packing_sweep.py
-PYTHONPATH=. python src/visualisation/make_plots.py
+# Canonical implementation is Rust. See Cargo.toml and the Rust source tree.
+cargo test
+cargo run --release
 ```
 
 ## Technical report
