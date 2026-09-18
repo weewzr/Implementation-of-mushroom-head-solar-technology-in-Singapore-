@@ -11,6 +11,48 @@ The engineering question is: **for a constrained horizontal footprint in Singapo
 
 External Singapore values are maintained in the project provenance register and bibliography rather than treated as unexplained constants.
 
+### 1.1 From sunlight to a geometry problem
+
+Before introducing vectors, it is useful to separate the physical chain that the model is trying to represent. At a given instant, the atmosphere supplies irradiance. **GHI** is the total short-wave irradiance on a horizontal plane; **DNI** is the direct beam measured on a plane normal to the Sun; and **DHI** is the diffuse irradiance received by a horizontal plane from the sky. For a horizontal unobstructed receiver these quantities obey the familiar closure relation
+
+$
+GHI = DNI\,\sin\alpha + DHI,
+$
+
+where $\alpha$ is solar elevation. This equation is a useful measurement/model consistency check, not a complete transposition model for an arbitrarily oriented PV surface.
+
+A three-dimensional PV geometry changes what happens *after* the atmospheric irradiance field is specified. Each small surface element has an orientation represented by its outward normal $\mathbf n$. The Sun has a direction represented by $\mathbf s$. Their dot product determines the cosine projection of the direct beam:
+
+$
+\cos\theta_i=\mathbf n\cdot\mathbf s,
+$
+
+where $\theta_i$ is the incidence angle between the surface normal and the direction to the Sun. For a monofacial surface, negative values do not illuminate the front face, hence the later use of $[\mathbf n\cdot\mathbf s]_+$.
+
+Orientation alone is insufficient. Another part of the canopy may block the direct ray, so the model also needs a visibility term $V$. Diffuse radiation requires a sky-view model because a tilted or crowded facet may see only part of the sky. Received irradiance is then converted to electrical power using a PV efficiency model, with later corrections for temperature, bifacial response, mismatch and system losses.
+
+The complete logic used throughout this project is therefore
+
+$
+\boxed{
+\text{weather}
+\rightarrow
+\text{Sun position}
+\rightarrow
+\text{surface orientation}
+\rightarrow
+\text{visibility/sky view}
+\rightarrow
+\text{received irradiance}
+\rightarrow
+\text{electrical energy}
+\rightarrow
+\text{land-normalised comparison}
+}
+$
+
+This chain explains why a curved surface cannot be judged from surface area alone. Adding PV area can increase the packing ratio, but every added element must still receive useful irradiance. The optimisation problem is consequently a competition between **more active area per unit land** and **lower average productivity of that packed area**. Sections 2--7 build those quantities from first principles before any candidate geometry is compared.
+
 ## 2. Coordinate and sign conventions
 
 The project uses a right-handed local East–North–Up (ENU) frame:
