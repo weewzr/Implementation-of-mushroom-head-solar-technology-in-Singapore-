@@ -290,6 +290,18 @@ $$
 
 where $A_s$ is spherical surface area (m$^2$), $A_{\mathrm{proj}}$ is its orthogonal projected area toward any beam direction (m$^2$), and $R$ is sphere radius (m). The factors 4 and $\pi$ are exact geometric constants.
 
+Therefore,
+
+$
+\frac{A_s}{A_{\mathrm{proj}}}=4.
+$
+
+This dimensionless ratio is an exact geometric surface-to-projection ratio; it is **not** a fourfold energy-yield multiplier.
+
+**Physical Interpretation.** A sphere presents the same circular projected silhouette to a collimated beam regardless of beam direction, while its total surface is distributed over all outward orientations. At any instant, substantial surface area is oblique to the direct beam or lies on its back side.
+
+**Engineering Implication.** The sphere is useful as a symmetry and packing benchmark, not as evidence of four-times solar collection. A fair PV comparison must separately account for the active-area budget, front/back electrical response, self/structural shading, diffuse-sky access and common land footprint.
+
 ## 9. Mechanics and the original momentum question
 Angular momentum and rotational kinetic energy are
 
