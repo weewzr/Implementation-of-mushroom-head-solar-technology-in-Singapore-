@@ -153,6 +153,55 @@ With $A_{\mathrm{foot}}=\pi R^2$,
 \end{equation}
 Here $\Pi$ is the dimensionless PV packing ratio and $A_{\mathrm{foot}}$ is horizontal footprint area (\si{\square\metre}). The limiting case $k\to0$ gives $\Pi\to1$, recovering a flat disk.
 
+\section{Diffuse-light analytical limit}
+Under the unobstructed isotropic-sky benchmark, the diffuse-derived electrical power over surface (S) is
+\begin{equation}
+P_{\mathrm{diff}}
+=
+\eta DHI
+\int_S
+\frac{1+\cos\beta}{2}\,\mathrm dA.
+\label{eq:diffuse-integrated}
+\end{equation}
+Here (P_{\mathrm{diff}}) is diffuse-derived electrical power (W); (eta) is photovoltaic conversion efficiency (dimensionless); (DHI) is diffuse horizontal irradiance (\si{\watt\per\square\metre}); (eta) is local surface tilt from horizontal; (S) is the receiving PV surface; and (mathrm dA) is differential active area (\si{\square\metre}). The factor (1/2) is the ideal hemispherical isotropic-sky coefficient, not a Singapore empirical parameter.
+
+Separating the integral gives
+\begin{equation}
+P_{\mathrm{diff}}
+=
+\frac{\eta DHI}{2}
+\left(
+\int_S\mathrm dA
++
+\int_S\cos\beta\,\mathrm dA
+\right).
+\end{equation}
+For a single-valued upward-facing graph surface with no overhangs, its vertical projection satisfies
+\begin{equation}
+\int_S\cos\beta\,\mathrm dA=A_{\mathrm{foot}}.
+\label{eq:vertical-projection}
+\end{equation}
+Here (A_{\mathrm{foot}}) is the horizontal projected footprint (\si{\square\metre}). Since (int_S\mathrm dA=A_{\mathrm{PV}}), the benchmark becomes
+\begin{equation}
+\boxed{
+P_{\mathrm{diff}}
+=
+\frac{\eta DHI}{2}
+\left(
+A_{\mathrm{PV}}+A_{\mathrm{foot}}
+\right)
+}.
+\label{eq:diffuse-cap-limit}
+\end{equation}
+The unit check is
+((\si{\watt\per\square\metre})(\si{\square\metre})=\si{\watt}).
+
+\paragraph{Physical Interpretation.}
+For this idealised convex/no-occlusion benchmark, additional upward-facing surface area can intercept additional isotropic diffuse sky radiation while the projected-area term remains fixed by the footprint. This does not imply that arbitrarily increasing curvature produces a real annual-yield gain because real facets obscure portions of the sky and may obstruct one another.
+
+\paragraph{Engineering Implication.}
+Equation~\eqref{eq:diffuse-cap-limit} is an analytical benchmark for later Rust and ray/sky-view implementations. It must not be used as a validated Singapore annual-yield model. Final 3-D calculations require time-correlated DHI, an anisotropic sky treatment and explicit sky visibility.
+
 \section{Land multiplication}
 For an equal-land comparison, define the land multiplication factor
 \begin{equation}
