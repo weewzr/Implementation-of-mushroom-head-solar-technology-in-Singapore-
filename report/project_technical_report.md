@@ -1,7 +1,7 @@
 # Topology and Geometry Optimisation of Three-Dimensional Photovoltaic Canopies for Land-Constrained Singapore
 
-**Status:** Research reconstruction and first-pass model  
-**Date:** 17 September 2026
+**Status:** Foundation reconstruction and analytical benchmarks — no validated Singapore performance result  
+**Date:** 18 September 2026
 
 ## Abstract
 Singapore's solar resource is strong but deployment is constrained by scarce land and competing urban uses. This project investigates whether three-dimensional photovoltaic (PV) geometries—initially motivated by a rotating "mushroom-head" panel—can increase annual electricity generation per constrained horizontal footprint. Curvature does not create solar energy; its possible value is spatial packing. A 3-D canopy can place $A_{\mathrm{PV}}>A_{\mathrm{land}}$ while attempting to retain irradiation quality, bifacial access, ventilation and useful space below. Early numerical results are deliberately idealised and are not bankable yield predictions.
@@ -57,7 +57,7 @@ where:
 - $\delta$ is solar declination (same angular unit);
 - $H$ is solar hour angle (same angular unit).
 
-The equation is dimensionally consistent because trigonometric functions return dimensionless ratios. In code, all angles are converted to radians before NumPy trigonometric functions are evaluated.
+The equation is dimensionally consistent because trigonometric functions return dimensionless ratios. In the canonical Rust implementation, all angles are converted to radians before trigonometric functions are evaluated. The current solar-position module remains preliminary until benchmarked against the NREL Solar Position Algorithm.
 
 ### 2.4 Direct incidence on a surface element
 For a PV surface element,
@@ -339,8 +339,8 @@ Current percentages are exploratory. Missing effects include validated time-corr
 ## 15. Engineering interpretation
 The current hypothesis is that 3-D PV may be useful through spatial packing and multifunctional land use, not intrinsic cell-efficiency improvement from curvature. A sphere is a control geometry; a mushroom is the founding analytical geometry; a sparse faceted bifacial canopy is a later hypothesis. None is yet established as the optimum.
 
-## 16. Next steps
-Before adding further physics, retrofit the LaTeX report and governing-equation notes to the same equation-by-equation standard used here. Then resume the packing/ray-tracing programme with source-justified solar-position calculations and convergence-tested numerical settings.
+## 16. Foundation work before model expansion
+The current priority is not to add further physics. First reconcile this Markdown report, the LaTeX report, derivation notes, nomenclature, provenance register and Rust modules; remove legacy Python references; establish coordinate/sign conventions and a complete typed parameter register; complete equation–code–test traceability; and strengthen analytical benchmarks. Only after these foundation gates pass an audit should the project resume higher-fidelity packing, ray-tracing, bifacial, thermal, mechanical or optimisation layers.
 
 ## References
 [1] Energy Market Authority, “Solar,” 2026.  
@@ -351,4 +351,4 @@ Before adding further physics, retrofit the LaTeX report and governing-equation 
 [6] Sandia PV Performance Modeling Collaborative, “Basic Solar Position Models.”
 
 ## Reproducibility
-`src/models/solar_geometry.py` implements preliminary analytical geometry. Solar-position code remains explicitly preliminary until upgraded/validated against a traceable implementation. Model-generated data must not be confused with measurements.
+`src/geometry.rs`, `src/solar.rs`, `src/mesh.rs`, and `src/candidates.rs` form the current canonical Rust analytical foundation. Solar-position code remains explicitly preliminary until benchmarked against a traceable NREL SPA implementation. Model-generated data must not be confused with measurements.
