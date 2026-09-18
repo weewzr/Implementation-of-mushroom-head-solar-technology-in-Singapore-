@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **91**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **92**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-28.md`.
 - That audit occurred on Continue #90.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #91 / Pass 1 of audit cycle 29; the NREL SPA Appendix A.5 reference fixture was independently cross-checked and recorded with input/output and convention mapping, but no claim is made that the preliminary Rust solar model reproduces SPA.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #92 / Pass 2 of audit cycle 29; a separate Rust SPA reference-output fixture and north-clockwise zenith/azimuth to ENU convention adapter were added, with a source test checking unit norm and the expected southwest/above-horizon quadrant; the preliminary Cooper model remains separate.
 - Mandatory audit is due no later than project Continue #93 (Pass 3 of audit cycle 29), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **7**.
+- Current ChatGPT session explicit `Continue` count: **8**.
 - This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #92 / Pass 2 of audit cycle 29; implement a separate SPA-reference fixture/test interface without testing the preliminary Cooper model against SPA, map zenith/azimuth into ENU explicitly, and seek qualifying Rust execution evidence; keep annual geometry ranking paused**.
+- Next-pass state: **project #93 / Pass 3 of audit cycle 29; perform the mandatory master-instruction audit before substantive work, verify traceability for the SPA fixture/ENU adapter and seek qualifying Rust execution evidence according to audit findings; keep annual geometry ranking paused**.
 
 ## Session-rotation rule
 
