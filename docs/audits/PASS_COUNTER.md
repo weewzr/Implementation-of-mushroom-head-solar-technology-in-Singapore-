@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **88**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **89**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-27.md`.
 - That audit occurred on Continue #87.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #88 / Pass 1 of audit cycle 28; no qualifying workflow run was found for the audit-27 traceability correction, and Rust civil-time to mean-local-solar-time longitude/time-zone foundations with analytical sign tests were added without mislabelling mean solar time as apparent solar time.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #89 / Pass 2 of audit cycle 28; the authoritative NREL Reda-Andreas SPA reference was selected and a validation-target record added, while benchmark values remain deliberately unpromoted until independently extracted and checked.
 - Mandatory audit is due no later than project Continue #90 (Pass 3 of audit cycle 28), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **4**.
+- Current ChatGPT session explicit `Continue` count: **5**.
 - This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #89 / Pass 2 of audit cycle 28; add an explicitly sourced equation-of-time/apparent-solar-time layer or authoritative SPA benchmark fixture, then seek qualifying Rust execution evidence; keep annual geometry ranking paused**.
+- Next-pass state: **project #90 / Pass 3 of audit cycle 28; perform the mandatory master-instruction audit before substantive work, then extract/check an authoritative SPA benchmark fixture and continue Rust execution-evidence work according to audit findings; keep annual geometry ranking paused**.
 
 ## Session-rotation rule
 
