@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="650" viewBox="0 0 1100 650">
+<rect width="1100" height="650" fill="#fbfcfd"/>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#17212b"/></marker><marker id="sun" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#e69f00"/></marker></defs>
+<text x="45" y="48" font-family="Arial" font-size="28" font-weight="700" fill="#17212b">Direct-beam incidence on a PV facet</text>
+<text x="45" y="78" font-family="Arial" font-size="16" fill="#5f6b76">The front-side direct term is proportional to [n · s]₊ and visibility V.</text>
+<polygon points="330,475 790,350 825,405 365,530" fill="#dceef7" stroke="#0072b2" stroke-width="5"/>
+<circle cx="575" cy="440" r="7" fill="#17212b"/>
+<line x1="575" y1="440" x2="690" y2="185" stroke="#009e73" stroke-width="6" marker-end="url(#a)"/>
+<text x="705" y="185" font-family="Arial" font-size="21" fill="#009e73">facet normal n</text>
+<line x1="575" y1="440" x2="835" y2="185" stroke="#e69f00" stroke-width="6" marker-end="url(#sun)"/>
+<circle cx="865" cy="155" r="24" fill="#f6c445" stroke="#e69f00" stroke-width="3"/>
+<text x="895" y="160" font-family="Arial" font-size="21" fill="#8b5e00">Sun</text>
+<text x="795" y="225" font-family="Arial" font-size="21" fill="#e69f00">s</text>
+<path d="M625 330 A120 120 0 0 1 680 355" fill="none" stroke="#17212b" stroke-width="3"/>
+<text x="665" y="320" font-family="Arial" font-size="19" fill="#17212b">incidence angle θ</text>
+<text x="70" y="170" font-family="Arial" font-size="20" fill="#17212b">Front side:</text>
+<text x="70" y="205" font-family="Arial" font-size="19" fill="#5f6b76">n · s &gt; 0 → direct beam admitted</text>
+<text x="70" y="245" font-family="Arial" font-size="20" fill="#17212b">Grazing:</text>
+<text x="70" y="280" font-family="Arial" font-size="19" fill="#5f6b76">n · s = 0 → zero direct term</text>
+<text x="70" y="320" font-family="Arial" font-size="20" fill="#17212b">Back side:</text>
+<text x="70" y="355" font-family="Arial" font-size="19" fill="#5f6b76">n · s &lt; 0 → [n · s]₊ = 0</text>
+<text x="70" y="600" font-family="Arial" font-size="20" fill="#17212b">dPdir = η(T) DNI(t) V(t) [n · s(t)]₊ dA</text>
+</svg>
