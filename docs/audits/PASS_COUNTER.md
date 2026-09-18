@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **118**.
+- Total explicit user `Continue` commands counted through 18 September 2026: **119**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-37.md`.
 - That audit occurred on Continue #117.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #118 / Pass 1 of audit cycle 38. Diagnosed the report build failure from GitHub Actions logs as a LaTeX-unsafe SVG text label (`A_land` / `A_PV`) and replaced it with plain-language labels; corrective build evidence is pending.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #119 / Pass 2 of audit cycle 38. Corrective CI showed the SVG-label defect was superseded by an environment defect: the containerized evidence workflow had no Inkscape executable. The workflow now runs on Ubuntu and explicitly installs LaTeX, Inkscape and poppler-utils; fresh build evidence is pending.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **2**.
+- Current ChatGPT session explicit `Continue` count: **3**.
 - This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **project #119 / Pass 2 of audit cycle 38 and session Continue #3; inspect the corrective report build, fix the next compile defect if any, and only begin page QA after a successful PDF artifact exists**.
+- Next-pass state: **project #120 / Pass 3 of audit cycle 38 and session Continue #4; perform mandatory master-instruction audit before substantive work, then inspect the corrected compile evidence and proceed to page QA only if the PDF build succeeds**.
 
 ## Session-rotation rule
 
