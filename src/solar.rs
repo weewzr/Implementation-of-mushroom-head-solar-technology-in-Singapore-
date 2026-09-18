@@ -39,6 +39,35 @@ pub fn solar_elevation(latitude: f64, declination: f64, hour_angle: f64) -> f64 
     sin_alpha.clamp(-1.0, 1.0).asin()
 }
 
+
+/// Solar azimuth from North, clockwise, using latitude, declination and hour angle.
+///
+/// All inputs and output are radians. The relation is a transparent spherical-
+/// astronomy foundation, not a replacement for the future NREL-SPA-validated
+/// civil-time solar-position path. Hour angle must already be apparent solar
+/// time: negative before solar noon and positive after solar noon.
+pub fn solar_azimuth_from_north(
+    latitude: f64,
+    declination: f64,
+    hour_angle: f64,
+) -> f64 {
+    let elevation = solar_elevation(latitude, declination, hour_angle);
+    let cos_elevation = elevation.cos();
+
+    // At exact zenith/nadir azimuth is geometrically undefined. Return 0 as a
+    // deterministic coordinate convention only; callers must not interpret it
+    // as a physical northward direction at the singularity.
+    if cos_elevation.abs() < 1e-14 {
+        return 0.0;
+    }
+
+    let east = -declination.cos() * hour_angle.sin();
+    let north = latitude.cos() * declination.sin()
+        - latitude.sin() * declination.cos() * hour_angle.cos();
+
+    east.atan2(north).rem_euclid(2.0 * PI)
+}
+
 /// Unit vector pointing from the observer toward the Sun in local ENU axes.
 ///
 /// Convention:
@@ -97,6 +126,32 @@ mod tests {
     fn equator_equinox_noon_is_zenith() {
         let elevation = solar_elevation(0.0, 0.0, 0.0);
         assert!((rad_to_deg(elevation) - 90.0).abs() < 1e-12);
+    }
+
+    #[test]
+    fn solar_azimuth_has_expected_equatorial_equinox_symmetry() {
+        let lat = 0.0;
+        let dec = 0.0;
+        let morning = solar_azimuth_from_north(lat, dec, deg_to_rad(-45.0));
+        let afternoon = solar_azimuth_from_north(lat, dec, deg_to_rad(45.0));
+
+        // At the equator on the equinox, away from the noon zenith singularity,
+        // the Sun is due east before noon and due west after noon.
+        assert!((rad_to_deg(morning) - 90.0).abs() < 1e-12);
+        assert!((rad_to_deg(afternoon) - 270.0).abs() < 1e-12);
+    }
+
+    #[test]
+    fn azimuth_and_elevation_reconstruct_unit_enu_direction() {
+        let lat = deg_to_rad(35.0);
+        let dec = deg_to_rad(10.0);
+        let h = deg_to_rad(-30.0);
+        let el = solar_elevation(lat, dec, h);
+        let az = solar_azimuth_from_north(lat, dec, h);
+        let v = solar_direction_enu(az, el);
+        let norm = (v[0]*v[0] + v[1]*v[1] + v[2]*v[2]).sqrt();
+        assert!((norm - 1.0).abs() < 1e-12);
+        assert!(v[0] > 0.0); // morning Sun is on eastern side
     }
 
     #[test]
