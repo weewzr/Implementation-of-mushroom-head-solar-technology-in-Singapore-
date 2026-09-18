@@ -75,15 +75,14 @@ $$
 - `docs/MASTER_INSTRUCTIONS.md` — persistent quality and project requirements
 
 ## Reproducing the current analysis
+The canonical implementation is Rust. The commands below are **reproduction instructions, not evidence that the current commit has already passed them**. Execution may be described as verified only when a qualifying record has been stored under the project execution-evidence protocol in `docs/rust_execution_evidence_protocol.md`.
+
 ```bash
-# Canonical implementation is Rust. See Cargo.toml and the Rust source tree.
 cargo test
 cargo run --release
-
-# Current Rust scope: analytically checked paraboloidal geometry.
-# Higher-fidelity irradiance/ray-tracing/optimisation layers are added only
-# after provenance, equations and validation tests are established.
 ```
+
+Current Rust scope includes analytical geometry, preliminary solar geometry, ENU/facet incidence foundations and the equal-resource candidate contract. Higher-fidelity irradiance, ray-tracing and optimisation layers are added only after provenance, equations and validation tests are established.
 
 ## Technical report
 - [Markdown report](report/project_technical_report.md)
@@ -112,5 +111,7 @@ A dated compliance audit is maintained under [`docs/audits/`](docs/audits/). The
 - [Cross-session project pass counter](docs/audits/PASS_COUNTER.md)
 - [Equation–code–evidence traceability matrix](docs/traceability_matrix.md)
 - [Typed parameter and provenance register](docs/parameter_provenance_register.md)
+- [Rust execution-evidence protocol](docs/rust_execution_evidence_protocol.md)
+- [LaTeX compile and PDF visual-QA protocol](docs/pdf_compile_qa_protocol.md)
 
 The repository is not yet at final-report quality. Quantitative performance claims remain exploratory until the traceability, validation, uncertainty and PDF quality gates in the master instruction are satisfied.
