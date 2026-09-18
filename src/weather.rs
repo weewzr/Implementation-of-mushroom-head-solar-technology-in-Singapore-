@@ -382,7 +382,7 @@ mod tests {
     fn reports_duplicate_timestamp() {
         let csv = format!("{HEADER}\n2026-01-01T12:00:00+08:00,800,120,700,31.2,2.4,180\n2026-01-01T12:00:00+08:00,810,121,701,31.3,2.5,181\n");
         let (_, issues) = parse_canonical_csv(&csv).unwrap();
-        assert!(issues.iter().any(|issue| issue.message.contains("duplicate timestamp")));
+        assert!(issues.iter().any(|issue| issue.message.contains("duplicate absolute timestamp")));
     }
 
     #[test]
