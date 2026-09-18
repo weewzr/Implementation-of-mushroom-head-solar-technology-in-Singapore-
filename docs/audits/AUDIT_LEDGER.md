@@ -6,6 +6,7 @@ This ledger exists because the required three-turn audit cadence was missed duri
 |---|---|---|---|
 | `2026-09-18_master_instruction_audit.md` | Restoration of full master governance | Broad repository compliance | Identified major incomplete gates |
 | `2026-09-18_full_master_instruction_audit.md` | User identified missed three-turn audit | Full 46-requirement run plus operational checklist | Major modelling paused; corrective backlog established |
+| `2026-09-18_three-pass_audit.md` | Mandatory Pass 3 after full audit | Foundation-first operational audit | Governance test passed; modelling remains paused for foundation repair |
 
 ## Cadence rule
 
