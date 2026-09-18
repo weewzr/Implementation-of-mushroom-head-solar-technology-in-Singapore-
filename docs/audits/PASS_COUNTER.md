@@ -4,19 +4,19 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **92**.
-- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-28.md`.
-- That audit occurred on Continue #90.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #92 / Pass 2 of audit cycle 29; a separate Rust SPA reference-output fixture and north-clockwise zenith/azimuth to ENU convention adapter were added, with a source test checking unit norm and the expected southwest/above-horizon quadrant; the preliminary Cooper model remains separate.
-- Mandatory audit is due no later than project Continue #93 (Pass 3 of audit cycle 29), unless an earlier major-result audit is required.
+- Total explicit user `Continue` commands counted through 18 September 2026: **93**.
+- Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-29.md`.
+- That audit occurred on Continue #93.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #93 / Pass 3 of audit cycle 29; mandatory audit 29 completed, SPA fixture/ENU traceability was synchronized, and the diagram/compiled-PDF visual-QA layer was identified as a material foundation gap.
+- Mandatory audit is due no later than project Continue #96 (Pass 3 of audit cycle 30), unless an earlier major-result audit is required.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **8**.
+- Current ChatGPT session explicit `Continue` count: **9**.
 - This session resumed from persisted repository state after the previous session rotation.
 - Session rotation required: **no**.
-- Next-pass state: **project #93 / Pass 3 of audit cycle 29; perform the mandatory master-instruction audit before substantive work, verify traceability for the SPA fixture/ENU adapter and seek qualifying Rust execution evidence according to audit findings; keep annual geometry ranking paused**.
+- Next-pass state: **project #94 / Pass 1 of audit cycle 30; begin the safe explanatory diagram suite and report integration while continuing Rust execution evidence/SPA validation; performance charts remain blocked until validation gates close**.
 
 ## Session-rotation rule
 
