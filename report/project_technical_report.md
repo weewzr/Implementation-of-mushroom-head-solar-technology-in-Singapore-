@@ -11,8 +11,68 @@ The engineering question is: **for a constrained horizontal footprint in Singapo
 
 External Singapore values are maintained in the project provenance register and bibliography rather than treated as unexplained constants.
 
-## 2. Solar position and incidence
-### 2.1 Declination approximation
+## 2. Coordinate and sign conventions
+
+The project uses a right-handed local East–North–Up (ENU) frame:
+
+- $+x$: east;
+- $+y$: north;
+- $+z$: vertically upward.
+
+A position vector is
+
+$
+\mathbf r=(x,y,z).
+$
+
+where:
+- $\mathbf r$ is position (m);
+- $x$ is the east coordinate (m);
+- $y$ is the north coordinate (m);
+- $z$ is the upward coordinate (m).
+
+Solar and facet azimuth are measured clockwise from geographic north: north $=0^\circ$, east $=90^\circ$, south $=180^\circ$, west $=270^\circ$. Rust uses radians internally.
+
+For solar elevation $\alpha$ and solar azimuth $\gamma_s$, the ENU unit vector toward the Sun is
+
+$
+\mathbf s=
+\left(
+\cos\alpha\sin\gamma_s,
+\cos\alpha\cos\gamma_s,
+\sin\alpha
+\right).
+$
+
+where:
+- $\mathbf s$ is the dimensionless unit vector from the receiving point toward the Sun;
+- $\alpha$ is solar elevation above the local horizon (rad in the Rust implementation);
+- $\gamma_s$ is solar azimuth measured clockwise from north (rad in the Rust implementation).
+
+Sanity checks are $\mathbf s=(0,0,1)$ at zenith, $(1,0,0)$ at the eastern horizon, and $(0,1,0)$ at the northern horizon. The vector norm is unity.
+
+For a facet with tilt $\beta$ from horizontal and facet azimuth $\gamma_p$,
+
+$
+\mathbf n=
+\left(
+\sin\beta\sin\gamma_p,
+\sin\beta\cos\gamma_p,
+\cos\beta
+\right).
+$
+
+where:
+- $\mathbf n$ is the outward/front-side unit normal (dimensionless);
+- $\beta$ is facet tilt from horizontal (rad in Rust);
+- $\gamma_p$ is facet azimuth clockwise from north (rad in Rust).
+
+**Physical Interpretation.** The ENU frame makes the vertical component directly represent upward projection. A horizontal upward-facing module has $\mathbf n=(0,0,1)$.
+
+**Engineering Implication.** Geometry generators, solar vectors, facet normals, visibility rays and future mechanical axes must all use this convention. External data using a different azimuth definition must be converted at the data boundary.
+
+## 3. Solar position and incidence
+### 3.1 Declination approximation
 For preliminary teaching and geometry calculations, the Cooper (1969) declination approximation may be written
 
 $$
@@ -29,7 +89,7 @@ where:
 
 **Provenance and limitation.** pvlib documents this expression as the Cooper (1969) approximation via Duffie and Beckman. It is retained here because its assumptions are transparent. Validated production simulations should use a higher-accuracy solar-position implementation rather than treating this sinusoid as exact astronomy.
 
-### 2.2 Solar hour angle
+### 3.2 Solar hour angle
 Using local apparent solar time,
 
 $$
@@ -44,7 +104,7 @@ where:
 
 Civil clock time is **not** interchangeable with $t_{\mathrm{solar}}$. Longitude within the time zone and the equation of time must be handled when converting timestamps to apparent solar time.
 
-### 2.3 Solar elevation
+### 3.3 Solar elevation
 Spherical solar geometry gives
 
 $$
@@ -59,7 +119,7 @@ where:
 
 The equation is dimensionally consistent because trigonometric functions return dimensionless ratios. In the canonical Rust implementation, all angles are converted to radians before trigonometric functions are evaluated. The current solar-position module remains preliminary until benchmarked against the NREL Solar Position Algorithm.
 
-### 2.4 Direct incidence on a surface element
+### 3.4 Direct incidence on a surface element
 For a PV surface element,
 
 $$
@@ -80,7 +140,7 @@ where:
 
 Unit check: $(W\,m^{-2})(m^2)=W$; all other factors are dimensionless.
 
-### 2.5 Isotropic diffuse first approximation
+### 3.5 Isotropic diffuse first approximation
 The first diffuse model is
 
 $$
@@ -97,7 +157,7 @@ where:
 
 The numerical factor $1/2$ follows from the hemispherical isotropic-sky geometry; it is not an empirical Singapore coefficient. This approximation will later be replaced by an anisotropic diffuse model plus explicit sky-patch visibility.
 
-## 3. Paraboloidal mushroom geometry
+## 4. Paraboloidal mushroom geometry
 Define the analytical cap
 
 $$
@@ -153,7 +213,7 @@ where:
 
 The limiting case $k\rightarrow0$ gives $\Pi_A\rightarrow1$, providing the required flat-disk sanity check.
 
-## 4. Diffuse-light analytical limit
+## 5. Diffuse-light analytical limit
 Under the isotropic-sky approximation,
 
 $$
@@ -178,10 +238,10 @@ $$
 
 where all variables are defined above. This is an ideal no-occlusion analytical result, not a real annual-yield prediction.
 
-## 5. Exploratory numerical experiment — not a validated yield model
+## 6. Exploratory numerical experiment — not a validated yield model
 An earlier exploratory calculation used annual horizontal irradiation of $1580\,\mathrm{kWh\,m^{-2}\,yr^{-1}}$, a provisional 57% diffuse share and an assumed module efficiency of 23%. These values do **not** have equal evidentiary status: the Singapore irradiation value is externally sourced; the 57% value remains provisional pending source verification in the project register; and 23% was an engineering assumption used for illustration. Consequently, the table is retained only as historical exploratory output and must not be cited as expected plant performance.
 
-## 6. Central packing relation
+## 7. Central packing relation
 Define
 
 $$
@@ -221,7 +281,7 @@ $$
 
 where the logarithmic derivative is dimensionless and the value 1 follows exactly from differentiating the product $M_L=\Pi\eta_{\mathrm{pack}}$ at a stationary point; it is not an empirical threshold.
 
-## 7. Sphere baseline
+## 8. Sphere baseline
 For a sphere,
 
 $$
@@ -230,7 +290,7 @@ $$
 
 where $A_s$ is spherical surface area (m$^2$), $A_{\mathrm{proj}}$ is its orthogonal projected area toward any beam direction (m$^2$), and $R$ is sphere radius (m). The factors 4 and $\pi$ are exact geometric constants.
 
-## 8. Mechanics and the original momentum question
+## 9. Mechanics and the original momentum question
 Angular momentum and rotational kinetic energy are
 
 $$
@@ -274,7 +334,7 @@ $$
 
 where $r_{\mathrm{CP}}$ is the perpendicular moment arm from the rotation axis to the aerodynamic centre/centre of pressure (m). The approximation assumes a representative resultant force and lever arm.
 
-## 9. Tracking as optimal control
+## 10. Tracking as optimal control
 A generic net-energy/wear objective is
 
 $$
@@ -283,7 +343,7 @@ $$
 
 where $\theta(t)$ is tracker orientation (rad or $^\circ$), $P_{\mathrm{PV}}$ is PV electrical power (W), $P_{\mathrm{motor}}$ is actuator electrical power (W), $T$ is the optimisation time horizon, and $C_{\mathrm{wear}}$ is a wear penalty expressed in energy-equivalent or monetary units consistent with the chosen objective.
 
-## 10. Bifacial and thermal extensions
+## 11. Bifacial and thermal extensions
 For bifaciality,
 
 $$
@@ -300,7 +360,7 @@ $$
 
 where $T_c$ is cell temperature ($^\circ$C or K for temperature differences), $T_{\mathrm{ref}}$ is reference cell temperature in the same scale, $\eta_{\mathrm{ref}}$ is reference efficiency (dimensionless), and $\gamma$ is relative temperature coefficient (K$^{-1}$ or $^\circ$C$^{-1}$). Values of $\gamma$ must come from the selected module datasheet/model rather than an unexplained generic constant.
 
-## 11. Free-form optimisation
+## 12. Free-form optimisation
 For facet $i$ define
 
 $$
@@ -327,19 +387,19 @@ $$
 
 where $A_{\mathrm{foot}}$ is allowed footprint area (m$^2$), $A_i$ is facet area (m$^2$), and $z_i$ is facet elevation (m). The numerical values 1, 2 and 2 are **engineering design assumptions chosen to create a reproducible canonical comparison**, not Singapore regulatory limits or empirically optimal values. They must therefore be varied in sensitivity studies.
 
-## 12. Numerical method roadmap
+## 13. Numerical method roadmap
 Each timestep will compute solar position, irradiance components, facet incidence, direct visibility, anisotropic sky irradiance, rear irradiance, temperature and electrical output. Ray tracing determines self-shadowing and later sky-view factors. Numerical discretisation settings such as mesh density, sky-patch count and timestep are computational parameters and require convergence checks before final results.
 
-## 13. Singapore data and validation
+## 14. Singapore data and validation
 All Singapore-specific numerical values are to be sourced in `docs/constants_and_provenance.md` and the bibliography. The final model should use measured or validated time series rather than annual-average decomposition. Redistribution rights must be checked before committing third-party raw data.
 
-## 14. Limitations
+## 15. Limitations
 Current percentages are exploratory. Missing effects include validated time-correlated DNI/DHI, anisotropic diffuse sky, complete 3-D self-occlusion, array shading, bifacial rear view, detailed temperature, electrical mismatch, inverter clipping, structural mass, wind CFD, lifecycle cost and degradation. No current percentage gain should be presented as expected real-world performance.
 
-## 15. Engineering interpretation
+## 16. Engineering interpretation
 The current hypothesis is that 3-D PV may be useful through spatial packing and multifunctional land use, not intrinsic cell-efficiency improvement from curvature. A sphere is a control geometry; a mushroom is the founding analytical geometry; a sparse faceted bifacial canopy is a later hypothesis. None is yet established as the optimum.
 
-## 16. Foundation work before model expansion
+## 17. Foundation work before model expansion
 The current priority is not to add further physics. First reconcile this Markdown report, the LaTeX report, derivation notes, nomenclature, provenance register and Rust modules; remove legacy Python references; establish coordinate/sign conventions and a complete typed parameter register; complete equation–code–test traceability; and strengthen analytical benchmarks. Only after these foundation gates pass an audit should the project resume higher-fidelity packing, ray-tracing, bifacial, thermal, mechanical or optimisation layers.
 
 ## References
