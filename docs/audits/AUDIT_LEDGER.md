@@ -35,6 +35,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-18_three-pass_audit-19.md` | Mandatory Pass 3 / Continue #63 | Rust executable-integrity and weather-schema parity checkpoint | Rust evidence runs #10 and #11 pass; stale README/traceability evidence wording identified for immediate correction; provider flags, typed manifest/site linkage, canonical data, uncertainty/convergence and PDF gates remain open; model expansion remains paused |
 
+| `2026-09-18_three-pass_audit-20.md` | Mandatory Pass 3 / Continue #66 | Typed weather provenance, provider-QC and missing-data semantics checkpoint | Rust evidence runs #12 and #13 pass; stale README/traceability wording corrected; manifest-file binding, canonical Singapore data, closure/uncertainty/convergence and PDF gates remain open; model expansion remains paused |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
