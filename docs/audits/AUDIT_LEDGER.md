@@ -43,6 +43,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-18_three-pass_audit-23.md` | Mandatory Pass 3 / Continue #75 | Full master-instruction foundation checkpoint | No new validated result; canonical Singapore measured data and source-justified site tolerance remain primary blockers; solar-position/closure/uncertainty/convergence/PDF gates remain open; model expansion remains paused |
 
+| `2026-09-18_three-pass_audit-24.md` | Mandatory Pass 3 / Continue #78 | Master-instruction checkpoint and stalled-workflow correction | Identified governance-only Continue defect; established substantive-work-per-Continue rule; refreshed Singapore source-access foundation; canonical data/tolerance and downstream validation gates remain open |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
