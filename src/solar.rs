@@ -30,6 +30,36 @@ pub fn hour_angle(apparent_solar_time_h: f64) -> f64 {
     deg_to_rad(15.0 * (apparent_solar_time_h - 12.0))
 }
 
+
+/// Standard meridian longitude corresponding to a fixed UTC offset.
+///
+/// East longitude is positive. For example, UTC+8 corresponds to 120 deg E.
+/// This is a coordinate/time-zone relation only; it does not include the
+/// equation-of-time correction required for apparent solar time.
+pub fn standard_meridian_deg(utc_offset_h: f64) -> f64 {
+    15.0 * utc_offset_h
+}
+
+/// Mean local solar time from local civil clock time and longitude.
+///
+/// Inputs:
+/// - civil_time_h: local standard civil time in decimal hours;
+/// - longitude_deg_east: observer longitude, positive east of Greenwich;
+/// - utc_offset_h: fixed local UTC offset in hours.
+///
+/// Output is mean local solar time in decimal hours, before equation-of-time
+/// correction. The longitude correction is 4 minutes per degree east/west of
+/// the time-zone standard meridian. This function deliberately does NOT call
+/// the result apparent solar time.
+pub fn mean_local_solar_time_h(
+    civil_time_h: f64,
+    longitude_deg_east: f64,
+    utc_offset_h: f64,
+) -> f64 {
+    let standard_longitude_deg_east = standard_meridian_deg(utc_offset_h);
+    civil_time_h + (longitude_deg_east - standard_longitude_deg_east) / 15.0
+}
+
 /// Geometric solar elevation from latitude, declination and hour angle.
 ///
 /// All angular inputs and output are radians.
@@ -120,6 +150,25 @@ mod tests {
     #[test]
     fn one_solar_hour_is_fifteen_degrees() {
         assert!((rad_to_deg(hour_angle(13.0)) - 15.0).abs() < 1e-12);
+    }
+
+
+    #[test]
+    fn utc_plus_eight_standard_meridian_is_120_deg_east() {
+        assert!((standard_meridian_deg(8.0) - 120.0).abs() < 1e-12);
+    }
+
+    #[test]
+    fn civil_to_mean_solar_time_has_correct_longitude_sign() {
+        // At the time-zone standard meridian, civil and mean solar time agree.
+        assert!((mean_local_solar_time_h(12.0, 120.0, 8.0) - 12.0).abs() < 1e-12);
+
+        // A site 15 deg west of the standard meridian has mean solar time
+        // one hour behind the same civil clock reading.
+        assert!((mean_local_solar_time_h(12.0, 105.0, 8.0) - 11.0).abs() < 1e-12);
+
+        // A site 15 deg east is one mean-solar hour ahead.
+        assert!((mean_local_solar_time_h(12.0, 135.0, 8.0) - 13.0).abs() < 1e-12);
     }
 
     #[test]
