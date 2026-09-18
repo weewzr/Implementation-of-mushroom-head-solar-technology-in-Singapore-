@@ -1,0 +1,56 @@
+# Canonical acquisition-manifest template.
+# Copy to a source-specific manifest only when source evidence is available.
+# Empty/UNKNOWN placeholders are intentionally invalid for canonical ingestion.
+
+manifest_version = 1
+provider = "UNKNOWN"
+dataset_name = "UNKNOWN"
+source_identifier = "UNKNOWN"
+retrieval_date = "UNKNOWN"
+licence = "UNKNOWN"
+redistribution_status = "UNKNOWN"
+coverage_period = "UNKNOWN"
+native_interval = "UNKNOWN"
+source_timezone = "UNKNOWN"
+
+[site]
+station_id = "UNKNOWN"
+latitude_deg = 0.0
+longitude_deg = 0.0
+# Do not interpret 0,0 as a default site. Replace both coordinates from
+# authoritative station metadata before binding a canonical dataset.
+# elevation_m may be added when authoritative metadata supplies it.
+
+[variables]
+ghi = "UNKNOWN" # measured | derived | unavailable
+dhi = "UNKNOWN" # measured | derived | unavailable
+dni = "UNKNOWN" # measured | derived | unavailable
+ambient_temperature = "UNKNOWN"
+wind_speed = "UNKNOWN"
+wind_direction = "UNKNOWN"
+relative_humidity = "UNKNOWN"
+air_pressure = "UNKNOWN"
+
+[timestamp]
+# Record whether each source timestamp denotes interval start, centre, end,
+# or an instantaneous observation. Do not infer this from display formatting.
+interval_semantics = "UNKNOWN"
+clock_correction = "UNKNOWN"
+leap_day_handling = "UNKNOWN"
+
+[quality_control]
+provider_flags_available = false
+provider_flag_field = "UNKNOWN"
+missing_value_encoding = "UNKNOWN"
+
+[provenance]
+raw_checksum = "UNKNOWN"
+immutable_source_id = "UNKNOWN"
+preprocessing_commit = "UNKNOWN"
+
+[acceptance]
+# This field is documentary only. Canonical Rust binding must still reject
+# unresolved required metadata and variable provenance.
+state = "candidate_source"
+licence_cleared = false
+raw_redistribution_permitted = false
