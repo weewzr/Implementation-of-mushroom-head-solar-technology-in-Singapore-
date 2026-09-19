@@ -134,6 +134,8 @@ pub struct SpaReferencePosition {
 /// The corresponding full input record is documented in
 /// docs/nrel_spa_validation_target.md. Keep this fixture separate from the
 /// preliminary Cooper-based model.
+pub const SPA_VALIDATION_TOLERANCE_DEG: f64 = 0.001;
+
 pub const NREL_SPA_APPENDIX_A5: SpaReferencePosition = SpaReferencePosition {
     zenith_deg: 50.11162,
     azimuth_from_north_deg: 194.34024,
@@ -269,6 +271,14 @@ mod tests {
         }
     }
 
+
+    #[test]
+    fn spa_published_fixture_and_acceptance_tolerance_are_pinned() {
+        let r = NREL_SPA_APPENDIX_A5;
+        assert!((r.zenith_deg - 50.11162).abs() < 1e-12);
+        assert!((r.azimuth_from_north_deg - 194.34024).abs() < 1e-12);
+        assert!((SPA_VALIDATION_TOLERANCE_DEG - 0.001).abs() < 1e-15);
+    }
 
     #[test]
     fn spa_reference_convention_maps_to_expected_enu_quadrant() {
