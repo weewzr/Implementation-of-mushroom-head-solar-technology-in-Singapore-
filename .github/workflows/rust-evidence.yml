@@ -9,6 +9,7 @@ on:
       - "Cargo.lock"
       - "src/**"
       - "tests/**"
+      - "data/**"
       - ".github/workflows/rust-evidence.yml"
 
 permissions:
