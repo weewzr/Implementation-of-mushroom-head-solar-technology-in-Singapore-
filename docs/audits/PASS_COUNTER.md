@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 19 September 2026: **126**.
+- Total explicit user `Continue` commands counted through 19 September 2026: **127**.
 - Most recent mandatory audit: `docs/audits/2026-09-19_three-pass_audit-40.md`.
 - That audit occurred on Continue #126.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #126 / mandatory Audit 40 completed. Rust execution and irradiance closure/POA foundations pass. Trustworthy annual Baseline Model Phase remains blocked by absence of authorised canonical annual Singapore irradiance data and absence of an implemented SPA-equivalent solver that reproduces the authoritative fixture. No annual-yield result is promoted.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #127 / Pass 1 of audit cycle 41. Work is restricted to closing the solar-position gate with an implemented Rust reference-grade solver and independent Singapore convention cases. No annual-yield result is promoted.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **10**.
+- Current ChatGPT session explicit `Continue` count: **11**.
 - This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **project #127 / Pass 1 of audit cycle 41 and session Continue #11; close the two science release gates directly, then authorize Baseline Model Phase if they pass**.
+- Next-pass state: **project #128 / Pass 2 of audit cycle 41 and session Continue #12; session rotation boundary applies after state recording, so no substantive #128 work may begin in this session**.
 
 ## Session-rotation rule
 
