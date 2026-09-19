@@ -14,3 +14,5 @@ pub mod mesh;
 pub mod weather;
 
 pub mod irradiance;
+
+pub mod spa;
