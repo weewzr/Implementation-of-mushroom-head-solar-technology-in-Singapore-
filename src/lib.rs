@@ -12,3 +12,5 @@ pub mod candidates;
 pub mod mesh;
 
 pub mod weather;
+
+pub mod irradiance;
