@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 19 September 2026: **124**.
+- Total explicit user `Continue` commands counted through 19 September 2026: **125**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-39.md`.
 - That audit occurred on Continue #123.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #124 / Pass 1 of audit cycle 40. PDF compilation is to be closed at successful-build evidence only, then work pivots immediately to canonical Singapore dataset acquisition and Rust ingestion/QC. No model result is promoted.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #125 / Pass 2 of audit cycle 40. Singapore data remains fail-closed pending authorised SERIS delivery; solar-position, irradiance-closure and POA validation fixtures/tolerances are the current foundation work. No annual-yield result is promoted.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **8**.
+- Current ChatGPT session explicit `Continue` count: **9**.
 - This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **project #125 / Pass 2 of audit cycle 40 and session Continue #9; continue Singapore dataset/Rust ingestion-QC foundation work after establishing a successful PDF build**.
+- Next-pass state: **project #126 / mandatory Pass 3 audit of cycle 40 and session Continue #10; audit the new validation layer before further model expansion**.
 
 ## Session-rotation rule
 
