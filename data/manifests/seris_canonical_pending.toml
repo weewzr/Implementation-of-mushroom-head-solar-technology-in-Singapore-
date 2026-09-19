@@ -1,0 +1,47 @@
+manifest_version = 1
+status = "canonical_source_pending_authorised_delivery"
+
+[dataset]
+provider = "Solar Energy Research Institute of Singapore (SERIS), National University of Singapore"
+product_name = "Singapore irradiance monitoring network / National Solar Repository"
+source_identifier = "SERIS Singapore irradiance network; exact station/export identifier pending provider delivery"
+retrieval_date = "2026-09-19"
+coverage_start = ""
+coverage_end = ""
+native_sampling_interval = "1s"
+source_timezone = ""
+timestamp_semantics = ""
+
+[site]
+station_id = ""
+latitude_deg = ""
+longitude_deg = ""
+elevation_m = ""
+coordinate_datum = ""
+
+[licence]
+licence_name = "Permission terms pending provider delivery"
+permission_reference = "https://www.seris.nus.edu.sg/services/real-time-monitoring-system-of-irradiance/"
+raw_redistribution = "unknown"
+derived_output_redistribution = "unknown"
+notes = "Public page documents monitoring capability and contact route, not an open historical bulk-download licence. Do not commit raw observations until permission is established."
+
+[variables]
+ghi = "measured"
+dhi = "measured"
+dni = "unavailable"
+ambient_temperature = "measured"
+wind_speed = "measured"
+wind_direction = "measured"
+relative_humidity = "measured"
+air_pressure = "measured"
+
+[provenance]
+source_checksum = ""
+immutable_source_id = ""
+preprocessing_commit = ""
+
+[qc]
+provider_quality_flags_available = "unknown"
+missing_data_notes = "Resolve from delivered dataset."
+known_sensor_or_clock_issues = "Resolve from provider metadata."
