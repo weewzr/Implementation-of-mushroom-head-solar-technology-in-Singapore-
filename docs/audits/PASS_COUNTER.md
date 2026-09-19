@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 18 September 2026: **123**.
+- Total explicit user `Continue` commands counted through 19 September 2026: **124**.
 - Most recent mandatory audit: `docs/audits/2026-09-18_three-pass_audit-39.md`.
 - That audit occurred on Continue #123.
 - Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #123 / mandatory audit 39 completed. Continues #122 and #123 were received in close succession while source correction was underway; both are counted. Raytracing SVG underscore labels were corrected; PDF compilation remains under evidence-driven repair and no model result is promoted.
+- Current explicit `Continue` is project #124 / Pass 1 of audit cycle 40. PDF compilation is to be closed at successful-build evidence only, then work pivots immediately to canonical Singapore dataset acquisition and Rust ingestion/QC. No model result is promoted.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **7**.
+- Current ChatGPT session explicit `Continue` count: **8**.
 - This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **project #124 / Pass 1 of audit cycle 40 and session Continue #8; inspect fresh CI after raytracing SVG correction and continue compiler/page-QA foundation work**.
+- Next-pass state: **project #125 / Pass 2 of audit cycle 40 and session Continue #9; continue Singapore dataset/Rust ingestion-QC foundation work after establishing a successful PDF build**.
 
 ## Session-rotation rule
 
