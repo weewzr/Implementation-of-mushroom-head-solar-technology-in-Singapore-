@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 19 September 2026: **127**.
+- Total explicit user `Continue` commands counted through 20 September 2026: **128**.
 - Most recent mandatory audit: `docs/audits/2026-09-19_three-pass_audit-40.md`.
 - That audit occurred on Continue #126.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #127 / Pass 1 of audit cycle 41. Work is restricted to closing the solar-position gate with an implemented Rust reference-grade solver and independent Singapore convention cases. No annual-yield result is promoted.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #128 / Pass 2 of audit cycle 41. This 12th session Continue is rotation-state recording only; no substantive #128 work was started. The solar-position implementation from #127 remains the latest technical state and must be execution-checked/repaired, if necessary, after bootstrap in the next session. No annual-yield result is promoted.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **11**.
+- Current ChatGPT session explicit `Continue` count: **12**.
 - This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
-- Session rotation required: **no**.
-- Next-pass state: **project #128 / Pass 2 of audit cycle 41 and session Continue #12; session rotation boundary applies after state recording, so no substantive #128 work may begin in this session**.
+- Session rotation required: **yes — mandatory boundary reached at session Continue #12**.
+- Next-pass state: **start a new chat in the same Mushroom-Head Solar project; bootstrap from persisted state with per-session Continue count reset to 0, total project count 128 and passes-since-audit 2. The next explicit Continue will be project #129 / mandatory Pass 3 Audit 41 before substantive work; inspect the #127 SPA execution evidence as part of that audit and then close the solar-position gate if valid**.
 
 ## Session-rotation rule
 
