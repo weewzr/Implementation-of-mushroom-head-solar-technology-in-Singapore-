@@ -177,6 +177,10 @@ where:
 
 The equation is dimensionally consistent because trigonometric functions return dimensionless ratios. In the canonical Rust implementation, all angles are converted to radians before trigonometric functions are evaluated. The current solar-position module remains preliminary until benchmarked against the NREL Solar Position Algorithm.
 
+![Solar-ray and surface-interaction schematic](../figures/concept_solar_raytracing.svg)
+
+**Figure 4.** Conceptual ray path from the Sun to a three-dimensional PV surface. The schematic separates solar direction, local surface orientation and obstruction/visibility before electrical conversion.
+
 ### 3.4 Direct incidence on a surface element
 For a PV surface element,
 
@@ -200,7 +204,7 @@ Unit check: $(W\,m^{-2})(m^2)=W$; all other factors are dimensionless.
 
 ![Direct incidence geometry](../figures/direct_incidence_geometry.svg)
 
-**Figure 4.** Direct-beam incidence convention for a PV facet. The monofacial direct term uses $[\mathbf n\cdot\mathbf s]_+$ and is additionally multiplied by the visibility factor $V$.
+**Figure 5.** Direct-beam incidence convention for a PV facet. The monofacial direct term uses $[\mathbf n\cdot\mathbf s]_+$ and is additionally multiplied by the visibility factor $V$.
 
 
 ### 3.5 Isotropic diffuse first approximation
@@ -278,7 +282,7 @@ The limiting case $k\rightarrow0$ gives $\Pi_A\rightarrow1$, providing the requi
 
 ![Paraboloidal mushroom geometry](../figures/paraboloid_geometry.svg)
 
-**Figure 5.** Labelled cross-section of the founding paraboloidal mushroom cap, identifying $R$, $h$, $r$, $z(r)$ and a representative outward surface normal. The geometry is an analytical benchmark and is not a claimed optimum.
+**Figure 6.** Labelled cross-section of the founding paraboloidal mushroom cap, identifying $R$, $h$, $r$, $z(r)$ and a representative outward surface normal. The geometry is an analytical benchmark and is not a claimed optimum.
 
 
 ## 5. Diffuse-light analytical limit
@@ -416,7 +420,7 @@ where $r_{\mathrm{CP}}$ is the perpendicular moment arm from the rotation axis t
 
 ![Mechanical free-body and tracking schematic](../figures/mechanical_free_body_tracking.svg)
 
-**Figure 6.** Conceptual free-body/tracking diagram for the mushroom-head candidate. It establishes the bookkeeping for weight, wind resultant, actuator torque, rotation axis and solar direction; quantitative actuator sizing remains unset.
+**Figure 7.** Conceptual free-body/tracking diagram for the mushroom-head candidate. It establishes the bookkeeping for weight, wind resultant, actuator torque, rotation axis and solar direction; quantitative actuator sizing remains unset.
 
 
 ## 10. Tracking as optimal control
@@ -517,7 +521,7 @@ Every candidate must use the same declared land footprint, active-PV-area accoun
 
 ![Validation-first modelling workflow](../figures/method_validation_flow.svg)
 
-**Figure 7.** Validation-first workflow. Failure of an input, equation, numerical or evidence gate returns the project to foundation correction rather than allowing an exploratory result to be promoted.
+**Figure 8.** Validation-first workflow. Failure of an input, equation, numerical or evidence gate returns the project to foundation correction rather than allowing an exploratory result to be promoted.
 
 The immediate modelling sequence is therefore
 
