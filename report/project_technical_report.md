@@ -1,7 +1,7 @@
 # Topology and Geometry Optimisation of Three-Dimensional Photovoltaic Canopies for Land-Constrained Singapore
 
 **Status:** Foundation reconstruction and analytical benchmarks — no validated Singapore performance result  
-**Date:** 18 September 2026
+**Date:** 23 September 2026
 
 ## Abstract
 Singapore's solar resource is strong but deployment is constrained by scarce land and competing urban uses. This project investigates whether three-dimensional photovoltaic (PV) geometries—initially motivated by a rotating "mushroom-head" panel—can increase annual electricity generation per constrained horizontal footprint. Curvature does not create solar energy; its possible value is spatial packing. A 3-D canopy can place $A_{\mathrm{PV}}>A_{\mathrm{land}}$ while attempting to retain irradiation quality, bifacial access, ventilation and useful space below. Early numerical results are deliberately idealised and are not bankable yield predictions.
@@ -52,6 +52,17 @@ $
 $
 
 This chain explains why a curved surface cannot be judged from surface area alone. Adding PV area can increase the packing ratio, but every added element must still receive useful irradiance. The optimisation problem is consequently a competition between **more active area per unit land** and **lower average productivity of that packed area**. Sections 2--7 build those quantities from first principles before any candidate geometry is compared.
+
+### 1.2 Concept and model-flow diagrams
+
+![Equal-footprint concept comparing flat and three-dimensional PV packing](../figures/equal_footprint_concept.svg)
+
+**Figure 1.** Equal-footprint project concept. The purpose of the three-dimensional geometry is not to claim improved cell efficiency, but to test whether additional active PV can be packed into scarce horizontal footprint without losing too much irradiation quality or introducing unacceptable mechanical and lifecycle penalties.
+
+![Singapore solar and PV modelling chain](../figures/singapore_solar_pv_chain.svg)
+
+**Figure 2.** Beginner-to-model bridge from Singapore solar resource to facet irradiance, electrical conversion and land-normalised comparison. This is a modelling map, not evidence that every downstream validation gate has passed.
+
 
 ## 2. Coordinate and sign conventions
 
@@ -112,6 +123,11 @@ where:
 **Physical Interpretation.** The ENU frame makes the vertical component directly represent upward projection. A horizontal upward-facing module has $\mathbf n=(0,0,1)$.
 
 **Engineering Implication.** Geometry generators, solar vectors, facet normals, visibility rays and future mechanical axes must all use this convention. External data using a different azimuth definition must be converted at the data boundary.
+
+![ENU coordinate convention](../figures/enu_coordinate_system.svg)
+
+**Figure 3.** Canonical East–North–Up coordinate system. Solar vectors, facet normals, geometry generators, ray tests and mechanical axes must use this convention consistently.
+
 
 ## 3. Solar position and incidence
 ### 3.1 Declination approximation
@@ -181,6 +197,11 @@ where:
 - $t$ is time (s, h, or timestamp depending on integration context).
 
 Unit check: $(W\,m^{-2})(m^2)=W$; all other factors are dimensionless.
+
+![Direct incidence geometry](../figures/direct_incidence_geometry.svg)
+
+**Figure 4.** Direct-beam incidence convention for a PV facet. The monofacial direct term uses $[\mathbf n\cdot\mathbf s]_+$ and is additionally multiplied by the visibility factor $V$.
+
 
 ### 3.5 Isotropic diffuse first approximation
 The first diffuse model is
@@ -254,6 +275,11 @@ where:
 - $A_{\mathrm{foot}}$ is horizontal circular footprint area (m$^2$).
 
 The limiting case $k\rightarrow0$ gives $\Pi_A\rightarrow1$, providing the required flat-disk sanity check.
+
+![Paraboloidal mushroom geometry](../figures/paraboloid_geometry.svg)
+
+**Figure 5.** Labelled cross-section of the founding paraboloidal mushroom cap, identifying $R$, $h$, $r$, $z(r)$ and a representative outward surface normal. The geometry is an analytical benchmark and is not a claimed optimum.
+
 
 ## 5. Diffuse-light analytical limit
 Under the isotropic-sky approximation,
@@ -388,6 +414,11 @@ $$
 
 where $r_{\mathrm{CP}}$ is the perpendicular moment arm from the rotation axis to the aerodynamic centre/centre of pressure (m). The approximation assumes a representative resultant force and lever arm.
 
+![Mechanical free-body and tracking schematic](../figures/mechanical_free_body_tracking.svg)
+
+**Figure 6.** Conceptual free-body/tracking diagram for the mushroom-head candidate. It establishes the bookkeeping for weight, wind resultant, actuator torque, rotation axis and solar direction; quantitative actuator sizing remains unset.
+
+
 ## 10. Tracking as optimal control
 A generic net-energy/wear objective is
 
@@ -440,6 +471,79 @@ A_{\mathrm{foot}}\le1\,\mathrm{m^2},\qquad
 $$
 
 where $A_{\mathrm{foot}}$ is allowed footprint area (m$^2$), $A_i$ is facet area (m$^2$), and $z_i$ is facet elevation (m). The numerical values 1, 2 and 2 are **engineering design assumptions chosen to create a reproducible canonical comparison**, not Singapore regulatory limits or empirically optimal values. They must therefore be varied in sensitivity studies.
+
+
+
+## 12A. Current computational implementation and evidence boundary
+
+The canonical computational implementation is **Rust**. The present repository contains source-level foundations for analytical geometry, ENU vectors/facets, direct-incidence calculations, equal-resource candidate definitions, weather ingestion and quality control, irradiance closure/plane-of-array foundations, and preliminary solar-position calculations. These components are useful because they turn the equations above into testable software, but implementation is not itself evidence of a validated annual Singapore yield.
+
+The current evidence boundary is deliberately strict:
+
+| Layer | Current status | Permitted interpretation |
+|---|---|---|
+| Analytical paraboloid area and limiting cases | Implemented analytical benchmark | Geometry/code sanity check |
+| ENU vector and facet convention | Defined and implemented | Coordinate-system foundation |
+| Direct incidence $[\mathbf n\cdot\mathbf s]_+$ | Implemented foundation | Local optical kernel |
+| Weather CSV ingestion/QC | Implemented foundation with retained execution evidence | Input-pipeline foundation |
+| GHI/DNI/DHI closure and POA foundations | Implemented foundation | Consistency/model-building layer |
+| Solar position | Preliminary implementation; authoritative SPA reproduction/benchmark remains open | **Not yet a validated production solar-position model** |
+| Canonical Singapore annual irradiance time series | Not yet established | Annual-yield claims remain blocked |
+| 3-D mutual shading / sky-view ray tracing | Not complete | No validated dense-canopy yield |
+| Bifacial rear irradiance | Formulated only | No validated bifacial gain |
+| Thermal/electrical loss model | Formulated only | No validated module-temperature correction |
+| Wind/structural/actuator sizing | Conceptual equations only | No hardware sizing claim |
+| Uncertainty and numerical convergence | Open validation gate | No promoted optimum |
+| Full topology optimisation | Deliberately deferred | No candidate is established as optimal |
+
+This table is part of the technical result: it prevents analytical identities, exploratory calculations and executable code from being conflated with validated Singapore performance evidence.
+
+## 12B. Candidate family retained for later equal-resource comparison
+
+The project began with the rotating mushroom head, but the research question is intentionally falsifiable. The same resource envelope must eventually compare at least:
+
+1. a flat/fixed reference;
+2. a planar tracking reference where appropriate;
+3. the paraboloidal mushroom cap;
+4. sphere/hemisphere analytical benchmarks;
+5. faceted canopy geometries;
+6. sparse flower/petal arrangements, including bifacial variants;
+7. folded surfaces; and
+8. free-form/topology-optimised facet arrangements.
+
+Every candidate must use the same declared land footprint, active-PV-area accounting, weather interval, electrical assumptions and loss definitions. A geometry may therefore lose even when it has more surface area.
+
+## 12C. Validation-first workflow
+
+![Validation-first modelling workflow](../figures/method_validation_flow.svg)
+
+**Figure 7.** Validation-first workflow. Failure of an input, equation, numerical or evidence gate returns the project to foundation correction rather than allowing an exploratory result to be promoted.
+
+The immediate modelling sequence is therefore
+
+$$
+\boxed{
+\text{canonical Singapore weather}
+\rightarrow
+\text{validated solar position}
+\rightarrow
+\text{irradiance closure}
+\rightarrow
+\text{facet POA}
+\rightarrow
+\text{visibility/sky view}
+\rightarrow
+\text{electrical model}
+\rightarrow
+\text{equal-resource annual comparison}
+\rightarrow
+\text{uncertainty/convergence}
+\rightarrow
+\text{optimisation}
+}
+$$
+
+The report is intentionally being completed **before** those gates are all closed. Missing numerical results are shown as missing results, rather than being filled with convenient assumptions.
 
 ## 13. Numerical method roadmap
 Each timestep will compute solar position, irradiance components, facet incidence, direct visibility, anisotropic sky irradiance, rear irradiance, temperature and electrical output. Ray tracing determines self-shadowing and later sky-view factors. Numerical discretisation settings such as mesh density, sky-patch count and timestep are computational parameters and require convergence checks before final results.
