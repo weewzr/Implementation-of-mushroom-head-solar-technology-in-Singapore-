@@ -55,11 +55,11 @@ This chain explains why a curved surface cannot be judged from surface area alon
 
 ### 1.2 Concept and model-flow diagrams
 
-![Equal-footprint concept comparing flat and three-dimensional PV packing](../figures/equal_footprint_concept.svg)
+![Equal-footprint concept comparing flat and three-dimensional PV packing](../figures/concept_equal_footprint_comparison.svg)
 
 **Figure 1.** Equal-footprint project concept. The purpose of the three-dimensional geometry is not to claim improved cell efficiency, but to test whether additional active PV can be packed into scarce horizontal footprint without losing too much irradiation quality or introducing unacceptable mechanical and lifecycle penalties.
 
-![Singapore solar and PV modelling chain](../figures/singapore_solar_pv_chain.svg)
+![Singapore solar and PV modelling chain](../figures/how_solar_pv_works_singapore.svg)
 
 **Figure 2.** Beginner-to-model bridge from Singapore solar resource to facet irradiance, electrical conversion and land-normalised comparison. This is a modelling map, not evidence that every downstream validation gate has passed.
 
@@ -124,7 +124,7 @@ where:
 
 **Engineering Implication.** Geometry generators, solar vectors, facet normals, visibility rays and future mechanical axes must all use this convention. External data using a different azimuth definition must be converted at the data boundary.
 
-![ENU coordinate convention](../figures/enu_coordinate_system.svg)
+![ENU coordinate convention](../figures/enu_coordinate_convention.svg)
 
 **Figure 3.** Canonical East–North–Up coordinate system. Solar vectors, facet normals, geometry generators, ray tests and mechanical axes must use this convention consistently.
 
