@@ -249,3 +249,75 @@ Solar position evolves slowly, so intentional tracking can be quasi-static. Incr
 ### Engineering implication
 
 Do not optimise angular momentum. Prioritise wind moment, gravitational balance, friction, locking/stow, actuator efficiency, reliability and wear. Quantitative wind design still requires sourced aerodynamic/structural inputs.
+
+## 6. Hemisphere and mesh-geometry benchmarks
+
+For a sphere of radius $R$, the exact surface area is $4\pi R^2$. An upper hemisphere therefore has
+
+$$
+A_h=2\pi R^2.
+$$
+
+where $A_h$ is hemispherical surface area (m$^2$) and $R$ is radius (m). Its horizontal footprint is a disk,
+
+$$
+A_{\mathrm{foot}}=\pi R^2.
+$$
+
+Therefore,
+
+$$
+\boxed{\frac{A_h}{A_{\mathrm{foot}}}=2}.
+$$
+
+The ratio is dimensionless and exact. It is a packing benchmark only: it does not state how much of the hemispherical surface is productively illuminated at any instant.
+
+For a triangular facet with ENU vertices $\mathbf v_1,\mathbf v_2,\mathbf v_3$, define
+
+$$
+\mathbf e_1=\mathbf v_2-\mathbf v_1,\qquad
+\mathbf e_2=\mathbf v_3-\mathbf v_1.
+$$
+
+The magnitude of $\mathbf e_1\times\mathbf e_2$ is the area of the parallelogram spanned by the two edges. The triangle therefore has
+
+$$
+\boxed{A=\frac12\|\mathbf e_1\times\mathbf e_2\|}.
+$$
+
+where $A$ is triangle area (m$^2$), the edge vectors have units m, and their cross product has units m$^2$. Dividing the cross product by its magnitude gives the outward unit normal,
+
+$$
+\boxed{\mathbf n=
+\frac{\mathbf e_1\times\mathbf e_2}
+{\|\mathbf e_1\times\mathbf e_2\|}}.
+$$
+
+where $\mathbf n$ is dimensionless. Vertex winding must be chosen consistently so that $\mathbf n$ points toward the declared front/outward side.
+
+For $N$ non-overlapping active triangular facets,
+
+$$
+A_{\mathrm{PV}}=\sum_{i=1}^{N}A_i.
+$$
+
+Substituting the facet areas and normals into the direct-incidence kernel gives
+
+$$
+P_{\mathrm{dir}}(t)
+=
+\eta(T)DNI(t)
+\sum_{i=1}^{N}
+A_iV_i(t)
+[\mathbf n_i\cdot\mathbf s(t)]_+.
+$$
+
+Unit check: $(W\,m^{-2})(m^2)=W$; efficiency, visibility and dot products are dimensionless.
+
+### Physical interpretation
+
+This decomposition makes geometry and physics separable. A sphere approximation, faceted canopy, petal array, folded surface or free-form candidate can all be reduced to facet positions, areas and outward normals, after which the same solar/visibility/electrical kernel is applied.
+
+### Engineering implication
+
+A new candidate shape should not receive a bespoke irradiance rule merely because its appearance differs. Using one mesh kernel is necessary for a fair comparison and makes ray-tracing, convergence and equal-resource tests reusable across the design space.
