@@ -35,6 +35,18 @@
 | $v$ | wind speed | m s⁻¹ |
 | $r_{CP}$ | moment arm from pivot to centre of pressure | m |
 | $E_{annual}$ | annual electrical energy | kWh yr⁻¹ |
+| $A_i$ | active area of facet $i$ | m² |
+| $N$ | number of mesh/facet elements | – |
+| $N_p$ | number of petals | – |
+| $\mathbf v_{ij}$ | ENU position vector of vertex $j$ of facet $i$ | m |
+| $\mathbf e_{i1},\mathbf e_{i2}$ | edge vectors of triangular facet $i$ | m |
+| $\mathbf n_i$ | outward unit normal of facet $i$ | – |
+| $\gamma_p$ | facet/petal azimuth, clockwise from north | rad or deg |
+| $\gamma_0$ | reference petal azimuth | rad or deg |
+| $H_{max}$ | maximum permitted candidate height | m |
+| $A_{PV,max}$ | active-PV-area resource limit | m² |
+| $A_{land,max}$ | land/footprint resource limit | m² |
+| $E_{net,annual}$ | net annual electrical-energy objective | kWh yr⁻¹ |
 
 ## Notation conventions
 
