@@ -13,7 +13,7 @@
 \definecolor{BaselineBlue}{HTML}{0072B2}
 \title{Topology and Geometry Optimisation of Three-Dimensional Photovoltaic Canopies for Land-Constrained Singapore}
 \author{Research project reconstruction}
-\date{18 September 2026}
+\date{23 September 2026}
 \begin{document}
 \maketitle
 
@@ -493,6 +493,74 @@ Required inputs such as time-resolved irradiance, module bifaciality, albedo, th
 \caption{Validation-first workflow governing progression from the equal-resource problem definition to released comparative results. Failed validation returns the project to foundation correction rather than allowing model expansion. The diagram describes required gates; it does not indicate that currently open data, convergence, uncertainty or PDF-evidence gates have passed.}
 \label{fig:validation-flow}
 \end{figure}
+
+
+\section{Alternative candidate geometry families}
+The mushroom is the founding candidate rather than an assumed winner. Figure~\ref{fig:candidate-families} records the broader comparison space under common resource accounting.
+
+\begin{figure}[htbp]
+\centering
+\includesvg[width=\textwidth]{../figures/candidate_geometry_families}
+\caption{Alternative candidate geometry families retained for later equal-resource comparison: sphere/hemisphere, faceted canopy, sparse flower/petals, folded surface and free-form facets. Conceptual---not to scale and not a performance ranking.}
+\label{fig:candidate-families}
+\end{figure}
+
+For an upper hemisphere,
+\begin{equation}
+A_h=2\pi R^2,\qquad A_{\mathrm{foot}}=\pi R^2,\qquad
+\frac{A_h}{A_{\mathrm{foot}}}=2.
+\end{equation}
+This is an exact geometric area ratio, not an energy multiplier.
+
+The non-smooth candidates use one common triangular-facet representation. For facet \(i\),
+\begin{equation}
+\mathbf e_{i1}=\mathbf v_{i2}-\mathbf v_{i1},\qquad
+\mathbf e_{i2}=\mathbf v_{i3}-\mathbf v_{i1},
+\end{equation}
+and
+\begin{equation}
+A_i=\frac12\left\|\mathbf e_{i1}\times\mathbf e_{i2}\right\|,\qquad
+\mathbf n_i=
+\frac{\mathbf e_{i1}\times\mathbf e_{i2}}
+{\left\|\mathbf e_{i1}\times\mathbf e_{i2}\right\|}.
+\end{equation}
+Here \(\mathbf v_{ij}\) are ENU vertex positions (m), \(A_i\) is facet area (\si{\square\metre}), and \(\mathbf n_i\) is the outward dimensionless unit normal. Total active area is
+\begin{equation}
+A_{\mathrm{PV}}=\sum_{i=1}^{N}A_i.
+\end{equation}
+The direct contribution is assembled consistently for every candidate as
+\begin{equation}
+P_{\mathrm{dir}}(t)=
+\eta(T)DNI(t)
+\sum_{i=1}^{N}
+A_iV_i(t)[\mathbf n_i\cdot\mathbf s(t)]_+.
+\end{equation}
+
+A radial flower/petal placement may initially use
+\begin{equation}
+\gamma_j=\gamma_0+\frac{2\pi j}{N_p},\qquad j=0,\ldots,N_p-1,
+\end{equation}
+where \(N_p\) is petal count and \(\gamma_j\) is petal azimuth. Equal angular spacing is a reproducible starting parameterisation, not a discovered optimum.
+
+An east--west folded first experiment uses opposing facet azimuths
+\begin{equation}
+\gamma_{p,+}=90^\circ,\qquad \gamma_{p,-}=270^\circ,
+\end{equation}
+with common or independently varied tilt magnitudes. Fold pitch and ridge height must be included in shading and footprint calculations.
+
+For free-form facets, retain
+\begin{equation}
+\mathbf X=[\mathbf x_1,\ldots,\mathbf x_N],\qquad
+\mathbf x_i=(x_i,y_i,z_i,\theta_i,\phi_i,A_i),
+\end{equation}
+and eventually maximise \(E_{\mathrm{net,annual}}(\mathbf X)\) subject to the common resource envelope, non-overlap, structural, access, electrical and manufacturability constraints. Free-form optimisation remains deliberately downstream of solar-position, irradiance, visibility, uncertainty and convergence validation.
+
+\paragraph{Physical Interpretation.}
+These candidates test different mechanisms: directional symmetry, discrete manufacturable normals, sparse sky/rear access, orientation diversity, and unconstrained geometric search. None is expected to win from geometry alone.
+
+\paragraph{Engineering Implication.}
+The same weather, optical kernel, active-area accounting, footprint definition and electrical/loss assumptions must evaluate all candidates. Otherwise a shape comparison confounds geometry with unequal resources or model assumptions.
+
 
 \section{Status and next step}
 The explanatory visual suite now includes the equal-footprint concept, ENU convention, solar-ray schematic, direct-incidence geometry, paraboloid geometry, a mechanical free-body/tracking diagram and a validation-first method flowchart. They remain conceptual rather than quantitative evidence. The mechanical free-body/tracking and method/validation-flow gates are now present in source. The remaining visual gates are evidence-backed convergence/uncertainty plots when numerical evidence exists, compilation of this SVG-enabled LaTeX source, and page-by-page PDF visual QA.
