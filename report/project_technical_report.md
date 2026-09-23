@@ -502,20 +502,160 @@ The current evidence boundary is deliberately strict:
 
 This table is part of the technical result: it prevents analytical identities, exploratory calculations and executable code from being conflated with validated Singapore performance evidence.
 
-## 12B. Candidate family retained for later equal-resource comparison
+## 12B. Alternative candidate geometries under equal-resource accounting
 
-The project began with the rotating mushroom head, but the research question is intentionally falsifiable. The same resource envelope must eventually compare at least:
+The project began with the rotating mushroom head, but the research question is intentionally falsifiable. Alternative shapes are not decorative variants: each tests a different way of trading active area, orientation diversity, sky access, structural simplicity and self-shading.
 
-1. a flat/fixed reference;
-2. a planar tracking reference where appropriate;
-3. the paraboloidal mushroom cap;
-4. sphere/hemisphere analytical benchmarks;
-5. faceted canopy geometries;
-6. sparse flower/petal arrangements, including bifacial variants;
-7. folded surfaces; and
-8. free-form/topology-optimised facet arrangements.
+![Alternative candidate geometry families](../figures/candidate_geometry_families.svg)
 
-Every candidate must use the same declared land footprint, active-PV-area accounting, weather interval, electrical assumptions and loss definitions. A geometry may therefore lose even when it has more surface area.
+**Figure 9.** Candidate geometry families retained for later equal-resource comparison. The sketch is conceptual and not to scale. Every candidate must satisfy the same declared land-footprint, active-PV-area and height accounting before its energy result is compared.
+
+### 12B.1 Sphere and hemisphere
+
+For a sphere of radius $R$,
+
+$$
+A_s=4\pi R^2,\qquad A_{\mathrm{proj}}=\pi R^2,
+$$
+
+so $A_s/A_{\mathrm{proj}}=4$. For an upper hemisphere,
+
+$$
+A_h=2\pi R^2,\qquad A_{\mathrm{foot}}=\pi R^2,
+$$
+
+and therefore
+
+$$
+\frac{A_h}{A_{\mathrm{foot}}}=2.
+$$
+
+These are exact geometric ratios, not energy multipliers. The sphere tests directional symmetry; the hemisphere is closer to a buildable canopy but still distributes area over many orientations.
+
+### 12B.2 Generic faceted representation
+
+The faceted canopy, flower/petal, folded surface and free-form candidates can all be represented as a collection of $N$ planar PV facets. For facet $i$, let its vertices be $\mathbf v_{i1},\mathbf v_{i2},\mathbf v_{i3}$ for a triangular mesh element. Two edge vectors are
+
+$$
+\mathbf e_{i1}=\mathbf v_{i2}-\mathbf v_{i1},\qquad
+\mathbf e_{i2}=\mathbf v_{i3}-\mathbf v_{i1}.
+$$
+
+The facet area and outward unit normal are
+
+$$
+A_i=\frac12\left\|\mathbf e_{i1}\times\mathbf e_{i2}\right\|,
+\qquad
+\mathbf n_i=
+\frac{\mathbf e_{i1}\times\mathbf e_{i2}}
+{\left\|\mathbf e_{i1}\times\mathbf e_{i2}\right\|}.
+$$
+
+Hence total active PV area is
+
+$$
+A_{\mathrm{PV}}=\sum_{i=1}^{N}A_i,
+$$
+
+and the instantaneous direct-beam contribution before electrical/system losses is assembled from
+
+$$
+P_{\mathrm{dir}}(t)
+=
+\eta(T)
+DNI(t)
+\sum_{i=1}^{N}
+A_iV_i(t)
+[\mathbf n_i\cdot\mathbf s(t)]_+.
+$$
+
+This common representation is important: the comparison algorithm need not contain a special optical law for every visual shape. Geometry supplies facet positions, areas and normals; the same irradiance/visibility/electrical model evaluates all candidates.
+
+### 12B.3 Faceted canopy
+
+A faceted canopy deliberately approximates curvature with a finite set of planar modules. Its design variables may be written
+
+$$
+\mathcal C_{\mathrm{facet}}
+=
+\{\mathbf r_i,\mathbf n_i,A_i\}_{i=1}^{N},
+$$
+
+subject to the common resource envelope. This family tests whether a small number of manufacturable module orientations can retain most of the useful orientation diversity of a curved surface while reducing fabrication complexity.
+
+**Failure mode to test:** extra facets may increase mutual shading, wind-sensitive edges, wiring complexity and mismatch faster than they improve land-normalised yield.
+
+### 12B.4 Flower/petal geometry
+
+A flower is treated as a sparse radial arrangement of $N_p$ petals around a hub. A simple orientation family is
+
+$$
+\gamma_j=\gamma_0+\frac{2\pi j}{N_p},
+\qquad j=0,\ldots,N_p-1,
+$$
+
+with petal tilt $\beta_j$, area $A_j$ and elevation/offset defined separately. This is a parameterisation of rotational placement, not a claim that equal angular spacing is optimal.
+
+The family specifically tests whether **gaps** can preserve sky view, rear irradiance and ventilation sufficiently to compensate for lower geometric density than a continuous cap.
+
+**Failure mode to test:** sparse spacing may preserve irradiance quality but surrender too much packing ratio; dense petals may simply recreate the occlusion problems of a solid cap.
+
+### 12B.5 Folded surface
+
+A folded surface uses alternating planar facets. For an east-west symmetric first experiment, normals can be generated using common tilt magnitude $\beta$ and opposing azimuths,
+
+$$
+\gamma_{p,+}=90^\circ,\qquad
+\gamma_{p,-}=270^\circ.
+$$
+
+The normal of each facet is then obtained from the canonical ENU relation in Section 2. The fold pitch, ridge height, facet width and tilt determine area packing and self-shadowing.
+
+**Failure mode to test:** orientation diversity can broaden collection through the day, but closely spaced folds can create severe low-Sun shading and reduce diffuse sky view.
+
+### 12B.6 Free-form topology/facet optimisation
+
+The free-form candidate does not begin with a named shape. For $N$ facets,
+
+$$
+\mathbf X=
+[\mathbf x_1,\ldots,\mathbf x_N],
+\qquad
+\mathbf x_i=(x_i,y_i,z_i,\theta_i,\phi_i,A_i).
+$$
+
+The eventual problem is not simply $\max E_{\mathrm{annual}}$ without qualification. Under equal-resource comparison it is more properly written
+
+$$
+\max_{\mathbf X}\;
+E_{\mathrm{net,annual}}(\mathbf X)
+$$
+
+subject to, at minimum,
+
+$$
+A_{\mathrm{foot}}(\mathbf X)\le A_{\mathrm{land,max}},
+\qquad
+\sum_iA_i\le A_{\mathrm{PV,max}},
+\qquad
+0\le z_i\le H_{\max},
+$$
+
+plus non-overlap, structural, access, electrical and manufacturability constraints once their models are established.
+
+This candidate is intentionally last in the validation sequence. Optimising an unvalidated irradiance/shading model would produce a precise optimum of the wrong model.
+
+### 12B.7 Equal-resource rule
+
+Every candidate must use the same declared land footprint, active-PV-area accounting, weather interval, electrical assumptions and loss definitions. The canonical experimental envelope currently retained for reproducibility is
+
+$$
+A_{\mathrm{foot}}\le1\;\mathrm{m^2},\qquad
+A_{\mathrm{PV}}\le2\;\mathrm{m^2},\qquad
+H_{\max}\le2\;\mathrm m,
+$$
+
+but these numerical limits are **engineering comparison assumptions**, not Singapore regulatory limits or discovered optima. They require sensitivity analysis before design conclusions.
 
 ## 12C. Validation-first workflow
 
