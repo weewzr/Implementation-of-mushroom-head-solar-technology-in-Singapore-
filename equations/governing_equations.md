@@ -257,3 +257,78 @@ where:
 - superscript $*$ denotes an optimised value, not multiplication.
 
 Movement is justified only after lifecycle actuator energy, capital, wear, maintenance and reliability are included.
+
+
+## 12. Alternative candidate geometry representation
+
+For an upper hemisphere of radius $R$,
+
+$$
+A_h=2\pi R^2,\qquad A_{\mathrm{foot}}=\pi R^2,\qquad
+\frac{A_h}{A_{\mathrm{foot}}}=2.
+$$
+
+where $A_h$ is hemispherical active surface area (m$^2$), $A_{\mathrm{foot}}$ is its circular horizontal footprint (m$^2$), and $R$ is radius (m). The ratio 2 is exact geometry and is not an energy-yield multiplier.
+
+For a triangular mesh facet $i$ with ENU vertices $\mathbf v_{i1},\mathbf v_{i2},\mathbf v_{i3}$,
+
+$$
+\mathbf e_{i1}=\mathbf v_{i2}-\mathbf v_{i1},\qquad
+\mathbf e_{i2}=\mathbf v_{i3}-\mathbf v_{i1},
+$$
+
+$$
+A_i=\frac12\left\|\mathbf e_{i1}\times\mathbf e_{i2}\right\|,
+\qquad
+\mathbf n_i=
+\frac{\mathbf e_{i1}\times\mathbf e_{i2}}
+{\left\|\mathbf e_{i1}\times\mathbf e_{i2}\right\|}.
+$$
+
+where $\mathbf e_{i1},\mathbf e_{i2}$ are edge vectors (m), $A_i$ is facet area (m$^2$), and $\mathbf n_i$ is the outward unit normal (dimensionless). Total active area is
+
+$$
+A_{\mathrm{PV}}=\sum_{i=1}^{N}A_i.
+$$
+
+For the common direct-beam kernel,
+
+$$
+P_{\mathrm{dir}}(t)=\eta(T)DNI(t)
+\sum_{i=1}^{N}A_iV_i(t)[\mathbf n_i\cdot\mathbf s(t)]_+.
+$$
+
+where $P_{\mathrm{dir}}$ is direct-derived electrical power (W), $N$ is facet count, and the remaining symbols follow Sections 2 and 5.
+
+A reproducible radial petal placement may use
+
+$$
+\gamma_j=\gamma_0+\frac{2\pi j}{N_p},
+\qquad j=0,\ldots,N_p-1,
+$$
+
+where $N_p$ is petal count (integer), $\gamma_0$ is reference azimuth (rad), and $\gamma_j$ is petal azimuth (rad). Equal spacing is a starting parameterisation, not an optimum.
+
+An initial east-west fold uses
+
+$$
+\gamma_{p,+}=90^\circ,\qquad \gamma_{p,-}=270^\circ.
+$$
+
+These azimuths are exact direction definitions under the project clockwise-from-north convention; fold tilt, pitch and ridge height remain design variables.
+
+The equal-resource free-form problem is
+
+$$
+\max_{\mathbf X}E_{\mathrm{net,annual}}(\mathbf X)
+$$
+
+subject to
+
+$$
+A_{\mathrm{foot}}(\mathbf X)\le A_{\mathrm{land,max}},\qquad
+\sum_iA_i\le A_{\mathrm{PV,max}},\qquad
+0\le z_i\le H_{\max},
+$$
+
+plus non-overlap, structural, access, electrical and manufacturability constraints when those models are established. The objective is a formulation only; no optimum is currently claimed.
