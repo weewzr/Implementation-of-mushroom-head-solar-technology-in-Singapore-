@@ -562,6 +562,32 @@ These candidates test different mechanisms: directional symmetry, discrete manuf
 The same weather, optical kernel, active-area accounting, footprint definition and electrical/loss assumptions must evaluate all candidates. Otherwise a shape comparison confounds geometry with unequal resources or model assumptions.
 
 
+\section{Current report state and open evidence gates}
+This is a current-state engineering report rather than a finished performance study. The analytical geometry, coordinate convention, incidence kernel, equal-resource framework and candidate definitions are established foundations. Weather ingestion and quality-control foundations exist, but a canonical Singapore annual data set remains open. Solar position remains preliminary pending authoritative SPA reproduction or benchmarking. Diffuse-sky, bifacial, thermal, structural and full visibility models remain incomplete.
+
+\subsection{Results boundary}
+The final comparative-results section requires annual net energy, land-normalised energy, active-PV-area-normalised productivity, tracking energy, uncertainty and convergence evidence for every candidate under identical resource and weather assumptions. Those numerical results are intentionally not populated until the validation chain is closed. This prevents provisional constants or synthetic weather from appearing as precise engineering conclusions.
+
+\subsection{Required result-release sequence}
+The next quantitative result must follow
+\begin{equation}
+\begin{aligned}
+\text{canonical weather} &\rightarrow \text{validated solar position}
+\rightarrow \text{irradiance closure}\\
+&\rightarrow \text{facet POA/visibility}
+\rightarrow \text{electrical losses}
+\rightarrow \text{annual comparison}\\
+&\rightarrow \text{convergence and uncertainty}
+\rightarrow \text{optimisation}.
+\end{aligned}
+\end{equation}
+A failed gate returns the project to correction rather than allowing the result to be promoted.
+
+\section{Limitations and engineering interpretation}
+The analytical work already answers structural questions without claiming a winning geometry. Curvature can increase active surface area within a fixed footprint, but area alone is not energy. The land-multiplication identity separates packing from average PV productivity. Sphere and hemisphere results are symmetry and packing benchmarks rather than multiplicative-yield claims. Slow solar tracking reduces the importance of inertial torque relative to wind, balance, friction, locking, wear and actuator efficiency. A common facet representation allows named and free-form candidates to be evaluated by the same optical kernel.
+
+The unresolved questions are quantitative: how much useful irradiance each packed surface retains under Singapore weather; how much is lost to mutual shading and reduced sky view; whether bifacial access and ventilation compensate for those losses; and whether any electrical gain survives structural, mechanical and lifecycle penalties.
+
 \section{Status and next step}
 The explanatory visual suite now includes the equal-footprint concept, ENU convention, solar-ray schematic, direct-incidence geometry, paraboloid geometry, a mechanical free-body/tracking diagram and a validation-first method flowchart. They remain conceptual rather than quantitative evidence. The mechanical free-body/tracking and method/validation-flow gates are now present in source. The remaining visual gates are evidence-backed convergence/uncertainty plots when numerical evidence exists, compilation of this SVG-enabled LaTeX source, and page-by-page PDF visual QA.
 
