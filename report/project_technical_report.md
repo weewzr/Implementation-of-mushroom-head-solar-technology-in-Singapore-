@@ -824,7 +824,7 @@ $
 }
 $
 
-The Rust binary `discrete-verification` now performs this convergence experiment using progressively refined radial/azimuthal triangular meshes. Once verified, the same facet representation can be used for folded, petal, faceted and free-form geometries for which a useful closed-form surface integral may not exist.
+The Rust binary `discrete-verification` performs this convergence experiment using progressively refined radial/azimuthal triangular meshes. The V1–V5 numerical-method ladder now passes: analytical area convergence, projected-area recovery, ideal-diffuse convergence, direct-incidence special cases and synthetic time integration. This closes verification of the present analytical/discrete paraboloid bridge; it does not close the separate physical-validation ladder. The same facet representation can therefore proceed to later candidate-method development only subject to those physical-validation gates.
 
 The complete stepwise methodology and verification/validation ladder is maintained in `docs/methodology.md`. In particular, the discrete engine is not authorised to proceed directly from a successful mesh calculation to geometry optimisation. It must pass geometry-area convergence, projected-area recovery, ideal-diffuse convergence, direct-incidence special cases and synthetic time-integration checks before extension to non-analytical candidate geometries. Physical validation then proceeds separately through solar position, Singapore weather, POA irradiance, visibility, diffuse sky, thermal/electrical response, mechanics, annual integration and uncertainty.
 
@@ -866,4 +866,4 @@ The current priority is not to add further physics. First reconcile this Markdow
 [8] I. Reda and A. Andreas, “Solar position algorithm for solar radiation applications,” *Solar Energy*, vol. 76, no. 5, pp. 577–589, 2004, doi:10.1016/j.solener.2003.12.003.
 
 ## Reproducibility
-`src/geometry.rs`, `src/solar.rs`, `src/mesh.rs`, and `src/candidates.rs` form the current canonical Rust analytical foundation. Solar-position code remains explicitly preliminary until benchmarked against a traceable NREL SPA implementation. Model-generated data must not be confused with measurements.
+`src/geometry.rs`, `src/solar.rs`, `src/mesh.rs`, and `src/candidates.rs` form the current canonical Rust analytical foundation. The reduced `src/spa.rs` solar-position candidate remains explicitly preliminary: the NREL Appendix A.5 benchmark still fails the declared tolerance, so it is not accepted as SPA-equivalent. Model-generated data must not be confused with measurements.
