@@ -1,0 +1,41 @@
+manifest_version = 1
+status = "development_source"
+[dataset]
+provider = "NASA Langley Research Center POWER"
+product_name = "POWER Hourly Point API — Singapore development weather 2024"
+source_identifier = "POWER hourly point API query: 1.3521 N, 103.8198 E, 2024-01-01 through 2024-12-31, UTC"
+retrieval_date = "2026-09-26"
+coverage_start = "2024-01-01T00:00:00Z"
+coverage_end = "2024-12-31T23:00:00Z"
+native_sampling_interval = "3600s"
+source_timezone = "UTC"
+timestamp_semantics = "NASA POWER hourly API timestamp; UTC requested explicitly; values are hourly source products"
+[site]
+station_id = "POWER-POINT-SINGAPORE-1.3521N-103.8198E"
+latitude_deg = "1.3521"
+longitude_deg = "103.8198"
+elevation_m = ""
+coordinate_datum = "WGS84 query coordinates"
+[licence]
+licence_name = "NASA Earth Science Data and Information Policy / POWER Data Access"
+permission_reference = "https://www.earthdata.nasa.gov/engage/open-data-services-and-software/data-information-policy"
+raw_redistribution = "NASA Earth science data are openly available subject to applicable NASA data policy; preserve attribution and source metadata"
+derived_output_redistribution = "permitted with source acknowledgement; project must retain NASA POWER attribution"
+notes = "Development dataset only. Not SERIS measurement and not validation-supporting measured Singapore irradiance."
+[variables]
+ghi = "derived"
+dhi = "derived"
+dni = "derived"
+ambient_temperature = "derived"
+wind_speed = "derived"
+wind_direction = "derived"
+relative_humidity = "derived"
+air_pressure = "derived"
+[provenance]
+source_checksum = "PENDING_ACQUISITION_WORKFLOW_SHA256"
+immutable_source_id = "NASA-POWER-query-lat1.3521-lon103.8198-2024-hourly-UTC-v1"
+preprocessing_commit = ""
+[qc]
+provider_quality_flags_available = "false"
+missing_data_notes = "NASA POWER fill/missing sentinel values must be detected during conversion; no silent imputation."
+known_sensor_or_clock_issues = "Satellite/reanalysis/model-derived gridded/point-extracted product; not a ground pyranometer station."
