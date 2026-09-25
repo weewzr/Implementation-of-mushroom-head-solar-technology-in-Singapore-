@@ -290,8 +290,8 @@ A_iV_i(t_n)
 
 Before ray tracing is enabled, (V_i=1) may be used only for a declared no-occlusion benchmark.
 
-### Gate B3
-Test normal incidence, grazing incidence, backside incidence, cardinal directions and visibility edge cases.
+### Gate B3 — foundation PASS
+Test normal incidence, grazing incidence, backside incidence, cardinal directions and visibility edge cases. The canonical Rust visibility kernel now passes synthetic stacked-triangle blocked/unblocked cases and direct-beam conservation/clipping checks in whole-crate Actions run 36178674780.
 
 ## 3.5 Step B4 — discrete diffuse irradiance
 
@@ -316,8 +316,8 @@ max(0,mathbf n_icdotmathbf s_p)
 DeltaOmega_p.
 ]
 
-### Gate B4
-First reproduce the analytical isotropic benchmark. Then demonstrate sky-patch convergence before using the anisotropic/obstructed model.
+### Gate B4 — isotropic sky-view foundation PASS
+First reproduce the analytical isotropic benchmark. Then demonstrate sky-patch convergence before using the anisotropic/obstructed model. `src/visibility.rs` uses equal-solid-angle hemispherical midpoint patches and passes 2π solid-angle conservation, exact unobstructed-horizontal response, vertical-plane convergence to 1/2, fully blocked-sky limiting behavior and finite-roof refinement convergence in whole-crate Actions run 36178674780. This validates the isotropic visibility foundation only; anisotropic sky radiance remains a later physical-model gate.
 
 ## 3.6 Step B5 — time discretisation
 
