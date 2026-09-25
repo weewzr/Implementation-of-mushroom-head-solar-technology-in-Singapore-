@@ -25,6 +25,11 @@ This file implements the master requirement that a reader can move from physical
 | Bifacial rear irradiance | report §11 | Not implemented | benchmark/validation required | bifaciality, albedo, rear view | Missing |
 | Thermal/electrical conversion | report §11 | Not implemented | datasheet/model validation required | temperature coefficients/module data | Missing |
 | Wind/structure | report §9 | Not implemented | structural/aero validation required | sourced wind/load inputs | Missing |
+| Hemisphere geometry benchmark | technical report alternative-candidate section; `equations/derivations.md` §6; governing equations §12 | candidate enum exists in `src/candidates.rs`; analytical area not yet a dedicated Rust routine | exact $A_h/A_{foot}=2$ geometry identity | exact geometry only | Analytical benchmark; not an energy multiplier |
+| Generic triangular-facet area/normal | technical report alternative-candidate section; `equations/derivations.md` §6; governing equations §12 | `src/mesh.rs` provides canonical facet/normal foundations; full arbitrary mesh generator remains incomplete | cross-product identity plus future mesh orientation/convergence tests | geometry only | Mathematical foundation present; full candidate mesh pipeline incomplete |
+| Faceted canopy family | technical report §12B; `src/candidates.rs::FacetedCanopy` | candidate contract only | equal-resource and future shading/convergence tests required | validated irradiance/visibility required | Candidate defined; performance unvalidated |
+| Flower/petal family | technical report §12B; governing equations §12 | no canonical Rust generator yet | symmetry/resource/shading tests required | validated irradiance/visibility and bifacial inputs required | Mathematical parameterisation only |
+| East-west folded family | technical report §12B; governing equations §12 | `src/candidates.rs::EastWestFold` | tilt/resource tests exist; shading/convergence remains required | validated irradiance/visibility required | Candidate contract present; performance unvalidated |
 | Free-form optimisation | report §12 | candidate variables only | solver/convergence/Pareto tests required | all validated model layers | Not ready |
 
 ## Rule for new results
