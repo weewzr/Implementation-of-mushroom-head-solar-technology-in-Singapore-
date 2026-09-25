@@ -79,6 +79,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-25_three-pass_audit-41.md` | Mandatory Pass 3 / Continue #129 | Report foundation-freeze, equation/diagram parity and PDF-integrity checkpoint | Nine-figure/equation foundation substantially reconciled and LaTeX report expanded; compiled PDF visual QA plus canonical Singapore data, SPA, visibility, convergence and uncertainty gates remain open; no performance result promoted |
 
+| `2026-09-25_three-pass_audit-42.md` | Mandatory Pass 3 / Continue #132 | Beginner-first teaching, two-technique methodology and V&V checkpoint | Technology-before-math and analytical/discrete methodology are explicit; corrected generated infographic, numerical execution evidence, latest PDF visual QA and scientific validation gates remain open; no performance result promoted |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
