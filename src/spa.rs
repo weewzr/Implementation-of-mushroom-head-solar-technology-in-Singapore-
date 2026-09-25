@@ -55,7 +55,10 @@ pub fn solar_position(i:&SpaInput)->SolarPosition{
  let delta=d((bet.sin()*ep.cos()+bet.cos()*ep.sin()*lam.sin()).asin());
  let jc=(jd-2451545.0)/36525.0;
  let gmst=norm360(280.46061837+360.98564736629*(jd-2451545.0)+0.000387933*jc*jc-jc*jc*jc/38710000.0);
- let h=norm360(gmst+i.longitude_deg_east-alpha);
+ // Apparent sidereal time adds the nutation-in-longitude correction.
+ let delta_psi_deg=-0.00478*r(omega).sin();
+ let gast=norm360(gmst+delta_psi_deg*ep.cos());
+ let h=norm360(gast+i.longitude_deg_east-alpha);
  // topocentric parallax
  let xi=r(8.794/(3600.0*rad_au));
  let lat=r(i.latitude_deg); let hr=r(h); let dec=r(delta);
