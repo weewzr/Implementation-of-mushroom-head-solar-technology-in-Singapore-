@@ -1,115 +1,61 @@
-//! Preliminary high-accuracy solar-position candidate for project validation.
-//!
-//! Implements a reduced Meeus-style geocentric/topocentric chain with Julian
-//! ephemeris time, apparent longitude, low-order nutation/obliquity, sidereal
-//! time, parallax and atmospheric refraction. It is not accepted as NREL SPA
-//! equivalent until the Appendix A.5 benchmark passes the declared tolerance.
-//! Longitude is east-positive; azimuth output is clockwise from North.
+//! NREL SPA solar-position implementation for project validation.
+//! Rust-only transcription of the Reda-Andreas SPA formulation required for
+//! zenith/azimuth, using the published VSOP87 and 63-term nutation tables.
 
 use std::f64::consts::PI;
 fn r(d:f64)->f64{d*PI/180.0} fn d(x:f64)->f64{x*180.0/PI}
 fn norm360(x:f64)->f64{x.rem_euclid(360.0)}
-
 #[derive(Debug,Clone,Copy)]
-pub struct SpaInput {
- pub year:i32,pub month:u8,pub day:u8,pub hour:u8,pub minute:u8,pub second:f64,
- pub utc_offset_h:f64,pub delta_t_s:f64,pub longitude_deg_east:f64,pub latitude_deg:f64,
- pub elevation_m:f64,pub pressure_mbar:f64,pub temperature_c:f64,
-}
+pub struct SpaInput {pub year:i32,pub month:u8,pub day:u8,pub hour:u8,pub minute:u8,pub second:f64,pub utc_offset_h:f64,pub delta_t_s:f64,pub longitude_deg_east:f64,pub latitude_deg:f64,pub elevation_m:f64,pub pressure_mbar:f64,pub temperature_c:f64}
 #[derive(Debug,Clone,Copy,PartialEq)]
-pub struct SolarPosition { pub zenith_deg:f64,pub azimuth_deg:f64 }
+pub struct SolarPosition {pub zenith_deg:f64,pub azimuth_deg:f64}
 
-fn jd_utc(i:&SpaInput)->f64{
+const L_TERMS:&[&[[f64;3]]]=&[&[[175347046,0,0 ],[3341656,4.6692568,6283.07585 ],[34894,4.6261,12566.1517 ],[3497,2.7441,5753.3849 ],[3418,2.8289,3.5231 ],[3136,3.6277,77713.7715 ],[2676,4.4181,7860.4194 ],[2343,6.1352,3930.2097 ],[1324,0.7425,11506.7698 ],[1273,2.0371,529.691 ],[1199,1.1096,1577.3435 ],[990,5.233,5884.927 ],[902,2.045,26.298 ],[857,3.508,398.149 ],[780,1.179,5223.694 ],[753,2.533,5507.553 ],[505,4.583,18849.228 ],[492,4.205,775.523 ],[357,2.92,0.067 ],[317,5.849,11790.629 ],[284,1.899,796.298 ],[271,0.315,10977.079 ],[243,0.345,5486.778 ],[206,4.806,2544.314 ],[205,1.869,5573.143 ],[202,2.458,6069.777 ],[156,0.833,213.299 ],[132,3.411,2942.463 ],[126,1.083,20.775 ],[115,0.645,0.98 ],[103,0.636,4694.003 ],[102,0.976,15720.839 ],[102,4.267,7.114 ],[99,6.21,2146.17 ],[98,0.68,155.42 ],[86,5.98,161000.69 ],[85,1.3,6275.96 ],[85,3.67,71430.7 ],[80,1.81,17260.15 ],[79,3.04,12036.46 ],[75,1.76,5088.63 ],[74,3.5,3154.69 ],[74,4.68,801.82 ],[70,0.83,9437.76 ],[62,3.98,8827.39 ],[61,1.82,7084.9 ],[57,2.78,6286.6 ],[56,4.39,14143.5 ],[56,3.47,6279.55 ],[52,0.19,12139.55 ],[52,1.33,1748.02 ],[51,0.28,5856.48 ],[49,0.49,1194.45 ],[41,5.37,8429.24 ],[41,2.4,19651.05 ],[39,6.17,10447.39 ],[37,6.04,10213.29 ],[37,2.57,1059.38 ],[36,1.71,2352.87 ],[36,1.78,6812.77 ],[33,0.59,17789.85 ],[30,0.44,83996.85 ],[30,2.74,1349.87 ],[25,3.16,4690.48 ] ],&[[628331966747,0,0 ],[206059,2.678235,6283.07585 ],[4303,2.6351,12566.1517 ],[425,1.59,3.523 ],[119,5.796,26.298 ],[109,2.966,1577.344 ],[93,2.59,18849.23 ],[72,1.14,529.69 ],[68,1.87,398.15 ],[67,4.41,5507.55 ],[59,2.89,5223.69 ],[56,2.17,155.42 ],[45,0.4,796.3 ],[36,0.47,775.52 ],[29,2.65,7.11 ],[21,5.34,0.98 ],[19,1.85,5486.78 ],[19,4.97,213.3 ],[17,2.99,6275.96 ],[16,0.03,2544.31 ],[16,1.43,2146.17 ],[15,1.21,10977.08 ],[12,2.83,1748.02 ],[12,3.26,5088.63 ],[12,5.27,1194.45 ],[12,2.08,4694 ],[11,0.77,553.57 ],[10,1.3,6286.6 ],[10,4.24,1349.87 ],[9,2.7,242.73 ],[9,5.64,951.72 ],[8,5.3,2352.87 ],[6,2.65,9437.76 ],[6,4.67,4690.48 ] ],&[[52919,0,0 ],[8720,1.0721,6283.0758 ],[309,0.867,12566.152 ],[27,0.05,3.52 ],[16,5.19,26.3 ],[16,3.68,155.42 ],[10,0.76,18849.23 ],[9,2.06,77713.77 ],[7,0.83,775.52 ],[5,4.66,1577.34 ],[4,1.03,7.11 ],[4,3.44,5573.14 ],[3,5.14,796.3 ],[3,6.05,5507.55 ],[3,1.19,242.73 ],[3,6.12,529.69 ],[3,0.31,398.15 ],[3,2.28,553.57 ],[2,4.38,5223.69 ],[2,3.75,0.98 ] ],&[[289,5.844,6283.076 ],[35,0,0 ],[17,5.49,12566.15 ],[3,5.2,155.42 ],[1,4.72,3.52 ],[1,5.3,18849.23 ],[1,5.97,242.73 ] ],&[[114,3.142,0 ],[8,4.13,6283.08 ],[1,3.84,12566.15 ] ],&[[1,3.14,0 ] ]];
+const B_TERMS:&[&[[f64;3]]]=&[&[[280,3.199,84334.662 ],[102,5.422,5507.553 ],[80,3.88,5223.69 ],[44,3.7,2352.87 ],[32,4,1577.34 ] ],&[[9,3.9,5507.55 ],[6,1.73,5223.69 ] ]];
+const R_TERMS:&[&[[f64;3]]]=&[&[[100013989,0,0 ],[1670700,3.0984635,6283.07585 ],[13956,3.05525,12566.1517 ],[3084,5.1985,77713.7715 ],[1628,1.1739,5753.3849 ],[1576,2.8469,7860.4194 ],[925,5.453,11506.77 ],[542,4.564,3930.21 ],[472,3.661,5884.927 ],[346,0.964,5507.553 ],[329,5.9,5223.694 ],[307,0.299,5573.143 ],[243,4.273,11790.629 ],[212,5.847,1577.344 ],[186,5.022,10977.079 ],[175,3.012,18849.228 ],[110,5.055,5486.778 ],[98,0.89,6069.78 ],[86,5.69,15720.84 ],[86,1.27,161000.69 ],[65,0.27,17260.15 ],[63,0.92,529.69 ],[57,2.01,83996.85 ],[56,5.24,71430.7 ],[49,3.25,2544.31 ],[47,2.58,775.52 ],[45,5.54,9437.76 ],[43,6.01,6275.96 ],[39,5.36,4694 ],[38,2.39,8827.39 ],[37,0.83,19651.05 ],[37,4.9,12139.55 ],[36,1.67,12036.46 ],[35,1.84,2942.46 ],[33,0.24,7084.9 ],[32,0.18,5088.63 ],[32,1.78,398.15 ],[28,1.21,6286.6 ],[28,1.9,6279.55 ],[26,4.59,10447.39 ] ],&[[103019,1.10749,6283.07585 ],[1721,1.0644,12566.1517 ],[702,3.142,0 ],[32,1.02,18849.23 ],[31,2.84,5507.55 ],[25,1.32,5223.69 ],[18,1.42,1577.34 ],[10,5.91,10977.08 ],[9,1.42,6275.96 ],[9,0.27,5486.78 ] ],&[[4359,5.7846,6283.0758 ],[124,5.579,12566.152 ],[12,3.14,0 ],[9,3.63,77713.77 ],[6,1.87,5573.14 ],[3,5.47,18849.23 ] ],&[[145,4.273,6283.076 ],[7,3.92,12566.15 ] ],&[[4,2.56,6283.08 ] ]];
+const Y_TERMS:[[f64;5];63]=[[0,0,0,0,1],[-2,0,0,2,2],[0,0,0,2,2],[0,0,0,0,2],[0,1,0,0,0],[0,0,1,0,0],[-2,1,0,2,2],[0,0,0,2,1],[0,0,1,2,2],[-2,-1,0,2,2],[-2,0,1,0,0],[-2,0,0,2,1],[0,0,-1,2,2],[2,0,0,0,0],[0,0,1,0,1],[2,0,-1,2,2],[0,0,-1,0,1],[0,0,1,2,1],[-2,0,2,0,0],[0,0,-2,2,1],[2,0,0,2,2],[0,0,2,2,2],[0,0,2,0,0],[-2,0,1,2,2],[0,0,0,2,0],[-2,0,0,2,0],[0,0,-1,2,1],[0,2,0,0,0],[2,0,-1,0,1],[-2,2,0,2,2],[0,1,0,0,1],[-2,0,1,0,1],[0,-1,0,0,1],[0,0,2,-2,0],[2,0,-1,2,1],[2,0,1,2,2],[0,1,0,2,2],[-2,1,1,0,0],[0,-1,0,2,2],[2,0,0,2,1],[2,0,1,0,0],[-2,0,2,2,2],[-2,0,1,2,1],[2,0,-2,0,1],[2,0,0,0,1],[0,-1,1,0,0],[-2,-1,0,2,1],[-2,0,0,0,1],[0,0,2,2,1],[-2,0,2,0,1],[-2,1,0,2,1],[0,0,1,-2,0],[-1,0,1,0,0],[-2,1,0,0,0],[1,0,0,0,0],[0,0,1,2,0],[0,0,-2,2,2],[-1,-1,1,0,0],[0,1,1,0,0],[0,-1,1,2,2],[2,-1,-1,2,2],[0,0,3,2,2],[2,-1,0,2,2]];
+const PE_TERMS:[[f64;4];63]=[[-171996,-174.2,92025,8.9],[-13187,-1.6,5736,-3.1],[-2274,-0.2,977,-0.5],[2062,0.2,-895,0.5],[1426,-3.4,54,-0.1],[712,0.1,-7,0],[-517,1.2,224,-0.6],[-386,-0.4,200,0],[-301,0,129,-0.1],[217,-0.5,-95,0.3],[-158,0,0,0],[129,0.1,-70,0],[123,0,-53,0],[63,0,0,0],[63,0.1,-33,0],[-59,0,26,0],[-58,-0.1,32,0],[-51,0,27,0],[48,0,0,0],[46,0,-24,0],[-38,0,16,0],[-31,0,13,0],[29,0,0,0],[29,0,-12,0],[26,0,0,0],[-22,0,0,0],[21,0,-10,0],[17,-0.1,0,0],[16,0,-8,0],[-16,0.1,7,0],[-15,0,9,0],[-13,0,7,0],[-12,0,6,0],[11,0,0,0],[-10,0,5,0],[-8,0,3,0],[7,0,-3,0],[-7,0,0,0],[-7,0,3,0],[-7,0,3,0],[6,0,0,0],[6,0,-3,0],[6,0,-3,0],[-6,0,3,0],[-6,0,3,0],[5,0,0,0],[-5,0,3,0],[-5,0,3,0],[-5,0,3,0],[4,0,0,0],[4,0,0,0],[4,0,0,0],[-4,0,0,0],[-4,0,0,0],[-4,0,0,0],[3,0,0,0],[-3,0,0,0],[-3,0,0,0],[-3,0,0,0],[-3,0,0,0],[-3,0,0,0],[-3,0,0,0],[-3,0,0,0]];
+
+fn jd(i:&SpaInput)->f64{
  let mut y=i.year; let mut m=i.month as i32;
- if m<=2 {y-=1;m+=12}
- let a=(y as f64/100.0).floor(); let b=2.0-a+(a/4.0).floor();
- let local_h=i.hour as f64+i.minute as f64/60.0+i.second/3600.0;
- let utc_h=local_h-i.utc_offset_h;
- (365.25*(y as f64+4716.0)).floor()+(30.6001*(m as f64+1.0)).floor()
-   +i.day as f64+b-1524.5+utc_h/24.0
+ let day=i.day as f64+(i.hour as f64-i.utc_offset_h+(i.minute as f64+i.second/60.0)/60.0)/24.0;
+ if m<3{m+=12;y-=1}
+ let mut out=(365.25*(y as f64+4716.0)) as i64 as f64+(30.6001*(m as f64+1.0)) as i64 as f64+day-1524.5;
+ if out>2299160.0{let a=(y as f64/100.0) as i64 as f64;out+=2.0-a+(a/4.0) as i64 as f64;} out
 }
-fn sun_geocentric(jce:f64)->(f64,f64,f64){
- // Reduced solar-orbit series; this is not the full VSOP87 series used by NREL SPA.
- // Low-order geocentric apparent-Sun longitude foundation from Meeus Ch. 25;
- // aberration/nutation are handled later. The longitude terms below are solar,
- // so no additional 180-degree Earth-to-Sun conversion is applied. Accuracy is checked against NREL A.5.
- let t=jce;
- let l0=norm360(280.46646+36000.76983*t+0.0003032*t*t);
- let m=norm360(357.52911+35999.05029*t-0.0001537*t*t);
- let mr=r(m);
- let c=(1.914602-0.004817*t-0.000014*t*t)*mr.sin()
-      +(0.019993-0.000101*t)*(2.0*mr).sin()+0.000289*(3.0*mr).sin();
- let true_long=l0+c;
- let v=m+c;
- let radius=(1.000001018*(1.0-0.016708634_f64.powi(2)))/(1.0+0.016708634*r(v).cos());
- (norm360(true_long),0.0,radius)
+fn periodic(ts:&[[f64;3]],jme:f64)->f64{ts.iter().map(|t|t[0]*(t[1]+t[2]*jme).cos()).sum()}
+fn earth_value(groups:&[&[[f64;3]]],jme:f64)->f64{groups.iter().enumerate().map(|(i,g)|periodic(g,jme)*jme.powi(i as i32)).sum::<f64>()/1e8}
+fn third(a:f64,b:f64,c:f64,d0:f64,x:f64)->f64{((a*x+b)*x+c)*x+d0}
+fn nutation(jce:f64)->(f64,f64){
+ let x=[third(1.0/189474.0,-0.0019142,445267.11148,297.85036,jce),third(-1.0/300000.0,-0.0001603,35999.05034,357.52772,jce),third(1.0/56250.0,0.0086972,477198.867398,134.96298,jce),third(1.0/327270.0,-0.0036825,483202.017538,93.27191,jce),third(1.0/450000.0,0.0020708,-1934.136261,125.04452,jce)];
+ let mut ps=0.0;let mut ep=0.0;
+ for k in 0..63{let arg=r((0..5).map(|j|x[j]*Y_TERMS[k][j]).sum());ps+=(PE_TERMS[k][0]+jce*PE_TERMS[k][1])*arg.sin();ep+=(PE_TERMS[k][2]+jce*PE_TERMS[k][3])*arg.cos();}
+ (ps/36000000.0,ep/36000000.0)
 }
+fn mean_obliquity(jme:f64)->f64{let u=jme/10.0;84381.448+u*(-4680.93+u*(-1.55+u*(1999.25+u*(-51.38+u*(-249.67+u*(-39.05+u*(7.12+u*(27.87+u*(5.79+u*2.45)))))))))}
 pub fn solar_position(i:&SpaInput)->SolarPosition{
- let jd=jd_utc(i); let jde=jd+i.delta_t_s/86400.0; let jce=(jde-2451545.0)/36525.0;
- let (theta,beta,rad_au)=sun_geocentric(jce);
- // apparent solar longitude: low-order nutation/aberration form
- let omega=norm360(125.04-1934.136*jce);
- let lambda=theta-0.00569-0.00478*r(omega).sin();
- let eps0=23.0+(26.0+(21.448-46.815*jce-0.00059*jce*jce+0.001813*jce*jce*jce)/60.0)/60.0;
- let eps=eps0+0.00256*r(omega).cos();
- let lam=r(lambda); let ep=r(eps); let bet=r(beta);
- let alpha=norm360(d((lam.sin()*ep.cos()-bet.tan()*ep.sin()).atan2(lam.cos())));
- let delta=d((bet.sin()*ep.cos()+bet.cos()*ep.sin()*lam.sin()).asin());
- let jc=(jd-2451545.0)/36525.0;
- let gmst=norm360(280.46061837+360.98564736629*(jd-2451545.0)+0.000387933*jc*jc-jc*jc*jc/38710000.0);
- // Apparent sidereal time adds the nutation-in-longitude correction.
- let delta_psi_deg=-0.00478*r(omega).sin();
- let gast=norm360(gmst+delta_psi_deg*ep.cos());
- let h=norm360(gast+i.longitude_deg_east-alpha);
- // topocentric parallax
- let xi=r(8.794/(3600.0*rad_au));
- let lat=r(i.latitude_deg); let hr=r(h); let dec=r(delta);
- let u=(0.99664719*lat.tan()).atan();
- let x=u.cos()+i.elevation_m/6378140.0*lat.cos();
- let y=0.99664719*u.sin()+i.elevation_m/6378140.0*lat.sin();
+ let jd=jd(i);let jc=(jd-2451545.0)/36525.0;let jde=jd+i.delta_t_s/86400.0;let jce=(jde-2451545.0)/36525.0;let jme=jce/10.0;
+ let l=norm360(d(earth_value(L_TERMS,jme)));let b=d(earth_value(B_TERMS,jme));let rv=earth_value(R_TERMS,jme);
+ let theta=norm360(l+180.0);let beta=-b;let (dpsi,deps)=nutation(jce);
+ let eps=mean_obliquity(jme)/3600.0+deps;let lambda=theta+dpsi-20.4898/(3600.0*rv);
+ let lam=r(lambda);let epr=r(eps);let bet=r(beta);
+ let alpha=norm360(d((lam.sin()*epr.cos()-bet.tan()*epr.sin()).atan2(lam.cos())));
+ let delta=d((bet.sin()*epr.cos()+bet.cos()*epr.sin()*lam.sin()).asin());
+ let nu0=norm360(280.46061837+360.98564736629*(jd-2451545.0)+jc*jc*(0.000387933-jc/38710000.0));
+ let nu=nu0+dpsi*epr.cos();let h=norm360(nu+i.longitude_deg_east-alpha);
+ let xi=r(8.794/(3600.0*rv));let lat=r(i.latitude_deg);let hr=r(h);let dec=r(delta);
+ let u=(0.99664719*lat.tan()).atan();let y=0.99664719*u.sin()+i.elevation_m/6378140.0*lat.sin();let x=u.cos()+i.elevation_m/6378140.0*lat.cos();
  let da=(-x*xi.sin()*hr.sin()).atan2(dec.cos()-x*xi.sin()*hr.cos());
  let decp=((dec.sin()-y*xi.sin())*da.cos()).atan2(dec.cos()-x*xi.sin()*hr.cos());
- let hp=hr+da;
+ let hp=hr-da; // NREL h' = h - delta_alpha; da is delta_alpha in radians.
  let e0=d((lat.sin()*decp.sin()+lat.cos()*decp.cos()*hp.cos()).asin());
- let refr=if e0>=-1.0 && i.pressure_mbar>0.0 {
-   (i.pressure_mbar/1010.0)*(283.0/(273.0+i.temperature_c))
-   *1.02/(60.0*r(e0+10.3/(e0+5.11)).tan())
- } else {0.0};
- let elev=e0+refr;
- let gamma=d(hp.sin().atan2(hp.cos()*lat.sin()-decp.tan()*lat.cos()));
- let az=norm360(gamma+180.0);
- SolarPosition{zenith_deg:90.0-elev,azimuth_deg:az}
+ let refr=if e0>=-(0.26667+0.5667) && i.pressure_mbar>0.0{(i.pressure_mbar/1010.0)*(283.0/(273.0+i.temperature_c))*1.02/(60.0*r(e0+10.3/(e0+5.11)).tan())}else{0.0};
+ let elev=e0+refr;let gamma=d(hp.sin().atan2(hp.cos()*lat.sin()-decp.tan()*lat.cos()));
+ SolarPosition{zenith_deg:90.0-elev,azimuth_deg:norm360(gamma+180.0)}
 }
-
-#[cfg(test)]
-mod tests{
- use super::*;
- #[test] fn nrel_a5_reference(){
-  let i=SpaInput{year:2003,month:10,day:17,hour:12,minute:30,second:30.0,utc_offset_h:-7.0,
-   delta_t_s:67.0,longitude_deg_east:-105.1786,latitude_deg:39.742476,elevation_m:1830.14,
-   pressure_mbar:820.0,temperature_c:11.0};
-  let p=solar_position(&i);
-  assert!((p.zenith_deg-50.11162).abs()<0.001,"zenith {}",p.zenith_deg);
-  assert!((p.azimuth_deg-194.34024).abs()<0.001,"azimuth {}",p.azimuth_deg);
- }
- fn sg(y:i32,m:u8,day:u8,h:u8,min:u8)->SolarPosition{
-  solar_position(&SpaInput{year:y,month:m,day,hour:h,minute:min,second:0.0,utc_offset_h:8.0,
-   delta_t_s:75.0,longitude_deg_east:103.8198,latitude_deg:1.3521,elevation_m:15.0,
-   pressure_mbar:1010.0,temperature_c:28.0})
- }
- #[test] fn singapore_time_and_azimuth_conventions(){
-  // Morning must be eastern half-plane; afternoon western.
-  for &(y,m,day) in &[(2026,3,20),(2026,6,21),(2026,9,23),(2026,12,21)]{
-   let am=sg(y,m,day,9,0); let pm=sg(y,m,day,15,0);
-   assert!(am.azimuth_deg>0.0 && am.azimuth_deg<180.0,"AM az {}",am.azimuth_deg);
-   assert!(pm.azimuth_deg>180.0 && pm.azimuth_deg<360.0,"PM az {}",pm.azimuth_deg);
-   assert!(am.zenith_deg<90.0 && pm.zenith_deg<90.0);
-  }
- }
- #[test] fn singapore_sunrise_noon_afternoon_sanity(){
-  let dawn=sg(2026,3,20,7,0); let noon=sg(2026,3,20,13,0); let aft=sg(2026,3,20,16,0);
-  assert!(dawn.zenith_deg<95.0 && dawn.azimuth_deg<180.0);
-  assert!(noon.zenith_deg<10.0,"near-equinox Singapore solar noon zenith {}",noon.zenith_deg);
-  assert!(aft.azimuth_deg>180.0);
- }
+#[cfg(test)] mod tests{use super::*;
+ #[test] fn nrel_a5_reference(){let i=SpaInput{year:2003,month:10,day:17,hour:12,minute:30,second:30.0,utc_offset_h:-7.0,delta_t_s:67.0,longitude_deg_east:-105.1786,latitude_deg:39.742476,elevation_m:1830.14,pressure_mbar:820.0,temperature_c:11.0};let p=solar_position(&i);assert!((p.zenith_deg-50.11162).abs()<0.001,"zenith {}",p.zenith_deg);assert!((p.azimuth_deg-194.34024).abs()<0.001,"azimuth {}",p.azimuth_deg);}
+ fn sg(y:i32,m:u8,day:u8,h:u8,min:u8)->SolarPosition{solar_position(&SpaInput{year:y,month:m,day,hour:h,minute:min,second:0.0,utc_offset_h:8.0,delta_t_s:75.0,longitude_deg_east:103.8198,latitude_deg:1.3521,elevation_m:15.0,pressure_mbar:1010.0,temperature_c:28.0})}
+ #[test] fn singapore_time_and_azimuth_conventions(){for &(y,m,day) in &[(2026,3,20),(2026,6,21),(2026,9,23),(2026,12,21)]{let am=sg(y,m,day,9,0);let pm=sg(y,m,day,15,0);assert!(am.azimuth_deg>0.0&&am.azimuth_deg<180.0,"AM az {}",am.azimuth_deg);assert!(pm.azimuth_deg>180.0&&pm.azimuth_deg<360.0,"PM az {}",pm.azimuth_deg);assert!(am.zenith_deg<90.0&&pm.zenith_deg<90.0);}}
+ #[test] fn singapore_sunrise_noon_afternoon_sanity(){let dawn=sg(2026,3,20,7,0);let noon=sg(2026,3,20,13,0);let aft=sg(2026,3,20,16,0);assert!(dawn.zenith_deg<95.0&&dawn.azimuth_deg<180.0);assert!(noon.zenith_deg<10.0,"near-equinox Singapore solar noon zenith {}",noon.zenith_deg);assert!(aft.azimuth_deg>180.0);}
 }
