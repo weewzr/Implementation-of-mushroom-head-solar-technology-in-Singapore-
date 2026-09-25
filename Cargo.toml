@@ -24,3 +24,7 @@ path = "src/bin/exploratory_results.rs"
 [[bin]]
 name = "discrete-verification"
 path = "src/bin/discrete_verification.rs"
+
+[[bin]]
+name = "method-verification"
+path = "src/bin/method_verification.rs"
