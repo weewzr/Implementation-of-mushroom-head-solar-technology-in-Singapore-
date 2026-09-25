@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 26 September 2026: **138**.
+- Total explicit user `Continue` commands counted through 26 September 2026: **139**.
 - Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-44.md`.
 - That audit occurred on Continue #138.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #138 / mandatory Audit 44. V1-V5 numerical-method verification is closed PASS; SPA A.5 and physical validation remain open; no annual-yield result is promoted.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #139 / Pass 1 of audit cycle 45. V1-V5 remains closed and is not revisited; work is restricted to closing the NREL SPA Appendix A.5 physical-validation gate.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **1**.
+- Current ChatGPT session explicit `Continue` count: **2**.
 - Persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #139 will be Pass 1 of audit cycle 45; continue foundation-first physical validation, beginning with the unresolved SPA A.5 gate.**
+- Next-pass state: **Continue #140 will be Pass 2 of audit cycle 45; continue only unresolved foundation work unless an earlier audit is triggered by a major result.**
 
 ## Session-rotation rule
 
