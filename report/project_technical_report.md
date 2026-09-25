@@ -762,6 +762,8 @@ $
 
 The Rust binary `discrete-verification` now performs this convergence experiment using progressively refined radial/azimuthal triangular meshes. Once verified, the same facet representation can be used for folded, petal, faceted and free-form geometries for which a useful closed-form surface integral may not exist.
 
+The complete stepwise methodology and verification/validation ladder is maintained in `docs/methodology.md`. In particular, the discrete engine is not authorised to proceed directly from a successful mesh calculation to geometry optimisation. It must pass geometry-area convergence, projected-area recovery, ideal-diffuse convergence, direct-incidence special cases and synthetic time-integration checks before extension to non-analytical candidate geometries. Physical validation then proceeds separately through solar position, Singapore weather, POA irradiance, visibility, diffuse sky, thermal/electrical response, mechanics, annual integration and uncertainty.
+
 ### Why FTCS is not the primary geometry method
 
 FTCS is a finite-difference time-marching scheme for time-dependent PDEs. The present geometry/irradiance problem is primarily a surface-integration and visibility problem, so triangular surface discretisation plus time quadrature is the appropriate numerical route. FTCS becomes relevant if a spatially resolved transient thermal equation is introduced, for example
