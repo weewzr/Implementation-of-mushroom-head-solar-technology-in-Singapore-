@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 26 September 2026: **136**.
+- Total explicit user `Continue` commands counted through 26 September 2026: **137**.
 - Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-43.md`.
 - That audit occurred on Continue #135.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #136 / Pass 1 of audit cycle 44. Analytical-discrete V1-V5 verification and report integration continue; no annual-yield result is promoted.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #137 / Pass 2 of audit cycle 44. V1-V5 execution evidence and report integration continue; no annual-yield result is promoted.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **8**.
+- Current ChatGPT session explicit `Continue` count: **9**.
 - Persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #137 will be Pass 2 of audit cycle 44. Continue V1-V5 execution evidence and report integration.**
+- Next-pass state: **Continue #138 will be mandatory Pass 3 Audit 44 before substantive work.**
 
 ## Session-rotation rule
 
