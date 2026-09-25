@@ -20,3 +20,7 @@ toml = "0.8"
 [[bin]]
 name = "exploratory-results"
 path = "src/bin/exploratory_results.rs"
+
+[[bin]]
+name = "discrete-verification"
+path = "src/bin/discrete_verification.rs"
