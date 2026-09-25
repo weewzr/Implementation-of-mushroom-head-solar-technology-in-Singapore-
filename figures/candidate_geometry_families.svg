@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
-<style>text{font-family:Arial,sans-serif;fill:#111}.t{font-size:28px;font-weight:bold}.s{font-size:20px}.l{stroke:#111;stroke-width:4;fill:none}.f{stroke:#111;stroke-width:3;fill:#f4f4f4}</style>
+<style>text{font-family:Arial,sans-serif;fill: number 111}.t{font-size:28px;font-weight:bold}.s{font-size:20px}.l{stroke: number 111;stroke-width:4;fill:none}.f{stroke: number 111;stroke-width:3;fill: number f4f4f4}</style>
 <text x="600" y="45" text-anchor="middle" class="t">Candidate geometry families under a common resource envelope</text>
 <g transform="translate(40,90)"><text x="130" y="35" text-anchor="middle" class="t">Sphere / hemisphere</text><circle cx="130" cy="170" r="90" class="f"/><line x1="25" y1="260" x2="235" y2="260" class="l"/><text x="130" y="300" text-anchor="middle" class="s">symmetry benchmark</text></g>
 <g transform="translate(330,90)"><text x="130" y="35" text-anchor="middle" class="t">Faceted canopy</text><polyline points="30,245 75,125 130,210 185,95 230,245" class="l"/><line x1="25" y1="260" x2="235" y2="260" class="l"/><text x="130" y="300" text-anchor="middle" class="s">discrete normals</text></g>
