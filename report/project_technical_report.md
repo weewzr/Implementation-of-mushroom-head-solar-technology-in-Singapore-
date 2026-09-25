@@ -64,6 +64,70 @@ This chain explains why a curved surface cannot be judged from surface area alon
 **Figure 2.** Beginner-to-model bridge from Singapore solar resource to facet irradiance, electrical conversion and land-normalised comparison. This is a modelling map, not evidence that every downstream validation gate has passed.
 
 
+## 1A. Technology first — what the system is doing before the mathematics
+
+The mathematical model is easier to understand if the physical story is clear first.
+
+### 1A.1 Sunlight is the energy input
+
+The Sun supplies electromagnetic radiation. A solar panel does not create energy; it intercepts part of the incoming solar radiation and converts part of that intercepted energy into electrical energy. The project therefore begins with a simple question: **how much useful sunlight reaches each piece of PV surface?**
+
+### 1A.2 A photovoltaic panel converts light into electricity
+
+A PV module contains semiconductor solar cells. Incoming photons can transfer energy to charge carriers in the semiconductor. The cell's internal electric field separates charge, and an external circuit allows electrical current to flow. At system level, the useful electrical output therefore depends on both the sunlight reaching the module and the module/system conversion losses.
+
+This report does not require semiconductor quantum physics to compare canopy geometry. For the geometry problem, the PV module is initially represented by a conversion-efficiency model after the irradiance reaching the surface has been determined.
+
+### 1A.3 Sunlight reaches the panel in more than one way
+
+The model separates three intuitive pathways:
+
+- **direct light:** sunlight arriving from the solar-disc direction;
+- **diffuse light:** sunlight scattered by the atmosphere and clouds and arriving from the sky;
+- **reflected light:** sunlight reflected from the ground or surrounding surfaces.
+
+This matters strongly for a three-dimensional object. A surface facing away from the direct Sun may still receive diffuse or reflected light.
+
+### 1A.4 Why panel direction matters
+
+A panel facing a beam directly presents a large projected receiving area. Tilting it away makes the same physical panel look smaller to that beam. If the active face points away completely, a monofacial panel receives no front-side direct beam. The later dot-product mathematics is simply a precise way of calculating this geometric effect.
+
+### 1A.5 Why shadows matter
+
+Adding more PV surface above the same land area is only useful if the added surfaces remain illuminated. One part of a three-dimensional canopy can block another part from the Sun or from portions of the sky. Consequently,
+
+**more PV area does not automatically mean more electricity.**
+
+The project must calculate both **packing** and **irradiance productivity**.
+
+### 1A.6 Why the original mushroom idea exists
+
+The founding idea is to raise and curve PV surface above a relatively small horizontal footprint. The potential advantages to test are:
+
+- more active PV surface per unit horizontal land;
+- a spread of surface orientations;
+- possible access to direct and diffuse light from different directions;
+- usable space below the canopy;
+- possible controlled rotation.
+
+The corresponding disadvantages must be tested with equal seriousness: self-shading, reduced sky view, structural/wind loads, actuator energy, maintenance, electrical mismatch, heat and cost.
+
+### 1A.7 Why rotation might help
+
+The Sun's apparent direction changes throughout the day and year. A moving structure can alter its orientation to improve light capture, but motors, bearings and structures have losses and loads. The correct question is therefore not **“can it rotate toward the Sun?”** but **“does movement increase net useful lifecycle output enough to justify its penalties?”**
+
+### 1A.8 What is being compared
+
+The project retains a flat reference and compares it against mushroom/paraboloid, sphere/hemisphere, folded, petal/flower, faceted and eventually free-form candidates. They must be compared using the same declared land, active-PV-area, height, weather and electrical accounting so that geometry—not unequal resources—causes the difference.
+
+### 1A.9 From the physical story to mathematics
+
+Only after the physical system is understood does the report introduce mathematics. Following the project master instructions, each major mathematical development should proceed as:
+
+**physical intuition → definitions → assumptions/boundaries → governing principle → mathematical formulation → derivation → calculation → verification → physical interpretation → engineering implication.**
+
+The analytical and discrete methods later in the report are therefore two mathematical representations of the same physical story described above.
+
 ## 2. Coordinate and sign conventions
 
 The project uses a right-handed local East–North–Up (ENU) frame:
