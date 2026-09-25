@@ -29,8 +29,9 @@ fn jd_utc(i:&SpaInput)->f64{
 }
 fn sun_geocentric(jce:f64)->(f64,f64,f64){
  // VSOP87 truncated at the dominant terms used by SPA-class solar work.
- // Earth heliocentric longitude/latitude/radius from Meeus Ch. 25, with
- // aberration/nutation handled later. Accuracy is checked against NREL A.5.
+ // Low-order geocentric apparent-Sun longitude foundation from Meeus Ch. 25;
+ // aberration/nutation are handled later. The longitude terms below are solar,
+ // so no additional 180-degree Earth-to-Sun conversion is applied. Accuracy is checked against NREL A.5.
  let t=jce;
  let l0=norm360(280.46646+36000.76983*t+0.0003032*t*t);
  let m=norm360(357.52911+35999.05029*t-0.0001537*t*t);
@@ -40,7 +41,7 @@ fn sun_geocentric(jce:f64)->(f64,f64,f64){
  let true_long=l0+c;
  let v=m+c;
  let radius=(1.000001018*(1.0-0.016708634_f64.powi(2)))/(1.0+0.016708634*r(v).cos());
- (norm360(true_long+180.0),0.0,radius)
+ (norm360(true_long),0.0,radius)
 }
 pub fn solar_position(i:&SpaInput)->SolarPosition{
  let jd=jd_utc(i); let jde=jd+i.delta_t_s/86400.0; let jce=(jde-2451545.0)/36525.0;
