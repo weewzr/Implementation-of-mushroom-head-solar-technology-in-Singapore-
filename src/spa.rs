@@ -1,8 +1,9 @@
-//! Reference-grade solar position for project validation.
+//! Preliminary high-accuracy solar-position candidate for project validation.
 //!
-//! Implements the Meeus/NREL-SPA geocentric/topocentric chain needed by the
-//! project, including Julian ephemeris time, apparent longitude, nutation,
-//! obliquity, sidereal time, parallax and atmospheric refraction.
+//! Implements a reduced Meeus-style geocentric/topocentric chain with Julian
+//! ephemeris time, apparent longitude, low-order nutation/obliquity, sidereal
+//! time, parallax and atmospheric refraction. It is not accepted as NREL SPA
+//! equivalent until the Appendix A.5 benchmark passes the declared tolerance.
 //! Longitude is east-positive; azimuth output is clockwise from North.
 
 use std::f64::consts::PI;
@@ -28,7 +29,7 @@ fn jd_utc(i:&SpaInput)->f64{
    +i.day as f64+b-1524.5+utc_h/24.0
 }
 fn sun_geocentric(jce:f64)->(f64,f64,f64){
- // VSOP87 truncated at the dominant terms used by SPA-class solar work.
+ // Reduced solar-orbit series; this is not the full VSOP87 series used by NREL SPA.
  // Low-order geocentric apparent-Sun longitude foundation from Meeus Ch. 25;
  // aberration/nutation are handled later. The longitude terms below are solar,
  // so no additional 180-degree Earth-to-Sun conversion is applied. Accuracy is checked against NREL A.5.
