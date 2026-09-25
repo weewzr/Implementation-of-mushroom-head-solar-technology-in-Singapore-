@@ -63,7 +63,8 @@ jobs:
         if: always()
         shell: bash
         run: |
-          echo "working_tree_clean_after=$(test -z \"$(git status --porcelain)\" && echo yes || echo no)" | tee -a rust-execution-evidence.txt
+          if [ -z "$(git status --porcelain)" ]; then clean=yes; else clean=no; fi
+          echo "working_tree_clean_after=$clean" | tee -a rust-execution-evidence.txt
 
       - name: Upload execution evidence
         if: always()
