@@ -4,15 +4,15 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 25 September 2026: **129**.
+- Total explicit user `Continue` commands counted through 25 September 2026: **130**.
 - Most recent mandatory audit: `docs/audits/2026-09-25_three-pass_audit-41.md`.
 - That audit occurred on Continue #129.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #129 / mandatory Pass 3 Audit 41. Audit 41 is performed before substantive work; no annual-yield result is promoted.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #130 / Pass 1 of audit cycle 42. Foundation-first report/visual methodology work continues; no annual-yield result is promoted.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **1**.
+- Current ChatGPT session explicit `Continue` count: **2**.
 - Persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
 - Next-pass state: **start a new chat in the same Mushroom-Head Solar project; bootstrap from persisted state with per-session Continue count reset to 0, total project count 128 and passes-since-audit 2. The next explicit Continue will be project #129 / mandatory Pass 3 Audit 41 before substantive work; inspect the #127 SPA execution evidence as part of that audit and then close the solar-position gate if valid**.
