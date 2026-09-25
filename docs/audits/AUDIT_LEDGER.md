@@ -81,6 +81,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-25_three-pass_audit-42.md` | Mandatory Pass 3 / Continue #132 | Beginner-first teaching, two-technique methodology and V&V checkpoint | Technology-before-math and analytical/discrete methodology are explicit; corrected generated infographic, numerical execution evidence, latest PDF visual QA and scientific validation gates remain open; no performance result promoted |
 
+| `2026-09-26_three-pass_audit-43.md` | Mandatory Pass 3 / Continue #135 | Analytical-discrete mesh orientation and V&V checkpoint | Mesh winding defect corrected before convergence claims; beginner figure specifications exist; area/projection/diffuse/direct/time verification and physical validation gates remain open |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
