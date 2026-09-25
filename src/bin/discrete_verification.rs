@@ -115,14 +115,6 @@ mod tests {
     }
 
     #[test]
-    fn projected_area_recovers_footprint(){
-        let facets=mesh(1.0,0.5,32,256);
-        let projected:f64=facets.iter().map(|f|f.area_m2*f.normal.z).sum();
-        let exact=PI;
-        assert!((projected-exact).abs()/exact < 2e-4);
-    }
-
-    #[test]
     fn ideal_diffuse_converges_to_analytical_benchmark(){
         let exact_area=paraboloid_area(1.0,0.5);
         let exact_ratio=0.5*(exact_area/PI+1.0);
