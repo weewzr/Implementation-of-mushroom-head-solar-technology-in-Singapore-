@@ -85,6 +85,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-26_three-pass_audit-44.md` | Mandatory Pass 3 / Continue #138 | V1–V5 analytical/discrete verification, Rust execution, SPA A.5 and report/code parity | V1–V5 pass after workflow, mesh-winding and projected-area-test repairs; numerical-method verification closes narrowly; reduced SPA still fails A.5 tolerance, so whole-crate physical validation remains open |
 
+| `2026-09-26_three-pass_audit-45.md` | Mandatory Pass 3 / Continue #141 | V1–V5, SPA A.5, Rust visibility/self-shadowing/sky-view freeze audit | Whole-crate evidence passes; stale Python-canonical documentation corrected; geometric irradiance foundation frozen; Singapore Development Weather + annual baseline phase authorized |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
