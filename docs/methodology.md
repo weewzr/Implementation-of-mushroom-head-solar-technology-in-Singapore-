@@ -369,39 +369,39 @@ Numerical settings are model inputs and belong in the provenance/configuration r
 
 The paraboloid is the central bridge.
 
-### Level V1 — geometry
+### Level V1 — geometry — PASS
 
-[
-A_{mathrm{PV}}^{(N)}
-ightarrow
-A_{mathrm{PV}}^{(mathrm{analytical})}.
-]
+$$
+A_{\mathrm{PV}}^{(N)}
+\rightarrow
+A_{\mathrm{PV}}^{(\mathrm{analytical})}.
+$$
 
-### Level V2 — projection
+### Level V2 — projection — PASS
 
-[
-sum_iA_i n_{z,i}
-ightarrow
-A_{mathrm{foot}}.
-]
+$$
+\sum_i A_i n_{z,i}
+\rightarrow
+A_{\mathrm{foot}}.
+$$
 
-### Level V3 — ideal diffuse
+### Level V3 — ideal diffuse — PASS
 
-[
-P_{mathrm{diff}}^{(N)}
-ightarrow
-P_{mathrm{diff}}^{(mathrm{analytical})}.
-]
+$$
+P_{\mathrm{diff}}^{(N)}
+\rightarrow
+P_{\mathrm{diff}}^{(\mathrm{analytical})}.
+$$
 
-### Level V4 — direct-incidence special cases
+### Level V4 — direct-incidence special cases — PASS
 
-Compare discrete facet calculations against exact planar/cardinal cases.
+Discrete facet calculations pass exact normal-incidence, grazing-incidence and backside-clipping cases.
 
-### Level V5 — time integration
+### Level V5 — time integration — PASS
 
-Integrate a synthetic irradiance case with known result and verify energy recovery.
+Synthetic constant-power and piecewise-constant cases recover their exact integrated energies.
 
-Only after V1-V5 pass should the numerical engine be extended to complex candidate geometries.
+The V1–V5 numerical-method verification ladder passed in GitHub Actions run 36176587453 after correcting mesh winding, projected-area acceptance logic and the verification workflow command. This closes numerical-method verification for the present analytical/discrete paraboloid bridge only. It does not close the separate physical-validation ladder below.
 
 ---
 
