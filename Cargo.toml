@@ -28,3 +28,7 @@ path = "src/bin/discrete_verification.rs"
 [[bin]]
 name = "method-verification"
 path = "src/bin/method_verification.rs"
+
+[[bin]]
+name = "development-weather-qc"
+path = "src/bin/development_weather_qc.rs"
