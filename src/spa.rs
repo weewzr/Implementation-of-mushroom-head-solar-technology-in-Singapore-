@@ -39,7 +39,7 @@ fn sun_geocentric(jce:f64)->(f64,f64,f64){
       +(0.019993-0.000101*t)*(2.0*mr).sin()+0.000289*(3.0*mr).sin();
  let true_long=l0+c;
  let v=m+c;
- let radius=(1.000001018*(1.0-0.016708634_f64.powi(2)))/(1.0+0.016708634*r(v));
+ let radius=(1.000001018*(1.0-0.016708634_f64.powi(2)))/(1.0+0.016708634*r(v).cos());
  (norm360(true_long+180.0),0.0,radius)
 }
 pub fn solar_position(i:&SpaInput)->SolarPosition{
