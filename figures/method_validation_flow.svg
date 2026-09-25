@@ -3,16 +3,16 @@
 <rect width="1200" height="1040" fill="white"/>
 <text x="600" y="45" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="bold">Validation-first modelling workflow</text>
 <g font-family="sans-serif" font-size="21" text-anchor="middle">
-<rect x="330" y="80" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="115">1. Define equal-resource envelope</text><text x="600" y="145">footprint • active PV area • height • baseline</text>
-<rect x="330" y="205" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="240">2. Acquire + provenance-check inputs</text><text x="600" y="270">Singapore irradiance • weather • module • mechanics</text>
-<rect x="330" y="330" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="365">3. Validate independent physics layers</text><text x="600" y="395">solar position • incidence • sky view • geometry</text>
-<rect x="330" y="455" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="490">4. Numerical verification</text><text x="600" y="520">tests • closure • mesh/time convergence • units</text>
-<rect x="330" y="580" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="615">5. Equal-resource candidate comparison</text><text x="600" y="645">flat • mushroom • sphere/facets • tracking baseline</text>
-<rect x="330" y="705" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="740">6. Sensitivity + uncertainty</text><text x="600" y="770">weather • geometry • thermal • bifacial • mechanics</text>
-<rect x="330" y="830" width="540" height="85" rx="12" fill="#e8f6ef" stroke="#222" stroke-width="3"/><text x="600" y="865">7. Release result only after gates pass</text><text x="600" y="895">retain evidence • plots • report/code/data parity</text>
+<rect x="330" y="80" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="115">1. Define equal-resource envelope</text><text x="600" y="145">footprint - active PV area - height - baseline</text>
+<rect x="330" y="205" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="240">2. Acquire + provenance-check inputs</text><text x="600" y="270">Singapore irradiance - weather - module - mechanics</text>
+<rect x="330" y="330" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="365">3. Validate independent physics layers</text><text x="600" y="395">solar position - incidence - sky view - geometry</text>
+<rect x="330" y="455" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="490">4. Numerical verification</text><text x="600" y="520">tests - closure - mesh/time convergence - units</text>
+<rect x="330" y="580" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="615">5. Equal-resource candidate comparison</text><text x="600" y="645">flat - mushroom - sphere/facets - tracking baseline</text>
+<rect x="330" y="705" width="540" height="85" rx="12" fill="#eef5fb" stroke="#222" stroke-width="3"/><text x="600" y="740">6. Sensitivity + uncertainty</text><text x="600" y="770">weather - geometry - thermal - bifacial - mechanics</text>
+<rect x="330" y="830" width="540" height="85" rx="12" fill="#e8f6ef" stroke="#222" stroke-width="3"/><text x="600" y="865">7. Release result only after gates pass</text><text x="600" y="895">retain evidence - plots - report/code/data parity</text>
 </g>
 <g stroke="#333" stroke-width="4" marker-end="url(#a)"><line x1="600" y1="165" x2="600" y2="198"/><line x1="600" y1="290" x2="600" y2="323"/><line x1="600" y1="415" x2="600" y2="448"/><line x1="600" y1="540" x2="600" y2="573"/><line x1="600" y1="665" x2="600" y2="698"/><line x1="600" y1="790" x2="600" y2="823"/></g>
 <path d="M330 872 C150 872 150 372 320 372" fill="none" stroke="#b24c3d" stroke-width="4" marker-end="url(#a)"/>
-<text x="120" y="620" font-family="sans-serif" font-size="20" transform="rotate(-90 120 620)">failed validation → correct foundation, then rerun</text>
+<text x="120" y="620" font-family="sans-serif" font-size="20" transform="rotate(-90 120 620)">failed validation -> correct foundation, then rerun</text>
 <text x="600" y="985" text-anchor="middle" font-family="sans-serif" font-size="20">Workflow diagram defines evidence gates; it does not imply that currently open gates have passed.</text>
 </svg>
