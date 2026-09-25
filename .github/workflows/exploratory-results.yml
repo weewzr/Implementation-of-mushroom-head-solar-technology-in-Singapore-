@@ -20,6 +20,7 @@ jobs:
         run: |
           mkdir -p results/exploratory
           cargo run --quiet --bin exploratory-results > results/exploratory/paraboloid_packing_diffuse.csv 2> results/exploratory/diffuse_share_sensitivity.csv
+          cargo run --quiet --bin discrete-verification > results/exploratory/discrete_paraboloid_convergence.csv
       - name: Upload exploratory evidence
         uses: actions/upload-artifact@v4
         with:
