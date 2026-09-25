@@ -701,7 +701,7 @@ pub fn parse_nasa_power_hourly_csv(input:&str)->Result<(Vec<WeatherRecord>,Vec<Q
   let y:i32=v[iy].parse().map_err(|_|"bad POWER year")?;let m:u8=v[im].parse().map_err(|_|"bad POWER month")?;let d:u8=v[id].parse().map_err(|_|"bad POWER day")?;let h:u8=v[ih].parse().map_err(|_|"bad POWER hour")?;
   let val=|i:usize|->Result<f64,String>{let x=v[i].parse::<f64>().map_err(|_|format!("bad POWER value {}",v[i]))?;if x<=-900.0{Err("NASA POWER missing/fill sentinel encountered; no imputation performed".into())}else{Ok(x)}};
   let rh=irh.map(val).transpose()?.unwrap_or(0.0);let ps_hpa=ips.map(val).transpose()?.unwrap_or(0.0);
-  canonical.push_str(&format!("{y:04}-{m:02}-{d:02}T{h:02}:00:00Z,{},{},{},{},{},{},{},{}\n",val(ig)?,val(iff)?,val(ini)?,val(it)?,val(iw)?,val(iwd)?,rh,ps_hpa*100.0));
+  canonical.push_str(&format!("{y:04}-{m:02}-{d:02}T{h:02}:00:00Z,{},{},{},{},{},{},{},{}\n",val(ig)?,val(iff)?,val(ini)?,val(it)?,val(iw)?,val(iwd)?,rh,ps_hpa*1000.0));
  }
  parse_canonical_csv(&canonical)
 }
