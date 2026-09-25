@@ -34,7 +34,7 @@ $$G_{POA}=G_b+G_d+G_g.$$
 This is deliberately an intermediate model. An anisotropic sky model and explicit sky-patch visibility are later milestones.
 
 ## Direct-beam self-shadowing
-Each PV surface will be triangulated. For each facet centroid, a ray is cast toward the sun. If it intersects another triangle before leaving the structure, direct visibility is zero; otherwise it is one. `src/models/facets.py` implements the first dependency-light Möller–Trumbore ray/triangle intersection routine.
+Each PV surface will be triangulated. For each facet centroid, a ray is cast toward the sun. If it intersects another triangle before leaving the structure, direct visibility is zero; otherwise it is one. `src/visibility.rs` is the canonical Rust Möller–Trumbore ray/triangle and sky-visibility implementation. The earlier Python `src/models/facets.py` path is retained only as legacy exploratory code and is not canonical.
 
 The geometric direct-beam collecting factor is
 
