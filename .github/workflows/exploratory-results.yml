@@ -1,0 +1,28 @@
+name: Exploratory analytical results
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'Cargo.toml'
+      - '.github/workflows/exploratory-results.yml'
+  workflow_dispatch:
+
+jobs:
+  exploratory-results:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Test crate
+        run: cargo test --all-targets
+      - name: Generate exploratory CSV outputs
+        run: |
+          mkdir -p results/exploratory
+          cargo run --quiet --bin exploratory-results > results/exploratory/paraboloid_packing_diffuse.csv 2> results/exploratory/diffuse_share_sensitivity.csv
+      - name: Upload exploratory evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: exploratory-analytical-results
+          path: results/exploratory/*.csv
+          if-no-files-found: error
