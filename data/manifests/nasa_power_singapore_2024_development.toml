@@ -9,12 +9,12 @@ coverage_start = "2024-01-01T00:00:00Z"
 coverage_end = "2024-12-31T23:00:00Z"
 native_sampling_interval = "3600s"
 source_timezone = "UTC"
-timestamp_semantics = "NASA POWER hourly API timestamp; UTC requested explicitly; values are hourly source products"
+timestamp_semantics = "UTC; timestamp is start of hour for the whole hour; POWER hourly values are hourly averages. Solar irradiance CSV fields are reported as Wh/m^2 over the hour and are numerically equivalent to hourly-average W/m^2 for the one-hour canonical interval."
 [site]
 station_id = "POWER-POINT-SINGAPORE-1.3521N-103.8198E"
 latitude_deg = "1.3521"
 longitude_deg = "103.8198"
-elevation_m = ""
+elevation_m = "25.8"
 coordinate_datum = "WGS84 query coordinates"
 [licence]
 licence_name = "NASA Earth Science Data and Information Policy / POWER Data Access"
@@ -32,7 +32,7 @@ wind_direction = "derived"
 relative_humidity = "derived"
 air_pressure = "derived"
 [provenance]
-source_checksum = "PENDING_ACQUISITION_WORKFLOW_SHA256"
+source_checksum = "sha256:f3442ca0c336011c5c61fe434e00e1f7984f9d34afa27d1431fa939f5eac204c"
 immutable_source_id = "NASA-POWER-query-lat1.3521-lon103.8198-2024-hourly-UTC-v1"
 preprocessing_commit = ""
 [qc]
