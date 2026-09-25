@@ -63,7 +63,7 @@ jobs:
         if: always()
         shell: bash
         run: |
-          if [ -z "$(git status --porcelain)" ]; then clean=yes; else clean=no; fi
+          if [ -z "$(git status --porcelain --untracked-files=no)" ]; then clean=yes; else clean=no; fi
           echo "working_tree_clean_after=$clean" | tee -a rust-execution-evidence.txt
 
       - name: Upload execution evidence
