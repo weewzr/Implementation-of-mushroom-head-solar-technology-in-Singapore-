@@ -20,7 +20,7 @@ jobs:
       - name: Compile twice and fail on LaTeX errors
         working-directory: report
         run: |
-          latexmk -pdf -interaction=nonstopmode -halt-on-error project_technical_report.tex
+          latexmk -pdf -shell-escape -interaction=nonstopmode -halt-on-error project_technical_report.tex
       - name: Check PDF metadata and extract text
         working-directory: report
         run: |
