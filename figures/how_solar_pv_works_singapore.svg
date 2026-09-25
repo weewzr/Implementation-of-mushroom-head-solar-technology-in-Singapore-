@@ -18,7 +18,7 @@
 <line x1="850" y1="480" x2="930" y2="480" stroke="#333" stroke-width="5" marker-end="url(#arrow)"/>
 <rect x="940" y="420" width="130" height="120" rx="12" fill="#f5f5f5" stroke="#333" stroke-width="3"/>
 <text x="1005" y="466" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700">Inverter</text>
-<text x="1005" y="498" text-anchor="middle" font-family="sans-serif" font-size="18">DC → AC</text>
+<text x="1005" y="498" text-anchor="middle" font-family="sans-serif" font-size="18">DC -> AC</text>
 <line x1="1070" y1="480" x2="1150" y2="480" stroke="#333" stroke-width="5" marker-end="url(#arrow)"/>
 <text x="1140" y="525" text-anchor="middle" font-family="sans-serif" font-size="19">building / grid</text>
 <rect x="65" y="610" width="1070" height="75" rx="12" fill="#fafafa" stroke="#555" stroke-width="2"/>
