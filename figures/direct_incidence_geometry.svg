@@ -19,5 +19,5 @@
 <text x="70" y="280" font-family="Arial" font-size="19" fill="#5f6b76">n dot s = 0 -> zero direct term</text>
 <text x="70" y="320" font-family="Arial" font-size="20" fill="#17212b">Back side:</text>
 <text x="70" y="355" font-family="Arial" font-size="19" fill="#5f6b76">n dot s &lt; 0 -> positive(n dot s) = 0</text>
-<text x="70" y="600" font-family="Arial" font-size="20" fill="#17212b">dPdir = eta(T) DNI(t) V(t) [n dot s(t)]₊ dA</text>
+<text x="70" y="600" font-family="Arial" font-size="20" fill="#17212b">dPdir = eta(T) DNI(t) V(t) [n dot s(t)] plus dA</text>
 </svg>
