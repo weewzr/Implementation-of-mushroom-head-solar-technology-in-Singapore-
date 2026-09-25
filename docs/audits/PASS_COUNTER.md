@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 26 September 2026: **141**.
+- Total explicit user `Continue` commands counted through 26 September 2026: **142**.
 - Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-45.md`.
 - That audit occurred on Continue #141.
-- Passes since most recent audit: **0**.
-- Current explicit `Continue` is project #141 / mandatory Audit 45. V1–V5, NREL SPA A.5 and canonical Rust visibility/self-shadowing/isotropic sky-view foundations pass and are frozen; Singapore Development Weather + annual baseline phase is authorized.
+- Passes since most recent audit: **1**.
+- Current explicit `Continue` is project #142 / Pass 1 of audit cycle 46. Frozen geometric irradiance gates remain closed; work begins on a NASA POWER Singapore-applicable development-weather dataset, explicitly non-SERIS and non-validation.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **4**.
+- Current ChatGPT session explicit `Continue` count: **5**.
 - Persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #142 will be Pass 1 of audit cycle 46; begin Singapore Development Weather + annual baseline foundation work without reopening frozen gates unless regression occurs.**
+- Next-pass state: **Continue #143 will be Pass 2 of audit cycle 46; continue development-weather/baseline foundation work unless regression triggers an earlier audit.**
 
 ## Session-rotation rule
 
