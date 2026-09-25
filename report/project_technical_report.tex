@@ -588,6 +588,69 @@ The analytical work already answers structural questions without claiming a winn
 
 The unresolved questions are quantitative: how much useful irradiance each packed surface retains under Singapore weather; how much is lost to mutual shading and reduced sky view; whether bifacial access and ventilation compensate for those losses; and whether any electrical gain survives structural, mechanical and lifecycle penalties.
 
+\section{Two-technique solution strategy}
+The mathematical core is developed through two independent routes so that the numerical geometry can be verified before it is used on shapes without closed-form solutions.
+
+\subsection{Technique 1: analytical route}
+For geometries admitting closed-form treatment, the surface remains continuous. The paraboloidal mushroom provides the principal verification target:
+\begin{equation}
+A_{\mathrm{PV}}
+=\frac{\pi R^2}{6k^2}
+\left[(1+4k^2)^{3/2}-1\right],
+\qquad k=\frac{h}{R}.
+\end{equation}
+Under the ideal isotropic unobstructed diffuse benchmark,
+\begin{equation}
+P_{\mathrm{diff}}
+=\frac{\eta DHI}{2}
+\left(A_{\mathrm{PV}}+A_{\mathrm{foot}}\right).
+\end{equation}
+These exact expressions are verification targets rather than annual Singapore-yield predictions.
+
+\subsection{Technique 2: discrete surface route}
+The same surface is independently approximated by triangular facets. For triangle $i$,
+\begin{equation}
+A_i=\frac12\|\mathbf e_{i1}\times\mathbf e_{i2}\|,
+\qquad
+\mathbf n_i=
+\frac{\mathbf e_{i1}\times\mathbf e_{i2}}
+{\|\mathbf e_{i1}\times\mathbf e_{i2}\|}.
+\end{equation}
+The discrete area and ideal diffuse benchmark are
+\begin{equation}
+A_{\mathrm{PV}}^{(N)}=\sum_{i=1}^{N}A_i,
+\end{equation}
+\begin{equation}
+P_{\mathrm{diff}}^{(N)}
+=
+\frac{\eta DHI}{2}
+\sum_{i=1}^{N}A_i(1+n_{z,i}).
+\end{equation}
+Verification requires
+\begin{equation}
+\boxed{
+\lim_{N\rightarrow\infty}A_{\mathrm{PV}}^{(N)}
+=A_{\mathrm{PV}}^{(\mathrm{analytical})}
+}
+\end{equation}
+and
+\begin{equation}
+\boxed{
+\lim_{N\rightarrow\infty}P_{\mathrm{diff}}^{(N)}
+=P_{\mathrm{diff}}^{(\mathrm{analytical})}.
+}
+\end{equation}
+The canonical Rust binary \texttt{discrete-verification} performs this refinement experiment. After verification, the same facet machinery can be applied to folded, petal, faceted and free-form candidates.
+
+\subsection{Role of FTCS}
+FTCS is not used as the primary geometry method because the present problem is a surface-integration/visibility problem rather than a diffusion-type time-dependent PDE. FTCS becomes relevant if a spatially resolved transient module-temperature model is introduced, for example
+\begin{equation}
+\rho c_p\frac{\partial T}{\partial t}
+=
+k_T\nabla^2T+\dot q.
+\end{equation}
+Such a thermal model would require its own explicit-scheme stability criterion and spatial/time convergence study; no FTCS thermal result is currently claimed.
+
 \section{Numerical method and reproducibility roadmap}
 The numerical implementation is deliberately layered so that each physical addition can be tested before it affects an annual comparison. Geometry is represented in the canonical ENU frame. Analytical shapes provide exact benchmarks; general candidates are discretised into planar facets. For each timestamp the solar-position layer supplies the Sun direction, the irradiance layer supplies compatible direct and diffuse inputs, and the geometry layer supplies facet positions, areas and normals. Visibility and sky-view calculations then determine which radiation reaches each facet before thermal/electrical conversion and time integration.
 
