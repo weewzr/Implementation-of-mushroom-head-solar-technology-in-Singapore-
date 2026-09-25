@@ -332,3 +332,79 @@ A_{\mathrm{foot}}(\mathbf X)\le A_{\mathrm{land,max}},\qquad
 $$
 
 plus non-overlap, structural, access, electrical and manufacturability constraints when those models are established. The objective is a formulation only; no optimum is currently claimed.
+
+
+## 13. Coordinate, closure, integrated-diffuse and tracking-control relations
+
+The canonical ENU position, Sun-direction and facet-normal relations are
+
+$$
+\mathbf r=(x,y,z),
+$$
+
+$$
+\mathbf s=
+\left(
+\cos\alpha\sin\gamma_s,
+\cos\alpha\cos\gamma_s,
+\sin\alpha
+\right),
+$$
+
+$$
+\mathbf n=
+\left(
+\sin\beta\sin\gamma_p,
+\sin\beta\cos\gamma_p,
+\cos\beta
+\right).
+$$
+
+where $x,y,z$ are ENU coordinates (m), $\alpha$ is solar elevation, $\gamma_s$ is solar azimuth clockwise from north, $\beta$ is facet tilt from horizontal, and $\gamma_p$ is facet azimuth clockwise from north. $\mathbf s$ and $\mathbf n$ are dimensionless unit vectors.
+
+For an unobstructed horizontal receiver, the irradiance-closure diagnostic is
+
+$$
+GHI=DNI\sin\alpha+DHI.
+$$
+
+All irradiance terms have units W m$^{-2}$. This is a consistency relation for compatible measurements/model outputs, not a general plane-of-array transposition equation.
+
+For a single-valued upward-facing graph surface under the ideal isotropic-sky benchmark,
+
+$$
+P_{\mathrm{diff}}
+=
+\frac{\eta DHI}{2}
+\left(
+A_{\mathrm{PV}}+A_{\mathrm{foot}}
+\right).
+$$
+
+This integrated relation is an analytical benchmark only; obstruction-aware anisotropic diffuse modelling remains required for final work.
+
+The generic tracking-control formulation used in the report is
+
+$$
+\max_{\theta(t)}
+\left\{
+\int_T
+\left[
+P_{\mathrm{PV}}(\theta,t)
+-
+P_{\mathrm{motor}}(\theta,\dot\theta,\ddot\theta)
+\right]\mathrm dt
+-
+C_{\mathrm{wear}}
+\right\}.
+$$
+
+The integral has units of energy, so $C_{\mathrm{wear}}$ must be expressed in compatible energy-equivalent units or the complete objective must be converted consistently to monetary/lifecycle value.
+
+The characteristic quasi-static inertial scaling retained for slow movement is
+
+$$
+\tau_I\sim I\frac{\Delta\theta}{T^2}.
+$$
+
+This is a scaling relation rather than a complete actuator model.
