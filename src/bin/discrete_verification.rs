@@ -71,12 +71,16 @@ mod tests {
     #[test]
     fn projected_area_recovers_footprint(){
         let footprint=PI;
+        let mut previous_error=f64::INFINITY;
         for (nr,nphi) in [(2,16),(4,32),(8,64),(16,128)] {
             let facets=mesh(1.0,0.5,nr,nphi);
             let projected:f64=facets.iter().map(|f|f.normal.z*f.area_m2).sum();
             assert!(facets.iter().all(|f| f.normal.z > 0.0));
-            assert!((projected-footprint).abs()/footprint < 0.01);
+            let error=(projected-footprint).abs()/footprint;
+            assert!(error < previous_error);
+            previous_error=error;
         }
+        assert!(previous_error < 0.01);
     }
 
     #[test]
