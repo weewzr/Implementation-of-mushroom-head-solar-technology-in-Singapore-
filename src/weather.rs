@@ -973,3 +973,4 @@ known_sensor_or_clock_issues = ""
     fn rejects_nasa_power_fill_sentinel(){let raw="YEAR,MO,DY,HR,ALLSKY_SFC_SW_DWN,ALLSKY_SFC_SW_DIFF,ALLSKY_SFC_SW_DNI,T2M,WS10M,WD10M\n2024,1,1,0,-999,0,0,26.5,2.1,45\n";assert!(parse_nasa_power_hourly_csv(raw).is_err());}
 }
 
+
