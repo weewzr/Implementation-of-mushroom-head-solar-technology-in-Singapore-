@@ -21,6 +21,7 @@ jobs:
           sha256sum development-weather/nasa_power_singapore_2024_hourly.csv | tee development-weather/SHA256SUMS
           wc -l development-weather/nasa_power_singapore_2024_hourly.csv
           head -n 20 development-weather/nasa_power_singapore_2024_hourly.csv
+          cargo run --quiet --bin development-weather-qc -- development-weather/nasa_power_singapore_2024_hourly.csv | tee development-weather/qc-summary.txt
       - uses: actions/upload-artifact@v4
         with:
           name: nasa-power-singapore-2024-development-weather
