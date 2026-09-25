@@ -29,7 +29,7 @@ fn mesh(radius:f64,height:f64,nr:usize,nphi:usize)->Vec<Facet>{
     for j in 0..nphi {
         let p0=2.0*PI*(j as f64)/(nphi as f64);
         let p1=2.0*PI*((j+1) as f64)/(nphi as f64);
-        out.push(tri(center,point(r1,p1,radius,height),point(r1,p0,radius,height)));
+        out.push(tri(center,point(r1,p0,radius,height),point(r1,p1,radius,height)));
     }
     for ir in 1..nr {
         let ra=radius*(ir as f64)/(nr as f64);
@@ -39,7 +39,7 @@ fn mesh(radius:f64,height:f64,nr:usize,nphi:usize)->Vec<Facet>{
             let p1=2.0*PI*((j+1) as f64)/(nphi as f64);
             let a=point(ra,p0,radius,height); let b=point(rb,p0,radius,height);
             let c=point(rb,p1,radius,height); let d=point(ra,p1,radius,height);
-            out.push(tri(a,c,b)); out.push(tri(a,d,c));
+            out.push(tri(a,b,c)); out.push(tri(a,c,d));
         }
     }
     out
