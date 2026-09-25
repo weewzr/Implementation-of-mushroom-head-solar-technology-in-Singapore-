@@ -15,7 +15,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - name: Test crate
-        run: cargo test --bin discrete-verification
+        run: |
+          cargo test --bin discrete-verification
+          cargo test --bin method-verification
           cargo test --bin exploratory-results
       - name: Generate exploratory CSV outputs
         run: |
