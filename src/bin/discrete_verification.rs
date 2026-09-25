@@ -69,6 +69,43 @@ fn main(){
 mod tests {
     use super::*;
     #[test]
+    fn projected_area_recovers_footprint(){
+        let footprint=PI;
+        for (nr,nphi) in [(2,16),(4,32),(8,64),(16,128)] {
+            let facets=mesh(1.0,0.5,nr,nphi);
+            let projected:f64=facets.iter().map(|f|f.normal.z*f.area_m2).sum();
+            assert!(facets.iter().all(|f| f.normal.z > 0.0));
+            assert!((projected-footprint).abs()/footprint < 0.01);
+        }
+    }
+
+    #[test]
+    fn ideal_diffuse_converges_toward_exact(){
+        let exact_area=paraboloid_area(1.0,0.5);
+        let footprint=PI;
+        let exact=0.5*(exact_area/footprint+1.0);
+        let eval=|nr,nphi|{
+            let facets=mesh(1.0,0.5,nr,nphi);
+            let area:f64=facets.iter().map(|f|f.area_m2).sum();
+            let projected:f64=facets.iter().map(|f|f.normal.z*f.area_m2).sum();
+            0.5*(area+projected)/footprint
+        };
+        let coarse=eval(4,32);
+        let fine=eval(32,256);
+        assert!((fine-exact).abs() < (coarse-exact).abs());
+        assert!((fine-exact).abs()/exact < 1e-3);
+    }
+
+    #[test]
+    fn synthetic_constant_power_time_integration_is_exact(){
+        let power_w=250.0;
+        let dt_h=0.25;
+        let steps=96;
+        let energy_wh:f64=(0..steps).map(|_|power_w*dt_h).sum();
+        assert!((energy_wh-6000.0).abs()<1e-12);
+    }
+
+    #[test]
     fn discrete_area_converges_toward_exact(){
         let exact=paraboloid_area(1.0,0.5);
         let coarse:f64=mesh(1.0,0.5,4,32).iter().map(|f|f.area_m2).sum();
