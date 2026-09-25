@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 26 September 2026: **140**.
-- Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-44.md`.
-- That audit occurred on Continue #138.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #140 / Pass 2 of audit cycle 45. Closed V1–V5 and NREL SPA A.5 gates remain closed; work is restricted to the Rust visibility/self-shadowing and diffuse sky-view foundation.
+- Total explicit user `Continue` commands counted through 26 September 2026: **141**.
+- Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-45.md`.
+- That audit occurred on Continue #141.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #141 / mandatory Audit 45. V1–V5, NREL SPA A.5 and canonical Rust visibility/self-shadowing/isotropic sky-view foundations pass and are frozen; Singapore Development Weather + annual baseline phase is authorized.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **3**.
+- Current ChatGPT session explicit `Continue` count: **4**.
 - Persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #141 will be mandatory Pass 3 Audit 45 before substantive work.**
+- Next-pass state: **Continue #142 will be Pass 1 of audit cycle 46; begin Singapore Development Weather + annual baseline foundation work without reopening frozen gates unless regression occurs.**
 
 ## Session-rotation rule
 
