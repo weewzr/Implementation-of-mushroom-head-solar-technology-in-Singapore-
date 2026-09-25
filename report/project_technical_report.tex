@@ -588,6 +588,34 @@ The analytical work already answers structural questions without claiming a winn
 
 The unresolved questions are quantitative: how much useful irradiance each packed surface retains under Singapore weather; how much is lost to mutual shading and reduced sky view; whether bifacial access and ventilation compensate for those losses; and whether any electrical gain survives structural, mechanical and lifecycle penalties.
 
+\section{Numerical method and reproducibility roadmap}
+The numerical implementation is deliberately layered so that each physical addition can be tested before it affects an annual comparison. Geometry is represented in the canonical ENU frame. Analytical shapes provide exact benchmarks; general candidates are discretised into planar facets. For each timestamp the solar-position layer supplies the Sun direction, the irradiance layer supplies compatible direct and diffuse inputs, and the geometry layer supplies facet positions, areas and normals. Visibility and sky-view calculations then determine which radiation reaches each facet before thermal/electrical conversion and time integration.
+
+A future mesh calculation must demonstrate convergence. If a candidate is represented with characteristic mesh resolution $h_m$, an output quantity $Q$ must be shown to approach a stable value as $h_m$ decreases. The project will therefore report a sequence such as $Q(h_m)$ rather than selecting one visually smooth mesh and assuming it is accurate. The same principle applies to sky-patch resolution, time step and optimisation tolerances.
+
+The canonical implementation language is Rust. Reproducibility requires the exact repository commit, input-data manifest, parameter/provenance register, command line, test result and generated-output identity to be retained. A successful executable run is necessary but not sufficient for physical validation.
+
+\section{Singapore data and validation requirements}
+The annual model requires time-correlated Singapore irradiance rather than a single annual irradiation number. At minimum the weather contract must provide or support traceable derivation of GHI, DHI and DNI on a declared timestamp convention, together with sufficient site metadata for solar position. Ambient temperature, wind and other fields become required when the corresponding thermal or structural model is activated.
+
+Input validation begins with timestamp/schema checks and irradiance consistency. For compatible observations, the horizontal closure relation
+\begin{equation}
+GHI \approx DNI\sin\alpha + DHI
+\end{equation}
+provides a diagnostic residual, with any numerical acceptance tolerance required to be justified rather than invented. Solar position must be benchmarked against an authoritative reference before the residual can be interpreted as a weather-data quality metric.
+
+The project must then validate model layers in increasing complexity: cardinal-vector and limiting-case tests; analytical paraboloid and hemisphere geometry; direct-incidence front/grazing/back cases; irradiance closure; plane-of-array transposition; visibility/ray tests; diffuse sky-view benchmarks; thermal/electrical checks; and finally annual integration. Uncertainty and sensitivity analysis follow only after the corresponding input/model layer exists.
+
+\section{Planned comparative results format}
+When the validation gates close, every candidate will be reported under the same resource envelope and weather record. The comparison table will contain, at minimum: active PV area, land footprint, packing ratio, annual gross PV energy, annual actuator/auxiliary energy where applicable, annual net energy, land-normalised net energy, PV-area-normalised productivity, and uncertainty or sensitivity bounds. Structural/cost quantities will be added only when their models and inputs are sufficiently defined.
+
+The report will also include convergence plots for mesh/time/sky resolution, representative shading/sky-view renders, annual or monthly energy distributions, and a packing-productivity trade-off plot. These are specified deliverables, not currently available evidence, and therefore are not populated with synthetic numbers in this current-state report.
+
+\section{Current technical conclusions}
+At the present evidence level, the project supports conclusions about formulation rather than a winning design. Three-dimensional PV geometry is fundamentally a packing-versus-productivity problem under constrained land. The paraboloid provides an exact curved-surface benchmark, while sphere and hemisphere geometries provide symmetry and area/projection benchmarks. Faceted, petal, folded and free-form designs can be evaluated through one common mesh representation. Slow tracking should be assessed through net energy, wind loading, balance, wear and reliability rather than by maximising angular momentum.
+
+No candidate is currently established as optimal for Singapore. That conclusion is intentional: the next meaningful advance is a validated annual irradiance/visibility/electrical chain followed by equal-resource comparison, not an unsupported optimisation result.
+
 \section{Status and next step}
 The explanatory visual suite now includes the equal-footprint concept, ENU convention, solar-ray schematic, direct-incidence geometry, paraboloid geometry, a mechanical free-body/tracking diagram and a validation-first method flowchart. They remain conceptual rather than quantitative evidence. The mechanical free-body/tracking and method/validation-flow gates are now present in source. The remaining visual gates are evidence-backed convergence/uncertainty plots when numerical evidence exists, compilation of this SVG-enabled LaTeX source, and page-by-page PDF visual QA.
 
