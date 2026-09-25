@@ -86,6 +86,27 @@ The modelling chain is therefore
 \end{equation}
 This chain is the bridge between the physical explanation and the equations below. It also explains why curved surface area alone cannot establish a performance advantage: additional PV area increases packing only if that area retains sufficient irradiance productivity after orientation, occlusion and system losses are included.
 
+\section{Technology first: the physical story before mathematics}
+Before introducing vectors or calculus, the system can be understood as an energy pathway. The Sun supplies radiation. Photovoltaic cells intercept part of that radiation and convert part of the intercepted energy into electrical energy. The geometry problem is therefore fundamentally about how much useful sunlight reaches each active piece of PV surface.
+
+\subsection{How photovoltaic technology fits into this project}
+A PV module contains semiconductor solar cells. Incoming photons can transfer energy to charge carriers; the cell's internal electric field separates charge and an external circuit permits current to flow. The geometry model does not initially require a detailed semiconductor device model. Instead, it first determines irradiance at the module surface and then applies a declared electrical-conversion model.
+
+\subsection{Three intuitive light pathways}
+The physical picture separates direct sunlight arriving from the solar-disc direction, diffuse sunlight scattered by the atmosphere and clouds, and reflected sunlight returning from the ground or surroundings. This distinction is important for three-dimensional PV because a surface that is poorly oriented toward the direct Sun may still see substantial sky or reflected radiation.
+
+\subsection{Orientation and shading}
+A surface facing a beam presents a larger projected receiving area than the same surface tilted away from the beam. The later dot product is simply the mathematical representation of this geometric fact. Three-dimensional packing also creates a competing effect: one part of the canopy can block another from the Sun or from portions of the sky. More installed PV area therefore does not automatically imply more electricity.
+
+\subsection{Why a mushroom and why movement?}
+The founding mushroom concept raises and curves active PV above a constrained horizontal footprint. It tests whether increased active area and orientation diversity can compensate for self-shading, structural loading, actuator energy, maintenance, thermal effects and electrical mismatch. Rotation is treated in the same way: movement is useful only if its additional useful energy/lifecycle value exceeds its mechanical and operational penalties.
+
+\subsection{What is compared}
+The flat reference, mushroom/paraboloid, sphere/hemisphere, folded, petal/flower, faceted and future free-form candidates must use the same declared resource and weather accounting. This prevents a geometry from appearing superior merely because it received more PV material, land or favourable assumptions.
+
+\subsection{Transition into mathematics}
+The project master instructions require each major mathematical development to progress from physical intuition to definitions, assumptions and boundaries, governing principle, mathematical formulation, derivation, calculation, verification, physical interpretation and engineering implication. The analytical and discrete techniques later in the report are therefore two mathematical representations of the same physical system described here.
+
 \section{Coordinate and sign conventions}
 The canonical local frame is right-handed East--North--Up (ENU): \(+x\) east, \(+y\) north and \(+z\) vertically upward. A position vector is
 \begin{equation}
