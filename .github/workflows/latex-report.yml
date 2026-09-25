@@ -30,7 +30,7 @@ jobs:
       - name: Check unresolved references and serious LaTeX warnings
         working-directory: report
         run: |
-          if grep -E "LaTeX Warning: (Reference|Citation).*undefined|There were undefined references|^! " project_technical_report.build.log; then
+          if grep -E "LaTeX Warning: (Reference|Citation).*undefined|There were undefined references|^! " project_technical_report.log; then
             echo "Unresolved references/citations or LaTeX errors detected."
             exit 1
           fi
