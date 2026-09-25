@@ -76,4 +76,33 @@ mod tests {
         assert!((fine-exact).abs() < (coarse-exact).abs());
         assert!((fine-exact).abs()/exact < 1e-3);
     }
+
+    #[test]
+    fn projected_area_recovers_footprint(){
+        let facets=mesh(1.0,0.5,32,256);
+        let projected:f64=facets.iter().map(|f|f.area_m2*f.normal.z).sum();
+        let exact=PI;
+        assert!((projected-exact).abs()/exact < 2e-4);
+    }
+
+    #[test]
+    fn ideal_diffuse_converges_to_analytical_benchmark(){
+        let exact_area=paraboloid_area(1.0,0.5);
+        let exact_ratio=0.5*(exact_area/PI+1.0);
+        let calc=|nr:usize|{
+            let fs=mesh(1.0,0.5,nr,8*nr);
+            let area:f64=fs.iter().map(|f|f.area_m2).sum();
+            let projected:f64=fs.iter().map(|f|f.area_m2*f.normal.z).sum();
+            0.5*(area+projected)/PI
+        };
+        let coarse=calc(4);
+        let fine=calc(32);
+        assert!((fine-exact_ratio).abs() < (coarse-exact_ratio).abs());
+        assert!((fine-exact_ratio).abs()/exact_ratio < 1e-3);
+    }
+
+    #[test]
+    fn all_paraboloid_facets_face_upward(){
+        for f in mesh(1.0,0.5,16,128) { assert!(f.normal.z > 0.0); }
+    }
 }
