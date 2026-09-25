@@ -4,17 +4,17 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 20 September 2026: **128**.
-- Most recent mandatory audit: `docs/audits/2026-09-19_three-pass_audit-40.md`.
-- That audit occurred on Continue #126.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #128 / Pass 2 of audit cycle 41. This 12th session Continue is rotation-state recording only; no substantive #128 work was started. The solar-position implementation from #127 remains the latest technical state and must be execution-checked/repaired, if necessary, after bootstrap in the next session. No annual-yield result is promoted.
+- Total explicit user `Continue` commands counted through 25 September 2026: **129**.
+- Most recent mandatory audit: `docs/audits/2026-09-25_three-pass_audit-41.md`.
+- That audit occurred on Continue #129.
+- Passes since most recent audit: **0**.
+- Current explicit `Continue` is project #129 / mandatory Pass 3 Audit 41. Audit 41 is performed before substantive work; no annual-yield result is promoted.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **12**.
-- This is a new session bootstrap; persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
-- Session rotation required: **yes — mandatory boundary reached at session Continue #12**.
+- Current ChatGPT session explicit `Continue` count: **1**.
+- Persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
+- Session rotation required: **no**.
 - Next-pass state: **start a new chat in the same Mushroom-Head Solar project; bootstrap from persisted state with per-session Continue count reset to 0, total project count 128 and passes-since-audit 2. The next explicit Continue will be project #129 / mandatory Pass 3 Audit 41 before substantive work; inspect the #127 SPA execution evidence as part of that audit and then close the solar-position gate if valid**.
 
 ## Session-rotation rule
