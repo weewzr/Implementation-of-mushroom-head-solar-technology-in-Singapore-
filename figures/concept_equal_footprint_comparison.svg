@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
 <rect width="1200" height="520" fill="#fbfcfd"/>
 <text x="50" y="45" font-family="Arial" font-size="28" font-weight="700" fill="#17212b">Equal-footprint concept comparison</text>
-<text x="50" y="75" font-family="Arial" font-size="16" fill="#5f6b76">Conceptual — not to scale. Same constrained horizontal land footprint; PV surface area and performance are not assumed equal.</text>
+<text x="50" y="75" font-family="Arial" font-size="16" fill="#5f6b76">Conceptual - not to scale. Same constrained horizontal land footprint; PV surface area and performance are not assumed equal.</text>
 <defs><marker id="sunarrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L10,3 L0,6 Z" fill="#e3a008"/></marker></defs>
 <g stroke="#e3a008" stroke-width="5" marker-end="url(#sunarrow)"><line x1="95" y1="120" x2="145" y2="170"/><line x1="365" y1="120" x2="415" y2="170"/><line x1="650" y1="120" x2="700" y2="170"/><line x1="930" y1="120" x2="980" y2="170"/></g>
 <!-- flat -->
