@@ -687,6 +687,24 @@ pub fn summarize_qc(
     }
 }
 
+
+pub fn parse_nasa_power_hourly_csv(input:&str)->Result<(Vec<WeatherRecord>,Vec<QcIssue>),String>{
+ let lines:Vec<&str>=input.lines().collect();
+ let hi=lines.iter().position(|l|l.trim_start().starts_with("YEAR,MO,DY,HR,")).ok_or("NASA POWER CSV header not found")?;
+ let cols:Vec<&str>=lines[hi].split(',').map(str::trim).collect();
+ let ix=|name:&str|cols.iter().position(|x|*x==name).ok_or_else(||format!("NASA POWER missing column {name}"));
+ let iy=ix("YEAR")?;let im=ix("MO")?;let id=ix("DY")?;let ih=ix("HR")?;
+ let ig=ix("ALLSKY_SFC_SW_DWN")?;let iff=ix("ALLSKY_SFC_SW_DIFF")?;let ini=ix("ALLSKY_SFC_SW_DNI")?;let it=ix("T2M")?;let iw=ix("WS10M")?;let iwd=ix("WD10M")?;
+ let irh=cols.iter().position(|x|*x=="RH2M");let ips=cols.iter().position(|x|*x=="PS");
+ let mut canonical=String::from("timestamp,ghi_w_m2,dhi_w_m2,dni_w_m2,ambient_temperature_c,wind_speed_m_s,wind_direction_deg,relative_humidity_percent,air_pressure_pa\n");
+ for line in &lines[hi+1..]{if line.trim().is_empty(){continue}let v:Vec<&str>=line.split(',').map(str::trim).collect();if v.len()!=cols.len(){continue}
+  let y:i32=v[iy].parse().map_err(|_|"bad POWER year")?;let m:u8=v[im].parse().map_err(|_|"bad POWER month")?;let d:u8=v[id].parse().map_err(|_|"bad POWER day")?;let h:u8=v[ih].parse().map_err(|_|"bad POWER hour")?;
+  let val=|i:usize|->Result<f64,String>{let x=v[i].parse::<f64>().map_err(|_|format!("bad POWER value {}",v[i]))?;if x<=-900.0{Err("NASA POWER missing/fill sentinel encountered; no imputation performed".into())}else{Ok(x)}};
+  let rh=irh.map(val).transpose()?.unwrap_or(0.0);let ps_hpa=ips.map(val).transpose()?.unwrap_or(0.0);
+  canonical.push_str(&format!("{y:04}-{m:02}-{d:02}T{h:02}:00:00Z,{},{},{},{},{},{},{},{}\n",val(ig)?,val(iff)?,val(ini)?,val(it)?,val(iw)?,val(iwd)?,rh,ps_hpa*100.0));
+ }
+ parse_canonical_csv(&canonical)
+}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -948,4 +966,9 @@ known_sensor_or_clock_issues = ""
         assert_eq!(summary.rejected_rows, 1);
         assert_eq!(summary.temporal_gap_missing_samples, Some(0));
     }
+
+    #[test]
+    fn ingests_nasa_power_hourly_fixture_into_canonical_schema(){let raw="# NASA/POWER Source\nYEAR,MO,DY,HR,ALLSKY_SFC_SW_DWN,ALLSKY_SFC_SW_DIFF,ALLSKY_SFC_SW_DNI,T2M,WS10M,WD10M,RH2M,PS\n2024,1,1,0,0,0,0,26.5,2.1,45,84,100.8\n2024,1,1,1,0,0,0,26.2,2.0,50,85,100.7\n";let (r,q)=parse_nasa_power_hourly_csv(raw).unwrap();assert!(q.is_empty());assert_eq!(r.len(),2);assert_eq!(r[0].timestamp,"2024-01-01T00:00:00Z");assert_eq!(r[0].air_pressure_pa,Some(100800.0));}
+    #[test]
+    fn rejects_nasa_power_fill_sentinel(){let raw="YEAR,MO,DY,HR,ALLSKY_SFC_SW_DWN,ALLSKY_SFC_SW_DIFF,ALLSKY_SFC_SW_DNI,T2M,WS10M,WD10M\n2024,1,1,0,-999,0,0,26.5,2.1,45\n";assert!(parse_nasa_power_hourly_csv(raw).is_err());}
 }
