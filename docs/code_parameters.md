@@ -23,8 +23,8 @@ This register exists because the master instructions require **every non-trivial
 | DNI reconstruction horizon guard | 0.1 | dimensionless $\cos\theta_z$ | N | `src/models/irradiance.py` | Prevents numerical blow-up near horizon. **Not physically validated.** Must be sensitivity-tested/replaced by a robust irradiance decomposition procedure. |
 | Ground albedo default | 0.2 | dimensionless | E | `src/models/irradiance.py` | Placeholder engineering assumption. Must not be used for validated Singapore results without site/material justification and sensitivity analysis. |
 | Bifaciality default | 0.8 | dimensionless | E | `src/models/irradiance.py` | Placeholder representative assumption only. Final value must come from selected module data/model. |
-| Ray intersection epsilon | $10^{-9}$ | geometry coordinate units | N | `src/models/facets.py` | Floating-point tolerance. Must be tested against geometry scale and convergence; should eventually scale with characteristic length. |
-| Ray-origin offset multiplier | 100 | dimensionless | N | `src/models/facets.py` | Numerical self-intersection avoidance. Must be replaced/tested with a scale-aware offset. |
+| Ray intersection epsilon | $10^{-9}$ | geometry coordinate units | N | `src/visibility.rs` | Floating-point tolerance. Must be tested against geometry scale and convergence; should eventually scale with characteristic length. |
+| Ray-origin offset multiplier | 100 | dimensionless | N | `src/visibility.rs` | Numerical self-intersection avoidance. Must be replaced/tested with a scale-aware offset. |
 | Paraboloid mesh radial divisions | 8 default; 5 in coarse sweep | count | N | `src/models/meshes.py`, direct sweep | Discretisation setting. Requires mesh-convergence study. |
 | Paraboloid/cone azimuth divisions | 32 default; 20 in coarse sweep | count | N | mesh/sweep code | Discretisation setting. Requires convergence study. |
 | Accordion folds | 4 | count | E/N | mesh/sweep code | Canonical comparison geometry, not an optimum. Must be swept as a design variable and checked for numerical/geometric effects. |
