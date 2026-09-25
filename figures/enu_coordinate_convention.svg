@@ -5,7 +5,7 @@
  <marker id="sunarrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#e69f00"/></marker>
 </defs>
 <text x="45" y="48" font-family="Arial" font-size="28" font-weight="700" fill="#17212b">Canonical ENU and solar-angle convention</text>
-<text x="45" y="78" font-family="Arial" font-size="16" fill="#5f6b76">Right-handed East–North–Up frame; azimuth is clockwise from geographic North.</text>
+<text x="45" y="78" font-family="Arial" font-size="16" fill="#5f6b76">Right-handed East-North-Up frame; azimuth is clockwise from geographic North.</text>
 <circle cx="490" cy="390" r="7" fill="#17212b"/>
 <line x1="490" y1="390" x2="800" y2="390" stroke="#17212b" stroke-width="4" marker-end="url(#arrow)"/>
 <line x1="490" y1="390" x2="490" y2="115" stroke="#17212b" stroke-width="4" marker-end="url(#arrow)"/>
@@ -21,8 +21,8 @@
 <path d="M330 510 A205 205 0 0 1 665 470" fill="none" stroke="#009e73" stroke-width="4" marker-end="url(#arrow)"/>
 <text x="365" y="600" font-family="Arial" font-size="20" fill="#009e73">azimuth gammas: clockwise from North</text>
 <text x="55" y="150" font-family="Arial" font-size="18" fill="#17212b">Cardinal checks</text>
-<text x="55" y="182" font-family="Arial" font-size="17" fill="#5f6b76">North horizon → (0, 1, 0)</text>
-<text x="55" y="210" font-family="Arial" font-size="17" fill="#5f6b76">East horizon → (1, 0, 0)</text>
-<text x="55" y="238" font-family="Arial" font-size="17" fill="#5f6b76">Zenith → (0, 0, 1)</text>
+<text x="55" y="182" font-family="Arial" font-size="17" fill="#5f6b76">North horizon -> (0, 1, 0)</text>
+<text x="55" y="210" font-family="Arial" font-size="17" fill="#5f6b76">East horizon -> (1, 0, 0)</text>
+<text x="55" y="238" font-family="Arial" font-size="17" fill="#5f6b76">Zenith -> (0, 0, 1)</text>
 <text x="55" y="285" font-family="Arial" font-size="17" fill="#5f6b76">s = (cos alpha sin gammas, cos alpha cos gammas, sin alpha)</text>
 </svg>
