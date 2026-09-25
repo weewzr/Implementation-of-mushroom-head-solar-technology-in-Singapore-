@@ -689,6 +689,91 @@ $$
 
 The report is intentionally being completed **before** those gates are all closed. Missing numerical results are shown as missing results, rather than being filled with convenient assumptions.
 
+## 12D. Two-technique mathematical and numerical strategy
+
+The current mathematical core is intentionally developed through two independent routes.
+
+### Technique 1 — analytical route
+
+For geometries admitting closed-form treatment, the surface remains continuous and the governing irradiance expressions are integrated over the exact surface. The paraboloidal mushroom is the principal verification geometry because its area is known exactly:
+
+$
+A_{\mathrm{PV}}
+=\frac{\pi R^2}{6k^2}
+\left[(1+4k^2)^{3/2}-1\right],
+\qquad k=\frac{h}{R}.
+$
+
+Under the ideal isotropic, unobstructed diffuse benchmark,
+
+$
+P_{\mathrm{diff}}
+=\frac{\eta DHI}{2}
+\left(A_{\mathrm{PV}}+A_{\mathrm{foot}}\right).
+$
+
+These are analytical verification targets rather than annual Singapore yield predictions.
+
+### Technique 2 — discrete surface route
+
+The same paraboloid is independently approximated by triangular facets. For triangle $i$,
+
+$
+A_i=\frac12\|\mathbf e_{i1}\times\mathbf e_{i2}\|,
+\qquad
+\mathbf n_i=
+\frac{\mathbf e_{i1}\times\mathbf e_{i2}}
+{\|\mathbf e_{i1}\times\mathbf e_{i2}\|}.
+$
+
+The discrete total area is
+
+$
+A_{\mathrm{PV}}^{(N)}=\sum_{i=1}^{N}A_i,
+$
+
+and the isotropic diffuse benchmark is evaluated independently as
+
+$
+P_{\mathrm{diff}}^{(N)}
+=
+\frac{\eta DHI}{2}
+\sum_{i=1}^{N}
+A_i(1+n_{z,i}),
+$
+
+where $n_{z,i}$ is the upward component of the facet normal. Numerical verification requires
+
+$
+\boxed{
+\lim_{N\rightarrow\infty}A_{\mathrm{PV}}^{(N)}
+=A_{\mathrm{PV}}^{(\mathrm{analytical})}
+}
+$
+
+and, under the same ideal diffuse assumptions,
+
+$
+\boxed{
+\lim_{N\rightarrow\infty}P_{\mathrm{diff}}^{(N)}
+=P_{\mathrm{diff}}^{(\mathrm{analytical})}.
+}
+$
+
+The Rust binary `discrete-verification` now performs this convergence experiment using progressively refined radial/azimuthal triangular meshes. Once verified, the same facet representation can be used for folded, petal, faceted and free-form geometries for which a useful closed-form surface integral may not exist.
+
+### Why FTCS is not the primary geometry method
+
+FTCS is a finite-difference time-marching scheme for time-dependent PDEs. The present geometry/irradiance problem is primarily a surface-integration and visibility problem, so triangular surface discretisation plus time quadrature is the appropriate numerical route. FTCS becomes relevant if a spatially resolved transient thermal equation is introduced, for example
+
+$
+\rho c_p\frac{\partial T}{\partial t}
+=
+k_T\nabla^2T+\dot q,
+$
+
+for which an explicit finite-difference update would require its own stability and grid-convergence analysis. No such thermal-PDE result is currently claimed.
+
 ## 13. Numerical method roadmap
 Each timestep will compute solar position, irradiance components, facet incidence, direct visibility, anisotropic sky irradiance, rear irradiance, temperature and electrical output. Ray tracing determines self-shadowing and later sky-view factors. Numerical discretisation settings such as mesh density, sky-patch count and timestep are computational parameters and require convergence checks before final results.
 
