@@ -54,7 +54,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          cargo run --release 2>&1 | tee -a rust-execution-evidence.txt
+          cargo run --release --bin mushroom-solar 2>&1 | tee -a rust-execution-evidence.txt
           status=${PIPESTATUS[0]}
           echo "cargo_run_release_exit_status=$status" | tee -a rust-execution-evidence.txt
           exit "$status"
