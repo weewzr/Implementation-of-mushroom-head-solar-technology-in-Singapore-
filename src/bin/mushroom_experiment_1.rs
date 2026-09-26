@@ -5,7 +5,7 @@ const ALBEDO:f64=0.20; const PACKING:f64=2.0;
 fn v(x:f64,y:f64,z:f64)->Vec3{Vec3{x,y,z}}
 fn sub(a:Vec3,b:Vec3)->Vec3{v(a.x-b.x,a.y-b.y,a.z-b.z)}
 fn cross(a:Vec3,b:Vec3)->Vec3{v(a.y*b.z-a.z*b.y,a.z*b.x-a.x*b.z,a.x*b.y-a.y*b.x)}
-fn geom(t:&Triangle)->(f64,Vec3){let c=cross(sub(t.v[1],t.v[0]),sub(t.v[2],t.v[0]));(.5*c.norm(),c.unit())}
+fn geom(t:&Triangle)->(f64,Vec3){let c=cross(sub(t.v[1],t.v[0]),sub(t.v[2],t.v[0]));(0.5*c.norm(),c.unit())}
 fn packing(k:f64)->f64{if k==0.0{1.0}else{((1.0+4.0*k*k).powf(1.5)-1.0)/(6.0*k*k)}}
 fn k_for(pi:f64)->f64{let(mut a,mut b)=(0.,8.);for _ in 0..100{let m=(a+b)/2.;if packing(m)<pi{a=m}else{b=m}}(a+b)/2.}
 fn mesh(foot:f64,nr:usize,np:usize)->Vec<Triangle>{let r=(foot/PI).sqrt();let h=k_for(PACKING)*r;let p=|rr:f64,ph:f64|v(rr*ph.cos(),rr*ph.sin(),h*(1.-(rr/r).powi(2)));let mut o=Vec::new();let cen=v(0.,0.,h);let r1=r/nr as f64;for j in 0..np{let a=2.*PI*j as f64/np as f64;let b=2.*PI*(j+1)as f64/np as f64;o.push(Triangle{v:[cen,p(r1,a),p(r1,b)]});}for i in 1..nr{let ra=r*i as f64/nr as f64;let rb=r*(i+1)as f64/nr as f64;for j in 0..np{let a=2.*PI*j as f64/np as f64;let b=2.*PI*(j+1)as f64/np as f64;let q0=p(ra,a);let q1=p(rb,a);let q2=p(rb,b);let q3=p(ra,b);o.push(Triangle{v:[q0,q1,q2]});o.push(Triangle{v:[q0,q2,q3]});}}o}
@@ -19,7 +19,7 @@ fn run(records:&[mushroom_solar::weather::WeatherRecord],ts:&[Triangle],sky_n:us
  let sv:Vec<f64>=ts.iter().enumerate().map(|(i,t)|sky_view_factor(t.centroid(),ga[i].1,ts,Some(i),sky_n,4*sky_n)).collect();
  let mut mo=[[0.;4];12];let mut an=[0.;4];
  for rec in records{let(y,m,d,h)=stamp(&rec.timestamp);let p=solar_position(&SpaInput{year:y,month:m,day:d,hour:h,minute:30,second:0.,utc_offset_h:0.,delta_t_s:69.,longitude_deg_east:103.8198,latitude_deg:1.3521,elevation_m:25.8,pressure_mbar:rec.air_pressure_pa.unwrap_or(101000.)/100.,temperature_c:rec.ambient_temperature_c});let up=p.zenith_deg<90.;let s=sunvec(p.zenith_deg.to_radians(),p.azimuth_deg.to_radians());let mut x=[0.;4];
-  for(i,t)in ts.iter().enumerate(){let(a,n)=ga[i];let dir=if up{rec.dni_w_m2*a*n.dot(s).max(0.)*direct_visibility(i,ts,s)}else{0.};let dif=rec.dhi_w_m2*a*sv[i];let grd=rec.ghi_w_m2*ALBEDO*a*(1.-n.z)/2.;x[0]+=dir;x[1]+=dif;x[2]+=grd;}x[3]=x[0]+x[1]+x[2];for k in 0..4{mo[m as usize-1][k]+=x[k];an[k]+=x[k];}}
+  for(i,_t)in ts.iter().enumerate(){let(a,n)=ga[i];let dir=if up{rec.dni_w_m2*a*n.dot(s).max(0.)*direct_visibility(i,ts,s)}else{0.};let dif=rec.dhi_w_m2*a*sv[i];let grd=rec.ghi_w_m2*ALBEDO*a*(1.-n.z)/2.;x[0]+=dir;x[1]+=dif;x[2]+=grd;}x[3]=x[0]+x[1]+x[2];for k in 0..4{mo[m as usize-1][k]+=x[k];an[k]+=x[k];}}
  ResultSet{month:mo,annual:an,pv,land}
 }
 fn baseline(records:&[mushroom_solar::weather::WeatherRecord])->ResultSet{let mut mo=[[0.;4];12];let mut an=[0.;4];for r in records{let direct=(r.ghi_w_m2-r.dhi_w_m2).max(0.);let diffuse=r.ghi_w_m2-direct;let x=[direct,diffuse,0.,r.ghi_w_m2];let m:u8=r.timestamp[5..7].parse().unwrap();for k in 0..4{mo[m as usize-1][k]+=x[k];an[k]+=x[k];}}ResultSet{month:mo,annual:an,pv:1.,land:1.}}
