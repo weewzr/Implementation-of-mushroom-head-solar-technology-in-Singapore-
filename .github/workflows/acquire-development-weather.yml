@@ -28,3 +28,4 @@ jobs:
           name: nasa-power-singapore-2024-development-weather
           path: development-weather/
           retention-days: 90
+
