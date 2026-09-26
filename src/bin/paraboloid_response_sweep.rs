@@ -4,7 +4,7 @@ const ALBEDO:f64=0.20;
 fn v(x:f64,y:f64,z:f64)->Vec3{Vec3{x,y,z}} fn sub(a:Vec3,b:Vec3)->Vec3{v(a.x-b.x,a.y-b.y,a.z-b.z)} fn cross(a:Vec3,b:Vec3)->Vec3{v(a.y*b.z-a.z*b.y,a.z*b.x-a.x*b.z,a.x*b.y-a.y*b.x)}
 fn geom(t:&Triangle)->(f64,Vec3){let c=cross(sub(t.v[1],t.v[0]),sub(t.v[2],t.v[0]));(0.5*c.norm(),c.unit())}
 fn mesh(foot:f64,k:f64,nr:usize,np:usize)->Vec<Triangle>{let r=(foot/PI).sqrt();let h=k*r;let p=|rr:f64,ph:f64|v(rr*ph.cos(),rr*ph.sin(),h*(1.-(rr/r).powi(2)));let mut o=vec![];let cen=v(0.,0.,h);let r1=r/nr as f64;for j in 0..np{let a=2.*PI*j as f64/np as f64;let b=2.*PI*(j+1)as f64/np as f64;o.push(Triangle{v:[cen,p(r1,a),p(r1,b)]});}for i in 1..nr{let ra=r*i as f64/nr as f64;let rb=r*(i+1)as f64/nr as f64;for j in 0..np{let a=2.*PI*j as f64/np as f64;let b=2.*PI*(j+1)as f64/np as f64;let q=[p(ra,a),p(rb,a),p(rb,b),p(ra,b)];o.push(Triangle{v:[q[0],q[1],q[2]]});o.push(Triangle{v:[q[0],q[2],q[3]]});}}o}
-fn scale(mut t:Vec<Triangle>,s:f64)->Vec<Triangle>{for z in &mut t{for q in &mut z.v{q.x*=s;q.y*=s;q.z*=s;}}t}
+fn scale(mut t:Vec<Triangle>,s:f64)->Vec<Triangle>{for z in &mut t{for q in &mut z.v{q.x*=s;q.y*=s;q.z*=s;}}t}\nfn equal_land(rs:&[mushroom_solar::weather::WeatherRecord],t:Vec<Triangle>,sn:usize)->Vec<Triangle>{let r=run(rs,&t,sn);assert!(r.land.is_finite()&&r.land>0.);let q=scale(t,(1.0/r.land).sqrt());let z=run(rs,&q,sn);assert!((z.land-1.0).abs()<1e-10);q}
 fn sun(z:f64,a:f64)->Vec3{v(z.sin()*a.sin(),z.sin()*a.cos(),z.cos())}fn stamp(s:&str)->(i32,u8,u8,u8){(s[0..4].parse().unwrap(),s[5..7].parse().unwrap(),s[8..10].parse().unwrap(),s[11..13].parse().unwrap())}
 #[derive(Clone)]struct R{e:[f64;4],pv:f64,land:f64}
 fn run(rs:&[mushroom_solar::weather::WeatherRecord],t:&[Triangle],sn:usize)->R{run_opts(rs,t,sn,ALBEDO,false)}
@@ -36,7 +36,7 @@ fn main(){
  let probes=[0.05,0.5,1.5,3.0];
  let mut mc=String::from("status,k,mesh,sky_n,total_wh,relative_to_fine\n");
  for k in probes{
-  let mut vals=vec![];for &(nr,np)in &[(3,18),(4,24),(5,30),(6,36)]{let r=run(&rs,&mesh(1.,k,nr,np),24);assert!(r.e[3].is_finite());vals.push((nr,np,r.e[3]));}
+  let mut vals=vec![];for &(nr,np)in &[(3,18),(4,24),(5,30),(6,36)]{let t=equal_land(&rs,mesh(1.,k,nr,np),24);let r=run(&rs,&t,24);assert!(r.e[3].is_finite()&&(r.land-1.0).abs()<1e-10);vals.push((nr,np,r.e[3]));}
   let fine=vals[3].2;let e1=(vals[2].2-vals[1].2).abs();let e2=(vals[3].2-vals[2].2).abs();assert!(e2<e1);assert!(e2/fine<0.01);
   for(nr,np,x)in vals{mc+=&format!("DEVELOPMENT_NOT_SERIS,{k},{nr}x{np},24,{x:0.6},{:0.9}\n",(x-fine)/fine);}
  }
@@ -44,22 +44,22 @@ fn main(){
 
  let mut sc=String::from("status,k,mesh,sky_n,total_wh,relative_to_fine\n");
  for k in probes{
-  let mut vals=vec![];for &sn in &[8usize,16,24,32]{let r=run(&rs,&mesh(1.,k,5,30),sn);assert!(r.e[3].is_finite());vals.push((sn,r.e[3]));}
+  let t=equal_land(&rs,mesh(1.,k,5,30),32);let mut vals=vec![];for &sn in &[8usize,16,24,32]{let r=run(&rs,&t,sn);assert!(r.e[3].is_finite()&&(r.land-1.0).abs()<1e-10);vals.push((sn,r.e[3]));}
   let fine=vals[3].1;assert!((vals[2].1-fine).abs()/fine<0.01);
   for(sn,x)in vals{sc+=&format!("DEVELOPMENT_NOT_SERIS,{k},5x30,{sn},{x:0.6},{:0.9}\n",(x-fine)/fine);}
  }
  fs::write(Path::new(&out).join("sky_convergence.csv"),sc).unwrap();
 
  let mut sens=String::from("status,k,test,value,total_wh,relative_to_frozen\n");
- for k in [0.05,0.5,0.625,1.5,3.0]{let t=mesh(1.,k,4,24);let frozen=run(&rs,&t,16);let q=run_opts(&rs,&t,16,ALBEDO,true);assert!(q.e[3].is_finite());sens+=&format!("DEVELOPMENT_NOT_SERIS,{k},temporal_quarter_hour,4,{:.6},{:.9}\n",q.e[3],(q.e[3]-frozen.e[3])/frozen.e[3]);for alb in [0.10,0.20,0.30]{let a=run_opts(&rs,&t,16,alb,false);assert!(a.e[3].is_finite());sens+=&format!("DEVELOPMENT_NOT_SERIS,{k},albedo,{alb},{:.6},{:.9}\n",a.e[3],(a.e[3]-frozen.e[3])/frozen.e[3]);}}
+ for k in [0.05,0.5,0.625,1.5,3.0]{let t=equal_land(&rs,mesh(1.,k,4,24),16);let frozen=run(&rs,&t,16);assert!((frozen.land-1.0).abs()<1e-10);let q=run_opts(&rs,&t,16,ALBEDO,true);assert!(q.e[3].is_finite());sens+=&format!("DEVELOPMENT_NOT_SERIS,{k},temporal_quarter_hour,4,{:.6},{:.9}\n",q.e[3],(q.e[3]-frozen.e[3])/frozen.e[3]);for alb in [0.10,0.20,0.30]{let a=run_opts(&rs,&t,16,alb,false);assert!(a.e[3].is_finite());sens+=&format!("DEVELOPMENT_NOT_SERIS,{k},albedo,{alb},{:.6},{:.9}\n",a.e[3],(a.e[3]-frozen.e[3])/frozen.e[3]);}}
  fs::write(Path::new(&out).join("robustness_sensitivity.csv"),sens).unwrap();
 
  let mut att=String::from("status,k,packing_ratio,visible_direct_wh,unobstructed_direct_wh,direct_self_shadow_loss_wh,visible_diffuse_wh,unobstructed_isotropic_diffuse_wh,sky_obstruction_loss_wh,ground_wh,total_visible_wh\n");
- for k in [0.05,0.5,0.625,1.5,3.0]{let t=mesh(1.,k,4,24);let r=run(&rs,&t,16);let u=run_unobstructed(&rs,&t);assert!(u.e[0]+1e-8>=r.e[0]);assert!(u.e[1]+1e-8>=r.e[1]);att+=&format!("DEVELOPMENT_NOT_SERIS,{k},{:.9},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6}\n",r.pv/r.land,r.e[0],u.e[0],u.e[0]-r.e[0],r.e[1],u.e[1],u.e[1]-r.e[1],r.e[2],r.e[3]);}
+ for k in [0.05,0.5,0.625,1.5,3.0]{let t=equal_land(&rs,mesh(1.,k,4,24),16);let r=run(&rs,&t,16);assert!((r.land-1.0).abs()<1e-10);let u=run_unobstructed(&rs,&t);assert!(u.e[0]+1e-8>=r.e[0]);assert!(u.e[1]+1e-8>=r.e[1]);att+=&format!("DEVELOPMENT_NOT_SERIS,{k},{:.9},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6}\n",r.pv/r.land,r.e[0],u.e[0],u.e[0]-r.e[0],r.e[1],u.e[1],u.e[1]-r.e[1],r.e[2],r.e[3]);}
  fs::write(Path::new(&out).join("component_attribution.csv"),att).unwrap();
 
  let mut st=String::from("status,k,mesh,triangles,min_triangle_area_m2,max_triangle_area_m2,min_normal_z,finite\n");
- for k in [0.05,0.5,1.5,3.0]{let t=mesh(1.,k,6,36);let ga:Vec<_>=t.iter().map(geom).collect();let mina=ga.iter().map(|x|x.0).fold(f64::INFINITY,f64::min);let maxa=ga.iter().map(|x|x.0).fold(0.,f64::max);let minz=ga.iter().map(|x|x.1.z).fold(f64::INFINITY,f64::min);let finite=ga.iter().all(|x|x.0.is_finite()&&x.0>0.&&x.1.x.is_finite()&&x.1.y.is_finite()&&x.1.z.is_finite()&&x.1.z>0.);assert!(finite);st+=&format!("DEVELOPMENT_NOT_SERIS,{k},6x36,{},{mina:.12},{maxa:.12},{minz:.12},true\n",t.len());}
+ for k in [0.05,0.5,1.5,3.0]{let t=equal_land(&rs,mesh(1.,k,6,36),16);let rr=run(&rs,&t,16);assert!((rr.land-1.0).abs()<1e-10);let ga:Vec<_>=t.iter().map(geom).collect();let mina=ga.iter().map(|x|x.0).fold(f64::INFINITY,f64::min);let maxa=ga.iter().map(|x|x.0).fold(0.,f64::max);let minz=ga.iter().map(|x|x.1.z).fold(f64::INFINITY,f64::min);let finite=ga.iter().all(|x|x.0.is_finite()&&x.0>0.&&x.1.x.is_finite()&&x.1.y.is_finite()&&x.1.z.is_finite()&&x.1.z>0.);assert!(finite);st+=&format!("DEVELOPMENT_NOT_SERIS,{k},6x36,{},{mina:.12},{maxa:.12},{minz:.12},true\n",t.len());}
  fs::write(Path::new(&out).join("numerical_stability.csv"),st).unwrap();
 
  let mut cross=None;for w in land_rows.windows(2){let a=(w[0].1.e[3]/w[0].1.land)/source-1.;let b=(w[1].1.e[3]/w[1].1.land)/source-1.;if a<=0.&&b>=0.{cross=Some((w[0].0,w[1].0));break;}}
@@ -67,6 +67,6 @@ fn main(){
  svg(&Path::new(&out).join("packing_ratio_vs_k.svg"),&land_rows,|r|r.pv/r.land,"Paraboloid packing ratio Π versus k");
  svg(&Path::new(&out).join("packing_efficiency_vs_k.svg"),&land_rows,|r|(r.e[3]/r.pv)/source,"Packing efficiency η versus k");
  svg(&Path::new(&out).join("land_multiplier_vs_k.svg"),&land_rows,|r|(r.e[3]/r.land)/source,"Land-energy multiplier λ versus k");
- fs::write(Path::new(&out).join("checks.txt"),format!("status=DEVELOPMENT_NOT_SERIS\nshape_parameter=k=h/R\nflat_limit=PASS\nequal_land_discrete_area=1_m2\nequal_pv_discrete_area=1_m2\nmesh_convergence_probes=k0.05,k0.5,k1.5,k3.0\nsky_convergence_probes=k0.05,k0.5,k1.5,k3.0\nconvergence_threshold=1_percent\nrefined_bend_sampling=k0.6,k0.625,k0.65\nland_multiplier_crossover_bracket={ka}-{kb}\nno_interior_peak_claim=true\nno_optimization_selection=true\n")).unwrap();
+ fs::write(Path::new(&out).join("checks.txt"),format!("status=DEVELOPMENT_NOT_SERIS\nshape_parameter=k=h/R\nflat_limit=PASS\nequal_land_discrete_area=1_m2\nequal_pv_discrete_area=1_m2\nmesh_convergence_probes=k0.05,k0.5,k1.5,k3.0\nsky_convergence_probes=k0.05,k0.5,k1.5,k3.0\nconvergence_threshold=1_percent\nconvergence_resource_case=equal_land_exact_discrete_1_m2\nsensitivity_resource_case=equal_land_exact_discrete_1_m2\ncomponent_attribution_resource_case=equal_land_exact_discrete_1_m2\nrefined_bend_sampling=k0.6,k0.625,k0.65\nland_multiplier_crossover_bracket={ka}-{kb}\nno_interior_peak_claim=true\nno_optimization_selection=true\n")).unwrap();
  println!("Paraboloid response sweep PASS DEVELOPMENT_NOT_SERIS points={}",land_rows.len());
 }
