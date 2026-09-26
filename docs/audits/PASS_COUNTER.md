@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 26 September 2026: **142**.
+- Total explicit user `Continue` commands counted through 26 September 2026: **143**.
 - Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-45.md`.
 - That audit occurred on Continue #141.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #142 / Pass 1 of audit cycle 46. Frozen geometric irradiance gates remain closed; work begins on a NASA POWER Singapore-applicable development-weather dataset, explicitly non-SERIS and non-validation.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #143 / Pass 2 of audit cycle 46. Frozen gates remain closed; work is restricted to the first conventional-PV NASA POWER 2024 development baseline using canonical Rust.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **5**.
+- Current ChatGPT session explicit `Continue` count: **6**.
 - Persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #143 will be Pass 2 of audit cycle 46; continue development-weather/baseline foundation work unless regression triggers an earlier audit.**
+- Next-pass state: **Continue #144 will be mandatory Pass 3 Audit 46 before substantive work.**
 
 ## Session-rotation rule
 
