@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 26 September 2026: **147**.
-- Most recent mandatory audit: `docs/audits/2026-09-26_major-result_audit-47.md` (early major-result audit).
-- That audit occurred on Continue #145.
-- Passes since most recent audit: **2**.
-- Current explicit `Continue` is project #147 / Pass 2 of audit cycle 48. Work is restricted to robustness/sensitivity characterization of the existing paraboloid response surface under DEVELOPMENT_NOT_SERIS assumptions.
+- Total explicit user `Continue` commands counted through 26 September 2026: **148**.
+- Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-48.md`.
+- That audit occurred on Continue #148.
+- Passes since most recent audit: **0**.
+- Audit 48 found material response-surface release defects, applied source corrections, and **withheld the paraboloid-response freeze pending corrected CI/artifact evidence plus report/traceability parity closure**.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **10**.
-- Persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
+- Current ChatGPT session explicit `Continue` count: **1**.
+- Persisted technical/audit state was recovered from the master source, this counter, the audit ledger, Audit 46, Audit 47 and repository history before substantive work.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #148 will be mandatory Pass 3 Audit 48 before substantive expansion.**
+- Next-pass state: **Continue #149 is Pass 1 of audit cycle 49 and must first close Audit-48 corrective evidence before any new comparison phase begins.**
 
 ## Session-rotation rule
 
