@@ -93,6 +93,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-26_three-pass_audit-48.md` | Mandatory Pass 3 / Continue #148 | Complete Pass-146/147 paraboloid response-surface robustness audit | Terminal equal-land normalization and independent convergence evidence failed; corrective Rust committed, corrected CI/parity closure pending; response freeze withheld and next comparison phase not yet authorized |
 
+| `2026-09-26_three-pass_audit-49.md` | Mandatory Pass 3 / Continue #151 | Audit-48 corrective CI, artifacts and normalization-architecture checkpoint | Corrected run 36237551175 fails whole-crate compilation; no corrected artifacts exist; duplicated binary-local normalization identified as root architectural blocker; freeze withheld pending canonical tested Rust discrete resource-normalization API and new evidence |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
