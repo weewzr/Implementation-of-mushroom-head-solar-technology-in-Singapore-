@@ -40,3 +40,7 @@ path = "src/bin/annual_development_baseline.rs"
 [[bin]]
 name = "mushroom-experiment-1"
 path = "src/bin/mushroom_experiment_1.rs"
+
+[[bin]]
+name = "paraboloid-response-sweep"
+path = "src/bin/paraboloid_response_sweep.rs"
