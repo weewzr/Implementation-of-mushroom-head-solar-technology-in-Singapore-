@@ -32,3 +32,7 @@ path = "src/bin/method_verification.rs"
 [[bin]]
 name = "development-weather-qc"
 path = "src/bin/development_weather_qc.rs"
+
+[[bin]]
+name = "annual-development-baseline"
+path = "src/bin/annual_development_baseline.rs"
