@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 26 September 2026: **150**.
-- Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-48.md`.
-- That audit occurred on Continue #148.
-- Passes since most recent audit: **2**.
-- Audit 48 found material response-surface release defects. Continue #149 inspected corrected run 36232970658 and found two remaining evidence-integrity gaps: convergence/robustness/attribution were not yet normalized to exact discrete 1 m² equal-land, and the e2e workflow did not run whole-crate tests. Commits `aa51ee83fa78beb8e62bcdfb6a3a232de09aab91` and `8d53d2c8129c6d0ba9b6ebfd80af7eb935f98603` correct these. Continue #150 found e2e run 36236798496 failed before tests because the workflow contained a literal escaped newline (`--all-targetsn`); commit `fd6712d7ff8d0423764de7add36ce53236380728` repairs the YAML and corrected run `36237551175` is executing. **Paraboloid-response freeze remains withheld pending successful corrected whole-crate/e2e CI, artifact inspection, and report/traceability parity closure**.
+- Total explicit user `Continue` commands counted through 26 September 2026: **151**.
+- Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-49.md`.
+- That audit occurred on Continue #151.
+- Passes since most recent audit: **0**.
+- Audit 49 inspected corrected run 36237551175. Whole-crate `cargo test --all-targets` failed compilation because the response source contains a literal `\\n` token introduced during the binary-local normalization correction; no end-to-end response artifacts were produced. Audit 49 also identified duplicated binary-local geometry/resource construction as the root architectural blocker. **Paraboloid-response freeze remains withheld until a canonical tested Rust discrete geometry/resource-normalization API is implemented and used by every response/convergence/robustness/attribution path, followed by successful whole-crate/e2e evidence and report/traceability parity closure**.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **2**.
+- Current ChatGPT session explicit `Continue` count: **3**.
 - Persisted technical/audit state was recovered from the master source, this counter, the audit ledger, Audit 46, Audit 47 and repository history before substantive work.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #151 is Pass 3 of audit cycle 49 and therefore requires the mandatory master-instruction audit before substantive work. Audit-48 closure remains the sole technical priority; inspect corrected e2e run 36237551175 and artifacts before any freeze or comparison phase.**
+- Next-pass state: **Continue #152 is Pass 1 of audit cycle 50. Audit-49 corrective architecture is the sole priority: implement and test the canonical discrete geometry/resource-normalization API before repairing consumers; no new modelling, response freeze or fixed-geometry comparison is authorized.**
 
 ## Session-rotation rule
 
