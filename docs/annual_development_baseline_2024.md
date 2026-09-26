@@ -15,7 +15,7 @@ Pass #143 establishes the first end-to-end annual conventional-plane incident-en
 Canonical whole-crate Rust evidence for the final baseline source is Actions run **36209058767** (commit `81d5bf02d0a1383168f09ded0aaf89bb205b7bb3`), PASS. End-to-end weather acquisition + annual baseline artifact evidence is Actions run **36209063066**, PASS.
 
 ## Dimensional treatment
-NASA POWER hourly solar fields are Wh/m² over each hour. Because the interval is exactly one hour, their numerical values equal the corresponding one-hour mean W/m² values, but the stored physical quantity remains interval energy. SPA is evaluated at the interval midpoint for tilted-plane transposition. This midpoint treatment is a development approximation and must not be confused with sub-hourly integration.
+NASA POWER hourly solar fields are Wh/m² over each hour. Because the interval is exactly one hour, their numerical values equal the corresponding one-hour mean W/m² values, but the stored physical quantity remains interval energy. SPA is evaluated at the interval midpoint for tilted-plane transposition. Audit 46 tests this midpoint treatment against four-point quarter-hour SPA quadrature (07:30, 22:30, 37:30 and 52:30 within every source hour) for every non-horizontal sweep plane. The executable requires the maximum annual total-POA relative difference to remain below 0.5%; the accepted Audit-46 evidence satisfies this gate. The horizontal reference remains tied exactly to source hourly GHI and is therefore independent of solar-position quadrature.
 
 The horizontal reference is energy-conserving by construction: annual POA equals source annual GHI. In 453 hours POWER DHI exceeded GHI by a combined 1,258.69 Wh/m²; for the horizontal decomposition only, diffuse is capped at GHI and direct set to zero for those inconsistent source intervals. This reconciliation is reported rather than hidden.
 
@@ -46,6 +46,7 @@ The successful Actions artifact contains:
 - `baseline-results/horizontal_monthly_components.svg`;
 - `baseline-results/fixed_tilt_azimuth_sweep.svg`;
 - `baseline-results/checks.txt`;
+- `baseline-results/midpoint_sensitivity.csv`;
 - raw POWER CSV, SHA256SUMS and QC summary.
 
 No thermal model, module efficiency, tracking, economics, 3-D geometry comparison or SERIS validation is included.
