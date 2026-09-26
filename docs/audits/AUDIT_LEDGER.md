@@ -95,6 +95,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-26_three-pass_audit-49.md` | Mandatory Pass 3 / Continue #151 | Audit-48 corrective CI, artifacts and normalization-architecture checkpoint | Corrected run 36237551175 fails whole-crate compilation; no corrected artifacts exist; duplicated binary-local normalization identified as root architectural blocker; freeze withheld pending canonical tested Rust discrete resource-normalization API and new evidence |
 
+| `2026-09-26_three-pass_audit-50.md` | Mandatory Pass 3 / Continue #154 | Canonical resource-normalization release audit | Requested runs 36238709379/36238709394 and later candidate 36240400168 fail whole-crate/e2e; main response loop retained two stale local scale calls; corrected in 53d7d342; freeze withheld pending fresh successful CI/artifacts and parity |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
