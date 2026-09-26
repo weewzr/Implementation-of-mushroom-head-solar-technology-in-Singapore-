@@ -136,6 +136,6 @@ mod tests {
         assert_eq!(discrete_resources(&[deg]),Err(ResourceGeometryError::DegenerateTriangle));
         let bad=Triangle{v:[v(f64::NAN,0.0,0.0),v(1.0,0.0,0.0),v(0.0,1.0,0.0)]};
         assert_eq!(discrete_resources(&[bad]),Err(ResourceGeometryError::NonFiniteVertex));
-        assert_eq!(normalize_to_land_area(&paraboloid(0.5,3,18),0.0),Err(ResourceGeometryError::InvalidTarget));
+        assert!(matches!(normalize_to_land_area(&paraboloid(0.5,3,18),0.0),Err(ResourceGeometryError::InvalidTarget)));
     }
 }
