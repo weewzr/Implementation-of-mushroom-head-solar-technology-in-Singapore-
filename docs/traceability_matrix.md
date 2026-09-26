@@ -32,6 +32,8 @@ This file implements the master requirement that a reader can move from physical
 | East-west folded family | technical report §12B; governing equations §12 | `src/candidates.rs::EastWestFold` | tilt/resource tests exist; shading/convergence remains required | validated irradiance/visibility required | Candidate contract present; performance unvalidated |
 | Free-form optimisation | report §12 | candidate variables only | solver/convergence/Pareto tests required | all validated model layers | Not ready |
 
+| Canonical discrete resource normalization + frozen paraboloid geometric response | Markdown/LaTeX frozen paraboloid benchmark; Audit 50/Pass 155 reconciliation | `src/resource_geometry.rs`; `src/bin/paraboloid_response_sweep.rs` | whole-crate run 36240614922 PASS; e2e run 36240614938 PASS; exact target-resource postconditions; independent mesh/sky convergence; temporal/albedo/stability checks | artifact 10905852093, SHA-256 `e450ccd79f303bd1a701293dbbc5613f156520c122a92ccbb6229b08e2eaf110`; NASA POWER 2024 development dataset | **FROZEN DEVELOPMENT_NOT_SERIS geometric-response benchmark**; equal-land/equal-PV exact at artifact precision; M_L=1 bracket k=0.625--0.650; no optimum/SERIS/electrical/economic claim |
+
 ## Rule for new results
 
 A new quantitative result must not enter `Current findings` as validated until its row has a traceable implementation, tests/convergence evidence, source inputs, units and a stated uncertainty/limitation basis. Geometry-only or synthetic-input outputs must be labelled analytical or exploratory.
