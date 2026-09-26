@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 26 September 2026: **146**.
+- Total explicit user `Continue` commands counted through 26 September 2026: **147**.
 - Most recent mandatory audit: `docs/audits/2026-09-26_major-result_audit-47.md` (early major-result audit).
 - That audit occurred on Continue #145.
-- Passes since most recent audit: **1**.
-- Current explicit `Continue` is project #146 / Pass 1 of audit cycle 48. Work is restricted to a controlled paraboloidal-mushroom shape response sweep under the frozen DEVELOPMENT_NOT_SERIS baseline.
+- Passes since most recent audit: **2**.
+- Current explicit `Continue` is project #147 / Pass 2 of audit cycle 48. Work is restricted to robustness/sensitivity characterization of the existing paraboloid response surface under DEVELOPMENT_NOT_SERIS assumptions.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **9**.
+- Current ChatGPT session explicit `Continue` count: **10**.
 - Persisted technical/audit state has been recovered from the master source, this counter, the audit ledger and recent repository history.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #147 will be Pass 2 of audit cycle 48; continue controlled paraboloid response/sensitivity work unless a major-result audit is triggered.**
+- Next-pass state: **Continue #148 will be mandatory Pass 3 Audit 48 before substantive expansion.**
 
 ## Session-rotation rule
 
