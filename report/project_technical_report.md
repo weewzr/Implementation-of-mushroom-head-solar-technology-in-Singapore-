@@ -867,3 +867,14 @@ The current priority is not to add further physics. First reconcile this Markdow
 
 ## Reproducibility
 `src/geometry.rs`, `src/solar.rs`, `src/mesh.rs`, and `src/candidates.rs` form the current canonical Rust analytical foundation. `src/spa.rs` now implements the full NREL SPA zenith/azimuth chain in Rust, including the published VSOP87 L/B/R periodic terms and 63-term nutation series. The Appendix A.5 fixture passes the unchanged 0.001° zenith/azimuth acceptance tolerance in whole-crate execution evidence run 36177517373. This closes the solar-position A.5 validation gate; downstream weather/POA/visibility validation remains separate. Model-generated data must not be confused with measurements.
+
+
+## Frozen paraboloid geometric-response benchmark — DEVELOPMENT_NOT_SERIS
+
+The canonical discrete-resource implementation is `src/resource_geometry.rs`. It is the sole owner of triangular-mesh active PV area, upward projected horizontal land area, packing ratio, uniform scaling and exact target-land/target-PV normalization. The paraboloid response executable consumes this API for the response surface, mesh convergence, sky convergence, temporal/albedo sensitivity, component attribution and numerical-stability checks.
+
+The release evidence is commit `53d7d3420202ea81bf5b0a8d40b1ee87a93a68c4`: Rust evidence run `36240614922` and complete NASA POWER end-to-end run `36240614938`, artifact `10905852093` (SHA-256 `e450ccd79f303bd1a701293dbbc5613f156520c122a92ccbb6229b08e2eaf110`). Whole-crate tests pass (61 library tests plus all target tests), the 8,784-hour development dataset passes QC, and the annual baseline, Mushroom Experiment 1 and paraboloid response execute successfully.
+
+Every curved equal-land response row has discrete projected land area exactly 1.000000000 m² at artifact precision; every curved equal-PV row has active PV area exactly 1.000000000 m². Independent mesh refinement at fixed sky resolution and independent sky refinement at fixed mesh resolution are below the declared 1% criterion at k=0.05, 0.5, 1.5 and 3.0. Refined sampling brackets the equal-land multiplier crossover M_L=1 between k=0.625 (0.998806902) and k=0.650 (1.007984817). Quarter-hour temporal perturbations are below 0.1% at the tested curvatures; albedo 0.10–0.30 sensitivity remains finite and bounded; the k=3 high-curvature mesh remains finite with positive upward normals.
+
+This result is **FROZEN as a geometric-response DEVELOPMENT_NOT_SERIS benchmark**, not as a SERIS-validated prediction, electrical-energy yield, economic optimum or universal geometry winner. Pass-147/148 absolute response/component values are rejected and superseded. No interior optimum is claimed. The frozen result authorizes the next fixed-geometry equal-resource comparison phase under the same canonical resource, visibility, sky-view and annual-irradiance contracts.
