@@ -18,12 +18,9 @@ fn main(){
  let mut land_rows=vec![];let mut pv_rows=vec![];
  for k in ks{
   if k==0.0{land_rows.push((k,flat.clone()));pv_rows.push((k,flat.clone()));continue;}
-  let raw_t=mesh(1.,k,4,24);let raw_r=run(&rs,&raw_t,16);
-  assert!(raw_r.land.is_finite()&&raw_r.land>0.&&raw_r.pv.is_finite()&&raw_r.pv>0.);
-  let tl=scale(raw_t,(1.0/raw_r.land).sqrt());let rl=run(&rs,&tl,16);
-  assert!((rl.land-1.0).abs()<1e-10);
-  let tp=scale(tl,(1.0/rl.pv).sqrt());let rp=run(&rs,&tp,16);
-  assert!((rp.pv-1.0).abs()<1e-10);
+  let raw_t=mesh(1.,k,4,24);
+  let tl=normalize_to_land_area(&raw_t,1.0).expect("canonical equal-land normalization");let rl=run(&rs,&tl,16);
+  let tp=normalize_to_pv_area(&raw_t,1.0).expect("canonical equal-PV normalization");let rp=run(&rs,&tp,16);
   land_rows.push((k,rl));pv_rows.push((k,rp));
  }
  let flat=&land_rows[0].1;assert!((flat.pv-1.).abs()<1e-12);assert!((flat.land-1.).abs()<1e-12);assert!((flat.e[3]-source).abs()/source<1e-12);assert!(flat.e[2].abs()<1e-9);
