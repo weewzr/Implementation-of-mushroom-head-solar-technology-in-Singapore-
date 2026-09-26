@@ -5,7 +5,7 @@ fn parse_stamp(s:&str)->(i32,u8,u8,u8){(s[0..4].parse().unwrap(),s[5..7].parse()
 fn svg_bars(path:&Path,monthly:&[[f64;4];12]){
  let w=1000.;let h=520.;let ml=70.;let mb=55.;let pw=w-100.;let ph=h-90.;let max=monthly.iter().map(|x|x[3]).fold(0f64,f64::max)*1.1;
  let mut s=format!("<svg xmlns='http://www.w3.org/2000/svg' width='{w}' height='{h}' viewBox='0 0 {w} {h}'><rect width='100%' height='100%' fill='white'/><text x='500' y='28' text-anchor='middle' font-family='sans-serif' font-size='18'>NASA POWER 2024 development baseline — horizontal POA</text>");
- for m in 0..12{let x=ml+(m as f64+.15)*pw/12.;let bw=.7*pw/12.;let mut y=h-mb;for k in 0..3{let bh=monthly[m][k]/max*ph;y-=bh;let fill=["#4472c4","#70ad47","#ed7d31"][k];s+=&format!("<rect x='{x:.1}' y='{y:.1}' width='{bw:.1}' height='{bh:.1}' fill='{fill}'/>");}s+=&format!("<text x='{:.1}' y='490' text-anchor='middle' font-family='sans-serif' font-size='12'>{}</text>",x+bw/2.,m+1);}
+ for m in 0..12{let x=ml+(m as f64+0.15)*pw/12.;let bw=0.7*pw/12.;let mut y=h-mb;for k in 0..3{let bh=monthly[m][k]/max*ph;y-=bh;let fill=["#4472c4","#70ad47","#ed7d31"][k];s+=&format!("<rect x='{x:.1}' y='{y:.1}' width='{bw:.1}' height='{bh:.1}' fill='{fill}'/>");}s+=&format!("<text x='{:.1}' y='490' text-anchor='middle' font-family='sans-serif' font-size='12'>{}</text>",x+bw/2.,m+1);}
  s+="<text x='15' y='260' transform='rotate(-90 15 260)' text-anchor='middle' font-family='sans-serif' font-size='13'>Incident energy (Wh/m²/month)</text><text x='760' y='50' font-family='sans-serif' font-size='12'>direct / diffuse / ground (ground=0 for horizontal)</text></svg>";fs::write(path,s).unwrap();
 }
 fn main(){
