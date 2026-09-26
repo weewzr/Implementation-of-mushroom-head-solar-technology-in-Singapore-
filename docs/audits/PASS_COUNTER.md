@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 26 September 2026: **151**.
+- Total explicit user `Continue` commands counted through 26 September 2026: **152**.
 - Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-49.md`.
 - That audit occurred on Continue #151.
-- Passes since most recent audit: **0**.
-- Audit 49 inspected corrected run 36237551175. Whole-crate `cargo test --all-targets` failed compilation because the response source contains a literal `\\n` token introduced during the binary-local normalization correction; no end-to-end response artifacts were produced. Audit 49 also identified duplicated binary-local geometry/resource construction as the root architectural blocker. **Paraboloid-response freeze remains withheld until a canonical tested Rust discrete geometry/resource-normalization API is implemented and used by every response/convergence/robustness/attribution path, followed by successful whole-crate/e2e evidence and report/traceability parity closure**.
+- Passes since most recent audit: **1**.
+- Audit 49 identified duplicated binary-local normalization as the architectural blocker. Continue #152 implemented canonical `src/resource_geometry.rs` with discrete PV/projected-land measurement, validation, uniform scaling, exact target-land/target-PV normalization and packing ratio plus curvature/scale/invalid-geometry tests; `paraboloid_response_sweep.rs` was refactored to consume that API across response, convergence, sensitivity, attribution and stability paths. CI path filters were broadened to run evidence CI on Rust changes. **Paraboloid-response freeze remains withheld pending successful whole-crate/e2e CI evidence and subsequent corrected artifact/report/traceability closure**.
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **3**.
+- Current ChatGPT session explicit `Continue` count: **4**.
 - Persisted technical/audit state was recovered from the master source, this counter, the audit ledger, Audit 46, Audit 47 and repository history before substantive work.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #152 is Pass 1 of audit cycle 50. Audit-49 corrective architecture is the sole priority: implement and test the canonical discrete geometry/resource-normalization API before repairing consumers; no new modelling, response freeze or fixed-geometry comparison is authorized.**
+- Next-pass state: **Continue #153 is Pass 2 of audit cycle 50. Inspect whole-crate/e2e CI for the canonical resource API/refactor, correct foundation defects if any, and retain evidence; do not promote performance results or expand modelling.**
 
 ## Session-rotation rule
 
