@@ -61,3 +61,12 @@ Only after these gates pass may a comparison table be treated as a released deve
 ## Rust interface direction
 
 The existing `GeometryKind`, `Candidate` and `ResourceEnvelope` types may identify requested topology and declared constraints. The next implementation step should add a common mesh-generation interface returning `Vec<Triangle>`, followed immediately by canonical resource normalization and a shared annual irradiance evaluator. Resource accounting must not be duplicated in `candidates.rs` or individual binaries.
+
+
+## Future folded-surface implementation branch: deployable solar sheet
+
+A future manufacturability branch of the folded-surface family may represent a **flat-manufactured flexible or segmented PV sheet** that is deployed into a three-dimensional irradiance-collecting surface. Candidate mechanisms may include folding, rolling, fan/origami deployment, or a tensioned-membrane arrangement.
+
+This is an implementation/manufacturability branch, not a new irradiance model and not an exception to the common framework. Its deployed mesh must still enter the same `resource_geometry`, visibility, sky-view and annual-irradiance pipeline and satisfy the same matched-resource contracts.
+
+Future engineering constraints to add only in a later implementation layer include minimum bend radius, allowable PV-cell/interconnect strain, hinge/rib/cable geometry, deployment and stow energy, wind-load and wind-stow operation, mechanism/support mass, fatigue and maintenance, deployment reliability, and manufacturing/lifecycle cost. None of these penalties is included in the frozen geometric irradiance comparison at this stage, so no deployable-sheet advantage may be claimed from irradiance geometry alone.
