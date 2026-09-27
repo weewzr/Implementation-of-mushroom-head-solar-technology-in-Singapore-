@@ -107,6 +107,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-27_three-pass_audit-55.md` | Mandatory Pass 3 / Continue #169 | Fresh comparison, origami Rust and beginner-PDF evidence audit | FAIL/hold: fresh comparison runs fail because origami tests do not compile (Vec3 lacks PartialEq); PDF still fails on Unicode ∈ in SVG; no fresh comparison/PDF artifacts; no new layer frozen |
 
+| `2026-09-27_three-pass_audit-56.md` | Mandatory Pass 3 / Continue #172 + session 12/12 | Single-crease freeze, comparison/PDF release and rotation audit | Minimal rigid single-crease kinematic foundation FROZEN from Rust run 36322414394/artifact 10932464820; comparison held because fresh runs still have no artifact; PDF held because a87a405 compile still fails on remaining U+2208; session rotation required |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
