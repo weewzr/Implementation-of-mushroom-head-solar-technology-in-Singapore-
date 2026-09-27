@@ -72,3 +72,19 @@ Sections advanced: 5, 9, 10, 11 and report planning/front matter. Controlled fix
 - Section 15 design-basis contract: source register added at `docs/electrical_design_basis_candidates.md`, commit `cd7e5d832f3782aa375cd17fa1ea9516a4ab5a9c`. Candidate source set includes current Canadian Solar TOPHiKu6 rigid c-Si screening basis, First Solar Series 6 Plus CdTe technology-sensitivity basis, and NREL PVWatts system-model architecture. No commercial module is yet selected as universal/best and the historical 23% placeholder remains unvalidated.
 - Frozen-comparison plots/tables remain the principal #184 report-integration task.
 - Schedule: ON SCHEDULE for approximately #227. #184 is the session 12/12 boundary and must finish bounded Phase-I integration/state recording, then rotate.
+
+
+## Continue #184 rotation-boundary checkpoint
+| Layer / deliverable | Status at rotation | Evidence / blocker | Latest Phase-I action |
+|---|---|---|---|
+| Controlled fixed-geometry comparison | FROZEN DEVELOPMENT_NOT_SERIS | Audit 59 artifact 10933222710 | Do not reopen; paper-facing plots/table still required |
+| Beginner communication architecture | EVIDENCE-PENDING | page-4 source fixed at 9c558337; fresh full front-matter build failed after graphical-abstract integration, so no clean descendant PDF exists yet | #185 Audit 61: diagnose compile evidence, rebuild, render, freeze if clean |
+| Scientific front matter | DRAFT | duplicate abstract/planning prose removed; graphical abstract integrated; descendant compile currently failed | #185 compile correction only |
+| Graphical abstract | DRAFT | reproducible SVG 310a1b2d; completed/future layers visually distinguished | #185 compile/render verification |
+| Fixed-comparison plots/tables | BLOCKED BY ROTATION TIME / REQUIRED | frozen machine-readable data exists; publication assets not completed in this boundary pass | hard target #185-186 |
+| Single-crease origami | FROZEN | Audit 56 | preserve |
+| Accordion/fan origami | FROZEN narrow fixture | Audit 60, Rust run 36325477358 artifact 10933996696 | preserve; no Miura |
+| Electrical design basis | DRAFT | sourced candidate register exists; rigid c-Si baseline not yet provisionally selected to specific model/datasheet | #185 Audit 61 selection decision |
+| Electrical model specification | VALIDATED AS SPECIFICATION, NOT IMPLEMENTED | docs/electrical_rust_kernel_spec.md at 72c9117e | implementation only after #185 audit/design-basis decision |
+
+Schedule: **AT RISK but recoverable** relative to the original Phase-I #187 target because the graphical-abstract integration introduced a LaTeX failure and frozen-comparison publication assets missed the #184 hard target. The overall ~#227 project target remains achievable if #185-186 close these bounded items without opening new branches.
