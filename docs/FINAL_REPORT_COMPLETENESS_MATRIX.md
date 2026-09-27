@@ -61,3 +61,14 @@ Sections advanced: 5, 9, 10, 11 and report planning/front matter. Controlled fix
 - Sections 5/9/10/11: numerical evidence remains FROZEN, paper integration EVIDENCE-PENDING for reproducible accepted-row table and equal-land/equal-PV/decomposition plots. Latest close pass #184.
 - Section 15: DRAFT/READY-AFTER-CONTRACT. Equation chain exists; add per-parameter physical meaning, geometry dependence and uncertainty/sensitivity requirement at #183, then source/select representative PV module/design basis.
 - Phase-I schedule: ON SCHEDULE. Phase-I exit review remains #187.
+
+
+## Continue #183 progress
+- Governance reconciled: Audit 60 occurred at Continue #182; Audit Cycle 61 Pass 1; session 11/12.
+- Communication source blocker corrected at `9c5583378be52a9df5bf024af0924bb50c3fc7af` by wrapping the two top fair-comparison explanatory lines. Fresh LaTeX/PDF CI and rendered regression evidence are required before freeze; do not reopen unrelated beginner figures.
+- Front matter advanced: duplicate legacy abstract and visible planning-roadmap prose removed; reproducible graphical abstract integrated at report commit `4dad9fa04cb69325156c16b7e43574f1840edee4`; graphical SVG source commit `310a1b2d5c6c92e4677ebdb3c152dae7240f098d`.
+- Graphical abstract status: DRAFT pending fresh PDF QA. It visually distinguishes completed/validated layers from future electricity/cost/carbon/recommendation layers.
+- Section 12 remains FROZEN only for Audit-56 single crease and Audit-60 controlled accordion/fan fixture; no expansion this pass.
+- Section 15 design-basis contract: source register added at `docs/electrical_design_basis_candidates.md`, commit `cd7e5d832f3782aa375cd17fa1ea9516a4ab5a9c`. Candidate source set includes current Canadian Solar TOPHiKu6 rigid c-Si screening basis, First Solar Series 6 Plus CdTe technology-sensitivity basis, and NREL PVWatts system-model architecture. No commercial module is yet selected as universal/best and the historical 23% placeholder remains unvalidated.
+- Frozen-comparison plots/tables remain the principal #184 report-integration task.
+- Schedule: ON SCHEDULE for approximately #227. #184 is the session 12/12 boundary and must finish bounded Phase-I integration/state recording, then rotate.
