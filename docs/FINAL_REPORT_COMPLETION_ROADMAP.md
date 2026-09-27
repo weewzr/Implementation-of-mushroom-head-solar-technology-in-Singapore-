@@ -81,3 +81,7 @@ Phase I remains ON SCHEDULE. Accordion/fan narrow validation fixture is frozen. 
 
 ## Continue #183 checkpoint
 ON SCHEDULE. Front-matter cleanup and vector graphical abstract are implemented; the last communication SVG source defect is corrected and awaits fresh PDF proof. Electrical design-basis candidate sourcing has begun with manufacturer/NREL primary sources. #184 is bounded to: inspect/freeze communication if fresh PDF is clean; integrate frozen-comparison accepted-row tables/plots; lock the first rigid-module selection requirements; persist session-rotation state. Do not start a new major model branch on #184.
+
+
+## Continue #184 mandatory rotation checkpoint
+Phase I is **AT RISK but recoverable**; overall ~#227 remains achievable. The front-matter graphical-abstract descendant currently fails LaTeX, so communication cannot freeze. Frozen-comparison publication plots/tables also remain outstanding. New-session #185 is mandatory Audit 61 and must first recover exact compile failure, close communication/front matter, make the provisional rigid-module design-basis decision, and schedule/complete the frozen-comparison publication assets by #186. Phase-I exit remains #187 unless Audit 61 finds a material reason to revise it.
