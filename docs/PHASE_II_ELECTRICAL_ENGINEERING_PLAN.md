@@ -86,7 +86,7 @@ For each candidate record:
 - uncertainty/model-form limitations;
 - Rust API shape and validation burden.
 
-Select the simplest scientifically defensible model, not the model producing the most favorable energy result. Prepare, but do not yet implement unless #188 evidence unambiguously closes the selection gate, the Rust function/parameter contract and the thermal validation fixtures listed in Section A.
+Select the simplest scientifically defensible model, not the model producing the most favorable energy result. Prepare the Rust function/parameter contract and the thermal validation fixtures listed in Section A. Do not implement the new thermal model during #188; implementation is scheduled for #190 after the #189 Audit-63 validation decision.
 
 ## Scope exclusions through this contract
 No Miura-ori optimisation, topology optimisation, full structural FEA, LCOE, headline CO2 reduction, or unsupported flexible-PV performance claim is authorized by this plan.
