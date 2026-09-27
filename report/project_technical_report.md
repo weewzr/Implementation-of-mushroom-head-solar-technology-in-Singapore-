@@ -6,6 +6,48 @@
 ## Abstract
 Singapore's solar resource is strong but deployment is constrained by scarce land and competing urban uses. This project investigates whether three-dimensional photovoltaic (PV) geometries—initially motivated by a rotating "mushroom-head" panel—can increase annual electricity generation per constrained horizontal footprint. Curvature does not create solar energy; its possible value is spatial packing. A 3-D canopy can place $A_{\mathrm{PV}}>A_{\mathrm{land}}$ while attempting to retain irradiation quality, bifacial access, ventilation and useful space below. Early numerical results are deliberately idealised and are not bankable yield predictions.
 
+## Layer 1 — The whole idea without mathematics
+
+**The Sun gives us light. Solar panels catch some of that light. Singapore has little spare land, so this project asks whether we can place more useful solar surface above the same patch of ground.**
+
+![Beginner story: Sun, flat panel and founding mushroom idea](../figures/beginner_story.svg)
+
+**Figure — The project in one picture.** The mushroom-head idea started the research, but more panel does not automatically mean more useful light, so every shape must be tested rather than assumed to win.
+
+### A fair test needs two different questions
+
+![Equal-land, equal-PV and simple comparison metrics](../figures/fair_comparison_metrics.svg)
+
+**Figure — Fair comparison in plain language.** Equal land means the same-size playground. Equal PV means the same amount of solar material. Packing ratio asks how much material fits above the land; packing efficiency asks how well each unit of that material catches irradiance relative to the flat reference; land-energy multiplier combines the two effects.
+
+The candidate story is **flat → mushroom/paraboloid → hemisphere → faceted canopy → folded surface**. Direct sunlight comes from the Sun, diffuse light comes from the visible sky, and reflected light comes back from the ground. A surface can lose useful light by facing away, being shadowed by another surface, or seeing less sky.
+
+The Rust computer model therefore repeats one simple job for every candidate: **weather + Sun position + 3-D shape → direct-ray and sky-view checks → hourly irradiance → add the year → compare under the same resource contract.**
+
+## Layer 2 — Physical intuition before equations
+
+The founding mushroom idea is a packing hypothesis, not a conclusion. A three-dimensional canopy may fit more active PV above scarce land, but the extra area can have poorer orientation, self-shadowing and reduced sky view. The controlled model separates direct, diffuse and ground-reflected irradiance so those competing effects can be inspected.
+
+**Equal-land** asks what happens when every candidate receives the same projected horizontal land area. **Equal-PV** asks what happens when every candidate receives the same active PV area. They answer different engineering questions and are never interchangeable.
+
+For a candidate with packing ratio \(\Pi=A_{PV}/A_{land}\), the irradiance-only comparison uses two dimensionless diagnostics. **Packing efficiency** is PV-area-normalized annual irradiance divided by the flat-reference PV-area-normalized value. **Land-energy multiplier** is land-area-normalized annual irradiance divided by the flat-reference land-area-normalized value. Under the same reference, the accounting identity is land-normalized irradiance = PV-normalized irradiance × packing ratio. These are DEVELOPMENT_NOT_SERIS irradiance metrics, not electrical, structural or economic performance.
+
+## Future branch — deployable origami solar sheet
+
+The current static folded-surface candidate is **not** an origami simulation. A separate future model will represent a manufactured sheet as vertices \(V\), facets \(F\), and crease/hinge edges \(C\), with fold angles and deployment coordinate \(\lambda\in[0,1]\). \(\lambda=0\) denotes a declared flat/compact or stowed state and \(\lambda=1\) the fully deployed state.
+
+![Future origami deployment architecture](../figures/origami_deployment_architecture.svg)
+
+**Figure — Future deployable-sheet architecture.** A flat-made PV sheet receives a crease pattern, moves through intermediate deployment states, becomes a 3-D canopy, and can have a separate storm-stowed state. This is an architecture specification, not a simulated performance result.
+
+For rigid-origami cases, vertex positions \(\mathbf x_i(\lambda)\) must preserve edge lengths and facet dimensions while crease angles change. Flexible variants must instead bound strain and bend radius explicitly. Required validation includes manifold connectivity, crease compatibility, self-intersection/collision, edge-length preservation, facet-area preservation, minimum bend radius, allowable PV/interconnect strain, and active-area/resource preservation. Candidate mechanisms include radial/umbrella folding, Miura-ori or related tessellations, accordion/fan folding, roll-out petals and tensioned membranes. No mechanism is selected here.
+
+Only a validated **deployed mesh** may later enter the frozen common resource → visibility/self-shadowing → sky-view → annual-irradiance pipeline. Folding mechanics remain a separate layer. Transport/manufacturing simplification or cost reduction is only a hypothesis until deployment mechanics, wind stowage, actuator energy, structural mass, fatigue, maintenance and economics are modelled.
+
+## Layer 3 — Engineering definitions and assumptions
+
+The following sections introduce the coordinate system, irradiance definitions, resource contracts and modelling assumptions. **Layer 4** then retains the complete equations, derivations, numerical validation and evidence trail.
+
 ## 1. Problem and motivation
 The engineering question is: **for a constrained horizontal footprint in Singapore, what 3-D PV geometry and movement strategy maximises useful annual energy and lifecycle value after optical, thermal, mechanical, structural and economic penalties are included?**
 
