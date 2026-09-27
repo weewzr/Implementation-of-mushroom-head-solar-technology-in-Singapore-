@@ -113,3 +113,29 @@ Schedule: **AT RISK but recoverable** relative to the original Phase-I #187 targ
 - Final publication-integrated PDF: commit `3f54605f53a6e88f145713f69d4136da297f2608`; run `36330877451` PASS; artifact `10935284619`; exact PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`; 32 pages rendered materially clean.
 - Section 15: implemented plain-language/equation chain and vector flow; electrical kernel FROZEN narrow foundation under Early Audit 62. Production inverter/loss basis and annual electrical geometry comparison remain later gates.
 - Phase I: ON TRACK TO CLOSE #187; remaining work is scientific-spine/completeness reconciliation, not foundation building.
+
+
+## Continue #187 — Phase-I exit reconciliation
+| Final-report layer | Honest exit status | Phase-II/later evidence gap |
+|---|---|---|
+| Front matter / graphical abstract | OPERATIONAL; communication architecture FROZEN | later content may expand report; reopen communication only for regression |
+| 1-5 Context / question / mushroom origin / fair comparison | OPERATIONAL; fair-comparison definitions/results frozen where audited | targeted final citation polishing later |
+| 6 Mathematical formulation | VALIDATED FOUNDATION | later electrical/engineering equations append without changing frozen geometry results |
+| 7 Analytical verification | VALIDATED | preserve |
+| 8 Numerical method | VALIDATED FOUNDATION | thermal/electrical integration adds new validated methods later |
+| 9 V&V / uncertainty | VALIDATED for Phase-I layers | add thermal/electrical/engineering uncertainty as those layers mature |
+| 10 Fixed candidates | VALIDATED | no universal winner |
+| 11 Controlled fixed-geometry results | FROZEN DEVELOPMENT_NOT_SERIS; publication figures/table COMPLETE | electrical conversion not yet promoted |
+| 12 Deployable/origami | FROZEN narrow single-crease + accordion fixtures | flexible-PV mechanics, broader collision/engineering realism remain |
+| 13 Engineering implementation | OUTLINE / EVIDENCE-PENDING | mounting, actuation, storm stowage, wind/structural requirements |
+| 14 Manufacturing | OUTLINE / EVIDENCE-PENDING | process/material/lifetime/manufacturability evidence |
+| 15 Electrical and net-energy | FROZEN narrow kernel foundation; provisional rigid module basis | validated thermal selection, real inverter/loss basis, mismatch, annual coupling, auxiliaries |
+| 16 Cost / techno-economics | EMPTY / NOT RELEASED | CAPEX/OPEX/lifetime/LCOE model and uncertainty |
+| 17 Carbon / sustainability | OUTLINE / NOT RELEASED | grid displacement and lifecycle factors with uncertainty |
+| 18 Integrated design comparison | EMPTY / NOT RELEASED | requires upstream electrical/engineering/cost/carbon evidence |
+| 19 Recommended solution concepts | EMPTY / NOT RELEASED | scenario-specific recommendations only after integrated evidence |
+| 20 Limitations / future work | OPERATIONAL | maintain as later gates close |
+| 21 Conclusion | PHASE-I CONCLUSION OPERATIONAL | final conclusion remains later and must incorporate downstream evidence |
+| Appendices / reproducibility | OPERATIONAL FOUNDATION | expand provenance, commands, hashes and final manifest |
+
+**PHASE I COMPLETE at Continue #187.** The exact 32-page Phase-I baseline is commit `3f54605f...`, run `36330877451`, artifact `10935284619`, exact PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`. Phase II begins #188.
