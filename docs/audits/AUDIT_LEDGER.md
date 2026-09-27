@@ -101,6 +101,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-27_three-pass_audit-52.md` | Mandatory Pass 3 / Continue #160 + session Continue 12/12 | Common fixed-geometry framework release and rotation checkpoint | Whole-crate 36290127196 and e2e 36290127283 PASS at adde4dee; framework FROZEN; controlled matched-resource annual comparison authorized for next session; no comparison begun; session rotation required |
 
+| `2026-09-27_three-pass_audit-53.md` | Mandatory Pass 3 / Continue #163 | Controlled fixed-geometry comparison release audit | Corrected CI passes but retained production rows use coarse 2x12 mesh; hemisphere differs -4.287% from 4x24 and explicit packing-efficiency/land-multiplier fields are absent; release withheld pending refined rerun and parity closure |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
