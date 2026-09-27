@@ -139,3 +139,25 @@ Schedule: **AT RISK but recoverable** relative to the original Phase-I #187 targ
 | Appendices / reproducibility | OPERATIONAL FOUNDATION | expand provenance, commands, hashes and final manifest |
 
 **PHASE I COMPLETE at Continue #187.** The exact 32-page Phase-I baseline is commit `3f54605f...`, run `36330877451`, artifact `10935284619`, exact PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`. Phase II begins #188.
+
+## Phase-I exit — Continue #187
+| Final-report layer | Honest exit status | Phase-II-or-later gap |
+|---|---|---|
+| Front matter / graphical abstract | FROZEN communication architecture / operational scientific front matter | final-source bibliography refinement later |
+| 5 Fair comparison | FROZEN | none at irradiance framework level |
+| 9 V&V | VALIDATED for frozen Phase-I layers | thermal/electrical and later engineering V&V to add |
+| 10 Fixed candidates | VALIDATED/FROZEN framework | no ranking |
+| 11 Controlled fixed-geometry results | FROZEN DEVELOPMENT_NOT_SERIS; publication assets COMPLETE | electrical conversion not yet coupled annually |
+| 12 Deployable/origami | FROZEN narrow single-crease + accordion/fan fixtures | flexible-PV/mechanics, compatibility/collision expansion later |
+| 13 Engineering implementation | OUTLINE / evidence boundary | mounting, actuation, stow, maintainability, structural evidence |
+| 14 Manufacturing | OUTLINE / evidence boundary | process/material/lifetime/cost evidence |
+| 15 Electrical and net-energy | FROZEN narrow kernel foundation; provisional rigid basis selected | validated thermal selection, real inverter/loss basis, geometry coupling, mismatch, annual results |
+| 16 Cost/techno-economics | EMPTY/EVIDENCE BOUNDARY | CAPEX/OPEX/lifetime/LCOE/scenarios not modelled |
+| 17 Carbon/sustainability | OUTLINE/EVIDENCE BOUNDARY | Singapore grid displacement + lifecycle factors not modelled |
+| 18 Integrated comparison | EMPTY/EVIDENCE BOUNDARY | awaits electrical/engineering/cost/carbon layers |
+| 19 Recommendations | EMPTY/EVIDENCE BOUNDARY | scenario-specific recommendations await upstream evidence |
+| 20 Limitations/future work | DRAFT/OPERATIONAL | maintain as downstream models mature |
+| 21 Conclusion | DRAFT Phase-I conclusion | final conclusion awaits all phases |
+| Appendices/reproducibility | DRAFT/OPERATIONAL | expand hashes, manifests, derivations and final release evidence |
+
+**PHASE I COMPLETE.** Phase-II contract: `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. Exact Phase-I baseline: commit `3f54605f...`, run `36330877451`, artifact `10935284619`, exact 32-page PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`. Downstream headings are not marked complete merely because evidence-boundary sections exist.
