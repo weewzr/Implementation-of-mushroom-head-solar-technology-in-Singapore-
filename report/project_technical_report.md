@@ -942,3 +942,56 @@ Flat, frozen paraboloid, hemisphere, faceted-canopy and folded-surface topology 
 This freezes the **comparison methodology**, not a geometry ranking. Controlled matched-resource annual candidate-comparison execution is authorized for the next session. No thermal/electrical conversion, tracking, economics or topology optimisation is included.
 
 The deployable/foldable solar-sheet concept remains a future implementation/manufacturability branch of the folded-surface family and must obey the same geometric pipeline. Bend radius, PV/interconnect strain, hinges/ribs/cables, deployment/stow energy, wind-stow operation, mechanism mass, maintenance/reliability and cost remain future engineering penalties and are not included in the frozen irradiance comparison.
+
+
+## Controlled fixed-geometry publication layer — DEVELOPMENT_NOT_SERIS
+
+Early Audit 59 freezes the accepted refined equal-land/equal-PV irradiance rows, not a geometry ranking. Publication assets are generated reproducibly by `fixed-comparison-publication` from `data/processed/audit59_fixed_comparison_accepted.csv`. Primary plots contain accepted/converged rows only.
+
+The explanatory bridge is
+
+\[
+M_L = \Pi\,\eta_{\mathrm{pack}},
+\]
+
+where \(\Pi=A_{PV}/A_{land}\) is packing ratio, \(\eta_{pack}\) is PV-area irradiance productivity relative to the flat reference, and \(M_L\) is the land-energy multiplier. Thus increased active area and retained per-area irradiance productivity are reported separately rather than collapsed into a winner claim.
+
+Generated publication assets cover equal-land annual irradiance, equal-PV annual irradiance, packing ratio, packing efficiency, land-energy multiplier, direct/diffuse/ground attribution, and the main accepted-row table. All remain **DEVELOPMENT_NOT_SERIS**.
+
+## Electrical and net-energy performance — first implemented kernel
+
+Plain-language chain: sunlight hits the panel → the panel warms → heat changes efficiency → the panel makes DC electricity → declared DC/inverter/system losses reduce delivery → auxiliary mechanisms may consume electricity → the remainder is net output.
+
+The upstream geometry model supplies an **IRRADIANCE RESULT**. `src/electrical.rs` supplies a separate **ELECTRICAL CONVERSION RESULT**. No annual geometry-to-electricity comparison is released at this stage.
+
+The initial replaceable NMOT temperature relation is
+
+\[
+T_m=T_a+(T_{NMOT}-T_{a,NMOT})\frac{G_{POA}}{G_{NMOT}}.
+\]
+
+Then
+
+\[
+\eta_m=\eta_{ref}[1+\gamma_P(T_m-T_{ref})],
+\]
+
+\[
+P_{dc,ideal}=G_{POA}A_m\eta_m,
+\qquad
+P_{dc}=P_{dc,ideal}(1-L_{mis})(1-L_{wire,dc}),
+\]
+
+\[
+P_{ac}=P_{dc}\eta_{inv}(1-L_{sys}),
+\qquad
+P_{net}=P_{ac}-P_{aux},
+\qquad
+E_{net}=\sum_t P_{net}(t)\Delta t.
+\]
+
+Net power may be negative when auxiliary demand exceeds generation; gross DC/AC generation is nonnegative. Negative irradiance is rejected explicitly.
+
+### Provisional rigid-PV research design basis
+
+The first rigid modelling basis is Canadian Solar TOPHiKu6 CS6.2-48TM-460H, selected for complete authoritative parameter coverage rather than as a product recommendation. Retained datasheet parameters are 460 W rated STC power, 23.0% STC module efficiency, 1762 × 1134 × 35 mm dimensions, -0.29%/°C Pmax temperature coefficient, 25°C STC reference cell temperature, and NMOT 42 ± 3°C at the datasheet NMOT test basis. Flexible/deployable PV remains a separate later design basis.
