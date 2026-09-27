@@ -41,3 +41,13 @@ Sections advanced: 5, 9, 10, 11 and report planning/front matter. Controlled fix
 - Origami blocker: fresh whole-crate Rust CI/tests must pass before the accordion fixture can trigger early major-result audit/freeze. Collision detection is deliberately fixture-level AABB overlap and does not establish general triangle-triangle continuous collision mechanics.
 - Planned next pass: inspect fresh PDF and Rust CI; close/freeze communication if clean; audit/freeze accordion only if whole-crate evidence qualifies; generate paper-facing comparison tables/plots and graphical abstract.
 - Schedule: ON SCHEDULE for approximately Continue #227; Phase I exit remains targeted around #187.
+
+
+## Continue #181 progress
+- Sections advanced: 12 validation disposition and 15 electrical design-basis/equation architecture.
+- New equations: module-temperature abstraction, temperature-adjusted efficiency, DC power, inverter/system conversion, annual net electricity.
+- New table: minimum electrical design-basis parameters with symbol/unit/source-quality requirements.
+- Accordion validation: canonical Rust run 36325054028 at commit 7741242e34eb1c5da1747d534d6262e82e2d3deb FAILS during cargo test; artifact 10932928400 SHA-256 8f38640db9ecc416b9fd7d66d81c532ffd8d2eecf32a1c52f819311a1951810e. Accordion remains EVIDENCE-PENDING and is not frozen. Acceptance criteria were not weakened.
+- Communication evidence: post-fix LaTeX run 36325089829 at commit eb959f873c11f7326b0d50010daafe0a15c0d7a0 PASS, artifact 10933713316 SHA-256 ca5b67eef5faa0cef044bb6aa96f253fce23ed44615baa9e05f0c244b20c16b6. Full visual regression decision remains to be recorded before freeze.
+- Remaining blockers: isolate exact accordion failing test from execution evidence/logs; finish exact-PDF visual regression; integrate reproducible frozen-comparison plots/tables and graphical abstract into paper.
+- Schedule: ON SCHEDULE for approximately #227; Phase I still has six passes through #187.
