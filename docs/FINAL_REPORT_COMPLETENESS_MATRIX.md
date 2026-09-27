@@ -88,3 +88,12 @@ Sections advanced: 5, 9, 10, 11 and report planning/front matter. Controlled fix
 | Electrical model specification | VALIDATED AS SPECIFICATION, NOT IMPLEMENTED | docs/electrical_rust_kernel_spec.md at 72c9117e | implementation only after #185 audit/design-basis decision |
 
 Schedule: **AT RISK but recoverable** relative to the original Phase-I #187 target because the graphical-abstract integration introduced a LaTeX failure and frozen-comparison publication assets missed the #184 hard target. The overall ~#227 project target remains achievable if #185-186 close these bounded items without opening new branches.
+
+
+## Audit 61 / Continue #185
+- Front matter / communication: compile root cause identified as LaTeX-unsafe `DEVELOPMENT_NOT_SERIS` in graphical abstract. Commit 3d4deb3 did not fix it. d36f0bc1 compiles at run 36326557541, artifact 10934550582, exact PDF SHA-256 b50a3f56837fc42f27fea1dd85857bc331470d5eac0d169b56c3bcf2e9d66247. Full 26-page render exposed only bounded graphical-abstract label overflow and one origami comparison-glyph defect; fixes 4728201d and 1efe113 await final descendant render. Status: EVIDENCE-PENDING final freeze.
+- Sections 5/9/10/11: numerical evidence remains FROZEN DEVELOPMENT_NOT_SERIS; publication equal-land/equal-PV/packing/attribution plots and main accepted-row table remain REQUIRED and are the hard #186 blocker.
+- Scientific structure: duplicate abstract/planning prose removed, but legacy section order still needs consolidation to the intended final report spine by #187 without reopening validated mathematics.
+- Section 12: Audit-56 single crease and Audit-60 accordion/fan fixture remain FROZEN in their narrow scopes.
+- Section 15: PROVISIONAL RIGID-PV ELECTRICAL DESIGN BASIS selected at 07b1894c: Canadian Solar TOPHiKu6 CS6.2-48TM-460H. Electrical kernel specification passes Audit 61 at 64f47cb4; Rust implementation authorized #186.
+- Phase I: AT RISK but recoverable; exit #187. Overall ~#227 target retained under the Audit-61 rebase.
