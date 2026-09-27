@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 27 September 2026: **156**.
-- Most recent mandatory audit: `docs/audits/2026-09-26_three-pass_audit-50.md`.
-- That audit occurred on Continue #154.
-- Passes since most recent audit: **2**.
-- Audit 50 at Continue #154 correctly withheld release pending the completed canonical consumer refactor. Continue #155 reconciled stale governance state against post-audit evidence: commit `53d7d3420202ea81bf5b0a8d40b1ee87a93a68c4`, Rust run `36240614922` PASS, e2e run `36240614938` PASS, artifact `10905852093` SHA-256 `e450ccd79f303bd1a701293dbbc5613f156520c122a92ccbb6229b08e2eaf110`. Fresh artifact inspection closes exact-resource, convergence, crossover, sensitivity and stability gates; Markdown/LaTeX/traceability parity is synchronized. **Paraboloid geometric-response result is FROZEN DEVELOPMENT_NOT_SERIS and the fixed-geometry equal-resource comparison phase is authorized.** Continue #156 implemented `src/fixed_geometry.rs` and geometry-agnostic `src/annual_irradiance.rs`; candidate topology now feeds canonical resource normalization and shared visibility/sky/annual evaluation contracts. Whole-crate framework evidence run `36288726695` is executing; no comparative headline result has been promoted.
+- Total explicit user `Continue` commands counted through 27 September 2026: **157**.
+- Most recent mandatory audit: `docs/audits/2026-09-27_three-pass_audit-51.md`.
+- That audit occurred on Continue #157.
+- Passes since most recent audit: **0**.
+- Audit 50 at Continue #154 correctly withheld release pending the completed canonical consumer refactor. Continue #155 reconciled stale governance state against post-audit evidence: commit `53d7d3420202ea81bf5b0a8d40b1ee87a93a68c4`, Rust run `36240614922` PASS, e2e run `36240614938` PASS, artifact `10905852093` SHA-256 `e450ccd79f303bd1a701293dbbc5613f156520c122a92ccbb6229b08e2eaf110`. Fresh artifact inspection closes exact-resource, convergence, crossover, sensitivity and stability gates; Markdown/LaTeX/traceability parity is synchronized. **Paraboloid geometric-response result is FROZEN DEVELOPMENT_NOT_SERIS and the fixed-geometry equal-resource comparison phase is authorized.** Continue #156 implemented `src/fixed_geometry.rs` and geometry-agnostic `src/annual_irradiance.rs`; candidate topology now feeds canonical resource normalization and shared visibility/sky/annual evaluation contracts. Audit 51 found framework runs `36288726695` and `36288726639` fail compilation because the shared annual evaluator had an ambiguous `sum()` type. Commit `f6e46aafc0c799ba69274faffec725abc9340d96` corrects the compile defect. **Shared framework freeze and controlled candidate comparisons remain withheld pending fresh successful CI; no comparative headline result has been promoted.**
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **8**.
+- Current ChatGPT session explicit `Continue` count: **9**.
 - Persisted technical/audit state was recovered from the master source, this counter, the audit ledger, Audit 46, Audit 47 and repository history before substantive work.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #157 is Pass 3 of audit cycle 51 and therefore requires mandatory Audit 51 before substantive expansion. Inspect Rust framework evidence run 36288726695 (and associated e2e run 36288726639), correct framework defects if any, and do not promote comparative performance claims before the audit closes the common-pipeline validation gates.**
+- Next-pass state: **Continue #158 is Pass 1 of audit cycle 52. Inspect fresh whole-crate/e2e framework CI from correction `f6e46aafc0c799ba69274faffec725abc9340d96` or descendant; close framework validation before any controlled candidate comparison execution or headline result.**
 
 ## Session-rotation rule
 
