@@ -70,3 +70,10 @@ A future manufacturability branch of the folded-surface family may represent a *
 This is an implementation/manufacturability branch, not a new irradiance model and not an exception to the common framework. Its deployed mesh must still enter the same `resource_geometry`, visibility, sky-view and annual-irradiance pipeline and satisfy the same matched-resource contracts.
 
 Future engineering constraints to add only in a later implementation layer include minimum bend radius, allowable PV-cell/interconnect strain, hinge/rib/cable geometry, deployment and stow energy, wind-load and wind-stow operation, mechanism/support mass, fatigue and maintenance, deployment reliability, and manufacturing/lifecycle cost. None of these penalties is included in the frozen geometric irradiance comparison at this stage, so no deployable-sheet advantage may be claimed from irradiance geometry alone.
+
+
+## Pass 159 validation status
+
+Whole-crate Rust evidence at commit `adde4deec12cdc5e44cc340ac59ea7edf9f9080a` passes in run `36290127196`. Retained artifact `10921797900` has SHA-256 `be82d75632c40b4deea0867fc5a61f4c84f79a143e4951529bffcb359f804ae6`. The refined hemisphere test demonstrates monotone multi-resolution convergence of discrete area/footprint ratio toward the analytical value 2 and meets the declared 1% tolerance at the refined mesh. Equal-land/equal-PV contracts, matched-packing rejection, finite/upward geometry, shallow-paraboloid flat limit and folded-surface secant relation also pass.
+
+The associated full NASA POWER end-to-end run `36290127283` was still executing when Pass 159 was recorded. Therefore the framework is **whole-crate-test-qualified but pending end-to-end qualification** and is not yet released for candidate performance execution or ranking.
