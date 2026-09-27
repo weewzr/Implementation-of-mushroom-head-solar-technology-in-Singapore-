@@ -727,18 +727,18 @@ provides a diagnostic residual, with any numerical acceptance tolerance required
 
 The project must then validate model layers in increasing complexity: cardinal-vector and limiting-case tests; analytical paraboloid and hemisphere geometry; direct-incidence front/grazing/back cases; irradiance closure; plane-of-array transposition; visibility/ray tests; diffuse sky-view benchmarks; thermal/electrical checks; and finally annual integration. Uncertainty and sensitivity analysis follow only after the corresponding input/model layer exists.
 
-\section{Planned comparative results format}
-When the validation gates close, every candidate will be reported under the same resource envelope and weather record. The comparison table will contain, at minimum: active PV area, land footprint, packing ratio, annual gross PV energy, annual actuator/auxiliary energy where applicable, annual net energy, land-normalised net energy, PV-area-normalised productivity, and uncertainty or sensitivity bounds. Structural/cost quantities will be added only when their models and inputs are sufficiently defined.
+\section{Controlled comparison reporting framework}
+The controlled irradiance comparison now reports accepted candidates under the same resource envelope and weather record. Electrical, structural and economic quantities remain gated separately. The comparison table will contain, at minimum: active PV area, land footprint, packing ratio, annual gross PV energy, annual actuator/auxiliary energy where applicable, annual net energy, land-normalised net energy, PV-area-normalised productivity, and uncertainty or sensitivity bounds. Structural/cost quantities will be added only when their models and inputs are sufficiently defined.
 
-The report will also include convergence plots for mesh/time/sky resolution, representative shading/sky-view renders, annual or monthly energy distributions, and a packing-productivity trade-off plot. These are specified deliverables, not currently available evidence, and therefore are not populated with synthetic numbers in this current-state report.
+The report will also include convergence plots for mesh/time/sky resolution, representative shading/sky-view renders, annual or monthly energy distributions, and a packing-productivity trade-off plot. The Audit-59 publication layer now provides the accepted equal-resource irradiance plots and table. Electrical-energy, structural, cost and carbon outputs remain unavailable until their corresponding validated model layers are released.
 
 \section{Current technical conclusions}
-At the present evidence level, the project supports conclusions about formulation rather than a winning design. Three-dimensional PV geometry is fundamentally a packing-versus-productivity problem under constrained land. The paraboloid provides an exact curved-surface benchmark, while sphere and hemisphere geometries provide symmetry and area/projection benchmarks. Faceted, petal, folded and free-form designs can be evaluated through one common mesh representation. Slow tracking should be assessed through net energy, wind loading, balance, wear and reliability rather than by maximising angular momentum.
+At the Phase-I evidence level, the project supports audited irradiance-level comparison and validated model foundations rather than a universal winning design. Three-dimensional PV geometry is fundamentally a packing-versus-productivity problem under constrained land. The paraboloid provides an exact curved-surface benchmark, while sphere and hemisphere geometries provide symmetry and area/projection benchmarks. Faceted, petal, folded and free-form designs can be evaluated through one common mesh representation. Slow tracking should be assessed through net energy, wind loading, balance, wear and reliability rather than by maximising angular momentum.
 
-No candidate is currently established as optimal for Singapore. That conclusion is intentional: the next meaningful advance is a validated annual irradiance/visibility/electrical chain followed by equal-resource comparison, not an unsupported optimisation result.
+No candidate is established as universally optimal for Singapore. The equal-resource irradiance comparison is now frozen; the next evidence layer is validated temperature/electrical coupling and engineering penalties, not unsupported optimisation.
 
-\section{Status and next step}
-The explanatory visual suite now includes the equal-footprint concept, ENU convention, solar-ray schematic, direct-incidence geometry, paraboloid geometry, a mechanical free-body/tracking diagram and a validation-first method flowchart. They remain conceptual rather than quantitative evidence. The mechanical free-body/tracking and method/validation-flow gates are now present in source. The remaining visual gates are evidence-backed convergence/uncertainty plots when numerical evidence exists, compilation of this SVG-enabled LaTeX source, and page-by-page PDF visual QA.
+\section{Phase-I evidence boundary and transition}
+The beginner-first communication architecture, graphical abstract and fair-comparison visuals are frozen as communication foundations. Quantitative Audit-59 comparison figures and the publication table are integrated later in this report. Phase II begins from this baseline with thermal/electrical and engineering evidence gates; communication foundations are reopened only for material regression.
 
 
 
@@ -803,11 +803,17 @@ where $M_L$ is the land-energy multiplier, $\Pi=A_{\rm PV}/A_{\rm land}$ is pack
 \end{table}
 
 \section{Deployable / origami / foldable solar sheets}
-\textbf{Implemented and tested foundation.} The frozen single-crease fixture verifies deterministic deployment states, rigid-facet geometry preservation and canonical mesh/resource conversion. A controlled multi-crease accordion/fan validation fixture is now being implemented separately; it is not a general origami solver.
+\textbf{Implemented and tested foundation.} The frozen single-crease fixture verifies deterministic deployment states, rigid-facet geometry preservation and canonical mesh/resource conversion. The controlled multi-crease accordion/fan deterministic validation fixture is frozen in its narrow Audit-60 scope; it is not a general origami solver.
 
 \textbf{Specified but not yet validated as engineering performance.} Fixture-specific crease compatibility and collision checks precede any annual irradiance coupling. Flexible-PV bend radius and strain, actuation, storm stowage, fatigue, maintenance and manufacturability require separate evidence.
 
 \textbf{Candidate future architectures.} Radial/umbrella folding, accordion/fan folding, Miura-type tessellation, roll-out petals and tensioned membranes remain hypotheses to compare rather than selected solutions. Only a validated deployed mesh may later enter the frozen annual irradiance pipeline.
+
+\section{Engineering implementation evidence boundary}
+Phase I establishes interfaces and requirements rather than a completed physical-system design. Engineering implementation must later account for mounting, routing, actuation where applicable, storm stowage, maintainability and geometry-dependent penalties. Detailed structural optimisation and full wind analysis are not Phase-I results.
+
+\section{Manufacturing evidence boundary}
+Manufacturing routes remain an evidence gap. No claim that folding, printing or a particular fabrication route lowers cost is released in Phase I. Phase III will compare manufacturable concepts only after material, process, lifetime and cost evidence is sourced.
 
 \section{Electrical and net-energy performance: first implemented conversion kernel}
 In plain language, sunlight reaches the panel, the panel warms, temperature changes conversion efficiency, the module produces DC electricity, wiring and inverter stages lose some of that electricity, mechanisms may consume auxiliary power, and the remainder is net useful electrical output. The frozen geometry layer supplies an \textbf{IRRADIANCE RESULT}; the electrical kernel produces a separate \textbf{ELECTRICAL CONVERSION RESULT}. No annual geometry-to-electricity comparison is released in this phase.
@@ -860,5 +866,27 @@ P_{\rm ac}(t)&=\mathcal{I}\!\left(P_{\rm dc}(t)\right)\left(1-L_{\rm sys}\right)
 E_{\rm net,yr}&=\sum_t P_{\rm ac}(t)\Delta t-E_{\rm aux}.
 \end{align}
 Here $G_{\rm POA}$ is plane-of-array irradiance, $T_a$ ambient temperature, $u$ wind speed or other thermal-model input, $\boldsymbol\theta_T$ the selected thermal-model parameters, $T_m$ module temperature, and $\mathcal{I}$ the selected inverter conversion model. These equations define architecture only until their empirical/design parameters are sourced and validated.
+
+\section{Cost and techno-economics evidence boundary}
+No LCOE or project-cost result is released in Phase I. CAPEX, OPEX, lifetime, replacement, mechanism and uncertainty inputs remain to be sourced and modelled.
+
+\section{Carbon and sustainability evidence boundary}
+No headline CO2-reduction result is released in Phase I. Later carbon analysis must distinguish operational grid displacement from embodied/lifecycle effects and retain Singapore-specific source provenance.
+
+\section{Integrated design comparison evidence boundary}
+The controlled irradiance comparison is one input to the eventual integrated comparison. Electrical net energy, deployability, structural, manufacturing, cost and carbon layers are not yet sufficiently complete for a multi-criterion design conclusion.
+
+\section{Recommended solution concepts evidence boundary}
+No universal geometry recommendation is released at Phase-I exit. Later recommendations must be scenario-specific and supported by all relevant upstream evidence rather than by irradiance performance alone.
+
+\section{Limitations and future work}
+Phase-I limitations include DEVELOPMENT\_NOT\_SERIS weather/irradiance status, simplified thermal treatment inside the narrow electrical kernel, absent geometry-specific electrical mismatch, absent detailed inverter/MPPT and string/bypass-diode behaviour, unresolved moving-system auxiliary energy, and incomplete structural, manufacturing, cost and carbon models. These are explicit Phase-II-and-later evidence gates, not hidden assumptions.
+
+\section{Conclusion}
+Phase I establishes a reproducible and audited foundation for testing whether three-dimensional PV can improve land-normalised solar utilisation in Singapore. The founding mushroom-head concept remains a research origin rather than a presumed winner. The fixed-geometry irradiance comparison is frozen at DEVELOPMENT\_NOT\_SERIS status, deployable single-crease and accordion fixtures are frozen only in narrow kinematic scopes, and the first geometry-agnostic electrical conversion kernel is frozen only as a bounded API/test foundation. Phase II must determine how audited irradiance differences translate into defensible net electrical-energy differences and engineering penalties before stronger design conclusions are permitted.
+
+\appendix
+\section{Phase-I baseline and reproducibility record}
+The Phase-I report baseline is the exact 32-page PDF from commit \texttt{3f54605f53a6e88f145713f69d4136da297f2608}, LaTeX run \texttt{36330877451}, artifact \texttt{10935284619}, artifact SHA-256 \texttt{3f4b0efe50648c2f6bb23890a893d88b04848d288ffe363d8275a18fd9749ec3}, exact PDF SHA-256 \texttt{2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838}. This is a Phase-I baseline, not a frozen final report; later phases may expand and reorganise it. Detailed audit history and CI evidence remain in \texttt{docs/audits/}.
 
 \end{document}
