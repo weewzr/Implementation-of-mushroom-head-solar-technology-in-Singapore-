@@ -813,7 +813,7 @@ where $M_L$ is the land-energy multiplier, $\Pi=A_{\rm PV}/A_{\rm land}$ is pack
 In plain language, sunlight reaches the panel, the panel warms, temperature changes conversion efficiency, the module produces DC electricity, wiring and inverter stages lose some of that electricity, mechanisms may consume auxiliary power, and the remainder is net useful electrical output. The frozen geometry layer supplies an \textbf{IRRADIANCE RESULT}; the electrical kernel produces a separate \textbf{ELECTRICAL CONVERSION RESULT}. No annual geometry-to-electricity comparison is released in this phase.
 
 \begin{figure}[htbp]\centering
-\includesvg[width=\textwidth]{../figures/electrical_conversion_flow}
+\includesvg[width=\textwidth,inkscapelatex=false]{../figures/electrical_conversion_flow}
 \caption{Geometry-agnostic electrical conversion chain implemented in \texttt{src/electrical.rs}. The first thermal relation uses the selected module's declared NMOT basis and is deliberately replaceable.}
 \end{figure}
 
