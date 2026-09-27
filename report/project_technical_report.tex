@@ -16,6 +16,15 @@
 \date{23 September 2026}
 \begin{document}
 \maketitle
+\begin{abstract}
+Singapore's limited land motivates photovoltaic designs that must be judged by useful solar resource per constrained footprint rather than installed module area alone. This project began from a rotating mushroom-head photovoltaic hypothesis and asks, without assuming that geometry wins, whether three-dimensional surfaces can improve land-normalised annual solar collection under fair resource accounting. Analytical geometry and limiting cases are used to verify a Rust triangular-mesh model combining solar position, incidence, explicit visibility/self-shadowing, sky-view treatment and annual integration with NASA POWER Singapore 2024 development weather. A retained, audited DEVELOPMENT\_NOT\_SERIS comparison now evaluates flat, paraboloidal mushroom, hemisphere, faceted-canopy and folded-surface candidates under equal-land and equal-PV contracts, with explicit packing efficiency and land-energy accounting and converged mesh/sky settings. The work also establishes a narrow rigid-origami kinematic foundation and is extending it toward controlled deployable fixtures. The present validated scope is irradiance geometry rather than complete electricity, structural, cost or carbon performance; those layers are explicitly reserved for subsequent model stages. The intended contribution is a reproducible framework that separates geometric packing from per-area solar productivity so later engineering and techno-economic conclusions can be tested rather than assumed.
+\end{abstract}
+
+\section*{Graphical abstract / visual project overview}
+\textbf{Singapore land constraint $\rightarrow$ flat PV baseline $\rightarrow$ founding mushroom-head idea $\rightarrow$ fair equal-resource geometry tests $\rightarrow$ Sun + NASA POWER weather + SPA $\rightarrow$ incidence + visibility + sky view $\rightarrow$ annual DEVELOPMENT\_NOT\_SERIS comparison $\rightarrow$ deployable/origami branch $\rightarrow$ future net electricity + cost + carbon $\rightarrow$ evidence-based recommendations.}
+
+\tableofcontents
+\clearpage
 
 \begin{abstract}
 This project investigates three-dimensional photovoltaic geometries originating from a rotating mushroom-head concept for land-constrained Singapore. The principal hypothesis is spatial packing: additional active PV area may be placed above a constrained horizontal footprint while attempting to retain irradiation quality, sky visibility, ventilation and usable space beneath. No candidate geometry is assumed optimal. Exploratory calculations are distinguished from validated yield predictions.
@@ -752,3 +761,18 @@ Flat, frozen paraboloid, hemisphere, faceted-canopy and folded-surface topology 
 This freezes the comparison methodology, not a geometry ranking. Controlled matched-resource annual candidate comparisons are authorized for the next session. Thermal/electrical conversion, tracking, economics and topology optimisation remain outside scope. The deployable/foldable solar-sheet concept remains a future folded-surface implementation branch; bend radius, PV strain, deployment mechanism, wind stow, mass, maintenance and cost penalties are not included in the frozen irradiance comparison.
 
 \end{document}
+
+\section{Controlled fixed-geometry results: audited DEVELOPMENT\_NOT\_SERIS layer}
+The controlled comparison is frozen at the irradiance level by Early Major-Result Audit 59. The retained evidence is GitHub Actions run 36323622005 at commit \texttt{137327c8e54f6001bbac8a72e85a90c7aa58d0a8}, artifact 10933222710, SHA-256 \texttt{4c3ef238d1dd673b0389265adf9e320c1b2c63f5910a02c37f3cd1b8ddc5e51b}. Accepted annual rows use the refined 4-by-24 candidate meshes and sky resolution 16. Equal-land and equal-PV resource postconditions satisfy the declared $10^{-10}$ area tolerance. The retained decomposition closes direct + diffuse + ground = total, while land-normalised irradiance closes to PV-normalised irradiance times packing ratio. Matched packing at $\Pi=1$ is accepted only where the frozen topology intrinsically has that packing; incompatible candidates are explicitly rejected rather than rescaled into artificial feasibility.
+
+These results must be interpreted as controlled irradiance evidence, not as an overall design ranking. Packing ratio describes how much active area occupies a constrained footprint; packing efficiency describes retained irradiance productivity per PV area relative to the flat reference; their combination produces the land-energy multiplier. Orientation/incidence, self-shadowing, diffuse-sky visibility and ground reflection affect the per-area term, so additional installed PV surface does not automatically produce proportional land-normalised energy.
+
+\section{Deployable / origami / foldable solar sheets}
+\textbf{Implemented and tested foundation.} The frozen single-crease fixture verifies deterministic deployment states, rigid-facet geometry preservation and canonical mesh/resource conversion. A controlled multi-crease accordion/fan validation fixture is now being implemented separately; it is not a general origami solver.
+
+\textbf{Specified but not yet validated as engineering performance.} Fixture-specific crease compatibility and collision checks precede any annual irradiance coupling. Flexible-PV bend radius and strain, actuation, storm stowage, fatigue, maintenance and manufacturability require separate evidence.
+
+\textbf{Candidate future architectures.} Radial/umbrella folding, accordion/fan folding, Miura-type tessellation, roll-out petals and tensioned membranes remain hypotheses to compare rather than selected solutions. Only a validated deployed mesh may later enter the frozen annual irradiance pipeline.
+
+\section{Electrical and net-energy performance: required next model chain}
+The next report-critical model will convert incident irradiance $G_{\rm inc}$ into module temperature $T_m$, temperature-adjusted module efficiency $\eta(T_m)$, DC electricity, mismatch/wiring losses, inverter/system conversion and auxiliary/deployment/tracking consumption to obtain annual net electricity. A representative module/design basis must be selected from traceable sources before numerical results are released. Required inputs include nominal efficiency, temperature coefficient, a justified module-temperature basis such as NOCT or a better-supported thermal model, module area, relevant DC characteristics, bifaciality only if used, inverter efficiency/system-loss assumptions and auxiliary-energy assumptions. The historical 23\% placeholder is not a validated module specification.
