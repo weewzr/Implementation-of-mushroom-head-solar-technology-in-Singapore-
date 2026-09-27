@@ -1,6 +1,6 @@
 # Electrical Design-Basis Candidate Register
 
-Status: source-selection work for Section 15. No module is yet selected as the universal or final project basis.
+Status: Audit 61 provisional rigid-PV design basis selected for the first geometry-agnostic electrical kernel. This is a reproducible modelling basis, not a claim that the product is the best solar panel.
 
 ## Parameter contract
 | Parameter | Symbol | Unit | Physical meaning | Required source | Selected value | Uncertainty/sensitivity | Geometry dependence | Status |
@@ -43,3 +43,30 @@ Sources:
 
 ## Selection rule for Continue #184+
 Select one specific rigid c-Si module datasheet as the first fixed-geometry electrical basis. Keep CdTe as a technology-sensitivity candidate unless a specific report question requires it. Do not select a flexible/deployable PV product until authoritative bend-radius/flex-cycle/electrical data exist. Do not use the historical 23% placeholder merely because a current family happens to advertise a similar maximum efficiency.
+
+
+## Audit 61 provisional rigid-PV electrical design basis
+
+**Designation:** PROVISIONAL RIGID-PV ELECTRICAL DESIGN BASIS — Canadian Solar TOPHiKu6 CS6.2-48TM-460H, monofacial N-type TOPCon.
+
+**Selection rationale:** the manufacturer datasheet provides the complete first-kernel parameter set in one authoritative product document: technology, rated power, STC efficiency, dimensions, mass, Pmax temperature coefficient, STC reference temperature and NMOT basis. Selection is for data completeness, traceability, conventional rigid-module representativeness and compatibility with the planned temperature/electrical model; it is not an efficiency ranking.
+
+| Field | Audit-61 basis |
+|---|---|
+| Technology | monofacial N-type TOPCon crystalline silicon |
+| Manufacturer / model | Canadian Solar TOPHiKu6 CS6.2-48TM-460H |
+| Rated Pmax at STC | 460 W |
+| STC module efficiency | 23.0% |
+| Dimensions | 1762 x 1134 x 35 mm |
+| Physical face area from dimensions | 1.998108 m2 |
+| Mass | 21.8 kg |
+| Pmax temperature coefficient | -0.29 %/degC = -0.0029 1/degC |
+| Reference temperature | 25 degC cell temperature under STC |
+| NMOT | 42 +/- 3 degC |
+| NMOT test basis | 800 W/m2 irradiance, AM1.5, ambient 20 degC, wind 1 m/s |
+| Bifaciality | not applicable to this monofacial basis |
+| Source date / provenance | Canadian Solar manufacturer datasheet, accessed 2026-09-27: https://www.canadiansolar.com/wp-content/uploads/sites/3/2026/01/CS-Datasheet-TOPHiKu6_All-Black_CS6.2-48TM-H_v1.0C25_F23_D1_NA-1.pdf |
+
+For the first implementation, use the datasheet NMOT as the explicit thermal-model basis. A simple declared NMOT temperature relation may be used only as the initial model and must remain replaceable; later geometry-specific ventilation/convective effects are outside this first kernel. The selected 23.0% efficiency is justified specifically by the 460H datasheet row; it does not revive the historical unsourced 23% placeholder.
+
+Flexible/deployable PV remains a separate later design basis and must not inherit this rigid-module mass, thermal or mechanical basis.
