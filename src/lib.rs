@@ -22,3 +22,5 @@ pub mod visibility;
 pub mod resource_geometry;
 
 pub mod annual_irradiance;
+
+pub mod fixed_geometry;
