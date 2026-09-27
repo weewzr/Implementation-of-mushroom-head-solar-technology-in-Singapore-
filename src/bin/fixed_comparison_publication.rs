@@ -37,9 +37,9 @@ fn main()->io::Result<()> {
     let mut csv=String::from("status,geometry,resource_contract,active_pv_area_m2,land_footprint_m2,packing_ratio,packing_efficiency,land_energy_multiplier,annual_direct_wh,annual_diffuse_wh,annual_ground_wh,annual_total_wh,convergence_status\n");
     for x in &r {csv+=&format!("DEVELOPMENT_NOT_SERIS,{},{},{:.12},{:.12},{:.12},{:.9},{:.9},{:.6},{:.6},{:.6},{:.6},accepted_refined_4x24_sky16\n",x.geometry,x.contract,x.pv,x.land,x.packing,x.pack_eff,x.land_mult,x.direct,x.diffuse,x.ground,x.total);}
     fs::write("data/processed/audit59_publication_table.csv",csv)?;
-    let mut tex=String::from("\\begin{scriptsize}\\begin{tabular}{llrrrrrrrrrr}\\toprule\\nGeometry & Contract & $A_{PV}$ & $A_{land}$ & $\\Pi$ & $\\eta_{pack}$ & $M_L$ & Direct & Diffuse & Ground & Total & Conv. \\\\\\ \\midrule\\n");
-    for x in &r { tex+=&format!("{} & {} & {:.3} & {:.3} & {:.3} & {:.3} & {:.3} & {:.0} & {:.0} & {:.0} & {:.0} & yes \\\\\\ \\n",label(&x.geometry),x.contract.replace("_","\\_"),x.pv,x.land,x.packing,x.pack_eff,x.land_mult,x.direct,x.diffuse,x.ground,x.total); }
-    tex+="\\bottomrule\\end{tabular}\\end{scriptsize}\\n"; fs::write("data/processed/audit59_publication_table.tex",tex)?;
+    let mut tex=String::from("\\begin{scriptsize}\\begin{tabular}{llrrrrrrrrrr}\\toprule\nGeometry & Contract & $A_{PV}$ & $A_{land}$ & $\\Pi$ & $\\eta_{pack}$ & $M_L$ & Direct & Diffuse & Ground & Total & Conv. \\\\\\ \\midrule\n");
+    for x in &r { tex+=&format!("{} & {} & {:.3} & {:.3} & {:.3} & {:.3} & {:.3} & {:.0} & {:.0} & {:.0} & {:.0} & yes \\\\\\ \n",label(&x.geometry),x.contract.replace("_","\\_"),x.pv,x.land,x.packing,x.pack_eff,x.land_mult,x.direct,x.diffuse,x.ground,x.total); }
+    tex+="\\bottomrule\\end{tabular}\\end{scriptsize}\n"; fs::write("data/processed/audit59_publication_table.tex",tex)?;
     println!("publication visuals generated from Audit-59 accepted rows; identity check: M_L = Pi * eta_pack");
     for x in base { assert!((x.land_mult-x.packing*x.pack_eff).abs()<2e-9); }
     Ok(())
