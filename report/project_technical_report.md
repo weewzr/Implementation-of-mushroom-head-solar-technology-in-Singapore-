@@ -40,6 +40,12 @@ The current static folded-surface candidate is **not** an origami simulation. A 
 
 **Figure — Future deployable-sheet architecture.** A flat-made PV sheet receives a crease pattern, moves through intermediate deployment states, becomes a 3-D canopy, and can have a separate storm-stowed state. This is an architecture specification, not a simulated performance result.
 
+### What the computer sees when it folds a sheet
+
+![Single-crease mesh states at three deployment values](../figures/origami_mesh_states.svg)
+
+**Figure — A real moving mesh, in simple words.** Dots are **vertices** $V$, little flat pieces are **facets** $F$, dashed fold lines are **creases** $C$, and $\lambda$ says how open the sheet is. This is different from the static folded candidate: the computer can generate intermediate states instead of receiving only one folded-looking final shape.
+
 For rigid-origami cases, vertex positions \(\mathbf x_i(\lambda)\) must preserve edge lengths and facet dimensions while crease angles change. Flexible variants must instead bound strain and bend radius explicitly. Required validation includes manifold connectivity, crease compatibility, self-intersection/collision, edge-length preservation, facet-area preservation, minimum bend radius, allowable PV/interconnect strain, and active-area/resource preservation. Candidate mechanisms include radial/umbrella folding, Miura-ori or related tessellations, accordion/fan folding, roll-out petals and tensioned membranes. No mechanism is selected here.
 
 Only a validated **deployed mesh** may later enter the frozen common resource → visibility/self-shadowing → sky-view → annual-irradiance pipeline. Folding mechanics remain a separate layer. Transport/manufacturing simplification or cost reduction is only a hypothesis until deployment mechanics, wind stowage, actuator energy, structural mass, fatigue, maintenance and economics are modelled.
