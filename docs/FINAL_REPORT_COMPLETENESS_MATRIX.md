@@ -16,7 +16,7 @@ Status vocabulary: EMPTY / OUTLINE / DRAFT / EVIDENCE-PENDING / VALIDATED / FROZ
 | 9 V&V and uncertainty | VALIDATED | convergence/sensitivity identities | convergence plots needed | V&V summary | audited evidence incl. Audit 59 | provenance sources | generate paper-facing plots/table |
 | 10 Fixed candidates | VALIDATED | candidate parameterisations | candidate diagrams/renders | resource table | common framework frozen | none beyond assumptions | systematic candidate subsections |
 | 11 Controlled fixed-geometry results | FROZEN | audited irradiance metrics | plots required | artifact 10933222710 | Early Audit 59 PASS | NASA/model provenance | create reproducible plots/tables |
-| 12 Deployable/origami | DRAFT | frozen single crease | existing single-crease figures | validation table | Audit-56 freeze | origami literature later | accordion/fan fixture next |
+| 12 Deployable/origami | EVIDENCE-PENDING | frozen single crease | existing single-crease figures | validation table | Audit-56 freeze | origami literature later | accordion/fan fixture next |
 | 13 Engineering implementation | OUTLINE | later mechanics | implementation schematic | requirements table | evidence pending | standards/literature | Phase III |
 | 14 Manufacturing | OUTLINE | none yet | process concepts | manufacturing matrix | evidence pending | manufacturing sources | Phase IV |
 | 15 Electrical/energy | OUTLINE | module temperature/DC/system loss/net energy | loss-chain figure | module/design-basis table | explicit sourced module basis + tests | datasheet/standards/literature | select design basis in later pass |
@@ -30,3 +30,14 @@ Status vocabulary: EMPTY / OUTLINE / DRAFT / EVIDENCE-PENDING / VALIDATED / FROZ
 
 ## Continue #179 progress
 Sections advanced: 5, 9, 10, 11 and report planning/front matter. Controlled fixed-geometry comparison frozen DEVELOPMENT_NOT_SERIS by Early Major-Result Audit 59 using artifact 10933222710. Communication gate remains open because full re-render of artifact 10933596872 still shows page-2/page-3 SVG text overlap. Project remains on schedule for approximately Continue #227.
+
+
+## Continue #180 progress
+- Sections advanced: front matter/abstract, 5, 9-12, and 15 requirements.
+- Figures added: `figures/accordion_fan_fixture.svg` (documentation follows implemented source, but computational validation is still pending fresh CI).
+- Code/models added: controlled `AccordionFixture` in `src/origami.rs` with explicit V/F/C representation, lambda states, canonical mesh conversion, fixture-specific compatibility check, and conservative non-adjacent-facet AABB collision check with known-valid and deliberately invalid fixtures.
+- Validation gates closed: none newly frozen in this pass yet. Controlled fixed comparison remains frozen from Audit 59.
+- Communication blocker: targeted page-2/page-3 SVG fixes committed at `faf35479...` and `2a6636ea...`; fresh PDF CI/render evidence is pending before communication freeze.
+- Origami blocker: fresh whole-crate Rust CI/tests must pass before the accordion fixture can trigger early major-result audit/freeze. Collision detection is deliberately fixture-level AABB overlap and does not establish general triangle-triangle continuous collision mechanics.
+- Planned next pass: inspect fresh PDF and Rust CI; close/freeze communication if clean; audit/freeze accordion only if whole-crate evidence qualifies; generate paper-facing comparison tables/plots and graphical abstract.
+- Schedule: ON SCHEDULE for approximately Continue #227; Phase I exit remains targeted around #187.
