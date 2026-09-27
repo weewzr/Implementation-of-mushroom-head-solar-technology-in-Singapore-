@@ -113,6 +113,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-27_three-pass_audit-58.md` | Mandatory Pass 3 / Continue #178 | Report-centric completion reorientation + comparison/PDF release audit | ~#227 bounded completion programme established; comparison artifact 10933222710 correctly packaged and ready for direct file audit but not yet frozen; corrected PDF artifact 10933596872 ready for final 23-page regression freeze review; Audit-56 origami freeze preserved; accordion authorised only after closure inspections |
 
+| `2026-09-27_early-major-result_audit-59.md` | Early major-result / Continue #179 | Direct retained controlled-comparison artifact release audit | PASS: artifact 10933222710 directly inspected and metric/resource/convergence/conservation gates recomputed; controlled fixed-geometry irradiance comparison FROZEN DEVELOPMENT_NOT_SERIS; no winner declaration. Communication PDF remains HOLD due page-2/page-3 overlap. |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
