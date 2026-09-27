@@ -1022,3 +1022,31 @@ Phase-I limitations include DEVELOPMENT_NOT_SERIS irradiance/weather status, sim
 ## Phase-I baseline artifact
 
 The Phase-I report baseline is the exact 32-page PDF from commit `3f54605f53a6e88f145713f69d4136da297f2608`, LaTeX run `36330877451`, artifact `10935284619`, artifact SHA-256 `3f4b0efe50648c2f6bb23890a893d88b04848d288ffe363d8275a18fd9749ec3`, exact PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`. It is the baseline from which Phase II grows, not a frozen final report.
+
+
+## Engineering implementation evidence boundary
+Phase I defines interfaces and requirements rather than a completed physical-system design. Mounting, routing, actuation, storm stowage, maintainability and geometry-dependent engineering penalties remain evidence gates. Full structural optimisation is not a Phase-I result.
+
+## Manufacturing evidence boundary
+Manufacturing remains incomplete. No claim that folding, printing or any particular fabrication route lowers cost is released in Phase I.
+
+## Cost and techno-economics evidence boundary
+No LCOE or project-cost result is released in Phase I. CAPEX, OPEX, lifetime, replacement, mechanism and uncertainty inputs remain to be sourced.
+
+## Carbon and sustainability evidence boundary
+No headline CO2-reduction result is released in Phase I. Later work must separate operational grid displacement from embodied/lifecycle effects.
+
+## Integrated design comparison evidence boundary
+The frozen irradiance comparison is only one input to the eventual integrated comparison. Net electricity, deployability, structural, manufacturing, cost and carbon evidence remain incomplete.
+
+## Recommended solution concepts evidence boundary
+No universal geometry recommendation is released at Phase-I exit. Later recommendations must be scenario-specific and evidence-backed.
+
+## Phase-I limitations and future work
+The remaining gaps include DEVELOPMENT_NOT_SERIS weather/irradiance status, a deliberately simple replaceable NMOT thermal relation, geometry-specific electrical coupling and mismatch, string/bypass-diode and detailed MPPT/inverter behaviour, moving-system auxiliary energy, and incomplete structural, manufacturing, cost and carbon models.
+
+## Phase-I conclusion
+Phase I establishes a reproducible foundation for testing land-efficient 3-D PV in Singapore without presuming the mushroom-head concept wins. The controlled irradiance comparison is frozen, deployable foundations are frozen only in narrow scopes, and the electrical kernel is frozen only as a bounded conversion/API/test foundation. Phase II must determine how the audited irradiance differences translate into defensible net electrical-energy differences and engineering penalties.
+
+## Phase-I baseline and reproducibility record
+The Phase-I report baseline is the exact 32-page PDF from commit `3f54605f53a6e88f145713f69d4136da297f2608`, LaTeX run `36330877451`, artifact `10935284619`, artifact SHA-256 `3f4b0efe50648c2f6bb23890a893d88b04848d288ffe363d8275a18fd9749ec3`, exact PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`. This is the Phase-I baseline, not a frozen final report.
