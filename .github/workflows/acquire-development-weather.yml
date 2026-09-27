@@ -35,10 +35,10 @@ jobs:
         with:
           name: controlled-comparison-evidence
           path: |
-          development-weather/SHA256SUMS
-          development-weather/qc-summary.txt
-          development-weather/fixed-geometry-comparison-run.txt
-          development-weather/fixed-geometry-comparison/
+            development-weather/SHA256SUMS
+            development-weather/qc-summary.txt
+            development-weather/fixed-geometry-comparison-run.txt
+            development-weather/fixed-geometry-comparison/
           retention-days: 90
 
 
