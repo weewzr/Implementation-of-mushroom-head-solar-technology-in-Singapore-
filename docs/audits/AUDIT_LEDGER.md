@@ -103,6 +103,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-27_three-pass_audit-53.md` | Mandatory Pass 3 / Continue #163 | Controlled fixed-geometry comparison release audit | Corrected CI passes but retained production rows use coarse 2x12 mesh; hemisphere differs -4.287% from 4x24 and explicit packing-efficiency/land-multiplier fields are absent; release withheld pending refined rerun and parity closure |
 
+| `2026-09-27_three-pass_audit-54.md` | Mandatory Pass 3 / Continue #166 | Comparison-release, beginner-PDF and origami-architecture audit | Partial pass: Rust evidence green but full e2e still running/no artifact, so comparison release held; beginner source improved but LaTeX regression found/corrected and fresh PDF/page QA pending; origami specification frozen as architecture-only, no mechanics simulated |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
