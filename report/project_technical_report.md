@@ -1,3 +1,8 @@
+# Can Three-Dimensional Photovoltaic Panels Provide a More Land-Efficient Solar Design for Singapore?
+## Geometry, Irradiance, Deployable Structures, Energy, Carbon and Techno-Economic Assessment
+
+> Final-report spine: Singapore context -> beginner-first explanation -> founding mushroom-head concept -> fair comparison -> mathematics -> analytical verification -> Rust numerical method -> V&V/uncertainty -> fixed candidates/results -> deployable structures -> engineering/manufacturing -> electrical energy -> techno-economics -> carbon -> integrated comparison -> evidence-backed recommendations -> limitations -> conclusion. The mushroom is the research origin, not a presumed winner.
+
 # Topology and Geometry Optimisation of Three-Dimensional Photovoltaic Canopies for Land-Constrained Singapore
 
 **Status:** Foundation reconstruction and analytical benchmarks — no validated Singapore performance result  
