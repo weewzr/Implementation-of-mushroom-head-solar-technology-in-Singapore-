@@ -40,6 +40,8 @@ The present static folded-surface candidate is \textbf{not} an origami simulatio
 
 \begin{figure}[htbp]\centering\includesvg[width=\textwidth]{../figures/origami_deployment_architecture}\caption{Future deployable-sheet architecture: flat manufacture, crease pattern, partial deployment, deployed 3-D canopy and a separate storm-stowed state. Architecture only; no origami performance result is claimed.}\end{figure}
 
+\paragraph{What the computer sees when it folds a sheet.}
+\begin{figure}[htbp]\centering\includesvg[width=\textwidth]{../figures/origami_mesh_states}\caption{A moving mesh in simple words. Dots are vertices $V$, flat pieces are facets $F$, dashed lines are creases $C$, and the deployment coordinate tells how open the sheet is. Unlike the static folded candidate, this prototype generates intermediate states.}\end{figure}
 For rigid-origami cases, vertex positions $\mathbf{x}_i(\ensuremath{\lambda})$ must preserve edge lengths and facet dimensions as crease angles change. Validation requires manifold connectivity, crease compatibility, self-intersection/collision checks, edge-length and facet-area preservation, minimum bend radius, allowable PV/interconnect strain, and active-area/resource preservation. Candidate mechanisms include radial/umbrella folding, Miura-ori or related tessellations, accordion/fan folding, roll-out petals and tensioned membranes. No mechanism is selected here. Only a validated deployed mesh may later enter the common resource, visibility/self-shadowing, sky-view and annual-irradiance pipeline; deployment mechanics, wind stowage, actuator energy, structural mass, fatigue, maintenance and cost remain later separate layers.
 
 \section*{Layer 3 --- engineering definitions and assumptions}
