@@ -1,0 +1,92 @@
+# Phase II Electrical and Engineering Plan — Continues #188–#197
+
+## Phase-II question
+**How do the already-audited irradiance differences translate into realistic net electrical-energy differences, and what engineering penalties arise when the geometries become physical systems?**
+
+Phase II consumes frozen Phase-I foundations. It does not reopen Audit-59 irradiance results, the frozen communication architecture, the narrow origami fixtures or the narrow electrical-kernel API/test semantics without genuine regression evidence.
+
+## A. Weather -> module temperature
+Select and validate a defensible module-temperature model before annual electrical promotion. Candidate families for #188 evidence review include the simple NOCT/NMOT relation, a Faiman-type wind-sensitive relation, and any other model supported by authoritative literature and by available Singapore development-weather fields.
+
+Selection criteria:
+- required inputs and units;
+- primary/authoritative source quality and coefficient provenance;
+- physical interpretability;
+- compatibility with NASA POWER DEVELOPMENT_NOT_SERIS POA/ambient-temperature/wind inputs;
+- mounting and wind dependence;
+- uncertainty/model-form limitations;
+- transparent Rust implementation and independent tests.
+
+No coefficient may be calibrated merely to obtain a desired electrical result.
+
+Required thermal validation contract:
+- zero/low irradiance -> module temperature approaches ambient;
+- higher irradiance at otherwise identical conditions -> higher module temperature;
+- for a wind-sensitive model, higher wind at otherwise identical conditions -> lower module temperature;
+- finite valid inputs -> finite output;
+- invalid inputs/coefficients rejected;
+- temperature and irradiance units explicit;
+- independently calculated reference/limiting fixture(s);
+- deterministic repeatability.
+
+## B. Irradiance -> electrical-energy coupling
+After the thermal model passes its gate, feed frozen irradiance outputs into the frozen geometry-agnostic electrical kernel. Preserve the separation between IRRADIANCE RESULT and ELECTRICAL CONVERSION RESULT. Annual AC/net energy is not promoted until thermal assumptions, module provenance, system-loss assumptions and integration tests are audited.
+
+## C. Nonuniform irradiance / electrical mismatch
+Quantify facet-to-facet irradiance nonuniformity first. Define a bounded mismatch model before introducing string/bypass-diode detail. Determine whether the mismatch penalty is material enough to justify a higher-fidelity electrical topology model.
+
+## D. Auxiliary energy
+Represent tracking, deployment and storm-stow consumption explicitly and separately. Fixed cases may use zero only where genuinely no moving auxiliary exists. Moving designs must not inherit zero auxiliary consumption in final comparisons.
+
+## E. Deployable engineering realism
+Develop bounded requirements for flexible/deployable concepts: minimum bend radius, PV/interconnect strain, hinge/rib/cable requirements, actuation, storm stowage and cycle life. Phase II defines requirements and sensitivities; it does not perform full FEA.
+
+## F. Wind / structural requirements
+Establish Singapore-relevant load cases, design requirements and evidence sources. Detailed structural optimisation is later work. Any simplified structural screening must be labelled and uncertainty-bounded.
+
+## G. Phase-II outputs
+Subject to validation/audit gates:
+- annual gross DC energy;
+- annual AC energy;
+- annual auxiliary energy;
+- annual net electricity;
+- PV-area-normalised electrical yield;
+- land-area-normalised electrical yield;
+- sensitivity and uncertainty outputs.
+
+## Bounded pass budget
+| Continue | Bounded task |
+|---|---|
+| #188 | thermal-model evidence selection, comparison and implementation/test contract; no annual kWh |
+| #189 | mandatory Audit 63 and thermal-model validation decision |
+| #190 | implement/test selected thermal model |
+| #191 | couple validated thermal model to frozen electrical kernel |
+| #192 | mandatory Audit 64 / first electrical-coupling review |
+| #193 | controlled annual electrical integration on frozen fixed geometries, only if authorized |
+| #194 | bounded nonuniform-irradiance/mismatch model |
+| #195 | mandatory Audit 65 / electrical-result review |
+| #196 | auxiliary/deployability engineering penalties and sensitivities |
+| #197 | Phase-II integration/closure or explicit bounded carryover |
+
+The phase does not silently extend beyond #197. Genuine failed validation may rebalance tasks, but the failure and revised bounded allocation must be recorded.
+
+## Exact Continue #188 contract
+Do **not** generate annual electrical geometry results. Compare at minimum:
+1. simple datasheet NOCT/NMOT temperature relation;
+2. Faiman-type wind-sensitive temperature model;
+3. another model only if authoritative evidence and available inputs make it genuinely competitive.
+
+For each candidate record:
+- equation and dimensional units;
+- coefficient definitions and authoritative provenance;
+- required weather/mounting inputs;
+- whether NASA POWER DEVELOPMENT_NOT_SERIS fields satisfy those inputs without invented conversions;
+- wind and mounting sensitivity;
+- expected applicability to conventional rigid modules versus unusual 3-D mounting;
+- uncertainty/model-form limitations;
+- Rust API shape and validation burden.
+
+Select the simplest scientifically defensible model, not the model producing the most favorable energy result. Prepare, but do not yet implement unless #188 evidence unambiguously closes the selection gate, the Rust function/parameter contract and the thermal validation fixtures listed in Section A.
+
+## Scope exclusions through this contract
+No Miura-ori optimisation, topology optimisation, full structural FEA, LCOE, headline CO2 reduction, or unsupported flexible-PV performance claim is authorized by this plan.
