@@ -28,9 +28,9 @@ impl AccordionFixture{
  pub fn triangles(&self,lambda:f64)->Result<Vec<Triangle>,&'static str>{let v=self.state(lambda)?;Ok(self.facets.iter().map(|f|Triangle{v:[v[f[0]],v[f[1]],v[f[2]]]}).collect())}
  pub fn crease_compatible(&self)->bool{self.creases.iter().all(|c|c.a<self.vertices.len()&&c.b<self.vertices.len()&&c.a!=c.b)&&self.creases.windows(2).all(|w|w[0].deployed_angle_rad.signum()!=w[1].deployed_angle_rad.signum())}
  pub fn has_collision(vertices:&[Vec3],facets:&[[usize;3]])->bool{
-  // Fixture-level conservative test: non-adjacent facet AABBs with positive-volume overlap.
+  // Fixture-level conservative broad-phase test: non-adjacent facet AABB overlap, including coplanar overlap in two axes. This can flag false positives and can miss edge-only/continuous swept collisions; it is not general triangle-triangle collision mechanics.
   fn bounds(v:&[Vec3],f:&[usize;3])->([f64;3],[f64;3]){let mut lo=[f64::INFINITY;3];let mut hi=[f64::NEG_INFINITY;3];for &i in f{let p=[v[i].x,v[i].y,v[i].z];for k in 0..3{lo[k]=lo[k].min(p[k]);hi[k]=hi[k].max(p[k]);}}(lo,hi)}
-  for i in 0..facets.len(){for j in i+1..facets.len(){if facets[i].iter().any(|x|facets[j].contains(x)){continue}let(a,b)=bounds(vertices,&facets[i]);let(c,d)=bounds(vertices,&facets[j]);if(0..3).all(|k|b[k]>c[k]+1e-10&&d[k]>a[k]+1e-10){return true}}}false
+  for i in 0..facets.len(){for j in i+1..facets.len(){if facets[i].iter().any(|x|facets[j].contains(x)){continue}let(a,b)=bounds(vertices,&facets[i]);let(c,d)=bounds(vertices,&facets[j]);let overlap:[f64;3]=[0,1,2].map(|k|b[k].min(d[k])-a[k].max(c[k]));let positive=overlap.iter().filter(|&&x|x>1e-10).count();let nonnegative=overlap.iter().all(|&x|x>=-1e-10);if nonnegative&&positive>=2{return true}}}false
  }
 }
 #[cfg(test)]mod tests{use super::*;fn near(a:Vec3,b:Vec3,t:f64)->bool{(a.x-b.x).abs()<=t&&(a.y-b.y).abs()<=t&&(a.z-b.z).abs()<=t}fn vecs_near(a:&[Vec3],b:&[Vec3],t:f64)->bool{a.len()==b.len()&&a.iter().zip(b).all(|(&x,&y)|near(x,y,t))}fn dist(a:Vec3,b:Vec3)->f64{((a.x-b.x).powi(2)+(a.y-b.y).powi(2)+(a.z-b.z).powi(2)).sqrt()}fn area(a:Vec3,b:Vec3,c:Vec3)->f64{let u=Vec3{x:b.x-a.x,y:b.y-a.y,z:b.z-a.z};let v=Vec3{x:c.x-a.x,y:c.y-a.y,z:c.z-a.z};0.5*Vec3{x:u.y*v.z-u.z*v.y,y:u.z*v.x-u.x*v.z,z:u.x*v.y-u.y*v.x}.norm()}
