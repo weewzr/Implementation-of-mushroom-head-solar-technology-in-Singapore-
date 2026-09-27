@@ -1,7 +1,7 @@
 //! Minimal deployable-sheet kinematic mesh foundation.
 //! This is geometry/kinematics only: no collision, bend-radius, strain, wind,
 //! actuator, fatigue, structural or cost solver is implemented here.
-use crate::{mesh::Vec3,visibility::Triangle};
+use crate::{mesh::Vec3,visibility::Triangle,resource_geometry::discrete_resources};
 #[derive(Clone,Copy,Debug,PartialEq)] pub struct Crease{pub a:usize,pub b:usize,pub deployed_angle_rad:f64}
 #[derive(Clone,Debug)] pub struct OrigamiSheet{pub vertices:Vec<Vec3>,pub facets:Vec<[usize;3]>,pub creases:Vec<Crease>}
 #[derive(Clone,Copy,Debug,PartialEq,Eq)] pub enum UnsupportedMechanics{CreaseCompatibility,SelfIntersection,MinimumBendRadius,PvStrain}
@@ -15,6 +15,8 @@ impl OrigamiSheet{
  #[test]fn endpoints_are_deterministic(){let s=OrigamiSheet::single_crease_fixture();assert_eq!(s.state(0.).unwrap(),s.vertices);assert_eq!(s.state(1.).unwrap(),s.state(1.).unwrap());}
  #[test]fn intermediate_states_are_finite_and_connected(){let s=OrigamiSheet::single_crease_fixture();for l in [0.,0.25,0.5,0.75,1.]{let v=s.state(l).unwrap();assert!(v.iter().all(|p|p.x.is_finite()&&p.y.is_finite()&&p.z.is_finite()));assert!(s.facets.iter().flatten().all(|&i|i<v.len()));}}
  #[test]fn rigid_edges_and_facet_areas_are_preserved(){let s=OrigamiSheet::single_crease_fixture();let base=s.state(0.).unwrap();for l in [0.25,0.5,0.75,1.]{let v=s.state(l).unwrap();for f in &s.facets{for(a,b)in[(f[0],f[1]),(f[1],f[2]),(f[2],f[0])]{assert!((dist(base[a],base[b])-dist(v[a],v[b])).abs()<1e-12);}assert!((area(base[f[0]],base[f[1]],base[f[2]])-area(v[f[0]],v[f[1]],v[f[2]])).abs()<1e-12);}}}
- #[test]fn deployed_mesh_converts_to_canonical_triangles_with_consistent_orientation(){let s=OrigamiSheet::single_crease_fixture();let t=s.triangles(1.).unwrap();assert_eq!(t.len(),4);for q in t{let a=area(q.v[0],q.v[1],q.v[2]);assert!(a>0.0);let u=Vec3{x:q.v[1].x-q.v[0].x,y:q.v[1].y-q.v[0].y,z:q.v[1].z-q.v[0].z};let v=Vec3{x:q.v[2].x-q.v[0].x,y:q.v[2].y-q.v[0].y,z:q.v[2].z-q.v[0].z};assert!(u.x*v.y-u.y*v.x>0.0);}}
+ #[test]fn deployed_mesh_converts_to_canonical_triangles_with_consistent_orientation(){let s=OrigamiSheet::single_crease_fixture();let t=s.triangles(1.).unwrap();assert_eq!(t.len(),4);for q in t{let a=area(q.v[0],q.v[1],q.v[2]);assert!(a>0.0);let u=Vec3{x:q.v[1].x-q.v[0].x,y:q.v[1].y-q.v[0].y,z:q.v[1].z-q.v[0].z};let v=Vec3{x:q.v[2].x-q.v[0].x,y:q.v[2].y-q.v[0].y,z:q.v[2].z-q.v[0].z};let n=Vec3{x:u.y*v.z-u.z*v.y,y:u.z*v.x-u.x*v.z,z:u.x*v.y-u.y*v.x};assert!(n.norm()>0.0);assert!(n.z>0.0);}}
+ #[test]fn lambda_bounds_and_repeatability(){let s=OrigamiSheet::single_crease_fixture();assert!(s.state(-0.01).is_err());assert!(s.state(1.01).is_err());assert!(s.state(f64::NAN).is_err());assert_eq!(s.state(0.5).unwrap(),s.state(0.5).unwrap());}
+ #[test]fn deployed_mesh_enters_canonical_resource_accounting(){let s=OrigamiSheet::single_crease_fixture();let t=s.triangles(1.).unwrap();let r=discrete_resources(&t).unwrap();assert!(r.active_pv_area_m2.is_finite()&&r.active_pv_area_m2>0.0);assert!(r.projected_land_area_m2.is_finite()&&r.projected_land_area_m2>0.0);assert!(r.packing_ratio().is_finite());}
  #[test]fn unsupported_mechanics_are_explicit(){assert_eq!(OrigamiSheet::unsupported_checks().len(),4);}
 }
