@@ -97,6 +97,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-26_three-pass_audit-50.md` | Mandatory Pass 3 / Continue #154; post-audit closure #155 | Canonical resource-normalization release audit | Audit correctly withheld at #154; corrective commit 53d7d342 subsequently passes Rust run 36240614922 and e2e 36240614938 with artifact 10905852093; #155 inspection closes resource/convergence/crossover/sensitivity/stability and report-parity gates; paraboloid response FROZEN DEVELOPMENT_NOT_SERIS; fixed-geometry comparison authorized |
 
+| `2026-09-27_three-pass_audit-51.md` | Mandatory Pass 3 / Continue #157 | Common fixed-geometry framework validation | Runs 36288726695/36288726639 fail compilation on ambiguous shared-evaluator sum type; corrected in f6e46aaf; framework freeze and controlled comparisons withheld pending fresh successful CI |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
