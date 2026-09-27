@@ -15,7 +15,7 @@
 - Current ChatGPT session explicit `Continue` count: **7**.
 - Persisted technical/audit state was recovered from the master source, this counter, the audit ledger, Audit 46, Audit 47 and repository history before substantive work.
 - Session rotation required: **no**.
-- Next-pass state: **Continue #156 is Pass 2 of audit cycle 51. The frozen paraboloid benchmark permits definition of the common fixed-geometry equal-resource Rust candidate framework; do not promote headline comparative performance claims until its common-pipeline validation gates pass.**
+- Next-pass state: **Continue #156 is Pass 2 of audit cycle 51. The common fixed-geometry framework is now defined in `docs/fixed_geometry_candidate_framework.md`; next work may implement the shared Rust mesh-generation/evaluation interfaces and validation tests, but must not promote headline comparative performance claims until all common-pipeline gates pass.**
 
 ## Session-rotation rule
 
