@@ -26,3 +26,5 @@ pub mod annual_irradiance;
 pub mod fixed_geometry;
 
 pub mod origami;
+
+pub mod electrical;
