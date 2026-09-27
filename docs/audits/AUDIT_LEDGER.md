@@ -105,6 +105,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-27_three-pass_audit-54.md` | Mandatory Pass 3 / Continue #166 | Comparison-release, beginner-PDF and origami-architecture audit | Partial pass: Rust evidence green but full e2e still running/no artifact, so comparison release held; beginner source improved but LaTeX regression found/corrected and fresh PDF/page QA pending; origami specification frozen as architecture-only, no mechanics simulated |
 
+| `2026-09-27_three-pass_audit-55.md` | Mandatory Pass 3 / Continue #169 | Fresh comparison, origami Rust and beginner-PDF evidence audit | FAIL/hold: fresh comparison runs fail because origami tests do not compile (Vec3 lacks PartialEq); PDF still fails on Unicode ∈ in SVG; no fresh comparison/PDF artifacts; no new layer frozen |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
