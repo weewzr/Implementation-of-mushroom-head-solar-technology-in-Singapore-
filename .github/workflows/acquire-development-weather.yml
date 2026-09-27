@@ -33,7 +33,7 @@ jobs:
           cargo run --release --quiet --bin fixed-geometry-comparison -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/fixed-geometry-comparison | tee development-weather/fixed-geometry-comparison-run.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: controlled-comparison-evidence-${{ github.sha }}
+          name: controlled-comparison-evidence
           path: |
           development-weather/SHA256SUMS
           development-weather/qc-summary.txt
