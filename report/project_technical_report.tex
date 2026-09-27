@@ -21,6 +21,30 @@
 This project investigates three-dimensional photovoltaic geometries originating from a rotating mushroom-head concept for land-constrained Singapore. The principal hypothesis is spatial packing: additional active PV area may be placed above a constrained horizontal footprint while attempting to retain irradiation quality, sky visibility, ventilation and usable space beneath. No candidate geometry is assumed optimal. Exploratory calculations are distinguished from validated yield predictions.
 \end{abstract}
 
+\section*{Layer 1 --- the whole idea without mathematics}
+\textbf{The Sun gives us light. Solar panels catch some of that light. Singapore has little spare land, so this project asks whether we can place more useful solar surface above the same patch of ground.}
+
+\begin{figure}[htbp]\centering\includesvg[width=\textwidth]{../figures/beginner_story}\caption{The project in one picture. The mushroom-head idea started the research, but more panel does not automatically mean more useful light, so every shape must be tested rather than assumed to win.}\end{figure}
+
+\begin{figure}[htbp]\centering\includesvg[width=\textwidth]{../figures/fair_comparison_metrics}\caption{Fair comparison in plain language. Equal land means the same-size playground; equal PV means the same amount of solar material. The three metrics separate how much PV fits from how effectively that PV receives irradiance.}\end{figure}
+
+The candidate story is \textbf{flat $\rightarrow$ mushroom/paraboloid $\rightarrow$ hemisphere $\rightarrow$ faceted canopy $\rightarrow$ folded surface}. Direct light comes from the Sun, diffuse light comes from the visible sky, and reflected light comes back from the ground. A surface can lose useful light by facing away, being shadowed, or seeing less sky.
+
+The Rust model repeats one simple job: \textbf{weather + Sun position + 3-D shape $\rightarrow$ direct-ray and sky-view checks $\rightarrow$ hourly irradiance $\rightarrow$ add one year $\rightarrow$ fair comparison}.
+
+\section*{Layer 2 --- physical intuition before equations}
+The founding mushroom idea is a packing hypothesis, not a conclusion. Equal-land and equal-PV tests answer different questions. Packing ratio is $A_{\rm PV}/A_{\rm land}$. Packing efficiency is PV-area-normalized annual irradiance divided by the flat-reference value. Land-energy multiplier is land-area-normalized annual irradiance divided by the flat-reference value. The accounting identity is $E_{\rm land,norm}=E_{\rm PV,norm}\Pi$. These are DEVELOPMENT\_NOT\_SERIS irradiance metrics, not electrical, structural or economic performance.
+
+\subsection*{Future branch: deployable origami solar sheet}
+The present static folded-surface candidate is \textbf{not} an origami simulation. A separate future model represents the sheet by vertices $V$, facets $F$, crease/hinge edges $C$, fold angles, and a deployment coordinate $\lambda\in[0,1]$.
+
+\begin{figure}[htbp]\centering\includesvg[width=\textwidth]{../figures/origami_deployment_architecture}\caption{Future deployable-sheet architecture: flat manufacture, crease pattern, partial deployment, deployed 3-D canopy and a separate storm-stowed state. Architecture only; no origami performance result is claimed.}\end{figure}
+
+For rigid-origami cases, vertex positions $\mathbf{x}_i(\lambda)$ must preserve edge lengths and facet dimensions as crease angles change. Validation requires manifold connectivity, crease compatibility, self-intersection/collision checks, edge-length and facet-area preservation, minimum bend radius, allowable PV/interconnect strain, and active-area/resource preservation. Candidate mechanisms include radial/umbrella folding, Miura-ori or related tessellations, accordion/fan folding, roll-out petals and tensioned membranes. No mechanism is selected here. Only a validated deployed mesh may later enter the common resource, visibility/self-shadowing, sky-view and annual-irradiance pipeline; deployment mechanics, wind stowage, actuator energy, structural mass, fatigue, maintenance and cost remain later separate layers.
+
+\section*{Layer 3 --- engineering definitions and assumptions}
+The next sections introduce the engineering vocabulary and assumptions. Layer 4 retains the full equations, derivations, validation and research evidence.
+
 \section{Founding design question and equal-footprint comparison}
 The originating question is whether a mushroom-head, spherical or other three-dimensional photovoltaic geometry can improve useful solar collection per unit constrained Singapore land area, and whether slow rotation/tracking can add value after the best fixed geometry is established. Figure~\ref{fig:equal-footprint} preserves this founding comparison without assuming a winner.
 
