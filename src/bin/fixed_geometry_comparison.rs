@@ -22,10 +22,11 @@ fn main(){
  let inp=env::args().nth(1).expect("usage: fixed-geometry-comparison POWER.csv OUTDIR");
  let out=env::args().nth(2).unwrap_or("fixed-geometry-comparison".into());fs::create_dir_all(&out).unwrap();
  let raw=fs::read_to_string(inp).unwrap();let(records,q)=parse_nasa_power_hourly_csv(&raw).unwrap();assert_eq!(records.len(),8784);assert!(q.is_empty());
- let mut annual=String::from("status,contract,geometry,nr,nphi,facets,pv_area_m2,land_area_m2,packing_ratio,direct_wh,diffuse_wh,ground_wh,total_wh,pv_norm_wh_m2pv,land_norm_wh_m2land\n");
+ let mut annual=String::from("status,contract,geometry,nr,nphi,facets,pv_area_m2,land_area_m2,packing_ratio,direct_wh,diffuse_wh,ground_wh,total_wh,pv_norm_wh_m2pv,land_norm_wh_m2land,packing_efficiency,land_energy_multiplier\n");
  let mut monthly=String::from("status,contract,geometry,month,direct_wh,diffuse_wh,ground_wh,total_wh\n");
  let mut inv=String::from("status,contract,geometry,target,actual,abs_error,tolerance,accepted\n");
  let mut geom=String::from("status,geometry,nr,nphi,facets,pv_area_m2,land_area_m2,packing_ratio,rel_packing_to_finest\n");
+ let flat_mesh=apply_contract(&generate_candidate(FixedGeometry::Flat,4,24).unwrap(),ComparisonContract::EqualLand{land_m2:LAND}).unwrap();let flat_ref=eval(&records,&flat_mesh);let flat_r=resources(&flat_mesh).unwrap();let flat_pv_norm=flat_ref.total_wh/flat_r.active_pv_area_m2;let flat_land_norm=flat_ref.total_wh/flat_r.projected_land_area_m2;
  let mut packing=String::from("status,geometry,native_packing_ratio,matched_target,feasible,reason\n");
  let mut conv=String::from("status,geometry,check,resolution,total_wh,relative_to_finest\n");
  for(name,g) in candidates(){
@@ -52,13 +53,13 @@ fn main(){
      assert!((actual-target_value).abs()<=tol);
      inv+=&format!("{STATUS},{contract},{name},{target_value:.12},{actual:.12},{:.3e},{tol:.3e},true\n",(actual-target_value).abs());
      let a=eval(&records,&m);
-     annual+=&format!("{STATUS},{contract},{name},4,24,{},{:.12},{:.12},{:.12},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6}\n",m.len(),rr.active_pv_area_m2,rr.projected_land_area_m2,rr.packing_ratio(),a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh,a.total_wh/rr.active_pv_area_m2,a.total_wh/rr.projected_land_area_m2);
+     let pv_norm=a.total_wh/rr.active_pv_area_m2;let land_norm=a.total_wh/rr.projected_land_area_m2;let packing_efficiency=pv_norm/flat_pv_norm;let land_energy_multiplier=land_norm/flat_land_norm;assert!((land_norm-pv_norm*rr.packing_ratio()).abs()<1e-8*land_norm.abs().max(1.0));annual+=&format!("{STATUS},{contract},{name},4,24,{},{:.12},{:.12},{:.12},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6},{:.9},{:.9}\n",m.len(),rr.active_pv_area_m2,rr.projected_land_area_m2,rr.packing_ratio(),a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh,pv_norm,land_norm,packing_efficiency,land_energy_multiplier);
      let mut ms=[0.0f64;4];for mo in 1..=12{let subset:Vec<_>=records.iter().filter(|r|r.timestamp[5..7].parse::<usize>().unwrap()==mo).cloned().collect();let x=eval(&subset,&m);let z=[x.direct_wh,x.diffuse_wh,x.ground_wh,x.total_wh];for k in 0..4{ms[k]+=z[k];}monthly+=&format!("{STATUS},{contract},{name},{mo},{:.6},{:.6},{:.6},{:.6}\n",z[0],z[1],z[2],z[3]);}
      let az=[a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh];for k in 0..4{assert!((ms[k]-az[k]).abs()<=1e-7*az[k].abs().max(1.0));}assert!((a.direct_wh+a.diffuse_wh+a.ground_wh-a.total_wh).abs()<=1e-9*a.total_wh.abs().max(1.0));
    }
    if feasible{
      let base=generate_candidate(g,4,24).unwrap();let m=apply_contract(&base,ComparisonContract::MatchedPackingRatio{packing_ratio:target,land_m2:LAND}).unwrap();let rr=resources(&m).unwrap();let a=eval(&records,&m);
-     annual+=&format!("{STATUS},matched_packing_ratio,{name},4,24,{},{:.12},{:.12},{:.12},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6}\n",m.len(),rr.active_pv_area_m2,rr.projected_land_area_m2,rr.packing_ratio(),a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh,a.total_wh/rr.active_pv_area_m2,a.total_wh/rr.projected_land_area_m2);
+     let pv_norm=a.total_wh/rr.active_pv_area_m2;let land_norm=a.total_wh/rr.projected_land_area_m2;let packing_efficiency=pv_norm/flat_pv_norm;let land_energy_multiplier=land_norm/flat_land_norm;assert!((land_norm-pv_norm*rr.packing_ratio()).abs()<1e-8*land_norm.abs().max(1.0));annual+=&format!("{STATUS},matched_packing_ratio,{name},4,24,{},{:.12},{:.12},{:.12},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6},{:.9},{:.9}\n",m.len(),rr.active_pv_area_m2,rr.projected_land_area_m2,rr.packing_ratio(),a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh,pv_norm,land_norm,packing_efficiency,land_energy_multiplier);
    }
  }
  fs::write(Path::new(&out).join("annual_results.csv"),annual).unwrap();
@@ -67,6 +68,6 @@ fn main(){
  fs::write(Path::new(&out).join("geometry_mesh_checks.csv"),geom).unwrap();
  fs::write(Path::new(&out).join("matched_packing_feasibility.csv"),packing).unwrap();
  fs::write(Path::new(&out).join("irradiance_convergence.csv"),conv).unwrap();
- fs::write(Path::new(&out).join("README.txt"),"Controlled fixed-geometry comparison. DEVELOPMENT_NOT_SERIS. NASA POWER Singapore 2024; frozen SPA/shared annual irradiance evaluator; albedo 0.20; sky_n 16; hourly midpoint. Equal-land and equal-PV contracts execute through canonical resource_geometry normalization. Matched-packing target Pi=1 is accepted only where the frozen topology intrinsically satisfies it; no geometry parameter is optimized or altered to force feasibility. Folded surface remains attached to the deployable/foldable solar-sheet implementation concept; no mechanical/deployment/cost penalty is charged here. No thermal/electrical conversion, tracking, economics or topology optimization. Results characterize irradiance only and are not a winner declaration.\n").unwrap();
+ fs::write(Path::new(&out).join("README.txt"),"Controlled fixed-geometry comparison. DEVELOPMENT_NOT_SERIS. NASA POWER Singapore 2024; frozen SPA/shared annual irradiance evaluator; albedo 0.20; sky_n 16; hourly midpoint. Equal-land and equal-PV contracts execute through canonical resource_geometry normalization. Matched-packing target Pi=1 is accepted only where the frozen topology intrinsically satisfies it; no geometry parameter is optimized or altered to force feasibility. Folded surface remains attached to the deployable/foldable solar-sheet implementation concept; no mechanical/deployment/cost penalty is charged here. No thermal/electrical conversion, tracking, economics or topology optimization. packing_efficiency = candidate PV-area-normalized irradiance / flat-reference PV-area-normalized irradiance; land_energy_multiplier = candidate land-area-normalized irradiance / flat-reference land-area-normalized irradiance. Identity: land_norm = pv_norm * packing_ratio. Results characterize irradiance only and are not a winner declaration.\n").unwrap();
  println!("fixed-geometry-comparison PASS {STATUS}; see machine-readable artifacts");
 }
