@@ -21,6 +21,6 @@ pub fn evaluate_annual_irradiance(rs:&[WeatherRecord],mesh:&[Triangle],settings:
    for(i,_)in mesh.iter().enumerate(){let(a,n)=ga[i];if p.zenith_deg<90.0{e[0]+=wt*w.dni_w_m2*a*n.dot(ss).max(0.0)*direct_visibility(i,mesh,ss)}e[1]+=wt*w.dhi_w_m2*a*sv[i];e[2]+=wt*w.ghi_w_m2*settings.albedo*a*(1.0-n.z)/2.0;}
   }
  }
- let total=e.iter().sum();if !total.is_finite(){return Err(ResourceGeometryError::NonFiniteGeometry)}
+ let total:f64=e.iter().sum();if !total.is_finite(){return Err(ResourceGeometryError::NonFiniteGeometry)}
  Ok(AnnualIrradianceResult{direct_wh:e[0],diffuse_wh:e[1],ground_wh:e[2],total_wh:total,resources})
 }
