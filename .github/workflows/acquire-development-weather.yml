@@ -8,6 +8,7 @@ on:
       - "src/**/*.rs"
       - "Cargo.toml"
       - "Cargo.lock"
+      - "docs/audits/PASS_COUNTER.md"
 permissions:
   contents: read
 jobs:
