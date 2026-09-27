@@ -51,3 +51,13 @@ Sections advanced: 5, 9, 10, 11 and report planning/front matter. Controlled fix
 - Communication evidence: post-fix LaTeX run 36325089829 at commit eb959f873c11f7326b0d50010daafe0a15c0d7a0 PASS, artifact 10933713316 SHA-256 ca5b67eef5faa0cef044bb6aa96f253fce23ed44615baa9e05f0c244b20c16b6. Full visual regression decision remains to be recorded before freeze.
 - Remaining blockers: isolate exact accordion failing test from execution evidence/logs; finish exact-PDF visual regression; integrate reproducible frozen-comparison plots/tables and graphical abstract into paper.
 - Schedule: ON SCHEDULE for approximately #227; Phase I still has six passes through #187.
+
+
+## Audit 60 / Continue #182
+- Model frozen: deterministic accordion/fan validation fixture only. Corrective commit `9521a8b83704fcecdb5ec50039d0a1c0160661c6`; Rust run 36325477358 PASS; artifact 10933996696; SHA-256 `45e529c395797a75cf854842f5172f514ca05c51027643b1c7c8d9c70c4e6335`.
+- Section 12: VALIDATED/FROZEN only for single-crease + controlled accordion kinematic fixtures; general collision, flexible sheet, structural and PV-performance layers remain evidence-pending.
+- Section 2 communication: EVIDENCE-PENDING. Exact PDF artifact 10933713316 (25 pages) has no black rectangles, but page 4 fair-comparison explanatory text still overlaps. Latest close pass #183.
+- Front matter: DRAFT. Duplicate legacy abstract and visible planning-roadmap prose remain; real vector graphical abstract absent. Latest close pass #183.
+- Sections 5/9/10/11: numerical evidence remains FROZEN, paper integration EVIDENCE-PENDING for reproducible accepted-row table and equal-land/equal-PV/decomposition plots. Latest close pass #184.
+- Section 15: DRAFT/READY-AFTER-CONTRACT. Equation chain exists; add per-parameter physical meaning, geometry dependence and uncertainty/sensitivity requirement at #183, then source/select representative PV module/design basis.
+- Phase-I schedule: ON SCHEDULE. Phase-I exit review remains #187.
