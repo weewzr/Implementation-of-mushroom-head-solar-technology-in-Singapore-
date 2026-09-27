@@ -99,6 +99,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-27_three-pass_audit-51.md` | Mandatory Pass 3 / Continue #157 | Common fixed-geometry framework validation | Runs 36288726695/36288726639 fail compilation on ambiguous shared-evaluator sum type; corrected in f6e46aaf; framework freeze and controlled comparisons withheld pending fresh successful CI |
 
+| `2026-09-27_three-pass_audit-52.md` | Mandatory Pass 3 / Continue #160 + session Continue 12/12 | Common fixed-geometry framework release and rotation checkpoint | Whole-crate 36290127196 and e2e 36290127283 PASS at adde4dee; framework FROZEN; controlled matched-resource annual comparison authorized for next session; no comparison begun; session rotation required |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
