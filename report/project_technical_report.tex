@@ -833,8 +833,8 @@ E_{\rm net}&=\sum_t P_{\rm net}(t)\Delta t.
 Net power is intentionally allowed to become negative when auxiliary demand exceeds generation; gross DC and AC generation are nonnegative. Negative irradiance is rejected rather than silently clamped.
 
 \subsection{Electrical design-basis evidence plan}
-The first electrical model will not assign numerical defaults until a traceable representative module and system basis is selected. The minimum parameter set is:
-\begin{center}\begin{tabular}{llll}
+The provisional rigid-PV module basis is selected and provenance-linked; system-loss and inverter parameters remain unset until separately sourced. The minimum parameter set is:
+\begin{center}\resizebox{\textwidth}{!}{\begin{tabular}{llll}
 \toprule
 Parameter & Symbol & Unit & Evidence requirement\\
 \midrule
@@ -848,7 +848,7 @@ Inverter conversion & $\eta_{\rm inv}$ & -- & selected inverter curve/datasheet 
 Other system losses & $L_{\rm sys}$ & -- & explicit component breakdown + sensitivity\\
 Auxiliary energy & $E_{\rm aux}$ & \si{\kilo\watt\hour\per\year} & mechanism-specific calculation, zero only for fixed cases\\
 \bottomrule
-\end{tabular}\end{center}
+\end{tabular}}\end{center}
 Geometry dependence must be declared parameter by parameter: incident irradiance and temperature are geometry-dependent; intrinsic module STC properties are not unless different technologies are intentionally compared. Loss and auxiliary assumptions require uncertainty/sensitivity where they materially affect design comparisons.
 
 A generic implementation chain is
