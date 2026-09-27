@@ -905,8 +905,8 @@ Current percentages are exploratory. Missing effects include validated time-corr
 ## 16. Engineering interpretation
 The current hypothesis is that 3-D PV may be useful through spatial packing and multifunctional land use, not intrinsic cell-efficiency improvement from curvature. A sphere is a control geometry; a mushroom is the founding analytical geometry; a sparse faceted bifacial canopy is a later hypothesis. None is yet established as the optimum.
 
-## 17. Foundation work before model expansion
-The current priority is not to add further physics. First reconcile this Markdown report, the LaTeX report, derivation notes, nomenclature, provenance register and Rust modules; remove legacy Python references; establish coordinate/sign conventions and a complete typed parameter register; complete equation–code–test traceability; and strengthen analytical benchmarks. Only after these foundation gates pass an audit should the project resume higher-fidelity packing, ray-tracing, bifacial, thermal, mechanical or optimisation layers.
+## 17. Phase-I evidence boundary and transition
+Phase I has closed the required foundations: the controlled fixed-geometry irradiance comparison and communication architecture are frozen, the publication layer is integrated, narrow single-crease and accordion/fan fixtures are frozen, a provisional rigid-PV research basis is sourced, and the first geometry-agnostic electrical kernel is frozen in narrow scope. Phase II therefore begins with thermal-model evidence selection and electrical/engineering coupling rather than reopening these foundations.
 
 ## References
 [1] Energy Market Authority, “Solar,” 2026.  
@@ -962,7 +962,7 @@ Generated publication assets cover equal-land annual irradiance, equal-PV annual
 
 Plain-language chain: sunlight hits the panel → the panel warms → heat changes efficiency → the panel makes DC electricity → declared DC/inverter/system losses reduce delivery → auxiliary mechanisms may consume electricity → the remainder is net output.
 
-The upstream geometry model supplies an **IRRADIANCE RESULT**. `src/electrical.rs` supplies a separate **ELECTRICAL CONVERSION RESULT**. No annual geometry-to-electricity comparison is released at this stage.
+The upstream geometry model supplies an **IRRADIANCE RESULT**. `src/electrical.rs` supplies a separate **ELECTRICAL CONVERSION RESULT**. No annual geometry-to-electricity comparison is released at this stage. Outside the frozen kernel remain source-selected weather-to-module-temperature modelling beyond the replaceable NMOT fixture, geometry-specific coupling, nonuniform-illumination mismatch, string/bypass-diode topology, detailed MPPT/inverter behaviour, moving-system auxiliary energy and annual electrical comparison.
 
 The initial replaceable NMOT temperature relation is
 
@@ -995,3 +995,30 @@ Net power may be negative when auxiliary demand exceeds generation; gross DC/AC 
 ### Provisional rigid-PV research design basis
 
 The first rigid modelling basis is Canadian Solar TOPHiKu6 CS6.2-48TM-460H, selected for complete authoritative parameter coverage rather than as a product recommendation. Retained datasheet parameters are 460 W rated STC power, 23.0% STC module efficiency, 1762 × 1134 × 35 mm dimensions, -0.29%/°C Pmax temperature coefficient, 25°C STC reference cell temperature, and NMOT 42 ± 3°C at the datasheet NMOT test basis. Flexible/deployable PV remains a separate later design basis.
+
+
+## Phase-I scientific-spine transition
+
+The final report grows from the Phase-I evidence in the following scientific order: Singapore land constraint → research question → mushroom-head origin → fair resource comparison → mathematical formulation → analytical verification → numerical implementation → V&V → fixed candidates → frozen fixed-geometry results → deployable/origami extension → engineering implementation → manufacturing → electrical/net-energy → cost → carbon → integrated comparison → recommendations → limitations → conclusion.
+
+### Engineering implementation
+Phase I defines interfaces and evidence requirements only. Mounting, routing, actuation, storm stowage, maintainability and structural penalties remain later engineering work; no full wind/structural optimisation is claimed.
+
+### Manufacturing
+Manufacturing is not complete. No Phase-I evidence establishes that folding, printing or any fabrication route lowers cost.
+
+### Cost and techno-economics
+No LCOE or complete project-cost result is released. CAPEX/OPEX/lifetime/mechanism inputs remain to be sourced and modelled.
+
+### Carbon and sustainability
+No headline CO2-reduction result is released. Later work must distinguish operational displacement from embodied/lifecycle effects using Singapore-relevant provenance.
+
+### Integrated comparison and recommendations
+The frozen irradiance comparison is only one input. No universal geometry recommendation is justified before electrical, engineering, manufacturing, cost and carbon layers are available.
+
+### Limitations and conclusion
+Phase-I limitations include DEVELOPMENT_NOT_SERIS irradiance/weather status, simplified thermal treatment in the narrow kernel, unresolved electrical mismatch/string/MPPT behaviour, moving-system auxiliary energy, and incomplete structural/manufacturing/cost/carbon models. Phase I nevertheless establishes the audited reproducible foundation needed for Phase II without assuming that the mushroom-head concept wins.
+
+## Phase-I baseline artifact
+
+The Phase-I report baseline is the exact 32-page PDF from commit `3f54605f53a6e88f145713f69d4136da297f2608`, LaTeX run `36330877451`, artifact `10935284619`, artifact SHA-256 `3f4b0efe50648c2f6bb23890a893d88b04848d288ffe363d8275a18fd9749ec3`, exact PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`. It is the baseline from which Phase II grows, not a frozen final report.
