@@ -48,3 +48,7 @@ path = "src/bin/paraboloid_response_sweep.rs"
 [[bin]]
 name = "fixed-geometry-comparison"
 path = "src/bin/fixed_geometry_comparison.rs"
+
+[[bin]]
+name = "fixed-comparison-publication"
+path = "src/bin/fixed_comparison_publication.rs"
