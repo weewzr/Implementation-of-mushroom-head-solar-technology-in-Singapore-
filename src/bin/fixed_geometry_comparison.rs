@@ -16,7 +16,7 @@ fn candidates()->[(&'static str,FixedGeometry);5]{[
  ("folded_surface",FixedGeometry::FoldedSurface{tilt_rad:0.4}),
 ]}
 fn eval(records:&[WeatherRecord],mesh:&[mushroom_solar::visibility::Triangle])->AnnualIrradianceResult{
- evaluate_annual_irradiance(records,mesh,AnnualIrradianceSettings{sky_n:8,albedo:0.20,quarter_hour:false}).unwrap()
+ evaluate_annual_irradiance(records,mesh,AnnualIrradianceSettings{sky_n:16,albedo:0.20,quarter_hour:false}).unwrap()
 }
 fn main(){
  let inp=env::args().nth(1).expect("usage: fixed-geometry-comparison POWER.csv OUTDIR");
@@ -37,28 +37,28 @@ fn main(){
    for(nr,np,nf,r) in prs{geom+=&format!("{STATUS},{name},{nr},{np},{nf},{:.12},{:.12},{:.12},{:.12}\n",r.active_pv_area_m2,r.projected_land_area_m2,r.packing_ratio(),(r.packing_ratio()-finest)/finest);}
    // Candidate-specific annual mesh and sky convergence under the same shared evaluator.
    let mut mesh_e=Vec::new();for &(nr,np) in &[(2usize,12usize),(3,18),(4,24)]{let m=apply_contract(&generate_candidate(g,nr,np).unwrap(),ComparisonContract::EqualLand{land_m2:LAND}).unwrap();mesh_e.push((format!("{nr}x{np}"),eval(&records,&m).total_wh));}
-   let mf=mesh_e.last().unwrap().1;for(x,e)in &mesh_e{conv+=&format!("{STATUS},{name},mesh,{x},{e:.6},{:.9}\n",(e-mf)/mf);}
+   let mf=mesh_e.last().unwrap().1;for(x,e)in &mesh_e{conv+=&format!("{STATUS},{name},mesh,{x},{e:.6},{:.9}\n",(e-mf)/mf);}let mesh_step=(mesh_e[2].1-mesh_e[1].1).abs()/mf;assert!(mesh_step<0.02,"candidate mesh convergence exceeds 2% for {name}: {mesh_step}");
    let fm=apply_contract(&generate_candidate(g,4,24).unwrap(),ComparisonContract::EqualLand{land_m2:LAND}).unwrap();let mut sky_e=Vec::new();for sn in [4usize,8,16]{let e=evaluate_annual_irradiance(&records,&fm,AnnualIrradianceSettings{sky_n:sn,albedo:0.20,quarter_hour:false}).unwrap().total_wh;sky_e.push((sn,e));}
-   let sf=sky_e.last().unwrap().1;for(sn,e)in &sky_e{conv+=&format!("{STATUS},{name},sky,{sn},{e:.6},{:.9}\n",(e-sf)/sf);}
-   let native=resources(&generate_candidate(g,2,12).unwrap()).unwrap().packing_ratio();
+   let sf=sky_e.last().unwrap().1;for(sn,e)in &sky_e{conv+=&format!("{STATUS},{name},sky,{sn},{e:.6},{:.9}\n",(e-sf)/sf);}let sky_step=(sky_e[2].1-sky_e[1].1).abs()/sf;assert!(sky_step<0.01,"candidate sky convergence exceeds 1% for {name}: {sky_step}");
+   let native=resources(&generate_candidate(g,4,24).unwrap()).unwrap().packing_ratio();
    let target=1.0;let feasible=(native-target).abs()<=1e-8;
    packing+=&format!("{STATUS},{name},{native:.12},{target:.12},{feasible},{}\n",if feasible{"intrinsic discrete packing matches target"}else{"REJECTED: frozen topology packing differs; uniform scaling cannot alter packing ratio"});
    for(contract,c,target_value,is_land) in [
      ("equal_land",ComparisonContract::EqualLand{land_m2:LAND},LAND,true),
      ("equal_pv",ComparisonContract::EqualPv{pv_m2:PV},PV,false),
    ]{
-     let base=generate_candidate(g,2,12).unwrap();let m=apply_contract(&base,c).unwrap();let rr=resources(&m).unwrap();
+     let base=generate_candidate(g,4,24).unwrap();let m=apply_contract(&base,c).unwrap();let rr=resources(&m).unwrap();
      let actual=if is_land{rr.projected_land_area_m2}else{rr.active_pv_area_m2};let tol=RESOURCE_AREA_TOL_M2.max(target_value.abs()*1e-12);
      assert!((actual-target_value).abs()<=tol);
      inv+=&format!("{STATUS},{contract},{name},{target_value:.12},{actual:.12},{:.3e},{tol:.3e},true\n",(actual-target_value).abs());
      let a=eval(&records,&m);
-     annual+=&format!("{STATUS},{contract},{name},2,12,{},{:.12},{:.12},{:.12},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6}\n",m.len(),rr.active_pv_area_m2,rr.projected_land_area_m2,rr.packing_ratio(),a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh,a.total_wh/rr.active_pv_area_m2,a.total_wh/rr.projected_land_area_m2);
+     annual+=&format!("{STATUS},{contract},{name},4,24,{},{:.12},{:.12},{:.12},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6}\n",m.len(),rr.active_pv_area_m2,rr.projected_land_area_m2,rr.packing_ratio(),a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh,a.total_wh/rr.active_pv_area_m2,a.total_wh/rr.projected_land_area_m2);
      let mut ms=[0.0f64;4];for mo in 1..=12{let subset:Vec<_>=records.iter().filter(|r|r.timestamp[5..7].parse::<usize>().unwrap()==mo).cloned().collect();let x=eval(&subset,&m);let z=[x.direct_wh,x.diffuse_wh,x.ground_wh,x.total_wh];for k in 0..4{ms[k]+=z[k];}monthly+=&format!("{STATUS},{contract},{name},{mo},{:.6},{:.6},{:.6},{:.6}\n",z[0],z[1],z[2],z[3]);}
      let az=[a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh];for k in 0..4{assert!((ms[k]-az[k]).abs()<=1e-7*az[k].abs().max(1.0));}assert!((a.direct_wh+a.diffuse_wh+a.ground_wh-a.total_wh).abs()<=1e-9*a.total_wh.abs().max(1.0));
    }
    if feasible{
-     let base=generate_candidate(g,2,12).unwrap();let m=apply_contract(&base,ComparisonContract::MatchedPackingRatio{packing_ratio:target,land_m2:LAND}).unwrap();let rr=resources(&m).unwrap();let a=eval(&records,&m);
-     annual+=&format!("{STATUS},matched_packing_ratio,{name},2,12,{},{:.12},{:.12},{:.12},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6}\n",m.len(),rr.active_pv_area_m2,rr.projected_land_area_m2,rr.packing_ratio(),a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh,a.total_wh/rr.active_pv_area_m2,a.total_wh/rr.projected_land_area_m2);
+     let base=generate_candidate(g,4,24).unwrap();let m=apply_contract(&base,ComparisonContract::MatchedPackingRatio{packing_ratio:target,land_m2:LAND}).unwrap();let rr=resources(&m).unwrap();let a=eval(&records,&m);
+     annual+=&format!("{STATUS},matched_packing_ratio,{name},4,24,{},{:.12},{:.12},{:.12},{:.6},{:.6},{:.6},{:.6},{:.6},{:.6}\n",m.len(),rr.active_pv_area_m2,rr.projected_land_area_m2,rr.packing_ratio(),a.direct_wh,a.diffuse_wh,a.ground_wh,a.total_wh,a.total_wh/rr.active_pv_area_m2,a.total_wh/rr.projected_land_area_m2);
    }
  }
  fs::write(Path::new(&out).join("annual_results.csv"),annual).unwrap();
@@ -67,6 +67,6 @@ fn main(){
  fs::write(Path::new(&out).join("geometry_mesh_checks.csv"),geom).unwrap();
  fs::write(Path::new(&out).join("matched_packing_feasibility.csv"),packing).unwrap();
  fs::write(Path::new(&out).join("irradiance_convergence.csv"),conv).unwrap();
- fs::write(Path::new(&out).join("README.txt"),"Controlled fixed-geometry comparison. DEVELOPMENT_NOT_SERIS. NASA POWER Singapore 2024; frozen SPA/shared annual irradiance evaluator; albedo 0.20; sky_n 8; hourly midpoint. Equal-land and equal-PV contracts execute through canonical resource_geometry normalization. Matched-packing target Pi=1 is accepted only where the frozen topology intrinsically satisfies it; no geometry parameter is optimized or altered to force feasibility. Folded surface remains attached to the deployable/foldable solar-sheet implementation concept; no mechanical/deployment/cost penalty is charged here. No thermal/electrical conversion, tracking, economics or topology optimization. Results characterize irradiance only and are not a winner declaration.\n").unwrap();
+ fs::write(Path::new(&out).join("README.txt"),"Controlled fixed-geometry comparison. DEVELOPMENT_NOT_SERIS. NASA POWER Singapore 2024; frozen SPA/shared annual irradiance evaluator; albedo 0.20; sky_n 16; hourly midpoint. Equal-land and equal-PV contracts execute through canonical resource_geometry normalization. Matched-packing target Pi=1 is accepted only where the frozen topology intrinsically satisfies it; no geometry parameter is optimized or altered to force feasibility. Folded surface remains attached to the deployable/foldable solar-sheet implementation concept; no mechanical/deployment/cost penalty is charged here. No thermal/electrical conversion, tracking, economics or topology optimization. Results characterize irradiance only and are not a winner declaration.\n").unwrap();
  println!("fixed-geometry-comparison PASS {STATUS}; see machine-readable artifacts");
 }
