@@ -34,6 +34,8 @@ This file implements the master requirement that a reader can move from physical
 
 | Canonical discrete resource normalization + frozen paraboloid geometric response | Markdown/LaTeX frozen paraboloid benchmark; Audit 50/Pass 155 reconciliation | `src/resource_geometry.rs`; `src/bin/paraboloid_response_sweep.rs` | whole-crate run 36240614922 PASS; e2e run 36240614938 PASS; exact target-resource postconditions; independent mesh/sky convergence; temporal/albedo/stability checks | artifact 10905852093, SHA-256 `e450ccd79f303bd1a701293dbbc5613f156520c122a92ccbb6229b08e2eaf110`; NASA POWER 2024 development dataset | **FROZEN DEVELOPMENT_NOT_SERIS geometric-response benchmark**; equal-land/equal-PV exact at artifact precision; M_L=1 bracket k=0.625--0.650; no optimum/SERIS/electrical/economic claim |
 
+| Common fixed-geometry candidate architecture | `docs/fixed_geometry_candidate_framework.md` | `src/fixed_geometry.rs`; `src/annual_irradiance.rs`; canonical `src/resource_geometry.rs` and `src/visibility.rs` | geometry analytical/limit tests, orientation/finite/resource-contract tests; whole-crate run 36288726695 pending at Continue #156 | frozen NASA POWER 2024 DEVELOPMENT_NOT_SERIS contract; no comparative output released | Framework implemented; flat/paraboloid/hemisphere/faceted/folded topology share canonical normalization and geometry-agnostic annual evaluator; headline ranking prohibited until common-pipeline validation audit |
+
 ## Rule for new results
 
 A new quantitative result must not enter `Current findings` as validated until its row has a traceable implementation, tests/convergence evidence, source inputs, units and a stated uncertainty/limitation basis. Geometry-only or synthetic-input outputs must be labelled analytical or exploratory.
