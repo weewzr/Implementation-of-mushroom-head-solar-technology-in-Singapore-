@@ -44,3 +44,7 @@ path = "src/bin/mushroom_experiment_1.rs"
 [[bin]]
 name = "paraboloid-response-sweep"
 path = "src/bin/paraboloid_response_sweep.rs"
+
+[[bin]]
+name = "fixed-geometry-comparison"
+path = "src/bin/fixed_geometry_comparison.rs"
