@@ -117,6 +117,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-27_three-pass_audit-60.md` | Mandatory / Continue #182 | Accordion failure resolution, PDF communication decision, report/Phase-I readiness | Accordion/fan fixture FROZEN narrow scope after corrective commit 9521a8b8 and Rust run 36325477358 PASS/artifact 10933996696; communication HOLD on exact page-4 fair-comparison overlap; graphical abstract/front-matter/comparison-plot integration bounded to #183-184; electrical contract nearly ready |
 
+| `2026-09-27_three-pass_audit-61.md` | Mandatory / Continue #185 / new-session 1/12 | Communication compile root cause, rigid-PV design basis, electrical-kernel authorization and Phase-I exit audit | 3d4deb3 proven not to fix graphical-abstract underscore failure; bounded correction compiles at d36f0bc1 and final label/glyph descendant awaits render; rigid CS6.2-48TM-460H basis selected; electrical Rust kernel authorized #186; publication visuals remain hard #186 blocker |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
