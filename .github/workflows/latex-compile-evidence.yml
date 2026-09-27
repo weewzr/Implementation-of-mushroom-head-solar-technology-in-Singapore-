@@ -8,6 +8,9 @@ on:
       - "report/**"
       - "references/**"
       - "figures/**"
+      - "src/bin/fixed_comparison_publication.rs"
+      - "data/processed/audit59_fixed_comparison_accepted.csv"
+      - "Cargo.toml"
       - ".github/workflows/latex-compile-evidence.yml"
 
 permissions:
@@ -38,6 +41,10 @@ jobs:
             echo "engine=$(pdflatex --version | head -n 1)"
             echo "latexmk=$(latexmk -v | head -n 1)"
           } | tee latex-compile-evidence.txt
+
+      - name: Generate frozen-comparison publication assets
+        shell: bash
+        run: cargo run --quiet --bin fixed-comparison-publication
 
       - name: Compile technical report
         shell: bash
@@ -70,5 +77,7 @@ jobs:
             latex-compile-evidence.txt
             latex-build.log
             report/project_technical_report.pdf
+            figures/generated/*.svg
+            data/processed/audit59_publication_table.csv
           if-no-files-found: warn
           retention-days: 90
