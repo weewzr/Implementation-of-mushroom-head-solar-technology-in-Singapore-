@@ -776,3 +776,32 @@ These results must be interpreted as controlled irradiance evidence, not as an o
 
 \section{Electrical and net-energy performance: required next model chain}
 The next report-critical model will convert incident irradiance $G_{\rm inc}$ into module temperature $T_m$, temperature-adjusted module efficiency $\eta(T_m)$, DC electricity, mismatch/wiring losses, inverter/system conversion and auxiliary/deployment/tracking consumption to obtain annual net electricity. A representative module/design basis must be selected from traceable sources before numerical results are released. Required inputs include nominal efficiency, temperature coefficient, a justified module-temperature basis such as NOCT or a better-supported thermal model, module area, relevant DC characteristics, bifaciality only if used, inverter efficiency/system-loss assumptions and auxiliary-energy assumptions. The historical 23\% placeholder is not a validated module specification.
+
+\subsection{Electrical design-basis evidence plan}
+The first electrical model will not assign numerical defaults until a traceable representative module and system basis is selected. The minimum parameter set is:
+\begin{center}\begin{tabular}{llll}
+\toprule
+Parameter & Symbol & Unit & Evidence requirement\\
+\midrule
+STC module efficiency & $\eta_{\rm STC}$ & -- & manufacturer datasheet / certified basis\\
+Active module area & $A_m$ & \si{\square\metre} & manufacturer dimensions/active-area basis\\
+Power temperature coefficient & $\gamma_P$ & \si{\per\degreeCelsius} & manufacturer datasheet\\
+Reference temperature & $T_{\rm ref}$ & \si{\degreeCelsius} & STC definition/datasheet\\
+NOCT/NMOT or thermal parameters & -- & \si{\degreeCelsius} & certified datasheet or validated thermal literature\\
+DC mismatch/wiring loss & $L_{\rm dc}$ & -- & explicit engineering assumption/source + sensitivity\\
+Inverter conversion & $\eta_{\rm inv}$ & -- & selected inverter curve/datasheet or sourced model\\
+Other system losses & $L_{\rm sys}$ & -- & explicit component breakdown + sensitivity\\
+Auxiliary energy & $E_{\rm aux}$ & \si{\kilo\watt\hour\per\year} & mechanism-specific calculation, zero only for fixed cases\\
+\bottomrule
+\end{tabular}\end{center}
+Geometry dependence must be declared parameter by parameter: incident irradiance and temperature are geometry-dependent; intrinsic module STC properties are not unless different technologies are intentionally compared. Loss and auxiliary assumptions require uncertainty/sensitivity where they materially affect design comparisons.
+
+A generic implementation chain is
+\begin{align}
+T_m(t)&=\mathcal{T}\!\left(G_{\rm POA}(t),T_a(t),u(t);\boldsymbol\theta_T\right),\\
+\eta_m(t)&=\eta_{\rm STC}\left[1+\gamma_P\left(T_m(t)-T_{\rm ref}\right)\right],\\
+P_{\rm dc}(t)&=G_{\rm POA}(t)A_{\rm PV}\eta_m(t)\left(1-L_{\rm dc}\right),\\
+P_{\rm ac}(t)&=\mathcal{I}\!\left(P_{\rm dc}(t)\right)\left(1-L_{\rm sys}\right),\\
+E_{\rm net,yr}&=\sum_t P_{\rm ac}(t)\Delta t-E_{\rm aux}.
+\end{align}
+Here $G_{\rm POA}$ is plane-of-array irradiance, $T_a$ ambient temperature, $u$ wind speed or other thermal-model input, $\boldsymbol\theta_T$ the selected thermal-model parameters, $T_m$ module temperature, and $\mathcal{I}$ the selected inverter conversion model. These equations define architecture only until their empirical/design parameters are sourced and validated.
