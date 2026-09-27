@@ -20,3 +20,5 @@ pub mod spa;
 pub mod visibility;
 
 pub mod resource_geometry;
+
+pub mod annual_irradiance;
