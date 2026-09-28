@@ -32,3 +32,5 @@ pub mod electrical;
 pub mod thermal;
 
 pub mod thermal_electrical;
+
+pub mod annual_electrical_adapter;
