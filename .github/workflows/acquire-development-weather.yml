@@ -1,4 +1,4 @@
-name: Acquire NASA POWER development weather
+name: Acquire NASA POWER development weather\n# Audit 66 rerun: retain timestep aggregate-back evidence
 on:
   workflow_dispatch:
   push:
