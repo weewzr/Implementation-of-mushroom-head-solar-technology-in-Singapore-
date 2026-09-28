@@ -2,36 +2,52 @@
 
 Status: preparation contract only. No annual geometry electrical result is authorized.
 
-## Canonical input row
-Future annual adapter must bind, by exact canonical UTC timestamp:
-- timestamp_utc_s;
-- geometry_id and resource_contract;
-- accepted/converged upstream POA irradiance [W/m2];
-- NASA POWER DEVELOPMENT_NOT_SERIS ambient T2M [degC];
-- explicit dt_hours;
-- NMOT scenario [39,42,45 degC];
-- provisional rigid-PV electrical design-basis identifier;
-- explicit auxiliary-power scenario.
+## Canonical join
+Future annual coupling must join frozen accepted irradiance rows to canonical weather records using the absolute UTC key `timestamp_utc_s`. Vector position, nearest-neighbour matching and implicit UTC/local-time shifts are prohibited.
 
-## Join rules
-Exact equality on canonical absolute UTC timestamp. No nearest-neighbour matching, row-index joining, implicit UTC/local conversion or silent row dropping. Duplicate timestamps, missing irradiance, missing ambient temperature, non-finite fields or inconsistent timestep must fail the annual adapter.
+NASA POWER DEVELOPMENT_NOT_SERIS hourly timestamps are start-of-hour timestamps for whole-hour averages. The canonical weather layer stores the explicit-offset source timestamp plus absolute UTC seconds. The annual irradiance output used for electrical coupling must carry the same canonical timestamp key or a provably identical derived key.
 
-NASA POWER hourly timestamps are start-of-hour whole-hour averages. Frozen irradiance outputs used for annual coupling must represent the same canonical interval semantics. #192 must prove this alignment before any annual integration.
+## Join rejection rules
+- duplicate timestamp on either side -> error;
+- missing irradiance timestamp -> error;
+- missing ambient-temperature timestamp -> error;
+- nonfinite ambient temperature -> error;
+- negative/nonfinite POA -> error under frozen thermal contract;
+- no silent row dropping or imputation;
+- no nearest-neighbour match.
+
+## Units and interval
+- POA: interval-average W/m2;
+- ambient/module temperature: degC;
+- timestep: hours at electrical integration boundary;
+- power: W;
+- energy: Wh, converted to kWh only in explicitly labelled output columns.
+For the current NASA POWER one-hour development source, hourly Wh/m2 is numerically equivalent to interval-average W/m2 only because dt=1 h. This equivalence must not be generalized to other intervals.
+
+## Required row identity
+Every annual output row must retain:
+- canonical UTC timestamp;
+- geometry identifier;
+- resource contract identifier (equal_land/equal_pv or later audited contract);
+- irradiance evidence/source lineage;
+- weather source lineage;
+- NMOT scenario (39/42/45 degC);
+- electrical design-basis identifier;
+- declared electrical-loss/inverter scenario;
+- auxiliary scenario.
 
 ## Output schema
-At minimum: timestamp_utc_s, geometry_id, resource_contract, nmot_c, poa_w_m2, ambient_temp_c, module_temp_c, efficiency, ideal_dc_w, delivered_dc_w, ac_w, auxiliary_power_w, net_w, dt_hours, ac_energy_wh, net_energy_wh, status, provenance identifiers.
-
-## Energy units
-Power remains W. Timestep duration is hours. Energy is Wh by explicit multiplication. Conversion to kWh is a reporting transform only and must be declared.
+At minimum:
+`timestamp_utc_s,geometry,resource_contract,nmot_c,poa_w_m2,ambient_temp_c,module_temp_c,efficiency,ideal_dc_w,delivered_dc_w,ac_w,auxiliary_power_w,net_w,dt_hours,net_energy_wh,status`.
 
 ## Night handling
-Accepted G_POA=0 is retained as a row. Gross DC/AC generation is zero; auxiliary semantics remain explicit and net power may be negative. Night rows are not dropped.
+A valid zero-POA row remains a row: thermal output equals ambient; gross DC/AC are zero; auxiliary semantics remain explicit and may produce negative net power. Do not drop night rows.
 
 ## NMOT sensitivity
-Run identical accepted inputs/design basis under 39, 42 and 45 degC NMOT scenarios. Scenario differences are model sensitivity, not confidence intervals.
+39/42/45 degC scenarios must use identical timestamp/weather/irradiance/electrical inputs. Differences are reported as model/design-basis sensitivity, not tuned away.
 
-## Electrical basis
-Bind one canonical provisional Canadian Solar CS6.2-48TM-460H design-basis object. Do not duplicate eta_ref, area, gamma_P or T_ref in adapter constants. Production loss/inverter/auxiliary assumptions must be separately sourced before headline annual net-energy promotion.
+## Production-parameter gate
+The provisional rigid-PV module parameters may be bound from the canonical electrical design basis. Production DC losses, inverter curve/efficiency and moving-system auxiliary consumption remain separate evidence gates. Ideal-zero-loss fixtures must not be presented as annual production yield.
 
-## Artifact requirements for #192
-Create adapter-level deterministic evidence proving exact timestamp joins, rejection of duplicate/missing/misaligned rows, one-input-to-one-output preservation, units/schema, NMOT sensitivity propagation and provenance fields. Do not yet emit headline annual geometry kWh.
+## #192 bounded preparation task
+Implement/validate the annual adapter schema and exact timestamp join on a small non-headline fixture or metadata path. Verify accepted frozen irradiance rows can carry the required timestamp/resource/geometry identity and weather can be joined without index assumptions. Define the production-loss/inverter evidence gap precisely. Do not emit headline annual geometry kWh. Prepare Audit 65 evidence for the annual-integration authorization decision.
