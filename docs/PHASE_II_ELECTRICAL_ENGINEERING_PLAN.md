@@ -96,3 +96,6 @@ No Miura-ori optimisation, topology optimisation, full structural FEA, LCOE, hea
 
 ## Continue #188 thermal decision checkpoint
 Provisional baseline selected: Faiman steady-state module-temperature model, pending Audit 63. Primary sensitivity/reference: selected-module simple NMOT relation. Exact evidence/contract is in `docs/PHASE_II_THERMAL_MODEL_DECISION.md`. NASA POWER development weather supplies hourly T2M and WS10M (10-m wind); no wind-height correction is silently assumed. #189 must decide coefficient transferability, wind-height treatment, API/test sufficiency and implementation authorization for #190. No annual electrical result is released.
+
+## Mandatory Audit 63 — Continue #189
+Decision B: implementation at #190 is authorized with the selected-module simple NMOT relation as the DEVELOPMENT_NOT_SERIS baseline. Nominal NMOT=42 degC with manufacturer sensitivity 39/42/45 degC; reference irradiance=800 W/m2 and ambient=20 degC. The baseline does not consume hourly wind. Faiman remains the primary wind-sensitive model-form sensitivity, but generic U0/U1 plus NASA POWER WS10M is not promoted until wind-reference compatibility is sourced. #190 implements/tests the separate thermal module only; #191 coupling remains scheduled; annual geometry kWh remains gated.
