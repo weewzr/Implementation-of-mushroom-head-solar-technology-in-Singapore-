@@ -248,3 +248,13 @@ Technical evidence and editorial quality are now separate gates. See `docs/FINAL
 
 ## Mandatory Audit 66 — dual publication gate
 Publication readiness now requires independent PASS columns for technical evidence, prose, mathematics, figures, tables, citations and visual QA. Current report build is restored green (35 pages, `d4832ec0`, run `36371446210`) but is **NOT publication-ready**. P0=0; P1 defect classes=11. Sections 3,6,12,13,14,16,17,18,19,21 remain major-prose-rewrite areas. Annual electrical layer remains NOT AUTHORIZED because the retained canonical timestep/aggregate-back artifact is still pending. See `docs/FINAL_REPORT_QUALITY_REGISTER.md` for repair targets.
+
+## Continue #195
+- Timestep irradiance annual aggregate-back: PASS.
+- Monthly aggregate-back: PASS — 120 candidate-months / 480 component checks, zero failures; max abs residual 5.06e-7 Wh.
+- Accepted configuration/provenance manifest: COMPLETE at `docs/evidence/timestep_irradiance_provenance_manifest.json`.
+- Annual electrical pre-audit package: IMPLEMENTED, canonical retained run PENDING; NOT PROMOTED.
+- Sections 1-4 technical narrative: REWRITTEN and visually checked. Prose/math P1 defects in these sections CLOSED; remaining items P2/final-pass only.
+- Bibliography: activated; EMA citations resolve in current green PDF.
+- Current report: PASS at `0ea105be` / run `36381080050` / artifact `10953395151`; exact PDF SHA-256 `766f9fa3d14fe40b5cc6882383a1c3c4844e2d79f8c7f026ad058a90594ecce4`.
+- Editorial status overall remains AT RISK — RECOVERABLE; publication readiness is not inferred from technical completion.
