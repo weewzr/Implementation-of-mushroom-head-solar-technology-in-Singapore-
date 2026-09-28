@@ -112,3 +112,6 @@ Persisted Early Audit 65 at #191 governs cadence: #192 is Pass 1 of Audit Cycle 
 
 ## Continue #193 dual-track correction
 Technical Phase II remains on track, but final-report quality is AT RISK — RECOVERABLE. Every remaining technical pass must update/inspect its corresponding scientific section. Optional branches remain closed until the quality register demonstrates recovery. #194 Audit 66 must audit both timestep/annual pre-audit evidence and the report-quality recovery plan/current LaTeX regression.
+
+## Mandatory Audit 66 — Continue #194
+Annual electrical promotion WITHHELD pending one provenance-complete release package: monthly reconciliation against frozen Audit-59 evidence, explicit accepted configuration identifiers in timestep rows, and bounded non-ranked annual adapter evidence. The irradiance physics itself passes same-path annual aggregate-back. #195 closes this gate while report Sections 1-4 are repaired. Optional model branches remain closed because publication-quality recovery is now co-equal with technical work.
