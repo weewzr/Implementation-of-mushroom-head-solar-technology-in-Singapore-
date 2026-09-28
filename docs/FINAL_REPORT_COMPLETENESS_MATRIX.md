@@ -258,3 +258,8 @@ Publication readiness now requires independent PASS columns for technical eviden
 - Bibliography: activated; EMA citations resolve in current green PDF.
 - Current report: PASS at `0ea105be` / run `36381080050` / artifact `10953395151`; exact PDF SHA-256 `766f9fa3d14fe40b5cc6882383a1c3c4844e2d79f8c7f026ad058a90594ecce4`.
 - Editorial status overall remains AT RISK — RECOVERABLE; publication readiness is not inferred from technical completion.
+
+## Continue #195
+- Annual monthly aggregate-back: **PASS independently on retained #193 timestep artifact** — all 120 candidate-month totals and direct/diffuse/ground/total components pass tolerance `max(1e-6 Wh, 1e-9 relative)`; worst absolute residual observed = `5.06e-7 Wh`.
+- Frozen configuration binding in retained timestep rows: candidate/resource contract, 4x24 mesh, sky-16, accepted=true, active PV area, land area, NASA POWER provenance and DEVELOPMENT_NOT_SERIS present. Extended provenance manifest + pre-audit electrical package workflow is executing; annual electrical evidence remains NOT PROMOTED until retained package completes.
+- Sections 1–4 editorial repair: COMPLETE for this checkpoint; current repaired PDF visually inspected. Overall publication quality remains AT RISK — RECOVERABLE.
