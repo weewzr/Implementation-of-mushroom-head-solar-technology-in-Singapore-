@@ -18,10 +18,10 @@ Technical: VALIDATED / DEVELOPMENT_NOT_SERIS / FUTURE.
 ## Section register
 | Final section | Prose | Mathematics | Figures | Tables | Citations | Technical | Exact defect / recovery action | Priority | Target |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 Introduction / research question | NEEDS EDIT | CLEAN | NEEDS REVISION | MISSING | INCOMPLETE | DEVELOPMENT_NOT_SERIS | Too much project-status framing; sharpen Singapore problem, hypothesis and falsifiability | High | #195 |
-| 2 Beginner-first explanation | NEEDS EDIT | CLEAN | COMPLETE | MISSING | INCOMPLETE | VALIDATED | Transition to engineering tone is abrupt; reduce repeated warnings | High | #195 |
-| 3 Singapore context | MAJOR REWRITE | CLEAN | MISSING | MISSING | MISSING | DEVELOPMENT_NOT_SERIS | Context/evidence base too thin for final paper; requires authoritative Singapore land/solar sourcing and visual | High | #196 |
-| 4 Mushroom-head origin | NEEDS EDIT | NEEDS TYPESETTING | COMPLETE | MISSING | INCOMPLETE | VALIDATED | Separate historical concept from candidate definition; define geometry symbols once | Medium | #196 |
+| 1 Introduction / research question | CLEAR | CLEAN | COMPLETE | N/A | ADEQUATE | DEVELOPMENT_NOT_SERIS | Rewritten #195: land constraint, mushroom origin, fair-normalisation need and falsifiable question now explicit. | P2 | #213 full-pass |
+| 2 Beginner-first explanation | CLEAR | CLEAN | COMPLETE | N/A | ADEQUATE | VALIDATED | Rewritten #195 as short physical chain and equal-land/equal-PV bridge; equation is explicitly conceptual. | P2 | #213 full-pass |
+| 3 Singapore context | CLEAR | CLEAN | NEEDS REVISION | N/A | ADEQUATE | DEVELOPMENT_NOT_SERIS | Rewritten #195 with EMA solar-resource/land/deployment evidence and packing-ratio motivation. Dedicated Singapore visual remains optional P2 enhancement. | P2 | #213 full-pass |
+| 4 Mushroom-head origin | CLEAR | CLEAN | COMPLETE | N/A | ADEQUATE | VALIDATED | Rewritten #195 to distinguish hypothesis, disadvantages and controlled candidate family. Concept SVG label overlap repaired by direct SVG text rendering and visually checked. | P2 | #213 full-pass |
 | 5 Fair-comparison framework | NEEDS EDIT | NEEDS TYPESETTING | COMPLETE | NEEDS REVISION | INCOMPLETE | VALIDATED | Resource equations are correct but notation and explanatory bridge are fragmented | High | #195 |
 | 6 Mathematical formulation | MAJOR REWRITE | NEEDS DERIVATION REWRITE | NEEDS REVISION | MISSING | INCOMPLETE | VALIDATED | Equation-heavy blocks lack consistent symbol definitions/derivation narrative; vectors/scalars inconsistent | Critical | #195–197 |
 | 7 Analytical verification | NEEDS EDIT | NEEDS TYPESETTING | NEEDS REVISION | NEEDS REVISION | INCOMPLETE | VALIDATED | Verification logic needs compact benchmark table and equation references | High | #197 |
@@ -149,3 +149,6 @@ Current master report compile P0 is CLOSED. First failures were (1) missing gene
 **Remaining P0 defects: 0. Remaining P1 defect classes: 11.** P1 classes 1-11 from the initial register remain. Class 12 (lack of rendered-PDF inspection) is closed as a gate, although page-level readability improvements remain P1/P2 work.
 
 Actionable P1 sequence: Sections 1-4 #195 (context/hypothesis/transition/notation); Sections 5-8 #196 (resource chain, mathematical derivations, verification and numerical-method diagrams); Sections 9-12 #197 (V&V/results/origami derivation); Sections 13-14 #198; Sections 15-16 #199; Sections 17-21 #201-203; whole-paper P1 closure #204-207. Exact page numbers may move as repairs change pagination, so source section/equation labels are the stable defect locator until release pagination freezes.
+
+## Continue #195 Sections 1-4 recovery checkpoint
+LaTeX and Markdown front sections were rewritten as a scientific narrative rather than notebook layers. Rendered PDF pages 5-7 were inspected: prose is readable, equations are conventional and the Section-4 concept figure is now label-contained. Bibliography processing was activated after the first rendered rewrite exposed unresolved citation markers. Sections 1-4 no longer contain P1 prose/math defects; remaining issues there are P2 final-pass/citation/visual polish. The project-wide P1 classes remain concentrated in Sections 5-21 and are scheduled under the #196-207 recovery plan.
