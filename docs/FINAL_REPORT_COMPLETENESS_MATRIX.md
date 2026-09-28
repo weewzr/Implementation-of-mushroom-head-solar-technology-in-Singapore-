@@ -239,3 +239,9 @@ Phase II begins #188 under `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. No do
 
 ## Continue #193 — editorial-quality dimension added
 Technical evidence and editorial quality are now separate gates. See `docs/FINAL_REPORT_QUALITY_REGISTER.md` for all 21 sections + appendices. Initial audit identifies **12 major mathematical/typesetting defect classes** and major-prose status in Sections 3, 6, 12, 13, 14, 16, 17, 18, 19 and 21. Current descendant LaTeX build is failing, so current-source PDF visual QA is BLOCKED until that regression is repaired; the frozen 32-page Phase-I baseline remains historical evidence only. A section cannot be COMPLETE solely because its model exists.
+
+## Mandatory Audit 66 — dual status
+- Timestep irradiance: same-path annual aggregate-back PASS; 87,840 accepted rows; max observed annual-total residual 7.683e-9 Wh. Monthly/provenance-complete release package still REQUIRED before annual electrical promotion.
+- Current report build: PASS, 35 pages, commit `d4832ec0191710e6bb7c30d9ca3169d60aa3ec10`, run `36371446210`, artifact `10949153513`, PDF SHA-256 `dae6157b81802e9644f396dc6ca6bc3c0113b506c295a1449a81756d701c6900`.
+- Publication quality: P0=0 after Audit-66 bounded fixes; P1 defect classes=8. Publication-ready status requires technical evidence + prose + mathematics + figures + tables + citations + visual QA, not code existence.
+- #227 feasibility: AMBER.
