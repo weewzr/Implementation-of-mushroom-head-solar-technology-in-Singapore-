@@ -245,3 +245,6 @@ Technical evidence and editorial quality are now separate gates. See `docs/FINAL
 - Current report build: PASS, 35 pages, commit `d4832ec0191710e6bb7c30d9ca3169d60aa3ec10`, run `36371446210`, artifact `10949153513`, PDF SHA-256 `dae6157b81802e9644f396dc6ca6bc3c0113b506c295a1449a81756d701c6900`.
 - Publication quality: P0=0 after Audit-66 bounded fixes; P1 defect classes=8. Publication-ready status requires technical evidence + prose + mathematics + figures + tables + citations + visual QA, not code existence.
 - #227 feasibility: AMBER.
+
+## Mandatory Audit 66 — dual publication gate
+Publication readiness now requires independent PASS columns for technical evidence, prose, mathematics, figures, tables, citations and visual QA. Current report build is restored green (35 pages, `d4832ec0`, run `36371446210`) but is **NOT publication-ready**. P0=0; P1 defect classes=11. Sections 3,6,12,13,14,16,17,18,19,21 remain major-prose-rewrite areas. Annual electrical layer remains NOT AUTHORIZED because the retained canonical timestep/aggregate-back artifact is still pending. See `docs/FINAL_REPORT_QUALITY_REGISTER.md` for repair targets.
