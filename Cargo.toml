@@ -64,3 +64,7 @@ path = "src/bin/thermal_electrical_evidence.rs"
 [[bin]]
 name = "annual-adapter-evidence"
 path = "src/bin/annual_adapter_evidence.rs"
+
+[[bin]]
+name = "timestep-irradiance-evidence"
+path = "src/bin/timestep_irradiance_evidence.rs"
