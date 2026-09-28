@@ -102,3 +102,6 @@ Decision B: implementation at #190 is authorized with the selected-module simple
 
 ## Continue #190 / Early Audit 64
 Thermal implementation PASS and FROZEN narrow foundation after all-target Rust evidence `36364613741`. #191 coupling is authorized under `docs/THERMAL_ELECTRICAL_COUPLING_CONTRACT.md`; it must remain deterministic/adapter-level and must not release annual geometry kWh. Early Audit 64 resets cadence; normal next audit is #193 unless coupling itself triggers an earlier major-result audit.
+
+## Continue #191 / Early Audit 65
+Deterministic thermal-electrical coupling PASS and FROZEN narrow foundation. #192 is rebased to annual-adapter timestamp/schema/provenance preparation and deterministic rejection evidence only. Because Early Audit 65 reset cadence, #192 is Pass 1 of Audit Cycle 66, #193 Pass 2, and normal mandatory Audit 66 is #194 unless an earlier major result triggers. No headline annual geometry kWh before authorization.
