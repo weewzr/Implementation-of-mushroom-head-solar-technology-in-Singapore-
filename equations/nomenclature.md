@@ -29,7 +29,7 @@ This file is the single notation authority for the report. Report prose, LaTeX, 
 | $G_{\rm GHI}$ | global horizontal irradiance | W m$^{-2}$ | weather input |
 | $G_{\rm DHI}$ | diffuse horizontal irradiance | W m$^{-2}$ | weather input |
 | $G_{\rm DNI}$ | direct normal irradiance | W m$^{-2}$ | weather input |
-| $G_{\rm POA}$ | total plane-of-array irradiance | W m$^{-2}$ | interval-average electrical input |
+| $G_{\rm POA}$ | total plane-of-array irradiance | W m$^{-2}$ | interval-average electrical input |\n| $H_{\rm POA}$ | incident plane-of-array energy over a stated interval | Wh | annual comparison uses explicit interval/year |
 | $G_{{\rm dir},i}$ | direct POA irradiance on facet $i$ | W m$^{-2}$ | |
 | $G_{{\rm dif},i}$ | diffuse POA irradiance on facet $i$ | W m$^{-2}$ | |
 | $G_{{\rm grd},i}$ | ground-reflected POA irradiance on facet $i$ | W m$^{-2}$ | |
