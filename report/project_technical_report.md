@@ -11,175 +11,57 @@
 ## Abstract
 Singapore's solar resource is strong but deployment is constrained by scarce land and competing urban uses. This project investigates whether three-dimensional photovoltaic (PV) geometries—initially motivated by a rotating "mushroom-head" panel—can increase annual electricity generation per constrained horizontal footprint. Curvature does not create solar energy; its possible value is spatial packing. A 3-D canopy can place $A_{\mathrm{PV}}>A_{\mathrm{land}}$ while attempting to retain irradiation quality, bifacial access, ventilation and useful space below. Early numerical results are deliberately idealised and are not bankable yield predictions.
 
-## Layer 1 — The whole idea without mathematics
+## 1. Introduction and research question
 
-**The Sun gives us light. Solar panels catch some of that light. Singapore has little spare land, so this project asks whether we can place more useful solar surface above the same patch of ground.**
+Singapore's solar-energy problem is not simply how to install more photovoltaic (PV) module area. It is how to obtain useful electrical energy from surfaces that compete for scarce urban space. Singapore's Energy Market Authority identifies solar as the country's most viable domestic renewable resource while explicitly noting the constraint imposed by limited land. The project therefore asks whether three-dimensional PV can use a constrained footprint more intensively without losing too much irradiance productivity or incurring unacceptable downstream penalties.
 
-![Beginner story: Sun, flat panel and founding mushroom idea](../figures/beginner_story.svg)
+The work began from a rotating mushroom-head PV concept. That idea remains the research origin, not a presumed optimum.
 
-**Figure — The project in one picture.** The mushroom-head idea started the research, but more panel does not automatically mean more useful light, so every shape must be tested rather than assumed to win.
+**Central falsifiable question:** *Under equal and explicitly declared resource constraints, can a three-dimensional PV geometry increase useful solar-energy collection per unit land footprint in Singapore, and do any gains remain after thermal, electrical and engineering penalties are introduced?*
 
-### A fair test needs two different questions
+Phase I addresses controlled irradiance geometry. Phase II converts that audited irradiance evidence into thermal and electrical quantities. Structural, manufacturing, cost and carbon layers remain separate so an irradiance advantage cannot be mistaken for a complete engineering recommendation.
 
-![Equal-land, equal-PV and simple comparison metrics](../figures/fair_comparison_metrics.svg)
+## 2. Beginner-first visual explanation
 
-**Figure — Fair comparison in plain language.** Equal land means the same-size playground. Equal PV means the same amount of solar material. Packing ratio asks how much material fits above the land; packing efficiency asks how well each unit of that material catches irradiance relative to the flat reference; land-energy multiplier combines the two effects.
+Sunlight reaches a PV surface as direct light from the Sun, diffuse light from the visible sky and reflected light from the surroundings. The PV module converts part of the received radiation to DC electricity; an inverter converts DC to AC; temperature and system losses reduce useful output.
 
-The candidate story is **flat → mushroom/paraboloid → hemisphere → faceted canopy → folded surface**. Direct sunlight comes from the Sun, diffuse light comes from the visible sky, and reflected light comes back from the ground. A surface can lose useful light by facing away, being shadowed by another surface, or seeing less sky.
+![Solar-energy chain](../figures/how_solar_pv_works_singapore.svg)
 
-The Rust computer model therefore repeats one simple job for every candidate: **weather + Sun position + 3-D shape → direct-ray and sky-view checks → hourly irradiance → add the year → compare under the same resource contract.**
+A fair geometry test needs two resource contracts. **Equal land** gives every candidate the same horizontal footprint. **Equal PV** gives every candidate the same active PV area. These answer different engineering questions.
 
-## Layer 2 — Physical intuition before equations
+![Fair comparison metrics](../figures/fair_comparison_metrics.svg)
 
-The founding mushroom idea is a packing hypothesis, not a conclusion. A three-dimensional canopy may fit more active PV above scarce land, but the extra area can have poorer orientation, self-shadowing and reduced sky view. The controlled model separates direct, diffuse and ground-reflected irradiance so those competing effects can be inspected.
+The conceptual accounting relation is
 
-**Equal-land** asks what happens when every candidate receives the same projected horizontal land area. **Equal-PV** asks what happens when every candidate receives the same active PV area. They answer different engineering questions and are never interchangeable.
+[
+E_{\rm useful}\sim E_{\rm available}f_{\rm captured}\eta_{\rm conversion}-E_{\rm losses}.
+]
 
-For a candidate with packing ratio \(\Pi=A_{PV}/A_{land}\), the irradiance-only comparison uses two dimensionless diagnostics. **Packing efficiency** is PV-area-normalized annual irradiance divided by the flat-reference PV-area-normalized value. **Land-energy multiplier** is land-area-normalized annual irradiance divided by the flat-reference land-area-normalized value. Under the same reference, the accounting identity is land-normalized irradiance = PV-normalized irradiance × packing ratio. These are DEVELOPMENT_NOT_SERIS irradiance metrics, not electrical, structural or economic performance.
+The remainder of the paper replaces each term with explicit geometry, irradiance, thermal and electrical equations.
 
-## Future branch — deployable origami solar sheet
+## 3. Singapore context and design motivation
 
-The current static folded-surface candidate is **not** an origami simulation. A separate future model will represent a manufactured sheet as vertices \(V\), facets \(F\), and crease/hinge edges \(C\), with fold angles and deployment coordinate \(\lambda\in[0,1]\). \(\lambda=0\) denotes a declared flat/compact or stowed state and \(\lambda=1\) the fully deployed state.
+EMA reports average annual solar irradiance of approximately 1,580 kWh m⁻² yr⁻¹ and identifies limited land as a constraint on solar deployment. Singapore has consequently pursued rooftops, reservoirs, land and other viable surfaces, and in 2026 raised its 2030 deployment target to 3 GWp after reaching 2 GWp in 2025. The bibliography retains the corresponding EMA sources.
 
-![Future origami deployment architecture](../figures/origami_deployment_architecture.svg)
+This context makes land-normalised performance important. A design that packs more active PV above a footprint is not automatically better if the added area receives less useful irradiance. For active PV area (A_{\rm PV}) and projected land footprint (A_{\rm land}),
 
-**Figure — Future deployable-sheet architecture.** A flat-made PV sheet receives a crease pattern, moves through intermediate deployment states, becomes a 3-D canopy, and can have a separate storm-stowed state. This is an architecture specification, not a simulated performance result.
+[
+\Pi=\frac{A_{\rm PV}}{A_{\rm land}}
+]
 
-### What the computer sees when it folds a sheet
+defines packing ratio. Later sections combine packing with irradiance productivity rather than treating area alone as a performance result.
 
-![Single-crease mesh states at three deployment values](../figures/origami_mesh_states.svg)
+The current numerical weather source is NASA POWER Singapore 2024 and remains **DEVELOPMENT_NOT_SERIS**. This is a provenance limitation and is kept separate from the mathematical validity of the geometry model.
 
-**Figure — A real moving mesh, in simple words.** Dots are **vertices** $V$, little flat pieces are **facets** $F$, dashed fold lines are **creases** $C$, and $\lambda$ says how open the sheet is. This is different from the static folded candidate: the computer can generate intermediate states instead of receiving only one folded-looking final shape.
+## 4. Original mushroom-head concept and controlled candidate family
 
-For rigid-origami cases, vertex positions \(\mathbf x_i(\lambda)\) must preserve edge lengths and facet dimensions while crease angles change. Flexible variants must instead bound strain and bend radius explicitly. Required validation includes manifold connectivity, crease compatibility, self-intersection/collision, edge-length preservation, facet-area preservation, minimum bend radius, allowable PV/interconnect strain, and active-area/resource preservation. Candidate mechanisms include radial/umbrella folding, Miura-ori or related tessellations, accordion/fan folding, roll-out petals and tensioned membranes. No mechanism is selected here.
+The founding mushroom concept is a raised PV canopy whose head resembles a shallow paraboloid. Curvature may place more active PV above a constrained footprint and diversify surface orientations, but it can also worsen incidence, self-shadowing, sky view, temperature distribution, structural demand and actuation requirements.
 
-Only a validated **deployed mesh** may later enter the frozen common resource → visibility/self-shadowing → sky-view → annual-irradiance pipeline. Folding mechanics remain a separate layer. Transport/manufacturing simplification or cost reduction is only a hypothesis until deployment mechanics, wind stowage, actuator energy, structural mass, fatigue, maintenance and economics are modelled.
+![Founding equal-footprint hypothesis](../figures/concept_equal_footprint_comparison.svg)
 
-## Layer 3 — Engineering definitions and assumptions
+The controlled fixed study therefore compares a flat reference, frozen paraboloidal mushroom, hemisphere, faceted canopy and folded surface under declared resource contracts. These are geometric test cases, not a commercial ranking. Rotation and deployability are treated separately because actuator energy, kinematics, stowage and reliability cannot be credited for free.
 
-The following sections introduce the coordinate system, irradiance definitions, resource contracts and modelling assumptions. **Layer 4** then retains the complete equations, derivations, numerical validation and evidence trail.
-
-## 1. Problem and motivation
-The engineering question is: **for a constrained horizontal footprint in Singapore, what 3-D PV geometry and movement strategy maximises useful annual energy and lifecycle value after optical, thermal, mechanical, structural and economic penalties are included?**
-
-External Singapore values are maintained in the project provenance register and bibliography rather than treated as unexplained constants.
-
-### 1.1 From sunlight to a geometry problem
-
-Before introducing vectors, it is useful to separate the physical chain that the model is trying to represent. At a given instant, the atmosphere supplies irradiance. **GHI** is the total short-wave irradiance on a horizontal plane; **DNI** is the direct beam measured on a plane normal to the Sun; and **DHI** is the diffuse irradiance received by a horizontal plane from the sky. For a horizontal unobstructed receiver these quantities obey the familiar closure relation
-
-$
-GHI = DNI\,\sin\alpha + DHI,
-$
-
-where $\alpha$ is solar elevation. This equation is a useful measurement/model consistency check, not a complete transposition model for an arbitrarily oriented PV surface.
-
-A three-dimensional PV geometry changes what happens *after* the atmospheric irradiance field is specified. Each small surface element has an orientation represented by its outward normal $\mathbf n$. The Sun has a direction represented by $\mathbf s$. Their dot product determines the cosine projection of the direct beam:
-
-$
-\cos\theta_i=\mathbf n\cdot\mathbf s,
-$
-
-where $\theta_i$ is the incidence angle between the surface normal and the direction to the Sun. For a monofacial surface, negative values do not illuminate the front face, hence the later use of $[\mathbf n\cdot\mathbf s]_+$.
-
-Orientation alone is insufficient. Another part of the canopy may block the direct ray, so the model also needs a visibility term $V$. Diffuse radiation requires a sky-view model because a tilted or crowded facet may see only part of the sky. Received irradiance is then converted to electrical power using a PV efficiency model, with later corrections for temperature, bifacial response, mismatch and system losses.
-
-The complete logic used throughout this project is therefore
-
-$
-\boxed{
-\text{weather}
-\rightarrow
-\text{Sun position}
-\rightarrow
-\text{surface orientation}
-\rightarrow
-\text{visibility/sky view}
-\rightarrow
-\text{received irradiance}
-\rightarrow
-\text{electrical energy}
-\rightarrow
-\text{land-normalised comparison}
-}
-$
-
-This chain explains why a curved surface cannot be judged from surface area alone. Adding PV area can increase the packing ratio, but every added element must still receive useful irradiance. The optimisation problem is consequently a competition between **more active area per unit land** and **lower average productivity of that packed area**. Sections 2--7 build those quantities from first principles before any candidate geometry is compared.
-
-### 1.2 Concept and model-flow diagrams
-
-![Equal-footprint concept comparing flat and three-dimensional PV packing](../figures/concept_equal_footprint_comparison.svg)
-
-**Figure 1.** Equal-footprint project concept. The purpose of the three-dimensional geometry is not to claim improved cell efficiency, but to test whether additional active PV can be packed into scarce horizontal footprint without losing too much irradiation quality or introducing unacceptable mechanical and lifecycle penalties.
-
-![Singapore solar and PV modelling chain](../figures/how_solar_pv_works_singapore.svg)
-
-**Figure 2.** Beginner-to-model bridge from Singapore solar resource to facet irradiance, electrical conversion and land-normalised comparison. This is a modelling map, not evidence that every downstream validation gate has passed.
-
-
-## 1A. Technology first — what the system is doing before the mathematics
-
-The mathematical model is easier to understand if the physical story is clear first.
-
-### 1A.1 Sunlight is the energy input
-
-The Sun supplies electromagnetic radiation. A solar panel does not create energy; it intercepts part of the incoming solar radiation and converts part of that intercepted energy into electrical energy. The project therefore begins with a simple question: **how much useful sunlight reaches each piece of PV surface?**
-
-### 1A.2 A photovoltaic panel converts light into electricity
-
-A PV module contains semiconductor solar cells. Incoming photons can transfer energy to charge carriers in the semiconductor. The cell's internal electric field separates charge, and an external circuit allows electrical current to flow. At system level, the useful electrical output therefore depends on both the sunlight reaching the module and the module/system conversion losses.
-
-This report does not require semiconductor quantum physics to compare canopy geometry. For the geometry problem, the PV module is initially represented by a conversion-efficiency model after the irradiance reaching the surface has been determined.
-
-### 1A.3 Sunlight reaches the panel in more than one way
-
-The model separates three intuitive pathways:
-
-- **direct light:** sunlight arriving from the solar-disc direction;
-- **diffuse light:** sunlight scattered by the atmosphere and clouds and arriving from the sky;
-- **reflected light:** sunlight reflected from the ground or surrounding surfaces.
-
-This matters strongly for a three-dimensional object. A surface facing away from the direct Sun may still receive diffuse or reflected light.
-
-### 1A.4 Why panel direction matters
-
-A panel facing a beam directly presents a large projected receiving area. Tilting it away makes the same physical panel look smaller to that beam. If the active face points away completely, a monofacial panel receives no front-side direct beam. The later dot-product mathematics is simply a precise way of calculating this geometric effect.
-
-### 1A.5 Why shadows matter
-
-Adding more PV surface above the same land area is only useful if the added surfaces remain illuminated. One part of a three-dimensional canopy can block another part from the Sun or from portions of the sky. Consequently,
-
-**more PV area does not automatically mean more electricity.**
-
-The project must calculate both **packing** and **irradiance productivity**.
-
-### 1A.6 Why the original mushroom idea exists
-
-The founding idea is to raise and curve PV surface above a relatively small horizontal footprint. The potential advantages to test are:
-
-- more active PV surface per unit horizontal land;
-- a spread of surface orientations;
-- possible access to direct and diffuse light from different directions;
-- usable space below the canopy;
-- possible controlled rotation.
-
-The corresponding disadvantages must be tested with equal seriousness: self-shading, reduced sky view, structural/wind loads, actuator energy, maintenance, electrical mismatch, heat and cost.
-
-### 1A.7 Why rotation might help
-
-The Sun's apparent direction changes throughout the day and year. A moving structure can alter its orientation to improve light capture, but motors, bearings and structures have losses and loads. The correct question is therefore not **“can it rotate toward the Sun?”** but **“does movement increase net useful lifecycle output enough to justify its penalties?”**
-
-### 1A.8 What is being compared
-
-The project retains a flat reference and compares it against mushroom/paraboloid, sphere/hemisphere, folded, petal/flower, faceted and eventually free-form candidates. They must be compared using the same declared land, active-PV-area, height, weather and electrical accounting so that geometry—not unequal resources—causes the difference.
-
-### 1A.9 From the physical story to mathematics
-
-Only after the physical system is understood does the report introduce mathematics. Following the project master instructions, each major mathematical development should proceed as:
-
-**physical intuition → definitions → assumptions/boundaries → governing principle → mathematical formulation → derivation → calculation → verification → physical interpretation → engineering implication.**
-
-The analytical and discrete methods later in the report are therefore two mathematical representations of the same physical story described above.
+The mathematics begins with a common coordinate system. Once the Sun direction and surface normal are defined consistently, incidence, visibility, sky view and resource normalization can be introduced without changing the physical question.
 
 ## 2. Coordinate and sign conventions
 
