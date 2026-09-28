@@ -93,3 +93,6 @@ Phase II remains bounded to #188–197; #198–207 manufacturing/cost/carbon; #2
 
 ## Scope exclusions through this contract
 No Miura-ori optimisation, topology optimisation, full structural FEA, LCOE, headline CO2 reduction, or unsupported flexible-PV performance claim is authorized by this plan.
+
+## Continue #188 thermal decision checkpoint
+Provisional baseline selected: Faiman steady-state module-temperature model, pending Audit 63. Primary sensitivity/reference: selected-module simple NMOT relation. Exact evidence/contract is in `docs/PHASE_II_THERMAL_MODEL_DECISION.md`. NASA POWER development weather supplies hourly T2M and WS10M (10-m wind); no wind-height correction is silently assumed. #189 must decide coefficient transferability, wind-height treatment, API/test sufficiency and implementation authorization for #190. No annual electrical result is released.
