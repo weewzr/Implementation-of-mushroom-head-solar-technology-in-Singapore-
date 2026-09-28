@@ -1,5 +1,4 @@
 name: Build technical report
-
 on:
   push:
     paths:
@@ -7,7 +6,6 @@ on:
       - 'equations/**'
       - '.github/workflows/build-report.yml'
   workflow_dispatch:
-
 jobs:
   build-pdf:
     runs-on: ubuntu-latest
@@ -17,14 +15,25 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-science latexmk poppler-utils inkscape
-      - name: Compile twice and fail on LaTeX errors
+      - name: Compile and retain log
         working-directory: report
         run: |
-          set -o pipefail\n          latexmk -pdf -shell-escape -interaction=nonstopmode -halt-on-error project_technical_report.tex 2>&1 | tee build-report.log
+          set -o pipefail
+          latexmk -pdf -shell-escape -interaction=nonstopmode -halt-on-error project_technical_report.tex 2>&1 | tee build-report.log
       - name: Check PDF metadata and extract text
+        if: success()
         working-directory: report
         run: |
           pdfinfo project_technical_report.pdf
           pdftotext project_technical_report.pdf project_technical_report.txt
           test -s project_technical_report.txt
-      - name: Upload build evidence\n        if: always()\n        uses: actions/upload-artifact@v4\n        with:\n          name: mushroom-head-solar-technical-report-build-evidence\n          path: |\n            report/build-report.log\n            report/project_technical_report.log\n            report/project_technical_report.pdf\n          if-no-files-found: warn
+      - name: Upload build evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mushroom-head-solar-technical-report-build-evidence
+          path: |
+            report/build-report.log
+            report/project_technical_report.log
+            report/project_technical_report.pdf
+          if-no-files-found: warn
