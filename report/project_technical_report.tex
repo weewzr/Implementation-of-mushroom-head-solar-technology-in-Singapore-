@@ -330,7 +330,9 @@ For this idealised convex/no-occlusion benchmark, additional upward-facing surfa
 Equation~\eqref{eq:diffuse-cap-limit} is an analytical benchmark for later Rust and ray/sky-view implementations. It must not be used as a validated Singapore annual-yield model. Final 3-D calculations require time-correlated DHI, an anisotropic sky treatment and explicit sky visibility.
 
 \section{Land-energy multiplier}
-For the present irradiance-level controlled comparison, define the land-energy multiplier.\n\begin{equation}\nM_L=\frac{H_{\mathrm{POA},3D}/A_{\mathrm{land}}}{H_{\mathrm{POA,base}}/A_{\mathrm{land}}}=\frac{H_{\mathrm{POA},3D}}{H_{\mathrm{POA,base}}}.
+For the present irradiance-level controlled comparison, define the land-energy multiplier.
+\begin{equation}
+M_L=\frac{H_{\mathrm{POA},3D}/A_{\mathrm{land}}}{H_{\mathrm{POA,base}}/A_{\mathrm{land}}}=\frac{H_{\mathrm{POA},3D}}{H_{\mathrm{POA,base}}}.
 \label{eq:land-multiplication-definition}
 \end{equation}
 Here \(M_L\) is dimensionless; \(H_{\mathrm{POA},3D}\) and \(H_{\mathrm{POA,base}}\) are annual incident POA energies for the candidate and flat reference under the same land contract. At this stage \(M_L\) is an irradiance-level metric, not annual electrical energy.
