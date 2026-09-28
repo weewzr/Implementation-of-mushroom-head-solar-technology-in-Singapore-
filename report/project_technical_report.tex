@@ -329,13 +329,10 @@ For this idealised convex/no-occlusion benchmark, additional upward-facing surfa
 \paragraph{Engineering Implication.}
 Equation~\eqref{eq:diffuse-cap-limit} is an analytical benchmark for later Rust and ray/sky-view implementations. It must not be used as a validated Singapore annual-yield model. Final 3-D calculations require time-correlated DHI, an anisotropic sky treatment and explicit sky visibility.
 
-\section{Land multiplication}
-For an equal-land comparison, define the land multiplication factor
-\begin{equation}
-M_L=\frac{E_{3D}}{E_{\mathrm{base}}}.
+\section{Land-energy multiplier}\nFor the present irradiance-level controlled comparison, define the land-energy multiplier\n\begin{equation}\nM_L=\frac{H_{\mathrm{POA},3D}/A_{\mathrm{land}}}{H_{\mathrm{POA,base}}/A_{\mathrm{land}}}=\frac{H_{\mathrm{POA},3D}}{H_{\mathrm{POA,base}}}.
 \label{eq:land-multiplication-definition}
 \end{equation}
-Here \(M_L\) is land multiplication (dimensionless); \(E_{3D}\) is annual electrical energy from the candidate over the common land footprint (\si{\kilo\watt\hour\per\year}); and \(E_{\mathrm{base}}\) is annual electrical energy from the explicitly defined baseline over the same footprint (\si{\kilo\watt\hour\per\year}).
+Here \(M_L\) is dimensionless; \(H_{\mathrm{POA},3D}\) and \(H_{\mathrm{POA,base}}\) are annual incident POA energies for the candidate and flat reference under the same land contract. At this stage \(M_L\) is an irradiance-level metric, not annual electrical energy.
 
 Define the packing ratio
 \begin{equation}
@@ -346,11 +343,11 @@ Here \(\Pi\) is dimensionless; \(A_{\mathrm{PV}}\) is active photovoltaic area (
 
 Multiplying and dividing Eq.~\eqref{eq:land-multiplication-definition} by \(\Pi\) gives
 \begin{equation}
-M_L=\Pi\frac{E_{3D}}{\Pi E_{\mathrm{base}}}.
+M_L=\Pi\frac{H_{\mathrm{POA},3D}/A_{\mathrm{PV},3D}}{H_{\mathrm{POA,base}}/A_{\mathrm{PV,base}}}.
 \end{equation}
 All terms are dimensionless because the energy ratio and \(\Pi\) are dimensionless. Define packed-PV productivity
 \begin{equation}
-\eta_{\mathrm{pack}}=\frac{E_{3D}}{\Pi E_{\mathrm{base}}}.
+\eta_{\mathrm{pack}}=\frac{H_{\mathrm{POA},3D}/A_{\mathrm{PV},3D}}{H_{\mathrm{POA,base}}/A_{\mathrm{PV,base}}}.
 \label{eq:packing-productivity}
 \end{equation}
 Here \(\eta_{\mathrm{pack}}\) is average packed-PV productivity relative to the baseline (dimensionless). Therefore
@@ -483,7 +480,7 @@ Because solar motion is slow, useful tracking may consist of infrequent or quasi
 \paragraph{Engineering Implication.}
 The eventual controller must compare fixed, scheduled-step and continuous tracking under the same geometry/resource envelope. Equation~\eqref{eq:tracking-control} is a formulation only; no optimal tracking schedule is presently claimed.
 
-\section{Bifacial and thermal extensions}
+\section{Bifacial formulation and thermal-model precursor}
 For a bifacial facet \(i\), define effective irradiance
 \begin{equation}
 G_{\mathrm{eff},i}
@@ -511,7 +508,7 @@ Here \(T_c\) is cell temperature; \(T_{\mathrm{ref}}\) is reference cell tempera
 A three-dimensional canopy changes both rear-surface exposure and thermal environment. Additional packed area may improve rear-sky/ground access in some geometries while dense packing may also reduce ventilation or create mutual shading.
 
 \paragraph{Engineering Implication.}
-Neither Eq.~\eqref{eq:bifacial-effective} nor Eq.~\eqref{eq:temperature-efficiency} is a complete bifacial or thermal model. Validated use requires a selected module, sourced bifaciality and temperature coefficients, front/rear view and reflection modelling, ambient weather, and an appropriate cell-temperature model. Those inputs remain unset in the provenance register.
+Equation~\eqref{eq:bifacial-effective} remains a formulation only because no bifacial design basis is selected. Equation~\eqref{eq:temperature-efficiency} is the linear temperature-efficiency relation later instantiated by the selected rigid-PV electrical basis. The current NMOT thermal model and electrical implementation are presented in the electrical/net-energy section; this subsection is retained only to introduce the physical coupling and must not be read as the current thermal-model status.
 
 \section{Canonical topology experiment}
 The initial reproducible design experiment uses
@@ -816,7 +813,7 @@ Phase I establishes interfaces and requirements rather than a completed physical
 Manufacturing routes remain an evidence gap. No claim that folding, printing or a particular fabrication route lowers cost is released in Phase I. Phase III will compare manufacturable concepts only after material, process, lifetime and cost evidence is sourced.
 
 \section{Electrical and net-energy performance: first implemented conversion kernel}
-\subsection{Module temperature: provisional Phase-II model decision}
+\subsection{Module temperature: implemented NMOT baseline and model-form sensitivity}
 \textbf{Beginner view.} Solar panels get hot in the sun, and hotter photovoltaic modules usually convert a little less of the incident solar energy into electricity.
 
 \textbf{Physical view.} Plane-of-array irradiance heats the module while ambient air and ventilation remove heat. Phase II therefore inserts a replaceable thermal model between the frozen irradiance result and the frozen electrical-conversion kernel.
