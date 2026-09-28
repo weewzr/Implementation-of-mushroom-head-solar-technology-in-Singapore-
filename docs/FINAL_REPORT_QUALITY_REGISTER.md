@@ -152,3 +152,11 @@ Actionable P1 sequence: Sections 1-4 #195 (context/hypothesis/transition/notatio
 
 ## Continue #195 Sections 1-4 recovery checkpoint
 LaTeX and Markdown front sections were rewritten as a scientific narrative rather than notebook layers. Rendered PDF pages 5-7 were inspected: prose is readable, equations are conventional and the Section-4 concept figure is now label-contained. Bibliography processing was activated after the first rendered rewrite exposed unresolved citation markers. Sections 1-4 no longer contain P1 prose/math defects; remaining issues there are P2 final-pass/citation/visual polish. The project-wide P1 classes remain concentrated in Sections 5-21 and are scheduled under the #196-207 recovery plan.
+
+## Continue #195 — Sections 1–4 repair checkpoint
+- Sections 1–4 were rewritten in the LaTeX scientific spine and synchronized in Markdown around one falsifiable research question, explicit Singapore land constraint, equal-land/equal-PV logic and the mushroom concept as a hypothesis rather than a presumed winner.
+- Authoritative Singapore context already retained in the bibliography is now cited directly (EMA solar resource/deployment context and 3 GWp 2030 target).
+- Duplicate beginner/technology narrative before the coordinate system was removed from the LaTeX spine. The transition now proceeds Introduction -> beginner visual explanation -> Singapore motivation -> founding concept -> coordinate mathematics.
+- Current repaired front-matter LaTeX evidence: commit `bb922856ae1633a66108db31e5368215c8307513`, LaTeX run `36379978406` PASS, artifact `10951539431`, artifact SHA-256 `2100f1fa8836e7b1648d308a8972247a21d19e067c7f43e4a71b0ae7f740915a`, exact 32-page PDF SHA-256 `1a96be957d73eba982dedca614627fae2c079747173ac869870e6b223a4964d9`.
+- Render inspection of all 32 pages shows no black rectangles, clipping or broken glyphs. Repaired Sections 1–4 are materially clearer, but the overall paper remains AT RISK — RECOVERABLE because dense/P1 mathematics remains downstream.
+- Quality status after this pass: Sections 1, 2 and 4 prose -> CLEAR for this stage; Section 3 -> NEEDS EDIT rather than MAJOR REWRITE because final Singapore-context evidence/visual depth still needs strengthening. P0 remains 0. No claim is made that the full paper is publication-ready.
