@@ -860,6 +860,15 @@ E_{\rm net}&=\sum_t P_{\rm net}(t)\Delta t.
 \end{align}
 Net power is intentionally allowed to become negative when auxiliary demand exceeds generation; gross DC and AC generation are nonnegative. Negative irradiance is rejected rather than silently clamped.
 
+\subsection{Deterministic thermal--electrical coupling}
+The Phase-II coupling layer does not introduce a third physical model. It orchestrates the frozen NMOT thermal foundation and frozen electrical equations:
+\[
+(G_{\rm POA},T_a)\rightarrow T_m\rightarrow\eta_m(T_m)\rightarrow P_{\rm dc}\rightarrow P_{\rm ac}\rightarrow P_{\rm net}\rightarrow E_{\rm net}.
+\]
+The thermal module owns $T_m$; an additive electrical API accepts externally supplied module temperature so the coupling does not recompute or duplicate thermal physics. Each result retains $T_m$, efficiency, ideal and delivered DC power, AC power, explicit auxiliary power, net power and timestep energy.
+
+At Continue \#191 this is a deterministic validation layer only. The NMOT 39/42/45~$^{\circ}$C sensitivity is propagated through the same electrical design basis; with the selected negative $P_{\max}$ temperature coefficient, the hotter NMOT scenario produces lower electrical power for otherwise identical nonzero inputs. Annual geometry electrical results remain \textbf{NOT AUTHORIZED}. Future annual coupling must join irradiance and ambient temperature by exact canonical absolute UTC timestamp, never row index or nearest-neighbour matching.
+
 \subsection{Electrical design-basis evidence plan}
 The provisional rigid-PV module basis is selected and provenance-linked; system-loss and inverter parameters remain unset until separately sourced. The minimum parameter set is:
 \begin{center}\resizebox{\textwidth}{!}{\begin{tabular}{llll}
