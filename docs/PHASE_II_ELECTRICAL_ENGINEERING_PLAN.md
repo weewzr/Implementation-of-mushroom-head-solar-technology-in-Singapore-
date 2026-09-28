@@ -121,3 +121,6 @@ Annual controlled electrical promotion is WITHHELD until the retained accepted t
 
 ## Continue #195
 The accepted timestep evidence now reconciles both annually and monthly to the frozen comparison within explicit tolerance, and a provenance manifest binds 4x24/sky-16/equal-resource/weather/model lineage. The annual electrical pre-audit generator is implemented for NMOT 39/42/45 with explicit P_aux=0 and ideal-zero-declared-loss scenario labels; canonical retained workflow evidence is pending and therefore not promoted. Report recovery is now continuous: Sections 1-4 repaired in #195; #196 Sections 5-8; #197 Sections 9-12 + mandatory Audit 67/Phase-II checkpoint. Technical programme ON TRACK; report quality AT RISK — RECOVERABLE; #227 AMBER.
+
+## Continue #195
+Monthly timestep-to-frozen reconciliation PASS across all 12 months/components/cases. A machine-readable annual electrical pre-audit generator and provenance-manifest workflow are implemented using frozen NMOT/coupling/design basis with explicit P_aux=0 and 39/42/45 scenarios. Promotion remains withheld until retained canonical execution completes. No optional branch opened. #196 remains bounded technical Phase-II work + Sections 5–8 report repair; mandatory Audit 67 is #197 unless a completed major annual result requires earlier audit.
