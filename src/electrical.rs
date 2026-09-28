@@ -49,14 +49,21 @@ pub fn temperature_adjusted_efficiency(module_temp_c:f64,b:&ElectricalDesignBasi
     let e=b.reference_efficiency*(1.0+b.pmax_temp_coeff_per_c*(module_temp_c-b.reference_temp_c));
     if !e.is_finite()||e<0.0{return Err(ElectricalError::InvalidEfficiency)} Ok(e)
 }
-pub fn evaluate_step(i:StepInput,b:&ElectricalDesignBasis)->Result<StepOutput,ElectricalError>{
-    b.validate()?; if !i.poa_w_m2.is_finite()||!i.ambient_temp_c.is_finite()||!i.dt_hours.is_finite()||!i.auxiliary_power_w.is_finite(){return Err(ElectricalError::NonFinite)}
+/// Evaluate the frozen electrical chain using an externally supplied module
+/// temperature [degC]. This additive entry point preserves the electrical
+/// equations while allowing a separately validated thermal model to own T_m.
+pub fn evaluate_step_at_module_temperature(i:StepInput,module_temp_c:f64,b:&ElectricalDesignBasis)->Result<StepOutput,ElectricalError>{
+    b.validate()?; if !i.poa_w_m2.is_finite()||!i.ambient_temp_c.is_finite()||!i.dt_hours.is_finite()||!i.auxiliary_power_w.is_finite()||!module_temp_c.is_finite(){return Err(ElectricalError::NonFinite)}
     if i.poa_w_m2<0.0{return Err(ElectricalError::NegativeIrradiance)} if i.dt_hours<=0.0{return Err(ElectricalError::InvalidTimeStep)} if i.auxiliary_power_w<0.0{return Err(ElectricalError::InvalidAuxiliary)}
-    let tm=module_temperature_nmot(i.poa_w_m2,i.ambient_temp_c,b)?; let eff=temperature_adjusted_efficiency(tm,b)?;
+    let eff=temperature_adjusted_efficiency(module_temp_c,b)?;
     let ideal=i.poa_w_m2*b.module_area_m2*eff; let dc=ideal*(1.0-b.dc_mismatch_loss)*(1.0-b.dc_wiring_loss);
     let ac=dc*b.inverter_efficiency*(1.0-b.ac_system_loss); if !ac.is_finite()||ac<0.0{return Err(ElectricalError::InvalidEfficiency)}
     let net=ac-i.auxiliary_power_w;
-    Ok(StepOutput{module_temp_c:tm,efficiency:eff,ideal_dc_w:ideal,delivered_dc_w:dc,ac_w:ac,net_w:net,ac_energy_wh:ac*i.dt_hours,net_energy_wh:net*i.dt_hours})
+    Ok(StepOutput{module_temp_c,efficiency:eff,ideal_dc_w:ideal,delivered_dc_w:dc,ac_w:ac,net_w:net,ac_energy_wh:ac*i.dt_hours,net_energy_wh:net*i.dt_hours})
+}
+pub fn evaluate_step(i:StepInput,b:&ElectricalDesignBasis)->Result<StepOutput,ElectricalError>{
+    let tm=module_temperature_nmot(i.poa_w_m2,i.ambient_temp_c,b)?;
+    evaluate_step_at_module_temperature(i,tm,b)
 }
 pub fn integrate(inputs:&[StepInput],b:&ElectricalDesignBasis)->Result<(f64,f64),ElectricalError>{
     let mut ac=0.0;let mut net=0.0;for &i in inputs{let o=evaluate_step(i,b)?;ac+=o.ac_energy_wh;net+=o.net_energy_wh;}Ok((ac,net))
@@ -75,4 +82,5 @@ mod tests {
  #[test] fn auxiliary_and_net_import_explicit(){let o=evaluate_step(StepInput{poa_w_m2:0.,ambient_temp_c:20.,dt_hours:2.,auxiliary_power_w:50.},&b()).unwrap();close(o.ac_w,0.);close(o.net_w,-50.);close(o.net_energy_wh,-100.);}
  #[test] fn deterministic_repeatability(){let i=StepInput{poa_w_m2:713.,ambient_temp_c:31.,dt_hours:0.25,auxiliary_power_w:3.};assert_eq!(evaluate_step(i,&b()).unwrap(),evaluate_step(i,&b()).unwrap());}
  #[test] fn nmot_fixture(){close(module_temperature_nmot(800.,20.,&b()).unwrap(),42.);}
+ #[test] fn external_temperature_entry_matches_legacy_path(){let x=b();let i=StepInput{poa_w_m2:713.,ambient_temp_c:31.,dt_hours:0.25,auxiliary_power_w:3.};let tm=module_temperature_nmot(i.poa_w_m2,i.ambient_temp_c,&x).unwrap();assert_eq!(evaluate_step(i,&x).unwrap(),evaluate_step_at_module_temperature(i,tm,&x).unwrap());}
 }
