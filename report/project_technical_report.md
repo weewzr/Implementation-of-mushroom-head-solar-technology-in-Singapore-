@@ -1073,3 +1073,18 @@ Phase I establishes a reproducible foundation for testing land-efficient 3-D PV 
 
 ## Phase-I baseline and reproducibility record
 The Phase-I report baseline is the exact 32-page PDF from commit `3f54605f53a6e88f145713f69d4136da297f2608`, LaTeX run `36330877451`, artifact `10935284619`, artifact SHA-256 `3f4b0efe50648c2f6bb23890a893d88b04848d288ffe363d8275a18fd9749ec3`, exact PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`. This is the Phase-I baseline, not a frozen final report.
+
+
+### Deterministic thermal-electrical coupling — Continue #191
+
+The #191 coupling layer adds no new physical equation. It orchestrates the frozen NMOT thermal foundation and frozen electrical kernel:
+
+[
+(G_{POA},T_a) \rightarrow T_m \rightarrow \eta_m(T_m) \rightarrow P_{DC} \rightarrow P_{AC} \rightarrow P_{net} \rightarrow E_{net}.
+]
+
+The thermal module owns module temperature. The electrical kernel now has an additive entry point that accepts externally supplied (T_m), preserving its existing equations and legacy path. Coupled output retains module temperature, efficiency, ideal/delivered DC, AC, auxiliary power, net power and timestep energy.
+
+The 39/42/45°C NMOT sensitivity propagates through an identical electrical basis. Because the selected Pmax coefficient is negative, hotter module-temperature scenarios reduce power for otherwise identical nonzero input. This is deterministic DEVELOPMENT_NOT_SERIS validation only; **annual geometry electrical results remain NOT AUTHORIZED**.
+
+Future annual coupling must join frozen irradiance and NASA POWER ambient temperature using exact canonical absolute UTC timestamps. Row-index, nearest-neighbour and silent row-dropping joins are prohibited.
