@@ -1,6 +1,6 @@
 # Phase-II Module-Temperature Model Decision — Continue #188
 
-Status: **PROVISIONAL PHASE-II MODULE-TEMPERATURE MODEL — FAIMAN STEADY-STATE MODEL**, pending mandatory Audit 63 at Continue #189. No annual electrical geometry result is authorized by this decision.
+Status after mandatory Audit 63: **PROVISIONAL PHASE-II MODULE-TEMPERATURE BASELINE — SELECTED-MODULE SIMPLE NMOT RELATION.** Faiman model form is retained as the primary wind-sensitive model-form sensitivity, but direct NASA POWER WS10M plus generic Faiman coefficients is not an authorized physical baseline. No annual electrical geometry result is authorized.
 
 ## 1. Project requirements
 The thermal layer must accept plane-of-array irradiance `G_poa_w_m2`, ambient dry-bulb temperature `T_amb_c`, and, when the model uses it, wind speed `wind_speed_m_s`; return module temperature in degC for the frozen electrical kernel; remain geometry-agnostic at its API boundary; expose mounting/ventilation assumptions; be inexpensive at hourly annual scale; use traceable coefficients; support sensitivity analysis; have transparent limiting behaviour; and reject invalid/non-finite inputs rather than invent missing values.
@@ -113,3 +113,15 @@ Authoritative sources reviewed:
 4. Is simple module-specific NMOT the correct primary model-form sensitivity?
 5. Does the API keep thermal physics replaceable without changing the frozen electrical kernel?
 6. Are the validation fixtures sufficient to authorize implementation at #190?
+
+
+## Audit 63 disposition — Continue #189
+Audit 63 changes the #188 provisional ordering because wind-reference compatibility is not sufficiently closed for generic Faiman coefficients. The exact #190 baseline is:
+`T_m = T_a + (T_NMOT - 20 degC) * G_POA/(800 W/m2)`,
+with selected-module nominal `T_NMOT=42 degC` and manufacturer sensitivity `39/42/45 degC`.
+
+NASA POWER T2M is the baseline ambient input and must align by canonical UTC timestamp with frozen G_POA. The baseline does not consume wind. NASA POWER WS10M remains explicitly 10-m wind and must not be called module-local wind.
+
+Faiman remains scientifically accepted as a wind-sensitive sensitivity model. Generic `U0=25`, `U1=6.84` may be retained in provenance/tests as literature values, but an annual Faiman sensitivity cannot be promoted until its wind-reference treatment is explicitly compatible/sourced. No geometry-specific U0/U1 is authorized.
+
+**Audit decision B: implementation authorized for #190 with NMOT as baseline and Faiman as sensitivity.**
