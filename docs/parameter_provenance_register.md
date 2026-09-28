@@ -96,3 +96,18 @@
 5. When a value is sourced, add or verify the corresponding BibTeX entry and cite it near the value in the report.
 6. When Rust introduces a numerical constant, this register or a more specific data/config record must identify its category and basis.
 7. The register must be reviewed at each mandatory audit as the model expands.
+
+## Phase-II thermal-model evidence — Continue #188
+| Parameter/model | Value/status | Unit | Type | Provenance / boundary |
+|---|---:|---|---|---|
+| Provisional thermal model | Faiman steady-state | -- | literature model, pending Audit 63 | Faiman 2008; Sandia PVPMC |
+| Faiman U0 | 25 | W m^-2 K^-1 | literature-generic provisional coefficient | combined fit reported by Sandia PVPMC; not Canadian Solar-specific |
+| Faiman U1 | 6.84 | W m^-3 s K^-1 | literature-generic provisional coefficient | combined fit reported by Sandia PVPMC; not Canadian Solar-specific |
+| Module NMOT | 42 +/- 3 | degC | manufacturer property / sensitivity basis | Canadian Solar CS6.2-48TM-H datasheet |
+| NMOT irradiance | 800 | W m^-2 | manufacturer test condition | Canadian Solar datasheet |
+| NMOT ambient temperature | 20 | degC | manufacturer test condition | Canadian Solar datasheet |
+| NMOT wind | 1 | m s^-1 | manufacturer test condition | Canadian Solar datasheet |
+| Development ambient temperature | T2M | degC | NASA POWER DEVELOPMENT_NOT_SERIS | MERRA-2 hourly product; 8,784/8,784 QC accepted |
+| Development wind | WS10M | m s^-1 at 10 m | NASA POWER DEVELOPMENT_NOT_SERIS | MERRA-2 hourly product; no module-height correction selected at #188 |
+
+Faiman is selected provisionally because it is simple, wind-sensitive, computationally cheap and compatible with available weather fields without introducing unsourced optical/thermal material parameters. Transfer of generic U0/U1 and 10-m wind to module-local conditions is an explicit Audit-63 question and later uncertainty, not a hidden assumption.
