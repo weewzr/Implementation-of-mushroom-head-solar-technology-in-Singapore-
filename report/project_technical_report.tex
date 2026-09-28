@@ -823,16 +823,20 @@ Manufacturing routes remain an evidence gap. No claim that folding, printing or 
 
 \begin{figure}[htbp]\centering
 \includesvg[width=0.95\textwidth,inkscapelatex=false]{../figures/thermal_model_bridge}
-\caption{Thermal bridge proposed for Phase II. Faiman is the provisional baseline pending Audit 63; the selected-module NMOT relation is retained as the primary model-form/reference sensitivity.}
+\caption{Thermal bridge proposed for Phase II. Audit 63 selects the module-specific NMOT relation as the Phase-II baseline; Faiman is retained as the wind-sensitive model-form sensitivity pending compatible wind treatment.}
 \end{figure}
 
-\textbf{Engineering model.} Continue \#188 provisionally selects the Faiman steady-state relation
+\textbf{Engineering sensitivity model.} The Faiman steady-state relation remains the wind-sensitive model-form sensitivity
 \begin{equation}
 T_m=T_a+\frac{G_{\rm POA}}{U_0+U_1 v_w},
 \end{equation}
 with $T_m$ and $T_a$ in \si{\degreeCelsius}, $G_{\rm POA}$ in \si{\watt\per\square\metre}, $v_w$ in \si{\metre\per\second}, $U_0$ in \si{\watt\per\square\metre\per\kelvin}, and $U_1$ in \si{\watt\second\per\cubic\metre\per\kelvin}. Sandia PVPMC reports Faiman's combined seven-module fit $U_0=25$ and $U_1=6.84$ in those units; these are literature-generic parameters, not Canadian Solar manufacturer coefficients and not project-fitted values.
 
-\textbf{Evidence boundary.} The development weather provides hourly NASA POWER T2M ambient temperature and WS10M wind speed at 10~m. No module-height/local-flow correction is silently applied. The baseline represents a generic ventilated/free-standing rigid-module approximation; geometry-specific airflow coefficients are not authorized. The Canadian Solar CS6.2-48TM-460H datasheet instead supplies module-specific NMOT $42\pm3\,^{\circ}$C at 800~W~m$^{-2}$, ambient 20~$^{\circ}$C and wind 1~m~s$^{-1}$, which is retained as the primary reference/model-form sensitivity. Audit 63 must decide whether Faiman's generic coefficients and direct WS10M development use are sufficient to authorize implementation.
+\textbf{Audit-63 baseline.} The selected Canadian Solar module supplies NMOT $42\pm3\,^{\circ}$C at 800~W~m$^{-2}$, ambient 20~$^{\circ}$C and wind 1~m~s$^{-1}$. Phase II therefore uses the simple module-specific baseline
+\begin{equation}
+T_m=T_a+(T_{\rm NMOT}-20^{\circ}\mathrm{C})\frac{G_{\rm POA}}{800~\mathrm{W\,m^{-2}}}.
+\end{equation}
+This is a modelling relation anchored to the manufacturer NMOT property, not measured hourly module temperature. The development weather provides hourly NASA POWER T2M and WS10M at 10~m. The NMOT baseline does not consume hourly wind. Direct WS10M plus generic Faiman coefficients is not promoted as a physical baseline because the wind-reference compatibility is unresolved; no geometry-specific airflow coefficients are authorized. Faiman remains a later wind-sensitive model-form sensitivity.
 
 In plain language, sunlight reaches the panel, the panel warms, temperature changes conversion efficiency, the module produces DC electricity, wiring and inverter stages lose some of that electricity, mechanisms may consume auxiliary power, and the remainder is net useful electrical output. The frozen geometry layer supplies an \textbf{IRRADIANCE RESULT}; the electrical kernel produces a separate \textbf{ELECTRICAL CONVERSION RESULT}. No annual geometry-to-electricity comparison is released in this phase.
 
