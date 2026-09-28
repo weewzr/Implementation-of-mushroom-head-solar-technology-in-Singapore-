@@ -270,3 +270,6 @@ Publication readiness now requires independent PASS columns for technical eviden
 - P0=0; remaining P1 classes=6.
 - Annual electrical package: annual+monthly irradiance reconciliation PASS; provenance-complete generator implemented. Final retained canonical electrical artifact must be inspected at Audit 67 before promotion.
 - Publication readiness remains a separate gate from technical completion.
+
+## Audit 67 checkpoint — Continue #197
+Annual electrical summary evidence is retained and internally consistent, but promotion is WITHHELD because the artifact does not retain timestep electrical rows/weather sufficient for independent retained-row replay of the electrical integration. Phase II is NARROW CARRYOVER, not broadly reopened. Sections 1–8 are READABLE; six P1 classes remain. Audit 67 found a current-main clean-build regression in the report workflow and restored the missing reproducible publication-figure generation step; fresh corrected descendant evidence is required before #198 substantive work. #227 remains AMBER.
