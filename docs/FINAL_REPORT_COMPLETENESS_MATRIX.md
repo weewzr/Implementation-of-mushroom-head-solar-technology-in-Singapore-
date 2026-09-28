@@ -228,3 +228,11 @@ Phase II begins #188 under `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. No do
 - Deterministic fixture: zero/reference/hand-case/39-42-45 sensitivity COMPLETE; tiny synthetic series COMPLETE.
 - Timestamp annual-join contract: COMPLETE in `docs/ANNUAL_THERMAL_ELECTRICAL_ADAPTER_CONTRACT.md`; implementation/preparation scheduled #192.
 - Annual geometry electrical output: NOT AUTHORIZED pending Audit 65.
+
+## Continue #192 — annual data adapter
+- Strict annual timestamp/resource adapter: **PASS / VALIDATED DATA LAYER**.
+- Evidence: commit `2ef4ea2b567a0348b43631e20afb6b456fe51120`; run `36367614367` PASS; artifact `10947916945`; SHA-256 `98e052470e41a680347716e30293b30a3ce5ac97f390e2d931338e7e6e223a4c`.
+- Exact timestamp join/rejection, accepted-row gate, 39/42/45 propagation, identity/provenance and explicit energy units: PASS on synthetic evidence.
+- Real timestep-level accepted 3-D irradiance evidence: **MISSING**. Audit-59 artifacts are annual/monthly aggregates; no hourly candidate POA export exists.
+- #193 blocker/task: generate canonical timestep-level accepted irradiance export from frozen configurations and prove its annual sums reproduce Audit-59 totals before electrical promotion.
+- Annual geometry electrical conclusions: NOT AUTHORIZED; mandatory Audit 66 #194.
