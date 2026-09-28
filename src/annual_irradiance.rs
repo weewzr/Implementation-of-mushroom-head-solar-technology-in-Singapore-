@@ -31,8 +31,6 @@ pub fn evaluate_timestep_irradiance(rs:&[WeatherRecord],mesh:&[Triangle],setting
 pub fn evaluate_annual_irradiance(rs:&[WeatherRecord],mesh:&[Triangle],settings:AnnualIrradianceSettings)->Result<AnnualIrradianceResult,ResourceGeometryError>{
  if !settings.albedo.is_finite()||!(0.0..=1.0).contains(&settings.albedo)||settings.sky_n==0{return Err(ResourceGeometryError::InvalidTarget)}
  let resources=discrete_resources(mesh)?;
- let ga:Vec<_>=mesh.iter().map(triangle_area_normal).collect::<Result<_,_>>()?;
- let sv:Vec<_>=mesh.iter().enumerate().map(|(i,t)|sky_view_factor(t.centroid(),ga[i].1,mesh,Some(i),settings.sky_n,4*settings.sky_n)).collect();
  let ts=evaluate_timestep_irradiance(rs,mesh,settings)?;
  let e=[ts.iter().map(|x|x.direct_wh).sum::<f64>(),ts.iter().map(|x|x.diffuse_wh).sum::<f64>(),ts.iter().map(|x|x.ground_wh).sum::<f64>()];
  let total:f64=e.iter().sum();if !total.is_finite(){return Err(ResourceGeometryError::NonFiniteGeometry)}
