@@ -45,7 +45,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          cargo test 2>&1 | tee -a rust-execution-evidence.txt
+          cargo test --all-targets 2>&1 | tee -a rust-execution-evidence.txt
           status=${PIPESTATUS[0]}
           echo "cargo_test_exit_status=$status" | tee -a rust-execution-evidence.txt
           exit "$status"
