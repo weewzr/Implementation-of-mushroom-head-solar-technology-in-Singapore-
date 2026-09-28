@@ -33,9 +33,12 @@ jobs:
           cargo run --release --quiet --bin paraboloid-response-sweep -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/paraboloid-response-sweep | tee development-weather/paraboloid-response-sweep-run.txt
           cargo run --release --quiet --bin fixed-geometry-comparison -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/fixed-geometry-comparison | tee development-weather/fixed-geometry-comparison-run.txt
           cargo run --release --quiet --bin timestep-irradiance-evidence -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/timestep-irradiance-evidence | tee development-weather/timestep-irradiance-evidence-run.txt
-          cargo run --release --quiet --bin annual-electrical-preaudit -- development-weather/timestep-irradiance-evidence/
-            development-weather/annual-electrical-preaudit-run.txt
-            development-weather/annual-electrical-preaudit/accepted_timestep_irradiance.csv development-weather/fixed-geometry-comparison/monthly_results.csv development-weather/nasa_power_singapore_2024_hourly.csv development-weather/annual-electrical-preaudit 2>&1 | tee development-weather/annual-electrical-preaudit-run.txt
+          cargo run --release --quiet --bin annual-electrical-preaudit -- development-weather/timestep-irradiance-evidence/accepted_timestep_irradiance.csv development-weather/fixed-geometry-comparison/monthly_results.csv development-weather/nasa_power_singapore_2024_hourly.csv development-weather/annual-electrical-preaudit 2>&1 | tee development-weather/annual-electrical-preaudit-run.txt
+          TS_SHA=$(sha256sum development-weather/timestep-irradiance-evidence/accepted_timestep_irradiance.csv | cut -d' ' -f1)
+          MONTH_SHA=$(sha256sum development-weather/fixed-geometry-comparison/monthly_results.csv | cut -d' ' -f1)
+          WEATHER_SHA=$(sha256sum development-weather/nasa_power_singapore_2024_hourly.csv | cut -d' ' -f1)
+          PREAUDIT_SHA=$(sha256sum development-weather/annual-electrical-preaudit/annual_electrical_preaudit.csv | cut -d' ' -f1)
+          printf 'key,value\nsource_commit,%s\nupstream_comparison_path,%s\nupstream_weather_path,%s\ntimestep_rows,87840\nper_case_timesteps,8784\nmesh,4x24\nsky_n,16\nalbedo,0.20\ntemporal_resolution,1_hour\ntimestamp_contract,UTC_start_of_hour\nvisibility,self_shadowing_ray_test_shared_evaluator\nsky_view,shared_sky_view_factor_sky16\nresource_normalization,equal_land_and_equal_pv_frozen_contracts\ncomponent_units,Wh_per_timestep_candidate_integrated\nmonthly_tolerance,max_1e-6Wh_or_1e-9_relative\ntimestep_sha256,%s\nmonthly_frozen_sha256,%s\nweather_sha256,%s\npreaudit_electrical_sha256,%s\nstatus,DEVELOPMENT_NOT_SERIS_PRE_AUDIT_NOT_PROMOTED\n' "$GITHUB_SHA" 'development-weather/fixed-geometry-comparison/monthly_results.csv' 'development-weather/nasa_power_singapore_2024_hourly.csv' "$TS_SHA" "$MONTH_SHA" "$WEATHER_SHA" "$PREAUDIT_SHA" > development-weather/annual-electrical-preaudit/provenance_manifest.csv
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -47,6 +50,8 @@ jobs:
             development-weather/fixed-geometry-comparison/
             development-weather/timestep-irradiance-evidence-run.txt
             development-weather/timestep-irradiance-evidence/
+            development-weather/annual-electrical-preaudit-run.txt
+            development-weather/annual-electrical-preaudit/
           retention-days: 90
 
 
