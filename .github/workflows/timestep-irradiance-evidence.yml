@@ -1,0 +1,36 @@
+name: Timestep irradiance audit evidence
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/annual_irradiance.rs'
+      - 'src/bin/timestep_irradiance_evidence.rs'
+      - '.github/workflows/timestep-irradiance-evidence.yml'
+permissions:
+  contents: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download canonical NASA POWER 2024 weather
+        run: |
+          mkdir -p evidence
+          curl --fail --location --retry 3 --output evidence/weather.csv 'https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_SW_DIFF%2CALLSKY_SFC_SW_DNI%2CT2M%2CWS10M%2CWD10M%2CRH2M%2CPS&community=RE&longitude=103.8198&latitude=1.3521&start=20240101&end=20241231&format=CSV&time-standard=UTC'
+          sha256sum evidence/weather.csv > evidence/weather.sha256
+      - name: Run accepted timestep exporter
+        run: |
+          set -o pipefail
+          cargo run --release --bin timestep-irradiance-evidence -- evidence/weather.csv evidence/timestep 2>&1 | tee evidence/run.log
+      - name: Hash outputs
+        if: always()
+        run: |
+          find evidence -type f -print0 | sort -z | xargs -0 sha256sum > evidence/artifact-sha256.txt
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: timestep-irradiance-audit-evidence
+          path: evidence/
+          retention-days: 90
