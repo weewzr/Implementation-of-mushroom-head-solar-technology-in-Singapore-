@@ -19,9 +19,9 @@ This file is the single notation authority for the report. Report prose, LaTeX, 
 ## Canonical symbols
 | Symbol | Meaning | SI unit | Notes |
 |---|---|---|---|
-| $\mathbf{s}$ | unit vector from surface toward Sun | 1 | ENU frame |
-| $\mathbf{n}$, $\mathbf{n}_i$ | outward surface/facet unit normal | 1 | bold-vector convention |
-| $\theta_i$ | solar incidence angle on facet $i$ | rad | $\cos\theta_i=\mathbf n_i\cdot\mathbf s$ |
+| $\mathbf{s}$ | unit vector from surface toward Sun | 1 | first use: Mathematical formulation; ENU frame |
+| $\mathbf{n}$, $\mathbf{n}_i$ | outward surface/facet unit normal | 1 | first use: Mathematical formulation; bold-vector convention |
+| $\theta_i$ | solar incidence angle on facet $i$ | rad | first use: Mathematical formulation; $\cos\theta_i=\mathbf n_i\cdot\mathbf s$ |
 | $\alpha$ | solar elevation | rad | report degrees only when labelled |
 | $\delta$ | solar declination | rad | |
 | $H$ | solar hour angle | rad | |
@@ -97,3 +97,6 @@ This policy is normative for the report and supersedes legacy spellings above wh
 - Origami/deployment: $\lambda$ is reserved for deployment interpolation; any later wavelength/economic use must choose another symbol.
 - Every displayed equation referenced later must receive a stable LaTeX `\\label{eq:...}` and be cited with `\\eqref{eq:...}`.
 - Every symbol used in a displayed equation must have one canonical nomenclature entry before release.
+
+## Continue #196 Sections 5–8 notation gate
+Sections 5–8 must use only the canonical symbols above. Fair comparison uses `A_PV`, `A_land`, `Pi`, `eta_pack`, `M_L`; geometry uses bold `s` and `n_i`; incidence uses `theta_i`; component irradiance uses `G_dir,i`, `G_dif,i`, `G_grd,i`; total uses `G_POA,i`; time/area integration uses `H_POA`. Legacy `DNI`/`DHI` variable spellings in equations should be replaced by `G_DNI`/`G_DHI` during the Section-5–8 repair. No symbol collision is authorized.
