@@ -113,3 +113,32 @@ By #217: coherent prose in all 21 sections; every equation renders; every symbol
 By #222: two complete end-to-end scientific editing/visual passes completed.
 
 #223–227: release-candidate QA only, not first-time rewriting.
+
+
+## Audit 66 rendered-PDF defect localization
+Current green descendant: commit `d4832ec0191710e6bb7c30d9ca3169d60aa3ec10`, run `36371446210`, artifact `10949153513`, 35 pages, exact PDF SHA-256 `dae6157b81802e9644f396dc6ca6bc3c0113b506c295a1449a81756d701c6900`.
+
+Severity policy: P0 = build failure/unreadable or scientifically misleading content; P1 = major comprehension defect; P2 = readability/consistency; P3 = cosmetic.
+
+P0 defects found and closed during Audit 66:
+1. **P0 build failure:** generated fixed-comparison SVGs were absent in clean CI. Root cause at report line 776; fixed by generating reproducible publication figures before LaTeX.
+2. **P0 scientific wording:** page 16 land-energy multiplier text described the Audit-59 irradiance metric as annual electrical energy. Corrected to incident POA energy and canonical (H_{\rm POA}) notation.
+3. **P0 stale thermal status:** page 19 claimed thermal/module inputs remained unset despite validated NMOT/electrical foundations. Corrected to identify the subsection as a precursor and point to the current implemented layer.
+
+**Remaining P0 count: 0.**
+
+Actionable P1/P2 defects from the 35-page render:
+- **P1, Sections 5–9, pages 11–16:** dense equation sequence and weak narrative staging. Repair: enforce physical-question -> diagram -> definitions -> equation -> interpretation -> limiting case; add stable equation labels. Target #195–196.
+- **P1, Section 9, page 16:** terminology still needs global synchronization from legacy “land multiplication” to canonical “land-energy multiplier”; ensure (H_{\rm POA}), (Pi), (eta_{\rm pack}), (M_L) match publication table. Target #196.
+- **P1, legacy thermal/bifacial material, page 19:** now scientifically corrected but structurally duplicated by the later electrical section. Repair: relocate bifacial formulation to future-extension subsection and remove duplicated thermal derivation. Target #199.
+- **P1, origami/deployable derivations, pages 24–27 and 31–32:** notation-heavy text lacks a state/crease diagram adjacent to each derivation and variable definitions are dispersed. Target #197.
+- **P1, controlled-comparison table, page 31:** readable only at small type; too many columns for the main narrative. Repair: split main scientific table from reproducibility columns or use landscape/appendix. Target #197.
+- **P1, Section 32 electrical/thermal chain, pages 31–34:** current material mixes historical decisions, validation status and governing equations. Repair into one scientific sequence with parameter table and move audit chronology to appendix. Target #199.
+- **P1, report spine:** current compiled document has more than the intended 21 scientific sections because historical foundation/evidence-boundary sections remain first-class sections. Repair mapping/merging without changing frozen results. Target staged #195–207.
+- **P1, citations:** multiple foundational equations and Singapore-context claims lack final authoritative citations in-place. Target continuous, hard gate #217.
+- **P2, reproducibility prose:** long commit/artifact hashes create overfull lines (build log reports up to 273 pt overflow around source lines 756–766 and 227 pt around 921–922). Move full hashes to appendix/manifest or break them safely. Target #195.
+- **P2, unit typography:** legacy inline W/m2/degC/Wh forms remain alongside siunitx. Target #203–207 consistency sweep.
+- **P2, figure/table caption style:** status/provenance wording is verbose and sometimes dominates scientific interpretation. Target #204–207.
+- **P2, section transitions:** beginner-first pages transition abruptly into equation-dense material. Target #195–197.
+
+Remaining **P1 defect classes: 8** (derivation staging; terminology/spine consistency; duplicated thermal narrative; origami exposition; table readability; electrical-section scientific flow; citation completeness; final-section coherence). P2 defects are tracked separately and are not release blockers until their scheduled checkpoints.
