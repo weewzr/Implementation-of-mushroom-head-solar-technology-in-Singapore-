@@ -30,3 +30,5 @@ pub mod origami;
 pub mod electrical;
 
 pub mod thermal;
+
+pub mod thermal_electrical;
