@@ -99,3 +99,6 @@ Provisional baseline selected: Faiman steady-state module-temperature model, pen
 
 ## Mandatory Audit 63 — Continue #189
 Decision B: implementation at #190 is authorized with the selected-module simple NMOT relation as the DEVELOPMENT_NOT_SERIS baseline. Nominal NMOT=42 degC with manufacturer sensitivity 39/42/45 degC; reference irradiance=800 W/m2 and ambient=20 degC. The baseline does not consume hourly wind. Faiman remains the primary wind-sensitive model-form sensitivity, but generic U0/U1 plus NASA POWER WS10M is not promoted until wind-reference compatibility is sourced. #190 implements/tests the separate thermal module only; #191 coupling remains scheduled; annual geometry kWh remains gated.
+
+## Continue #190 / Early Audit 64
+Thermal implementation PASS and FROZEN narrow foundation after all-target Rust evidence `36364613741`. #191 coupling is authorized under `docs/THERMAL_ELECTRICAL_COUPLING_CONTRACT.md`; it must remain deterministic/adapter-level and must not release annual geometry kWh. Early Audit 64 resets cadence; normal next audit is #193 unless coupling itself triggers an earlier major-result audit.
