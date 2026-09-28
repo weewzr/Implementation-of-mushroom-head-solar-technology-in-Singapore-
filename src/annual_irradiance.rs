@@ -22,7 +22,7 @@ pub fn evaluate_timestep_irradiance(rs:&[WeatherRecord],mesh:&[Triangle],setting
   for &minute in mins{let p=solar_position(&SpaInput{year:y,month:m,day:d,hour:h,minute,second:if settings.quarter_hour{30.0}else{0.0},utc_offset_h:0.0,delta_t_s:69.0,longitude_deg_east:103.8198,latitude_deg:1.3521,elevation_m:25.8,pressure_mbar:w.air_pressure_pa.unwrap_or(101000.0)/100.0,temperature_c:w.ambient_temperature_c});let ss=sun(p.zenith_deg.to_radians(),p.azimuth_deg.to_radians());
    for(i,_)in mesh.iter().enumerate(){let(a,n)=ga[i];if p.zenith_deg<90.0{e[0]+=wt*w.dni_w_m2*a*n.dot(ss).max(0.0)*direct_visibility(i,mesh,ss)}e[1]+=wt*w.dhi_w_m2*a*sv[i];e[2]+=wt*w.ghi_w_m2*settings.albedo*a*(1.0-n.z)/2.0;}
   }
-  let total=e.iter().sum();if e.iter().any(|x|!x.is_finite()||*x<0.0)||!total.is_finite(){return Err(ResourceGeometryError::NonFiniteGeometry)}
+  let total:f64=e.iter().sum();if e.iter().any(|x|!x.is_finite()||*x<0.0)||!total.is_finite(){return Err(ResourceGeometryError::NonFiniteGeometry)}
   out.push(TimestepIrradianceResult{timestamp_utc_s:w.timestamp_utc_s,direct_wh:e[0],diffuse_wh:e[1],ground_wh:e[2],total_wh:total});
  }
  Ok(out)
