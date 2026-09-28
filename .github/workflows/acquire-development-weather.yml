@@ -22,7 +22,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p development-weather
-          curl --fail --location --retry 3 --output development-weather/nasa_power_singapore_2024_hourly.csv 'https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_SW_DIFF%2CALLSKY_SFC_SW_DNI%2CT2M%2CWS10M%2CWD10M%2CRH2M%2CPS&community=RE&longitude=103.8198&latitude=1.3521&start=20240101&end=20241231&format=CSV&time-standard=UTC'
+          curl --fail --location --retry 10 --retry-all-errors --output development-weather/nasa_power_singapore_2024_hourly.csv 'https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CALLSKY_SFC_SW_DIFF%2CALLSKY_SFC_SW_DNI%2CT2M%2CWS10M%2CWD10M%2CRH2M%2CPS&community=RE&longitude=103.8198&latitude=1.3521&start=20240101&end=20241231&format=CSV&time-standard=UTC'
           sha256sum development-weather/nasa_power_singapore_2024_hourly.csv | tee development-weather/SHA256SUMS
           wc -l development-weather/nasa_power_singapore_2024_hourly.csv
           head -n 20 development-weather/nasa_power_singapore_2024_hourly.csv
