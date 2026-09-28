@@ -52,3 +52,7 @@ path = "src/bin/fixed_geometry_comparison.rs"
 [[bin]]
 name = "fixed-comparison-publication"
 path = "src/bin/fixed_comparison_publication.rs"
+
+[[bin]]
+name = "thermal-evidence"
+path = "src/bin/thermal_evidence.rs"
