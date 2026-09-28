@@ -1,62 +1,77 @@
-# Nomenclature
+# Canonical nomenclature and mathematical style
 
-| Symbol | Meaning | Typical unit |
-|---|---|---|
-| $A_{PV}$ | active photovoltaic surface area | m² |
-| $A_{land}$ | constrained horizontal land/site footprint | m² |
-| $A_{foot}$ | projected horizontal footprint of one geometry | m² |
-| $A_{proj}$ | projected area normal to a specified direction | m² |
-| $R$ | mushroom/cap radius | m |
-| $h$ | cap height | m |
-| $k=h/R$ | dimensionless cap curvature | – |
-| $\Pi$ | PV packing ratio, $A_{PV}/A_{land}$ | – |
-| $\eta_{pack}$ | average packed-PV productivity relative to baseline | – |
-| $M_L$ | land multiplication factor | – |
-| $GHI$ | global horizontal irradiance | W m⁻² |
-| $DHI$ | diffuse horizontal irradiance | W m⁻² |
-| $DNI$ | direct normal irradiance | W m⁻² |
-| $\mathbf{s}$ | unit vector toward sun | – |
-| $\mathbf{n}$ | outward unit surface normal | – |
-| $\alpha$ | solar elevation angle | rad or deg |
-| $\delta$ | solar declination | rad or deg |
-| $H$ | solar hour angle | rad or deg |
-| $\beta$ | surface tilt from horizontal | rad or deg |
-| $V_i$ | beam visibility factor for facet $i$ | – |
-| $b$ | PV bifaciality coefficient | – |
-| $T_c$ | PV cell temperature | °C |
-| $\eta$ | PV electrical conversion efficiency | – |
-| $\gamma$ | PV temperature coefficient | K⁻¹ |
-| $I$ | mass moment of inertia | kg m² |
-| $\omega$ | angular velocity | rad s⁻¹ |
-| $\theta$ | tracker angle | rad or deg |
-| $\tau$ | torque | N m |
-| $\rho$ | air density | kg m⁻³ |
-| $C_D$ | aerodynamic drag coefficient | – |
-| $v$ | wind speed | m s⁻¹ |
-| $r_{CP}$ | moment arm from pivot to centre of pressure | m |
-| $E_{annual}$ | annual electrical energy | kWh yr⁻¹ |
-| $A_i$ | active area of facet $i$ | m² |
-| $N$ | number of mesh/facet elements | – |
-| $N_p$ | number of petals | – |
-| $\mathbf v_{ij}$ | ENU position vector of vertex $j$ of facet $i$ | m |
-| $\mathbf e_{i1},\mathbf e_{i2}$ | edge vectors of triangular facet $i$ | m |
-| $\mathbf n_i$ | outward unit normal of facet $i$ | – |
-| $\gamma_p$ | facet/petal azimuth, clockwise from north | rad or deg |
-| $\gamma_0$ | reference petal azimuth | rad or deg |
-| $H_{max}$ | maximum permitted candidate height | m |
-| $A_{PV,max}$ | active-PV-area resource limit | m² |
-| $A_{land,max}$ | land/footprint resource limit | m² |
-| $E_{net,annual}$ | net annual electrical-energy objective | kWh yr⁻¹ |
+This file is the single notation authority for the report. Report prose, LaTeX, figures and code-facing documentation should map to these symbols rather than inventing local aliases.
 
-## Notation conventions
+## Style policy
+- Scalars: italic Latin/Greek.
+- Vectors: bold lowercase, e.g. $\mathbf{s}$ and $\mathbf{n}$; no arrow notation.
+- Matrices/tensors: bold uppercase.
+- Descriptive subscripts: upright/roman; variable indices remain italic.
+- Units: upright SI typography through `siunitx` in LaTeX.
+- Angles: radians in governing equations and numerical implementation; degrees only when explicitly reported.
+- Dot product: $\mathbf a\cdot\mathbf b$; vector cross product: $\mathbf a\times\mathbf b$.
+- Differentials: upright, e.g. $\mathrm d t$, $\mathrm d A$.
+- Time-series index: subscript $t$; integration/sums show $\Delta t$ explicitly.
+- Every displayed equation referenced later must have a stable `\label{}` and be cited with `\eqref{}`.
+- Irradiance [W m$^{-2}$] and irradiation/energy-per-area [Wh m$^{-2}$ or kWh m$^{-2}$] are distinct quantities and must never share an ambiguous symbol.
+- DEVELOPMENT_NOT_SERIS is a result-status qualifier, not part of mathematical notation.
 
-- Subscripts `PV`, `land`, `foot`, `proj`, `front`, `rear`, and `base` identify physical role rather than mathematical operation.
-- Bold lowercase symbols such as $\mathbf n$ and $\mathbf s$ denote dimensionless three-component vectors.
-- Scalar angles are represented in radians inside the canonical Rust numerical implementation; degrees may be used in explanatory equations only when explicitly labelled.
-- Energy quantities must state their evaluation interval; annual energy uses kWh yr$^{-1}$.
-- Irradiance uses W m$^{-2}$; irradiation/energy-per-area uses kWh m$^{-2}$ over a stated interval. These terms must not be interchanged.
-- A superscript $*$ denotes an optimised value when used in optimisation sections, not multiplication.
+## Canonical symbols
+| Symbol | Meaning | SI unit | Notes |
+|---|---|---|---|
+| $\mathbf{s}$ | unit vector from surface toward Sun | 1 | ENU frame |
+| $\mathbf{n}$, $\mathbf{n}_i$ | outward surface/facet unit normal | 1 | bold-vector convention |
+| $\theta_i$ | solar incidence angle on facet $i$ | rad | $\cos\theta_i=\mathbf n_i\cdot\mathbf s$ |
+| $\alpha$ | solar elevation | rad | report degrees only when labelled |
+| $\delta$ | solar declination | rad | |
+| $H$ | solar hour angle | rad | |
+| $\beta$ | surface tilt from horizontal | rad | |
+| $G_{\rm GHI}$ | global horizontal irradiance | W m$^{-2}$ | weather input |
+| $G_{\rm DHI}$ | diffuse horizontal irradiance | W m$^{-2}$ | weather input |
+| $G_{\rm DNI}$ | direct normal irradiance | W m$^{-2}$ | weather input |
+| $G_{\rm POA}$ | total plane-of-array irradiance | W m$^{-2}$ | interval-average electrical input |
+| $G_{{\rm dir},i}$ | direct POA irradiance on facet $i$ | W m$^{-2}$ | |
+| $G_{{\rm dif},i}$ | diffuse POA irradiance on facet $i$ | W m$^{-2}$ | |
+| $G_{{\rm grd},i}$ | ground-reflected POA irradiance on facet $i$ | W m$^{-2}$ | |
+| $V_i$ | direct-beam visibility factor | 1 | |
+| $F_{{\rm sky},i}$ | sky-view factor | 1 | |
+| $A_i$ | active area of facet $i$ | m$^2$ | |
+| $A_{\rm PV}$ | total active PV area | m$^2$ | |
+| $A_{\rm land}$ | projected horizontal land footprint | m$^2$ | |
+| $A_{\rm proj}$ | projected area normal to specified direction | m$^2$ | |
+| $\Pi$ | packing ratio $A_{\rm PV}/A_{\rm land}$ | 1 | |
+| $\eta_{\rm pack}$ | PV-area irradiance productivity relative to flat reference | 1 | not electrical efficiency |
+| $M_L$ | land-energy multiplier $\Pi\eta_{\rm pack}$ | 1 | irradiance-level metric |
+| $R$ | cap/reference radius | m | |
+| $h$ | cap height | m | |
+| $k=h/R$ | dimensionless cap curvature | 1 | |
+| $\lambda$ | deployable interpolation/deployment parameter | 1 | reserved for origami/deployment |
+| $T_a$ | ambient air temperature | $^\circ$C | canonical T2M input |
+| $T_m$ | module temperature | $^\circ$C | thermal-model output |
+| $T_{\rm ref}$ | electrical reference temperature | $^\circ$C | |
+| $T_{\rm NMOT}$ | nominal module operating temperature | $^\circ$C | manufacturer property |
+| $\eta_{\rm ref}$ | module efficiency at reference condition | 1 | |
+| $\eta_m$ | temperature-adjusted module efficiency | 1 | |
+| $\gamma_P$ | Pmax temperature coefficient | K$^{-1}$ | |
+| $P_{\rm DC,ideal}$ | ideal DC power before declared DC losses | W | |
+| $P_{\rm DC}$ | delivered DC power after declared DC losses | W | |
+| $P_{\rm AC}$ | generated AC power | W | |
+| $P_{\rm aux}$ | auxiliary electrical demand | W | explicit scenario |
+| $P_{\rm net}$ | net power $P_{\rm AC}-P_{\rm aux}$ | W | may be negative |
+| $E_{\rm net}$ | integrated net electrical energy | Wh | $\sum_tP_{{\rm net},t}\Delta t$ |
+| $\Delta t$ | timestep duration | h for electrical integration | explicit conversion required |
+| $\rho$ | air density | kg m$^{-3}$ | structural/wind future layer |
+| $C_D$ | aerodynamic drag coefficient | 1 | future layer |
+| $v$ | wind speed | m s$^{-1}$ | reference height must be stated |
+| $\tau$ | torque | N m | |
+| $I$ | mass moment of inertia | kg m$^2$ | |
+| $\omega$ | angular velocity | rad s$^{-1}$ | |
 
-## Coordinate-system status
+## Reserved future symbols
+Economics and carbon symbols are not frozen until those models exist. Do not reuse existing solar/thermal/electrical symbols. Candidate future entries must be added here before use in the main report.
 
-The canonical convention is now defined in `docs/coordinate_conventions.md`: right-handed East–North–Up (ENU), solar/facet azimuth clockwise from geographic north, radians internally in Rust, and outward/front-side facet normals. Tracker rotation uses the right-hand rule about an explicitly stated ENU axis. The Markdown report, LaTeX report and Rust implementation must remain synchronized with that document. Solar-position calculations remain preliminary until NREL SPA benchmarking is completed.
+## Coordinate convention
+Right-handed East-North-Up (ENU); solar/facet azimuth clockwise from geographic north; outward/front-side facet normals; radians internally in Rust. See `docs/coordinate_conventions.md`.
+
+## Human-readable equation rule
+Each major mathematical block must follow: physical question -> diagram/physical idea -> variable definitions -> governing equation -> interpretation -> limiting/verification case.
