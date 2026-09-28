@@ -142,3 +142,10 @@ Actionable P1/P2 defects from the 35-page render:
 - **P2, section transitions:** beginner-first pages transition abruptly into equation-dense material. Target #195–197.
 
 Remaining **P1 defect classes: 8** (derivation staging; terminology/spine consistency; duplicated thermal narrative; origami exposition; table readability; electrical-section scientific flow; citation completeness; final-section coherence). P2 defects are tracked separately and are not release blockers until their scheduled checkpoints.
+
+## Audit 66 severity checkpoint
+Current master report compile P0 is CLOSED. First failures were (1) missing generated `fixed_equal_land.svg` in report CI and (2) literal `\\n` tokens at the land-energy equation around source line 333. Green 35-page evidence: `d4832ec0`, run `36371446210`, artifact `10949153513`, PDF SHA-256 `dae6157b81802e9644f396dc6ca6bc3c0113b506c295a1449a81756d701c6900`. All pages rendered for audit.
+
+**Remaining P0 defects: 0. Remaining P1 defect classes: 11.** P1 classes 1-11 from the initial register remain. Class 12 (lack of rendered-PDF inspection) is closed as a gate, although page-level readability improvements remain P1/P2 work.
+
+Actionable P1 sequence: Sections 1-4 #195 (context/hypothesis/transition/notation); Sections 5-8 #196 (resource chain, mathematical derivations, verification and numerical-method diagrams); Sections 9-12 #197 (V&V/results/origami derivation); Sections 13-14 #198; Sections 15-16 #199; Sections 17-21 #201-203; whole-paper P1 closure #204-207. Exact page numbers may move as repairs change pagination, so source section/equation labels are the stable defect locator until release pagination freezes.
