@@ -75,3 +75,25 @@ Right-handed East-North-Up (ENU); solar/facet azimuth clockwise from geographic 
 
 ## Human-readable equation rule
 Each major mathematical block must follow: physical question -> diagram/physical idea -> variable definitions -> governing equation -> interpretation -> limiting/verification case.
+
+
+## Audit-66 canonical mathematical style
+
+This policy is normative for the report and supersedes legacy spellings above where they conflict.
+
+- Scalars: italic Latin/Greek symbols.
+- Vectors: bold lowercase only, e.g. $\mathbf{s}$ and $\mathbf{n}$; do not mix arrow notation.
+- Matrices/tensors: bold uppercase.
+- Descriptive subscripts: upright roman, e.g. $G_{\rm POA}$, $A_{\rm PV}$, $P_{\rm AC}$; variable indices remain italic.
+- SI units: upright and typeset through `siunitx` in LaTeX. Irradiance is W m$^{-2}$; irradiation/energy-per-area carries an explicit interval and Wh or kWh m$^{-2}$.
+- Dot product: $\mathbf n\cdot\mathbf s$; cross product: $\times$ only for vector cross products.
+- Differentials: upright, e.g. $\mathrm d t$, $\mathrm d A$.
+- Analytical angles use radians unless an equation/value explicitly marks degrees.
+- Canonical solar/incidence symbols: $\alpha$ solar elevation, $\delta$ declination, $H$ hour angle, $\theta_i$ incidence angle, $\mathbf s$ Sun direction, $\mathbf n$ outward normal.
+- Canonical irradiance symbols: $G_{\rm DNI}$, $G_{\rm DHI}$, $G_{\rm GHI}$, $G_{\rm POA}$; component POA terms must use explicit direct/diffuse/ground labels.
+- Canonical resource symbols: $A_{\rm PV}$, $A_{\rm land}$, $\Pi=A_{\rm PV}/A_{\rm land}$, $\eta_{\rm pack}$, $M_L=\Pi\eta_{\rm pack}$.
+- Canonical thermal symbols: $T_a$, $T_m$, $T_{\rm ref}$, $T_{\rm NMOT}$.
+- Canonical electrical symbols: $\eta_{\rm ref}$, $\eta_m$, $\gamma_P$, $P_{\rm DC}$, $P_{\rm AC}$, $P_{\rm aux}$, $P_{\rm net}$, $E_{\rm net}$.
+- Origami/deployment: $\lambda$ is reserved for deployment interpolation; any later wavelength/economic use must choose another symbol.
+- Every displayed equation referenced later must receive a stable LaTeX `\\label{eq:...}` and be cited with `\\eqref{eq:...}`.
+- Every symbol used in a displayed equation must have one canonical nomenclature entry before release.
