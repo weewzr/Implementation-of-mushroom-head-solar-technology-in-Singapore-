@@ -115,3 +115,6 @@ All Phase-I exit criteria are supported by repository evidence: controlled fixed
 
 ## Mandatory Audit 63 — Continue #189
 Phase II remains ON SCHEDULE. Thermal implementation is authorized for #190 using the module-specific simple NMOT baseline; Faiman remains a wind-sensitive sensitivity pending compatible wind treatment. No schedule extension: #190 implementation/tests; #191 coupling; #192 Audit 64; #193 annual controlled electrical integration only if authorized; #194 mismatch; #195 Audit 65; #196 auxiliary/deployability penalties; #197 Phase-II closure. Overall target remains ~#227.
+
+## Continue #190 / Early Audit 64
+Phase II remains ON SCHEDULE. Standalone thermal baseline is implemented/tested and frozen in narrow scope. #191 now performs deterministic thermal-electrical adapter coupling; #192 remains integration/pre-audit work and normal mandatory Audit 65 is #193 after cadence reset, unless #191 creates another major validated result requiring earlier audit. No annual geometry kWh before its audit gate. Overall ~#227 target retained.
