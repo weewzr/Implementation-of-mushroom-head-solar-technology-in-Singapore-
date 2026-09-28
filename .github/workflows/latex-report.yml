@@ -20,6 +20,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y latexmk texlive-latex-extra texlive-science inkscape
 
+      - name: Generate reproducible Audit-59 publication figures
+        run: |
+          cargo run --quiet --bin fixed_comparison_publication
+          test -s figures/generated/fixed_equal_land.svg
+          test -s figures/generated/fixed_equal_pv.svg
+          test -s figures/generated/fixed_packing_ratio.svg
+          test -s figures/generated/fixed_packing_efficiency.svg
+          test -s figures/generated/fixed_land_energy_multiplier.svg
+          test -s figures/generated/fixed_component_attribution.svg
+
       - name: Compile SVG-enabled technical report
         working-directory: report
         run: |
