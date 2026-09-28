@@ -30,7 +30,7 @@ jobs:
           cargo run --release --quiet --bin annual-development-baseline -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/baseline-results | tee development-weather/baseline-run.txt
           cargo run --release --quiet --bin mushroom-experiment-1 -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/mushroom-experiment-1 | tee development-weather/mushroom-experiment-1-run.txt
           cargo run --release --quiet --bin paraboloid-response-sweep -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/paraboloid-response-sweep | tee development-weather/paraboloid-response-sweep-run.txt
-          cargo run --release --quiet --bin fixed-geometry-comparison -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/fixed-geometry-comparison | tee development-weather/fixed-geometry-comparison-run.txt
+          cargo run --release --quiet --bin fixed-geometry-comparison -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/fixed-geometry-comparison | tee development-weather/fixed-geometry-comparison-run.txt\n          cargo run --release --quiet --bin timestep-irradiance-evidence -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/timestep-irradiance-evidence | tee development-weather/timestep-irradiance-evidence-run.txt
       - uses: actions/upload-artifact@v4
         with:
           name: controlled-comparison-evidence
@@ -38,7 +38,7 @@ jobs:
             development-weather/SHA256SUMS
             development-weather/qc-summary.txt
             development-weather/fixed-geometry-comparison-run.txt
-            development-weather/fixed-geometry-comparison/
+            development-weather/fixed-geometry-comparison/\n            development-weather/timestep-irradiance-evidence-run.txt\n            development-weather/timestep-irradiance-evidence/
           retention-days: 90
 
 
