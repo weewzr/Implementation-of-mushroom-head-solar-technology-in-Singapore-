@@ -200,3 +200,10 @@ Phase II begins #188 under `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. No do
 - Rust thermal API/test contract: COMPLETE in `docs/PHASE_II_THERMAL_MODEL_DECISION.md`; implementation NOT STARTED.
 - Annual electrical geometry results: NOT AUTHORIZED.
 - #189 Audit 63 must decide Faiman coefficient/wind provenance adequacy and authorize or withhold #190 implementation.
+
+## Mandatory Audit 63 — Continue #189
+- Section 15 thermal baseline: **AUTHORIZED FOR IMPLEMENTATION, NOT YET IMPLEMENTED** — selected-module simple NMOT relation.
+- Nominal NMOT: 42 degC; manufacturer sensitivity: 39/42/45 degC; reference G=800 W/m2, ambient=20 degC. NMOT test wind 1 m/s is provenance/context, not an hourly baseline input.
+- Faiman: model form accepted as primary wind-sensitive sensitivity; generic U0=25/U1=6.84 + NASA POWER WS10M is **not** a physically matched baseline until wind-reference compatibility is resolved.
+- Weather/timestamp contract: hourly UTC T2M/WS10M and frozen irradiance pathway; join by canonical absolute timestamp, no implicit local-time/index shift.
+- #190: implement/test separate thermal module. Annual electrical geometry results remain NOT AUTHORIZED.
