@@ -109,3 +109,6 @@ Deterministic thermal-electrical coupling PASS and FROZEN narrow foundation. #19
 
 ## Continue #192 annual-adapter checkpoint
 Persisted Early Audit 65 at #191 governs cadence: #192 is Pass 1 of Audit Cycle 66. Strict annual adapter PASS at `2ef4ea2b` / run `36367614367`. No early audit: this is alignment/orchestration, not a new physical result. Real Audit-59 artifacts do not contain timestep-level 3-D POA; #193 is authorized to create/verify a canonical accepted timestep export whose annual component sums reproduce the frozen Audit-59 totals. It may prepare bounded annual coupling evidence for Audit 66 but must not rank/promote annual geometry kWh. Mandatory Audit 66 remains #194.
+
+## Continue #193 dual-track correction
+Technical Phase II remains on track, but final-report quality is AT RISK — RECOVERABLE. Every remaining technical pass must update/inspect its corresponding scientific section. Optional branches remain closed until the quality register demonstrates recovery. #194 Audit 66 must audit both timestep/annual pre-audit evidence and the report-quality recovery plan/current LaTeX regression.
