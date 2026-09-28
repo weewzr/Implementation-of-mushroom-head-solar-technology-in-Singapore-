@@ -138,3 +138,4 @@ At least once every three user/assistant project turns, stop expansion and audit
 ## Result-release rule
 
 No numerical performance result may be promoted from exploratory to validated merely because code runs. Validation requires traceable inputs, equal-resource normalization, appropriate physics, convergence/numerical checks, uncertainty treatment where material, and report/code/data consistency.
+| `2026-09-28_three-pass_audit-67.md` | Mandatory Pass 3 / Continue #197, new-session Continue 1/12 | Annual electrical retained-evidence release gate + current-report regression + Sections 1–8 quality audit | Annual electrical RELEASE WITHHELD on one narrow retained timestep-replay blocker; Phase II NARROW CARRYOVER; current report clean-build regression found and CI repair initiated; Sections 1–8 READABLE; P1=6; #227 AMBER |
