@@ -35,8 +35,9 @@ jobs:
           cargo run --release --quiet --bin timestep-irradiance-evidence -- development-weather/nasa_power_singapore_2024_hourly.csv development-weather/timestep-irradiance-evidence | tee development-weather/timestep-irradiance-evidence-run.txt
           cargo run --release --quiet --bin annual-electrical-preaudit -- development-weather/timestep-irradiance-evidence/
             development-weather/annual-electrical-preaudit-run.txt
-            development-weather/annual-electrical-preaudit/accepted_timestep_irradiance.csv development-weather/fixed-geometry-comparison/monthly_results.csv development-weather/nasa_power_singapore_2024_hourly.csv development-weather/annual-electrical-preaudit | tee development-weather/annual-electrical-preaudit-run.txt
+            development-weather/annual-electrical-preaudit/accepted_timestep_irradiance.csv development-weather/fixed-geometry-comparison/monthly_results.csv development-weather/nasa_power_singapore_2024_hourly.csv development-weather/annual-electrical-preaudit 2>&1 | tee development-weather/annual-electrical-preaudit-run.txt
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: controlled-comparison-evidence
           path: |
