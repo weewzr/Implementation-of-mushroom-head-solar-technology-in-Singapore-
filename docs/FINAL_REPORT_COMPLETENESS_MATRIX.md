@@ -161,3 +161,33 @@ Schedule: **AT RISK but recoverable** relative to the original Phase-I #187 targ
 | Appendices/reproducibility | DRAFT/OPERATIONAL | expand hashes, manifests, derivations and final release evidence |
 
 **PHASE I COMPLETE.** Phase-II contract: `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. Exact Phase-I baseline: commit `3f54605f...`, run `36330877451`, artifact `10935284619`, exact 32-page PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`. Downstream headings are not marked complete merely because evidence-boundary sections exist.
+
+## Continue #187 — Phase-I exit reconciliation
+**PHASE I COMPLETE.** Exact baseline: commit `3f54605f53a6e88f145713f69d4136da297f2608`; LaTeX run `36330877451` PASS; artifact `10935284619`; artifact SHA-256 `3f4b0efe50648c2f6bb23890a893d88b04848d288ffe363d8275a18fd9749ec3`; exact 32-page PDF SHA-256 `2315a125011117a0210ab15f63c2d011941271cae0057a0bd816b8bb61074838`.
+
+| Final section | Honest exit status | Phase-II/later requirement |
+|---|---|---|
+| 1 Introduction/research question | DRAFT / operational | final source tightening later |
+| 2 Beginner-first explanation | FROZEN communication architecture | reopen only for regression |
+| 3 Singapore context | DRAFT | targeted source completion |
+| 4 Original mushroom concept | VALIDATED formulation | preserve origin/no winner assumption |
+| 5 Fair-comparison framework | FROZEN | preserve Audit-59 contract |
+| 6 Mathematical formulation | VALIDATED foundation | later model equations append |
+| 7 Analytical verification | VALIDATED | preserve |
+| 8 Numerical method | VALIDATED | extend only for new gated layers |
+| 9 V&V and uncertainty | VALIDATED Phase-I foundation | thermal/electrical uncertainty later |
+| 10 Fixed candidates | VALIDATED | no ranking |
+| 11 Controlled fixed-geometry results | FROZEN DEVELOPMENT_NOT_SERIS | electrical coupling later |
+| 12 Deployable/origami | FROZEN narrow kinematic foundations | engineering realism in Phase II |
+| 13 Engineering implementation | OUTLINE / evidence boundary | Phase II requirements/penalties |
+| 14 Manufacturing | OUTLINE / evidence boundary | #198–207 |
+| 15 Electrical and net-energy performance | FROZEN narrow kernel foundation; system result incomplete | #188–197 thermal/loss/coupling/annual gates |
+| 16 Cost and techno-economics | EMPTY / evidence boundary only | #198–207; no LCOE yet |
+| 17 Carbon and sustainability | OUTLINE / evidence boundary | #198–207; no headline CO2 result |
+| 18 Integrated design comparison | EMPTY / evidence boundary only | #208–217 |
+| 19 Recommended solution concepts | EMPTY / evidence boundary only | #208–217; scenario-specific only |
+| 20 Limitations and future work | DRAFT / operational | maintain continuously |
+| 21 Conclusion | DRAFT Phase-I conclusion | final synthesis #218–227 |
+| Appendices/reproducibility | DRAFT / Phase-I baseline recorded | expand through final release |
+
+Phase II begins #188 under `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. No downstream section is marked complete merely because an evidence-boundary heading exists.
