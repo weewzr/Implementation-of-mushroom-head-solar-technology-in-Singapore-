@@ -100,7 +100,28 @@ Rotation and deployability are kept outside this fixed comparison. They introduc
 
 The transition from concept to mathematics begins with a common coordinate system. Once the Sun direction $\mathbf{s}$ and each surface normal $\mathbf{n}$ are defined consistently, the incidence angle follows from their dot product; visibility, sky view and resource normalisation can then be added without changing the physical question.
 
-\section{Coordinate and sign conventions}
+\section{Fair-comparison framework}
+A three-dimensional surface can contain more active PV area than a flat panel above the same footprint. Comparing them without controlling the resource budget would mix geometry with simply using more PV. The study therefore uses two primary contracts: \emph{equal land}, where $A_{\rm land}$ is fixed, and \emph{equal PV}, where $A_{\rm PV}$ is fixed.
+
+The packing ratio asks how much active PV fits over the footprint:
+\begin{equation}\Pi=\frac{A_{\rm PV}}{A_{\rm land}}.\label{eq:packing-ratio}\end{equation}
+Packing efficiency instead asks how productive each square metre of that PV remains:
+\begin{equation}
+\eta_{\rm pack}=\frac{H_{\rm POA}/A_{\rm PV}}{H_{\rm POA,flat}/A_{\rm PV,flat}}.
+\label{eq:packing-efficiency}
+\end{equation}
+The two effects combine as
+\begin{equation}\boxed{M_L=\Pi\eta_{\rm pack}}.\label{eq:land-energy-identity}\end{equation}
+Thus $\Pi$ measures area intensification and $\eta_{\rm pack}$ measures retained irradiance productivity. Extra area is useful only when packing gain is not cancelled by orientation, sky obstruction or self-shadowing.
+
+\begin{figure}[htbp]\centering
+\includesvg[width=\textwidth]{../figures/fair_comparison_metrics}
+\caption{Equal-land and equal-PV resource contracts. Packing ratio and packing efficiency are kept separate before being combined through Eq.~\eqref{eq:land-energy-identity}.}
+\label{fig:fair-comparison-framework}\end{figure}
+
+\section{Mathematical formulation}
+\subsection{Coordinate and sign conventions}
+The irradiance calculation follows one physical pipeline: locate the Sun, describe each surface facet, determine incidence and visibility, add diffuse-sky and ground-reflected contributions, then integrate over area and time.
 The canonical local frame is right-handed East--North--Up (ENU): \(+x\) east, \(+y\) north and \(+z\) vertically upward. A position vector is
 \begin{equation}
 \mathbf r=(x,y,z).
@@ -145,7 +166,8 @@ The ENU convention makes the vertical component directly represent upward projec
 \paragraph{Engineering Implication.}
 Geometry generators, Sun vectors, facet normals, visibility rays and future mechanical axes must use this convention. External datasets or libraries using different azimuth definitions must be converted at the data boundary.
 
-\section{Solar-position equations}
+\subsection{Solar position}
+The physical question is where the Sun lies in the common ENU frame at each timestep. These transparent relations provide hand-checkable geometry; validated annual simulations use the traceable higher-accuracy solar-position implementation.
 For preliminary transparent calculations, the Cooper (1969) declination approximation is
 \begin{equation}
 \delta(n)=23.45^{\circ}\sin\!\left[\frac{360^{\circ}}{365}(284+n)\right].
@@ -174,7 +196,8 @@ Here $\alpha$ is solar elevation above the local horizon; $\phi$ is geographic l
 \label{fig:solar-ray}
 \end{figure}
 
-\section{Direct and diffuse incidence}
+\subsection{Incidence, visibility and irradiance components}
+The incidence calculation asks how directly sunlight strikes a facet. Orientation and self-shadowing are kept separate: the dot product sets geometric incidence while a visibility factor determines whether the Sun is unobstructed.
 For an infinitesimal PV element,
 \begin{equation}
 \mathrm dP_{\mathrm{dir}}=\eta(T)DNI(t)V(t)[\mathbf n\cdot\mathbf s(t)]_{+}\,\mathrm dA.
@@ -196,7 +219,9 @@ The first diffuse approximation is
 \end{equation}
 Here $DHI$ is diffuse horizontal irradiance (\si{\watt\per\square\metre}); $\beta$ is surface tilt from horizontal; and $(1+\cos\beta)/2$ is the unobstructed isotropic-sky view factor. The factor $1/2$ follows from ideal hemispherical geometry and is not an empirical Singapore coefficient.
 
-\section{Paraboloidal mushroom}
+\section{Analytical verification}
+Analytical benchmarks test whether the discrete implementation recovers results known independently from calculus or symmetry. Each benchmark therefore has an analytical target, a numerical value, a residual and an acceptance tolerance.
+\subsection{Paraboloid area and flat limit}
 The founding analytical geometry is
 \begin{equation}
 z(r)=h\left(1-\frac{r^2}{R^2}\right),\qquad k=\frac{h}{R}.
@@ -236,7 +261,7 @@ With $A_{\mathrm{foot}}=\pi R^2$,
 \end{equation}
 Here $\Pi$ is the dimensionless PV packing ratio and $A_{\mathrm{foot}}$ is horizontal footprint area (\si{\square\metre}). The limiting case $k\to0$ gives $\Pi\to1$, recovering a flat disk.
 
-\section{Diffuse-light analytical limit}
+\subsection{Diffuse-sky projection identity}
 Under the unobstructed isotropic-sky benchmark, the diffuse-derived electrical power over surface \(S\) is
 \begin{equation}
 P_{\mathrm{diff}}
@@ -284,6 +309,22 @@ For this idealised convex/no-occlusion benchmark, additional upward-facing surfa
 
 \paragraph{Engineering Implication.}
 Equation~\eqref{eq:diffuse-cap-limit} is an analytical benchmark for later Rust and ray/sky-view implementations. It must not be used as a validated Singapore annual-yield model. Final 3-D calculations require time-correlated DHI, an anisotropic sky treatment and explicit sky visibility.
+
+\section{Numerical method}
+The continuous surface is represented by triangular facets with explicit area, centroid and outward normal. At each weather timestep the solar-position model supplies the Sun vector; ray intersection supplies direct visibility; sky-direction sampling supplies visible-sky fraction; direct, diffuse and ground components are evaluated per facet; the declared resource contract is enforced; and area/time integration produces the comparison quantity.
+
+\begin{figure}[htbp]\centering
+\includesvg[width=0.96\textwidth]{../figures/method_validation_flow}
+\caption{Numerical pipeline and validation gates. Geometry is discretised, irradiance components are evaluated with explicit visibility and sky access, resource constraints are enforced, and convergence is checked before comparison.}
+\label{fig:numerical-method-flow}\end{figure}
+
+\paragraph{Why a mesh?} Closed-form irradiance integrals are unavailable once orientation varies and facets can block one another. Triangles provide well-defined local areas, normals and ray intersections.
+
+\paragraph{Why sky discretisation?} Diffuse radiation arrives from a hemisphere. Sampling sky directions estimates visible solid angle; increasing sky resolution should change the result progressively less, so sky resolution is a convergence variable.
+
+\paragraph{Why temporal resolution?} Solar direction changes through time. Temporal refinement is tested separately, and canonical UTC timestamps are retained so later thermal/electrical coupling cannot silently shift or drop hours.
+
+\paragraph{Acceptance.} Only configurations that pass the declared mesh, sky and temporal convergence gates feed the controlled comparison. Low-level Rust paths, commits and hashes are reproducibility metadata and belong in appendices rather than the scientific method narrative.
 
 \section{Land-energy multiplier}
 For the present irradiance-level controlled comparison, define the land-energy multiplier.
