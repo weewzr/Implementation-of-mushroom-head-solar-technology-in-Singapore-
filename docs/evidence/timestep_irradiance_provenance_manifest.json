@@ -1,0 +1,49 @@
+{
+  "status": "DEVELOPMENT_NOT_SERIS",
+  "evidence_role": "PRE_AUDIT_NOT_PROMOTED",
+  "retained_workflow": {
+    "commit": "4eb025e88eb8d8cf5f4fea15f349a090d1ec5635",
+    "run": 36371769910,
+    "artifact": 10949423122,
+    "artifact_sha256": "0b697599f97636c457001c70fdaf81b8ed02fe22096f376f8b15cc1ef703a9b1"
+  },
+  "configuration": {
+    "candidates": ["flat_reference","frozen_paraboloid","hemisphere","faceted_canopy","folded_surface"],
+    "resource_contracts": ["equal_land","equal_pv"],
+    "mesh": "4x24",
+    "sky_n": 16,
+    "accepted_converged": true,
+    "weather_year": 2024,
+    "weather_provenance": "NASA_POWER_2024_DEVELOPMENT_NOT_SERIS",
+    "weather_sha256": "f3442ca0c336011c5c61fe434e00e1f7984f9d34afa27d1431fa939f5eac204c",
+    "temporal_resolution": "1 hour; UTC start-of-hour weather record; hourly-midpoint solar evaluation",
+    "albedo": 0.20,
+    "visibility_self_shadowing": "shared annual_irradiance direct_visibility ray-triangle path",
+    "sky_view": "shared sky_view_factor hemisphere discretization",
+    "resource_normalization": "canonical resource_geometry equal_land/equal_pv",
+    "spa_lineage": "frozen shared SPA implementation used by Audit-59 comparison"
+  },
+  "timestep_export": {
+    "rows": 87840,
+    "rows_per_candidate_contract": 8784,
+    "component_units": "Wh per timestep over candidate active surface; candidate-mean POA for electrical adapter is total_wh / active_pv_area_m2",
+    "accepted_timestep_irradiance_sha256": "172d6232612ad53e1053aa59cead9007bfa62a401b8b1d3e863891061b1e6f0e",
+    "annual_aggregate_back_max_total_residual_wh": 7.683e-9,
+    "monthly_aggregate_back_tolerance": "max(1e-6 Wh, 1e-9 * abs(frozen monthly component))",
+    "monthly_aggregate_back_max_abs_residual_wh": 5.059882823843509e-7,
+    "monthly_candidate_months": 120,
+    "monthly_component_checks": 480,
+    "monthly_failures": 0
+  },
+  "upstream_file_hashes": {
+    "monthly_results_csv": "1425811bb0d556b610dcb0b635db16651b6cf4f358a7275c9865c79d82f885e6",
+    "annual_results_csv": "a56de79dfe29d7ca2c744d8aa0892649907399feed787607eaabbe5e10515ab4",
+    "resource_invariants_csv": "9b8e2d7b073761ad199e4d20bed41013f2216d9fef21ba203a46e84499375d44",
+    "irradiance_convergence_csv": "4018c84f69e4c708f547a9837d4b50160ebb4a79dcafaf0f2bcb0f5f8a27a51f"
+  },
+  "limitations": [
+    "candidate-mean POA is sufficient for the current geometry-level electrical conversion but not for future facet/string mismatch modelling",
+    "facet-resolved irradiance must be exported separately before detailed mismatch analysis",
+    "this manifest does not promote annual electrical results"
+  ]
+}
