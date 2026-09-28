@@ -960,6 +960,23 @@ Generated publication assets cover equal-land annual irradiance, equal-PV annual
 
 ## Electrical and net-energy performance — first implemented kernel
 
+### Module temperature — provisional Phase-II model decision
+
+**Beginner:** Solar panels get hot in the sun. Hotter PV modules usually make a little less electricity.
+
+**Intuitive:** POA irradiance heats the module; ambient air and ventilation remove heat. The thermal model is a replaceable bridge between the frozen irradiance result and the frozen electrical kernel.
+
+**Engineering:** Continue #188 provisionally selects the Faiman steady-state relation, pending Audit 63:
+
+[
+T_m=T_a+\frac{G_{POA}}{U_0+U_1 v_w}.
+]
+
+Sandia PVPMC reports the original Faiman seven-module combined fit (U_0=25) W m⁻² K⁻¹ and (U_1=6.84) W m⁻³ s K⁻¹. These are literature-generic coefficients, not Canadian Solar manufacturer values and not project-fitted parameters.
+
+**Rigorous boundary:** NASA POWER DEVELOPMENT_NOT_SERIS provides hourly T2M ambient temperature and WS10M wind speed at 10 m. No module-height/local-flow correction is silently applied. The baseline is a generic ventilated/free-standing rigid-module approximation; candidate-specific airflow coefficients are not assumed. The Canadian Solar CS6.2-48TM-460H NMOT of 42 ± 3°C at 800 W/m², 20°C ambient and 1 m/s wind is retained as the primary module-specific reference/model-form sensitivity. Audit 63 must authorize implementation.
+
+
 Plain-language chain: sunlight hits the panel → the panel warms → heat changes efficiency → the panel makes DC electricity → declared DC/inverter/system losses reduce delivery → auxiliary mechanisms may consume electricity → the remainder is net output.
 
 The upstream geometry model supplies an **IRRADIANCE RESULT**. `src/electrical.rs` supplies a separate **ELECTRICAL CONVERSION RESULT**. No annual geometry-to-electricity comparison is released at this stage. Outside the frozen kernel remain source-selected weather-to-module-temperature modelling beyond the replaceable NMOT fixture, geometry-specific coupling, nonuniform-illumination mismatch, string/bypass-diode topology, detailed MPPT/inverter behaviour, moving-system auxiliary energy and annual electrical comparison.
