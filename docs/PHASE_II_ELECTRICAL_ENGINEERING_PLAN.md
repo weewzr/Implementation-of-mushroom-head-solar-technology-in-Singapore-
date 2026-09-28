@@ -115,3 +115,6 @@ Technical Phase II remains on track, but final-report quality is AT RISK — REC
 
 ## Mandatory Audit 66 — Continue #194
 Annual electrical promotion WITHHELD pending one provenance-complete release package: monthly reconciliation against frozen Audit-59 evidence, explicit accepted configuration identifiers in timestep rows, and bounded non-ranked annual adapter evidence. The irradiance physics itself passes same-path annual aggregate-back. #195 closes this gate while report Sections 1-4 are repaired. Optional model branches remain closed because publication-quality recovery is now co-equal with technical work.
+
+## Mandatory Audit 66 — Continue #194
+Annual controlled electrical promotion is WITHHELD until the retained accepted timestep export completes and aggregate-back reproduces frozen Audit-59 evidence. Do not modify frozen aggregates. Technical programme remains on track; publication quality is AT RISK — RECOVERABLE and now consumes work in every pass. #195: close timestep artifact/reconciliation blocker if available + Sections 1-4 report repair. Optional high-complexity branches are cut unless essential to the final argument.
