@@ -22,7 +22,7 @@ jobs:
 
       - name: Generate reproducible Audit-59 publication figures
         run: |
-          cargo run --quiet --bin fixed_comparison_publication
+          cargo run --quiet --bin fixed-comparison-publication
           test -s figures/generated/fixed_equal_land.svg
           test -s figures/generated/fixed_equal_pv.svg
           test -s figures/generated/fixed_packing_ratio.svg
