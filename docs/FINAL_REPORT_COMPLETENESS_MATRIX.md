@@ -191,3 +191,12 @@ Schedule: **AT RISK but recoverable** relative to the original Phase-I #187 targ
 | Appendices/reproducibility | DRAFT / Phase-I baseline recorded | expand through final release |
 
 Phase II begins #188 under `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. No downstream section is marked complete merely because an evidence-boundary heading exists.
+
+## Continue #188 — Phase-II thermal evidence selection
+- Section 15 thermal subsection: **EVIDENCE-PENDING / PROVISIONAL MODEL SELECTED**. Faiman steady-state model selected provisionally; implementation awaits Audit 63.
+- Primary model-form/reference sensitivity: Canadian Solar module-specific simple NMOT relation using NMOT 42 +/- 3 degC at the datasheet reference condition.
+- Weather inputs: NASA POWER DEVELOPMENT_NOT_SERIS hourly T2M and WS10M at 10 m are available and QC-complete; wind-height/local-flow transfer remains explicit uncertainty.
+- Thermal SVG: `figures/thermal_model_bridge.svg` COMPLETE.
+- Rust thermal API/test contract: COMPLETE in `docs/PHASE_II_THERMAL_MODEL_DECISION.md`; implementation NOT STARTED.
+- Annual electrical geometry results: NOT AUTHORIZED.
+- #189 Audit 63 must decide Faiman coefficient/wind provenance adequacy and authorize or withhold #190 implementation.
