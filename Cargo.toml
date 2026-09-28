@@ -68,3 +68,7 @@ path = "src/bin/annual_adapter_evidence.rs"
 [[bin]]
 name = "timestep-irradiance-evidence"
 path = "src/bin/timestep_irradiance_evidence.rs"
+
+[[bin]]
+name = "annual-electrical-preaudit"
+path = "src/bin/annual_electrical_preaudit.rs"
