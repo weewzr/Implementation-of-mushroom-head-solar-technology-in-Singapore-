@@ -15,7 +15,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-science latexmk poppler-utils inkscape
-      - name: Generate reproducible publication figures\n        run: cargo run --quiet --bin fixed-comparison-publication\n      - name: Compile and retain log
+      - name: Generate reproducible publication figures
+        run: cargo run --quiet --bin fixed-comparison-publication
+      - name: Compile and retain log
         working-directory: report
         run: |
           set -o pipefail
