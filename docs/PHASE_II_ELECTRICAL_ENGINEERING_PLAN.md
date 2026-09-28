@@ -88,5 +88,8 @@ For each candidate record:
 
 Select the simplest scientifically defensible model, not the model producing the most favorable energy result. Prepare the Rust function/parameter contract and the thermal validation fixtures listed in Section A. Do not implement the new thermal model during #188; implementation is scheduled for #190 after the #189 Audit-63 validation decision.
 
+## Completion target
+Phase II remains bounded to #188–197; #198–207 manufacturing/cost/carbon; #208–217 integrated comparison/uncertainty/recommendations; #218–227 final synthesis/references/appendices/reproducibility/exhaustive QA. Overall target remains approximately #227.
+
 ## Scope exclusions through this contract
 No Miura-ori optimisation, topology optimisation, full structural FEA, LCOE, headline CO2 reduction, or unsupported flexible-PV performance claim is authorized by this plan.
