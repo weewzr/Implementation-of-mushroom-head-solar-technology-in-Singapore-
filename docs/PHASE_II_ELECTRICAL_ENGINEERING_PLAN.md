@@ -106,5 +106,6 @@ Thermal implementation PASS and FROZEN narrow foundation after all-target Rust e
 ## Continue #191 / Early Audit 65
 Deterministic thermal-electrical coupling PASS and FROZEN narrow foundation. #192 is rebased to annual-adapter timestamp/schema/provenance preparation and deterministic rejection evidence only. Because Early Audit 65 reset cadence, #192 is Pass 1 of Audit Cycle 66, #193 Pass 2, and normal mandatory Audit 66 is #194 unless an earlier major result triggers. No headline annual geometry kWh before authorization.
 
-## Continue #191 coupling checkpoint
-Deterministic thermal-electrical coupling PASS at `7c6593c0` / run `36366316029`. This is orchestration of frozen model layers, not a new physical-model freeze, so no early audit is triggered. #192 is Pass 2 of Audit Cycle 65 and is authorized for annual-adapter/schema/timestamp evidence preparation only; mandatory Audit 65 remains #193. No headline annual geometry kWh before that gate.
+
+## Continue #192 annual-adapter checkpoint
+Persisted Early Audit 65 at #191 governs cadence: #192 is Pass 1 of Audit Cycle 66. Strict annual adapter PASS at `2ef4ea2b` / run `36367614367`. No early audit: this is alignment/orchestration, not a new physical result. Real Audit-59 artifacts do not contain timestep-level 3-D POA; #193 is authorized to create/verify a canonical accepted timestep export whose annual component sums reproduce the frozen Audit-59 totals. It may prepare bounded annual coupling evidence for Audit 66 but must not rank/promote annual geometry kWh. Mandatory Audit 66 remains #194.
