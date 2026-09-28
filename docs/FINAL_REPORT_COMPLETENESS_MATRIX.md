@@ -207,3 +207,10 @@ Phase II begins #188 under `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. No do
 - Faiman: model form accepted as primary wind-sensitive sensitivity; generic U0=25/U1=6.84 + NASA POWER WS10M is **not** a physically matched baseline until wind-reference compatibility is resolved.
 - Weather/timestamp contract: hourly UTC T2M/WS10M and frozen irradiance pathway; join by canonical absolute timestamp, no implicit local-time/index shift.
 - #190: implement/test separate thermal module. Annual electrical geometry results remain NOT AUTHORIZED.
+
+## Continue #190 / Early Audit 64
+- Section 15 thermal model: **FROZEN narrow foundation** — standalone NMOT equation/API/validation semantics and 39/42/45 sensitivity contract.
+- Rust evidence: commit `80c67038999ef0eb501db9b2662acb2dfcd50007`; `cargo test --all-targets` run `36364613741` PASS; artifact `10947375679`; SHA-256 `bb1f7ff9907ede3fd4b620722ef1e691c01b72d2bbbffe58f5d9ea5b6e7ebac0`.
+- Faiman: explicit non-baseline sensitivity infrastructure only; no defaults/automatic WS10M.
+- Thermal evidence fixture: COMPLETE deterministic DEVELOPMENT_NOT_SERIS cases; no annual output.
+- #191 thermal-electrical coupling: AUTHORIZED; annual geometry kWh remains NOT AUTHORIZED.
