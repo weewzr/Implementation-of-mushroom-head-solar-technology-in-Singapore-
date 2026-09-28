@@ -1,100 +1,57 @@
 # Mandatory Audit 66 — Continue #194
 
-## Governance
-Mandatory three-pass audit after Early Audit 65 at Continue #191. Continue #194 is new-session Continue 10/12. Frozen Audit-59 comparison, Audit-62 communication/electrical kernel, Audit-64 thermal model, Audit-65 deterministic coupling, Audit-56 single crease and Audit-60 accordion/fan remain intact.
+## Governance and scope
+Mandatory audit after Early Major-Result Audit 65 (#191). Continue #194 is new-session Continue 10/12. Frozen Audit-59, Audit-62, Audit-64, Audit-65, Audit-56 and Audit-60 foundations remain intact. No optional model branch was opened.
 
-## Part I — timestep irradiance / annual-electrical gate
+## Part I — accepted timestep irradiance / annual electrical gate
+The exporter `src/bin/timestep_irradiance_evidence.rs` calls the shared `evaluate_timestep_irradiance` function. The canonical `evaluate_annual_irradiance` was refactored to aggregate that same timestep function, so there is no second irradiance implementation.
 
-### Same-path implementation
-PASS. `src/bin/timestep_irradiance_evidence.rs` calls `evaluate_timestep_irradiance`; the canonical `evaluate_annual_irradiance` was refactored to sum that same timestep evaluator. No second/simplified irradiance physics was introduced.
+The intended export binds 4x24 mesh, sky_n=16, albedo=0.20, accepted flag, equal-land/equal-PV contracts, active PV/land resource values, canonical NASA POWER 2024 weather provenance and DEVELOPMENT_NOT_SERIS status. Per-row code asserts finite/nonnegative components and total=direct+diffuse+ground. It requires 8,784 weather records and one-hour monotonic timestamps.
 
-### Executed evidence
-Dedicated run `36370794884` PASS at commit `e212b5bad858d6ea99fcfd15ce0a52d5a06c9973`.
-Artifact `10949505252`; artifact SHA-256 `fb95debfc24045f4a4a007dfe3c83ccd9488861aafd2b9c56eafb1e3943937e0`.
-Accepted timestep CSV SHA-256 `172d6232612ad53e1053aa59cead9007bfa62a401b8b1d3e863891061b1e6f0e`.
-Aggregate-back checks SHA-256 `29fd65c5bb60784bf1afa06797ffe6ef58b055282ff94ac2000e825b7a5d1965`.
-Canonical weather CSV SHA-256 `f3442ca0c336011c5c61fe434e00e1f7984f9d34afa27d1431fa939f5eac204c`.
-Export contains 87,840 data rows = 5 candidates x 2 resource contracts x 8,784 hourly records.
+However, the final canonical workflow evidence is **not yet complete**. Earlier #193 workflow attempts either predated retained timestep packaging or failed; Audit-66 rerun `36371416121` at commit `9ed0633b9425ef8a7b96ef94e89107f702ca2802` is still in progress at audit decision time. Therefore there is no completed retained artifact from which Audit 66 can independently verify all 87,840 accepted rows and aggregate-back residuals against Audit-59 monthly/annual evidence.
 
-### Conservation / annual aggregate-back
-PASS for same-path annual totals. Every row asserts finite/nonnegative direct/diffuse/ground and total=direct+diffuse+ground within 1e-10 relative-scale tolerance. Aggregate-back annual component residuals are zero or floating-point roundoff; maximum observed total absolute residual across accepted cases is 7.683e-9 Wh. The annual values reproduce the Audit-59 accepted numbers to printed precision.
+**Annual electrical decision: B — WITHHELD.** One blocker: completed retained canonical timestep artifact + aggregate-back reconciliation is required. Do not reconstruct from annual totals and do not modify Audit-59 frozen values.
 
-Examples:
-- flat equal-land total: timestep 1,433,955.309392767 Wh vs annual 1,433,955.309392768 Wh; residual 6.985e-10 Wh.
-- hemisphere equal-land: 2,067,490.574190444 vs 2,067,490.574190447 Wh; residual 2.561e-9 Wh.
-- faceted equal-land: 1,509,842.496191125 vs 1,509,842.496191117 Wh; residual 7.683e-9 Wh.
+No pre-audit annual electrical evidence is promoted.
 
-### Timestamp/weather
-PASS at the same-path source level: exporter consumes the canonical parsed NASA POWER records, requires exactly 8,784 rows and one-hour increments, and writes their canonical `timestamp_utc_s`. Therefore T2M and irradiance are carried from the same normalized WeatherRecord row with no shift or nearest-neighbour join.
+## Part II — report compilation and quality
+### First actual compile failure
+Failure evidence: commit `65ed51223af797a89fe7829a35f05be8e681405b`, run `36370089669`, artifact `10949190907`.
+First error: `Package svg Error: File fixed_equal_land.svg is missing`. Root cause: report CI referenced reproducibly generated fixed-comparison SVGs without generating them before LaTeX.
 
-### Release-package deficiencies
-The hard annual-electrical promotion gate is **not yet fully closed**:
-1. the retained audit package does not perform an explicit monthly aggregate-back comparison against the frozen Audit-59 monthly evidence;
-2. timestep rows identify candidate, contract, 4x24 mesh, sky-16, accepted flag, active/land area and generic weather/model provenance, but do not yet carry all requested configuration fields explicitly (albedo=0.20, visibility/self-shadowing contract identifier, weather year, SPA/model version/commit and convergence evidence ID);
-3. no bounded pre-audit annual electrical evidence has yet been produced from these rows.
+After adding the publication-figure generation step, the next source-level P0 was exposed at report line 333: literal `\n` tokens embedded before the land-energy equation, causing `Undefined control sequence`. Commit `d4832ec0191710e6bb7c30d9ca3169d60aa3ec10` removes those literal tokens.
 
-These are evidence/provenance release defects, not an irradiance-physics mismatch.
+### Restored current report build
+Current report build PASS evidence: commit `d4832ec0191710e6bb7c30d9ca3169d60aa3ec10`, run `36371446210`, artifact `10949153513`, artifact SHA-256 `2460e9bece472a59a3e75c2b1ec4da598760289b7c949918a9f6df794bb80a24`; exact 35-page PDF SHA-256 `dae6157b81802e9644f396dc6ca6bc3c0113b506c295a1449a81756d701c6900`.
 
-### Annual electrical decision
-**B. WITHHELD for #195 promotion.** Precise blocker: complete a provenance-complete aggregate-back release package: add explicit frozen configuration identifiers and monthly reconciliation to the same timestep export, then feed only that accepted package through the validated adapter as non-ranked audit evidence. Do not alter Audit-59 totals.
+All 35 pages were rendered as a contact sheet during Audit 66. No black rectangle or catastrophic equation-render corruption was observed. The report is nevertheless not publication-ready: dense equation/prose blocks, inconsistent notation, incomplete nomenclature/citations and placeholder downstream sections remain.
 
-## Part II — report-quality / build gate
+### Defect severity
+P0 remaining after bounded corrections: **0**.
+P1 defect classes remaining: **11**. The former #193 class “PDF-level equation readability not yet verified” is closed as a gate by the 35-page render inspection; the other eleven classes remain substantive readability/math consistency work.
 
-### First actual build failure
-At commit `65ed51223af797a89fe7829a35f05be8e681405b`, run `36370089669`, artifact `10949190907` (SHA-256 `721944b928718bcb0fdd1df0a1c0a265b683e7a2fe2854151460d49f56ba6186`), the first fatal LaTeX error is:
-`Package svg Error: File fixed_equal_land.svg is missing` at `report/project_technical_report.tex` line 776.
-Root cause: clean report CI did not run the reproducible Audit-59 publication-figure generator before LaTeX.
+Major prose-rewrite sections remain 3, 6, 12, 13, 14, 16, 17, 18, 19 and 21.
 
-### Build restoration
-P0 compile defect CLOSED by generating publication figures in clean CI. Current green report evidence after bounded scientific wording fixes:
-commit `d4832ec0191710e6bb7c30d9ca3169d60aa3ec10`;
-run `36371446210` PASS;
-artifact `10949153513`;
-artifact SHA-256 `2460e9bece472a59a3e75c2b1ec4da598760289b7c949918a9f6df794bb80a24`;
-35 pages;
-exact PDF SHA-256 `dae6157b81802e9644f396dc6ca6bc3c0113b506c295a1449a81756d701c6900`.
+The canonical mathematical style is activated in `equations/nomenclature.md`: italic scalars, bold lowercase vectors, bold uppercase matrices/tensors, roman descriptive subscripts, siunitx units, canonical solar/irradiance/resource/thermal/electrical symbols, reserved origami lambda, and stable equation labels for referenced equations.
 
-Rendered-page audit confirms equations are generally typeset rather than raw source, but publication quality remains materially below release standard.
-
-### Additional P0 scientific defects closed
-- page-16 land-energy section incorrectly described the frozen Audit-59 irradiance metric using annual electrical-energy quantities. Corrected to incident POA energy and canonical `H_POA` distinction.
-- page-19 legacy thermal subsection stated module/thermal inputs remained unset, contradicting the validated Phase-II foundation. Corrected as a precursor and pointed to the current electrical/net-energy layer.
-
-Remaining P0 defects: **0**.
-
-### P1 report defects
-Quality register is real and actionable. Remaining P1 defect classes: **8**:
-1. derivation staging/human-readable mathematical flow;
-2. canonical terminology/report-spine consistency;
-3. duplicated legacy thermal narrative;
-4. origami derivation exposition/adjacent diagrams;
-5. controlled-comparison table readability;
-6. electrical/thermal section scientific flow vs audit chronology;
-7. citation completeness for foundational/context claims;
-8. downstream/final-section scientific coherence.
-
-Major-prose sections remain 3, 6, 12, 13, 14, 16, 17, 18, 19 and 21. Page/source-specific defects and targets are recorded in `docs/FINAL_REPORT_QUALITY_REGISTER.md`.
-
-### Mathematical style / nomenclature
-PASS as policy activation, not completion. `equations/nomenclature.md` is now normative: italic scalars, bold lowercase vectors, bold uppercase matrices, roman descriptive subscripts, siunitx units, explicit irradiance vs irradiation distinction, canonical solar/resource/thermal/electrical symbols and stable equation labels. Symbol migration through the whole report remains P1/P2 repair work.
-
-### Feasibility
-**AMBER.** Technical programme remains on track. #227 remains credible only if optional modelling is cut and report repair remains continuous. The report already contains sufficient technical substance; publication quality now has priority over Miura optimisation, topology optimisation, extra geometry families, detailed FEA and high-complexity mismatch modelling.
-
-## Recovery milestones
-- #195: close timestep monthly/provenance release package + pre-audit electrical evidence; repair Sections 1-4 and long-hash overflow.
-- #196: Phase-II bounded technical work + repair Sections 5-8.
-- #197: Phase-II closure/carryover + repair Sections 9-12; session rotation.
-- #198-203: engineering/manufacturing/cost/carbon plus Sections 13-21 repair.
-- #204-207: first complete report pass; no P0/P1 math defects by #207.
-- #208-212: integrated comparison/uncertainty plus second affected-section pass.
+## Report recovery milestones
+- #195: annual evidence blocker if complete + Sections 1-4 repair.
+- #196: Phase-II technical work + Sections 5-8 repair.
+- #197: Phase-II closure + Sections 9-12 repair; session rotation follows at 12th Continue.
+- #198: engineering/manufacturing + Sections 13-14.
+- #199: cost foundation + Sections 15-16.
+- #200: cadence audit + quality checkpoint.
+- #201-203: cost/carbon + Sections 17-21.
+- #204-207: first complete report pass; zero P0 and close known P1 math defects.
+- #208-212: integrated comparison/uncertainty + second affected-section pass.
 - #213-217: second complete scientific edit; submission-like paper by #217.
-- #218-222: reproducibility/appendix/bibliography/technical consistency.
+- #218-222: consistency/reproducibility/appendix/bibliography.
 - #223-227: release QA only.
 
-## Audit 66 disposition
-Annual electrical promotion: **NO**.
-Current LaTeX build: **PASS**.
-P0 remaining: **0**.
-P1 defect classes remaining: **8**.
-#227 feasibility: **AMBER**.
+Optional Miura/topology/additional geometries/detailed FEA/high-complexity mismatch/tracking variants are cut unless directly necessary.
+
+## #227 feasibility
+**AMBER.** Technical programme remains on track. Publication quality is at risk but recoverable. #227 is credible only if optional modelling remains cut and report repair is continuous first-class work.
+
+## Exact #195 authorization
+Do not promote annual electrical results unless the completed timestep artifact is available and aggregate-back passes. First inspect/close that single blocker. In parallel repair Sections 1-4 prose/math/figures/citations under the quality register. If aggregate-back passes, annual controlled electrical integration may proceed only as the bounded technical portion authorized by a follow-up evidence decision; no geometry ranking/recommendation.
