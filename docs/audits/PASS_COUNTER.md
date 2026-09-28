@@ -4,18 +4,18 @@
 
 ## Current state
 
-- Total explicit user `Continue` commands counted through 28 September 2026: **196**.
-- Most recent audit: `docs/audits/2026-09-28_three-pass_audit-66.md`.
-- That audit occurred on Continue #194.
-- Passes since most recent audit: **2**.
+- Total explicit user `Continue` commands counted through 28 September 2026: **197**.
+- Most recent audit: `docs/audits/2026-09-28_three-pass_audit-67.md`.
+- That audit occurred on Continue #197.
+- Passes since most recent audit: **0**.
 - Audit 50 at Continue #154 correctly withheld release pending the completed canonical consumer refactor. Continue #155 reconciled stale governance state against post-audit evidence: commit `53d7d3420202ea81bf5b0a8d40b1ee87a93a68c4`, Rust run `36240614922` PASS, e2e run `36240614938` PASS, artifact `10905852093` SHA-256 `e450ccd79f303bd1a701293dbbc5613f156520c122a92ccbb6229b08e2eaf110`. Fresh artifact inspection closes exact-resource, convergence, crossover, sensitivity and stability gates; Markdown/LaTeX/traceability parity is synchronized. **Paraboloid geometric-response result is FROZEN DEVELOPMENT_NOT_SERIS and the fixed-geometry equal-resource comparison phase is authorized.** Continue #156 implemented `src/fixed_geometry.rs` and geometry-agnostic `src/annual_irradiance.rs`; candidate topology now feeds canonical resource normalization and shared visibility/sky/annual evaluation contracts. Audit 51 found framework runs `36288726695` and `36288726639` fail compilation because the shared annual evaluator had an ambiguous `sum()` type. Commit `f6e46aafc0c799ba69274faffec725abc9340d96` corrects the compile defect. Continue #158 inspected post-compile-fix runs `36289462888`/`36289462848`: compilation succeeds and 67/68 framework/library tests pass; the sole failure is the hemisphere analytical area-ratio tolerance at the intermediate mesh. Commit `adde4deec12cdc5e44cc340ac59ea7edf9f9080a` strengthens this to monotone multi-resolution convergence plus a refined analytical tolerance. Audit 52 at Continue #160 confirms whole-crate run `36290127196` PASS and e2e run `36290127283` PASS at `adde4deec12cdc5e44cc340ac59ea7edf9f9080a`. E2E artifact `10922505206` SHA-256 `5cb924eaaa8d69afd4b3852eb7f3c6e304735b527d30cadd245910feb2c84e6e`; Rust artifact `10921797900` SHA-256 `be82d75632c40b4deea0867fc5a61f4c84f79a143e4951529bffcb359f804ae6`. **The common fixed-geometry comparison framework is FROZEN and controlled matched-resource annual candidate-comparison execution is authorized for the next session. No comparison/ranking has yet been executed or promoted.**
 
 ## Session state
 
-- Current ChatGPT session explicit `Continue` count: **12**.
+- Current ChatGPT session explicit `Continue` count: **1**.
 - Persisted technical/audit state was recovered from the master source, this counter, the audit ledger, Audit 46, Audit 47 and repository history before substantive work.
-- Session rotation required: **YES — current session has reached 12/12 Continues. Start a new chat inside the same Mushroom-Head Solar project before Continue #197.**
-- Next-pass state: **Continue #196 completed as Pass 2 of Audit Cycle 67; total project Continue 196; current-session Continue 12/12; passes since Audit 66 = 2; SESSION ROTATION REQUIRED = YES. TECHNICAL PROGRAMME ON TRACK. REPORT QUALITY RECOVERING but not publication-ready. #227 feasibility AMBER. Annual+monthly same-path irradiance reconciliation PASS; annual electrical pre-audit generator/provenance path implemented, but final retained canonical electrical package remains PRE-AUDIT until mandatory Audit 67 inspection. Sections 1–8 have now received first major readability/math repair; current rendered Sections 5–8 equations are legible, P0=0, remaining genuine P1 classes=6. Exact #197 agenda is docs/audits/AUDIT_67_AGENDA.md. Next pass = Continue #197 mandatory Audit 67 in a NEW chat; do not begin #197 in this session.**
+- Session rotation required: **NO**
+- Next-pass state: **Continue #197 completed as mandatory Audit 67; total project Continue 197; current-session Continue 1/12; passes since Audit 67 = 0; SESSION ROTATION REQUIRED = NO. Annual electrical release WITHHELD on one narrow retained-evidence blocker: no retained timestep electrical rows/weather payload permitting independent timestep-integration replay from the artifact. Report CI reproducibility regression was identified and corrected during Audit 67; current green descendant evidence must be retained before #198 begins. Sections 1-8 are materially readable but retain legacy mathematical-figure readability defects. #227 remains AMBER. Exact #198 task is recorded in Audit 67.**
 
 ## Session-rotation rule
 
