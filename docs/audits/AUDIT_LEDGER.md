@@ -121,6 +121,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-27_early-major-result_audit-62.md` | Early major-result / Continue #186 / session 2/12 | First geometry-agnostic electrical conversion kernel + communication freeze | Communication architecture FROZEN from aadfe06f / run 36328942037 / artifact 10935231843; electrical kernel foundation FROZEN narrow scope after Rust PASS 36329222186 / artifact 10935620225; annual electrical geometry results remain unauthorized; publication-integrated report final evidence pending |
 
+| `2026-09-28_three-pass_audit-63.md` | Mandatory / Continue #189 / new-session 5/12 | Phase-II thermal model, wind compatibility, NMOT baseline and #190 implementation gate | Decision B: NMOT baseline authorized; Faiman model form accepted only as wind-compatible sensitivity; direct WS10M + generic Faiman coefficients not promoted; #190 implementation/tests authorized |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
