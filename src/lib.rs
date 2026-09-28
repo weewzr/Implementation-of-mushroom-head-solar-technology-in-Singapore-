@@ -28,3 +28,5 @@ pub mod fixed_geometry;
 pub mod origami;
 
 pub mod electrical;
+
+pub mod thermal;
