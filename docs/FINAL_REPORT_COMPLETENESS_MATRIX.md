@@ -236,3 +236,6 @@ Phase II begins #188 under `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. No do
 - Real timestep-level accepted 3-D irradiance evidence: **MISSING**. Audit-59 artifacts are annual/monthly aggregates; no hourly candidate POA export exists.
 - #193 blocker/task: generate canonical timestep-level accepted irradiance export from frozen configurations and prove its annual sums reproduce Audit-59 totals before electrical promotion.
 - Annual geometry electrical conclusions: NOT AUTHORIZED; mandatory Audit 66 #194.
+
+## Continue #193 — editorial-quality dimension added
+Technical evidence and editorial quality are now separate gates. See `docs/FINAL_REPORT_QUALITY_REGISTER.md` for all 21 sections + appendices. Initial audit identifies **12 major mathematical/typesetting defect classes** and major-prose status in Sections 3, 6, 12, 13, 14, 16, 17, 18, 19 and 21. Current descendant LaTeX build is failing, so current-source PDF visual QA is BLOCKED until that regression is repaired; the frozen 32-page Phase-I baseline remains historical evidence only. A section cannot be COMPLETE solely because its model exists.
