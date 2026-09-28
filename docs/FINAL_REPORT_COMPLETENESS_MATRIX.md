@@ -263,3 +263,10 @@ Publication readiness now requires independent PASS columns for technical eviden
 - Annual monthly aggregate-back: **PASS independently on retained #193 timestep artifact** — all 120 candidate-month totals and direct/diffuse/ground/total components pass tolerance `max(1e-6 Wh, 1e-9 relative)`; worst absolute residual observed = `5.06e-7 Wh`.
 - Frozen configuration binding in retained timestep rows: candidate/resource contract, 4x24 mesh, sky-16, accepted=true, active PV area, land area, NASA POWER provenance and DEVELOPMENT_NOT_SERIS present. Extended provenance manifest + pre-audit electrical package workflow is executing; annual electrical evidence remains NOT PROMOTED until retained package completes.
 - Sections 1–4 editorial repair: COMPLETE for this checkpoint; current repaired PDF visually inspected. Overall publication quality remains AT RISK — RECOVERABLE.
+
+## Continue #196 rotation-boundary checkpoint
+- Sections 5–8 technical mathematics: evidence unchanged/frozen; prose/math organization materially repaired and rendered.
+- Visual QA: equations readable; legacy solar-ray/direct-incidence SVG labels and dense method-flow figure remain repair items.
+- P0=0; remaining P1 classes=6.
+- Annual electrical package: annual+monthly irradiance reconciliation PASS; provenance-complete generator implemented. Final retained canonical electrical artifact must be inspected at Audit 67 before promotion.
+- Publication readiness remains a separate gate from technical completion.
