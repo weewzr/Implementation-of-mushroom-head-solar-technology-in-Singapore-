@@ -123,6 +123,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-28_three-pass_audit-63.md` | Mandatory / Continue #189 / new-session 5/12 | Phase-II thermal model, wind compatibility, NMOT baseline and #190 implementation gate | Decision B: NMOT baseline authorized; Faiman model form accepted only as wind-compatible sensitivity; direct WS10M + generic Faiman coefficients not promoted; #190 implementation/tests authorized |
 
+| `2026-09-28_early-major-result_audit-64.md` | Early major-result / Continue #190 / new-session 6/12 | Standalone NMOT thermal implementation, all-target Rust evidence and #191 coupling gate | NMOT thermal equation/API/tests FROZEN narrow foundation; Faiman remains non-baseline sensitivity; #191 deterministic thermal-electrical coupling authorized; no annual geometry kWh |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
