@@ -125,6 +125,8 @@ This ledger exists because the required three-turn audit cadence was missed duri
 
 | `2026-09-28_early-major-result_audit-64.md` | Early major-result / Continue #190 / new-session 6/12 | Standalone NMOT thermal implementation, all-target Rust evidence and #191 coupling gate | NMOT thermal equation/API/tests FROZEN narrow foundation; Faiman remains non-baseline sensitivity; #191 deterministic thermal-electrical coupling authorized; no annual geometry kWh |
 
+| `2026-09-28_early-major-result_audit-65.md` | Early major-result / Continue #191 / new-session 7/12 | Deterministic thermal-electrical coupling, external-temperature electrical adapter and annual-adapter gate | Coupling/API/tests FROZEN narrow foundation; annual geometry kWh still unauthorized; #192 exact timestamp/schema adapter preparation authorized |
+
 ## Cadence rule
 
 At least once every three user/assistant project turns, stop expansion and audit foundation alignment, equations/rendering, numerical constants, symbol definitions/units, evidence/provenance, reproducibility/tests, visual coverage, equal-resource fairness, public-repository safety, and exploratory-vs-validated status. Correct material defects before resuming major modelling.
