@@ -20,16 +20,11 @@ jobs:
       - name: Compile twice and fail on LaTeX errors
         working-directory: report
         run: |
-          latexmk -pdf -shell-escape -interaction=nonstopmode -halt-on-error project_technical_report.tex
+          set -o pipefail\n          latexmk -pdf -shell-escape -interaction=nonstopmode -halt-on-error project_technical_report.tex 2>&1 | tee build-report.log
       - name: Check PDF metadata and extract text
         working-directory: report
         run: |
           pdfinfo project_technical_report.pdf
           pdftotext project_technical_report.pdf project_technical_report.txt
           test -s project_technical_report.txt
-      - name: Upload PDF
-        uses: actions/upload-artifact@v4
-        with:
-          name: mushroom-head-solar-technical-report
-          path: report/project_technical_report.pdf
-          if-no-files-found: error
+      - name: Upload build evidence\n        if: always()\n        uses: actions/upload-artifact@v4\n        with:\n          name: mushroom-head-solar-technical-report-build-evidence\n          path: |\n            report/build-report.log\n            report/project_technical_report.log\n            report/project_technical_report.pdf\n          if-no-files-found: warn
