@@ -44,3 +44,6 @@ The same timestamp/input may be evaluated with NMOT 39, 42 and 45 degC. Later an
 - adapter does not modify frozen thermal/electrical core semantics.
 
 No annual geometry comparison is authorized by these tests.
+
+## Continue #191 implementation / Early Audit 65
+PASS. Deterministic coupling is implemented in `src/thermal_electrical.rs` and frozen in narrow scope by Early Audit 65. The required additive electrical entry point accepts externally supplied module temperature while preserving legacy electrical output equivalence. Canonical all-target Rust evidence: commit `aa04579f2db3a51c55b55ca1afc4c585f47d412a`, run `36365302869` PASS, artifact `10946598195`, SHA-256 `14a8c11299ea5b135194235704790bf10154a8f1bfc0c7da073817a354909683`. Annual adapter remains a separate #192 layer; annual geometry kWh remains unauthorized.
