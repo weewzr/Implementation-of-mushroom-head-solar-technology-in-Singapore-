@@ -125,3 +125,6 @@ NASA POWER T2M is the baseline ambient input and must align by canonical UTC tim
 Faiman remains scientifically accepted as a wind-sensitive sensitivity model. Generic `U0=25`, `U1=6.84` may be retained in provenance/tests as literature values, but an annual Faiman sensitivity cannot be promoted until its wind-reference treatment is explicitly compatible/sourced. No geometry-specific U0/U1 is authorized.
 
 **Audit decision B: implementation authorized for #190 with NMOT as baseline and Faiman as sensitivity.**
+
+## Continue #190 implementation / Early Audit 64
+Standalone `src/thermal.rs` implements the Audit-63 NMOT baseline and explicit 39/42/45 degC sensitivity. Faiman exists only as caller-parameterized sensitivity infrastructure; no U0/U1 defaults or weather adapter exist. All-target Rust run `36364613741` PASS at `80c67038999ef0eb501db9b2662acb2dfcd50007`; artifact `10947375679`, SHA-256 `bb1f7ff9907ede3fd4b620722ef1e691c01b72d2bbbffe58f5d9ea5b6e7ebac0`. Early Audit 64 freezes this narrow thermal equation/API/test foundation. Annual thermal/electrical geometry results remain unauthorized.
