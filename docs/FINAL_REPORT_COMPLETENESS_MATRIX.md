@@ -221,3 +221,10 @@ Phase II begins #188 under `docs/PHASE_II_ELECTRICAL_ENGINEERING_PLAN.md`. No do
 - Machine-readable deterministic coupling fixture: COMPLETE / DEVELOPMENT_NOT_SERIS; no annual geometry output.
 - Annual timestamp/weather/irradiance adapter: CONTRACT COMPLETE, IMPLEMENTATION NOT STARTED.
 - Annual electrical geometry results: NOT AUTHORIZED.
+
+## Continue #191 — deterministic thermal-electrical coupling
+- Coupling layer: **PASS / VALIDATED INTEGRATION LAYER, NOT AN ANNUAL RESULT**.
+- Whole-crate evidence: commit `7c6593c0b801fa0d0f33ef4b285a46bdfe87f38a`; run `36366316029` PASS; artifact `10947093109`; SHA-256 `99e5cc30a13a55ccc99ae2aabdcee9cfee77e3dd07456efc9b9355395f5abfaf`.
+- Deterministic fixture: zero/reference/hand-case/39-42-45 sensitivity COMPLETE; tiny synthetic series COMPLETE.
+- Timestamp annual-join contract: COMPLETE in `docs/ANNUAL_THERMAL_ELECTRICAL_ADAPTER_CONTRACT.md`; implementation/preparation scheduled #192.
+- Annual geometry electrical output: NOT AUTHORIZED pending Audit 65.
