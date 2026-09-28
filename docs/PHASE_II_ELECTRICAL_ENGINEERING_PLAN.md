@@ -124,3 +124,6 @@ The accepted timestep evidence now reconciles both annually and monthly to the f
 
 ## Continue #195
 Monthly timestep-to-frozen reconciliation PASS across all 12 months/components/cases. A machine-readable annual electrical pre-audit generator and provenance-manifest workflow are implemented using frozen NMOT/coupling/design basis with explicit P_aux=0 and 39/42/45 scenarios. Promotion remains withheld until retained canonical execution completes. No optional branch opened. #196 remains bounded technical Phase-II work + Sections 5–8 report repair; mandatory Audit 67 is #197 unless a completed major annual result requires earlier audit.
+
+## Continue #196 rotation handoff
+Annual electrical package is at the audit boundary: annual/monthly same-path irradiance reconciliation PASS and the pre-audit electrical generator/provenance manifest are implemented; promotion waits for Audit 67 artifact/accounting inspection. Sections 5–8 report mathematics were restructured and rendered. #197 mandatory Audit 67 (new chat) decides annual electrical promotion and Phase-II closure/carryover. Optional branches remain cut. Technical programme ON TRACK; report quality RECOVERING; #227 AMBER.
