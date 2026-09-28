@@ -118,3 +118,6 @@ Annual electrical promotion WITHHELD pending one provenance-complete release pac
 
 ## Mandatory Audit 66 — Continue #194
 Annual controlled electrical promotion is WITHHELD until the retained accepted timestep export completes and aggregate-back reproduces frozen Audit-59 evidence. Do not modify frozen aggregates. Technical programme remains on track; publication quality is AT RISK — RECOVERABLE and now consumes work in every pass. #195: close timestep artifact/reconciliation blocker if available + Sections 1-4 report repair. Optional high-complexity branches are cut unless essential to the final argument.
+
+## Continue #195
+The accepted timestep evidence now reconciles both annually and monthly to the frozen comparison within explicit tolerance, and a provenance manifest binds 4x24/sky-16/equal-resource/weather/model lineage. The annual electrical pre-audit generator is implemented for NMOT 39/42/45 with explicit P_aux=0 and ideal-zero-declared-loss scenario labels; canonical retained workflow evidence is pending and therefore not promoted. Report recovery is now continuous: Sections 1-4 repaired in #195; #196 Sections 5-8; #197 Sections 9-12 + mandatory Audit 67/Phase-II checkpoint. Technical programme ON TRACK; report quality AT RISK — RECOVERABLE; #227 AMBER.
